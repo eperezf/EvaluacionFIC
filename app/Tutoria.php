@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Tutoria extends Model{
     protected $table = 'tutoria';
 
-    protected $filalbles = ['nombre'];
+    protected $fillable = ['nombre'];
 }
