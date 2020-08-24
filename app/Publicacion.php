@@ -11,4 +11,8 @@ class Publicacion extends Model{
     protected $fillable = [
         'tipo','titulo','volumen','issue','pages','issn','notas','doi','revista','tipoRevista','publisher','abstract'
     ];
+
+    public function actividad() {
+        return $this->belongsTo('App\Actividad');
+    }
 }
