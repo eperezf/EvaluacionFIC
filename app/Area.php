@@ -8,4 +8,12 @@ class Area extends Model{
     protected $table = 'area';
 
     protected $fillable = ['nombre'];
+
+    public function subarea() {
+        return $this->hasMany('App\Subarea');
+    }
+
+    public function actividad() {
+        return $this->belongsToMany('App\Actividad')->using('App\Actividad_area');
+    }
 }

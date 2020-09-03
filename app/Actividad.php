@@ -10,40 +10,63 @@ class Actividad extends Model {
     protected $fillable = ['inicio','termino'];
 
     //Relations
-    //Faltan por terminar
-    public function publicacion() { //
+    public function publicacion() {
         return $this->hasMany('App\Publicacion');
     }
 
-    public function libro() { //
+    public function libro() {
         return $this->hasMany('App\Libro');
     }
 
-    public function transTecnologica() { //
+    public function transTecnologica() {
         return $this->hasMany('App\Transferenciatecnologica');
     }
 
-    public function vinculacion() { //
+    public function vinculacion() {
         return $this->hasMany('App\Vinculacion');
     }
 
-    public function perfDocente() { //
+    public function perfDocente() {
         return $this->hasMany('App\Perfeccionamientodocente');
     }
 
-    public function proyectoConcursable() { //
+    public function proyectoConcursable() {
         return $this->hasMany('App\Proyectoconcursable');
     }
 
-    public function licencia() { //
+    public function licencia() {
         return $this->hasMany('App\Licencia');
     }
 
-    public function spinoff() { //
+    public function spinoff() {
         return $this->hasMany('App\Spinoff');
     }
 
-    public function tutoria() { //
+    public function tutoria() {
         return $this->hasMany('App\Tutoria');
+    }
+
+    public function curso() {
+        return $this->hasMany('App\Curso');
+    }
+    
+    public function asignatura() {
+        return $this->belongsToMany('App\Asignatura')->using('App\Actividad_asignatura');
+    }
+
+    public function area() {
+        return $this->belongsToMany('App\Area')->using('App\Actividad_area');
+    }
+
+    public function user() {
+        return $this->belongsToMany('App\User')->using('App\User_actividad');
+    }
+
+    public function cargo() {
+        return $this->belongsToMany('App\Cargo')->using('App\User_actividad');
+    }
+
+    public function tipoactividad() {
+        return $this->belongsTo('App\Tipoactividad');
     }
 }
