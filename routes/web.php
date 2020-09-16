@@ -15,4 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
+
+Route::get('/login', 'Login@loadLogin')->name('login');
+Route::post('/doLogin', 'Login@authenticate')->name('doLogin');
+Route::get('logout', 'Login@logout')->name('logout');
