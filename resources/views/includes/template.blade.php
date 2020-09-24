@@ -13,8 +13,12 @@
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand col-1 order-1" href="#">Navbar</a>
 
-      <button class="col-1 order-2 bg-primary" onclick="location.href='#'">
-        <span style="color: black;"><i class="far fa-calendar-alt fa-2x"></i></span>
+      <button class="col-1 order-2 btn bg-light" onclick="location.href='{{action('Index@loadIndex') }}'">
+          <span style="color: rgb(100, 100, 100);"><i class="fas fa-home fa-2x"></i></span>
+      </button>
+
+      <button class="col-1 order-3 btn bg-light" onclick="location.href='{{action('NoticiasAgenda@loadNoticiasAgenda') }}'">
+        <span style="color: rgb(100, 100, 100);"><i class="far fa-calendar-alt fa-2x"></i></span>
       </button>
 
       <button type="button" class="btn btn-primary btn-danger col-1 order-12" data-toggle="modal" data-target="#logout">
