@@ -11,20 +11,29 @@
 
   <body>
 
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand col-1 order-1" href="#">Navbar</a>
-
-      <button class="col-1 order-2 btn bg-light" onclick="location.href='{{action('Index@loadIndex') }}'">
-          <span style="color: rgb(100, 100, 100);"><i class="fas fa-home fa-2x"></i></span>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">EvalFIC</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{route('index')}}"><i class="fas fa-home mr-1"></i>Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('noticiasAgenda')}}"><i class="far fa-calendar-alt mr-2"></i>Noticias y Agenda</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#logout"><i class="fas fa-power-off mr-2"></i><p class="d-md-none d-inline">Cerrar sesión</p></a>
+          </li>
+        </ul>
+      </div>
 
-      <button class="col-1 order-3 btn bg-light" onclick="location.href='{{action('NoticiasAgenda@loadNoticiasAgenda') }}'">
-        <span style="color: rgb(100, 100, 100);"><i class="far fa-calendar-alt fa-2x"></i></span>
-      </button>
 
-      <button type="button" class="btn btn-primary btn-danger col-1 order-12" data-toggle="modal" data-target="#logout">
-        <span><i class="fas fa-power-off fa-lg"></i></span>
-      </button>
+
     </nav>
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logoutLabel" aria-hidden="true">
