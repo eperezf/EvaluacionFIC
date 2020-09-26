@@ -31,9 +31,6 @@
           </li>
         </ul>
       </div>
-
-
-
     </nav>
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logoutLabel" aria-hidden="true">
@@ -47,9 +44,9 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger" onclick="location.href='{{ action('Login@logout') }}'">
-              Cerrar sesión
-            </button>
+            <a href="{{route('logout')}}">
+              <div class="btn btn-danger">Cerrar sesión</div>
+            </a>
           </div>
         </div>
       </div>
