@@ -57,7 +57,7 @@ class Actividad extends Model {
             'idasignatura',
             'idactividad')
             ->using('App\Actividad_asignatura')
-            ->withPivote([
+            ->withPivot([
                 'created_at',
                 'updated_at'
             ]);
@@ -70,7 +70,7 @@ class Actividad extends Model {
             'idarea',
             'idactividad')
             ->using('App\Actividad_area')
-            ->withPivote([
+            ->withPivot([
                 'created_at',
                 'updated_at'
             ]);
@@ -83,7 +83,7 @@ class Actividad extends Model {
             'iduser',
             'idactividad')
             ->using('App\User_actividad')
-            ->withPivote([
+            ->withPivot([
                 'bonificacion',
                 'calificacion',
                 'created_at',
