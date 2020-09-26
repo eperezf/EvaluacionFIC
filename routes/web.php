@@ -17,4 +17,4 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
 Route::get('/login', 'Login@loadLogin')->name('login');
 Route::post('/doLogin', 'Login@authenticate')->name('doLogin');
 Route::get('logout', 'Login@logout')->name('logout');
-Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->name('noticiasAgenda');
+Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
