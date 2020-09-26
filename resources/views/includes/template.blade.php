@@ -10,7 +10,6 @@
   </head>
 
   <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">EvalFIC</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +26,7 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" data-target="#logout"><i class="fas fa-power-off mr-2"></i><p class="d-md-none d-inline">Cerrar sesión</p></a>
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#logout"><i class="fas fa-power-off mr-2"></i><p class="d-md-none d-inline">Cerrar sesión</p></a>
           </li>
         </ul>
       </div>
