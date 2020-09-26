@@ -51,19 +51,59 @@ class Actividad extends Model {
     }
     
     public function asignatura() {
-        return $this->belongsToMany('App\Asignatura')->using('App\Actividad_asignatura');
+        return $this->belongsToMany(
+            'App\Asignatura',
+            'actividad_asignatura',
+            'idasignatura',
+            'idactividad')
+            ->using('App\Actividad_asignatura')
+            ->withPivote([
+                'created_at',
+                'updated_at'
+            ]);
     }
 
     public function area() {
-        return $this->belongsToMany('App\Area')->using('App\Actividad_area');
+        return $this->belongsToMany(
+            'App\Area',
+            'actividad_area',
+            'idarea',
+            'idactividad')
+            ->using('App\Actividad_area')
+            ->withPivote([
+                'created_at',
+                'updated_at'
+            ]);
     }
 
     public function user() {
-        return $this->belongsToMany('App\User')->using('App\User_actividad');
+        return $this->belongsToMany(
+            'App\User',
+            'user_actividad',
+            'iduser',
+            'idactividad')
+            ->using('App\User_actividad')
+            ->withPivote([
+                'bonificacion',
+                'calificacion',
+                'created_at',
+                'updated_at'
+            ]);
     }
 
     public function cargo() {
-        return $this->belongsToMany('App\Cargo')->using('App\User_actividad');
+        return $this->belongsToMany(
+            'App\Cargo',
+            'user_actividad',
+            'iduser',
+            'idcargo')
+            ->using('App\User_actividad')
+            ->withPivot([
+                'bonificacion',
+                'calificacion',
+                'created_at',
+                'updated_at'
+            ]);
     }
 
     public function tipoactividad() {

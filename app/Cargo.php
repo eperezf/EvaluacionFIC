@@ -10,11 +10,32 @@ class Cargo extends Model{
     protected $fillable = ['nombre','peso'];
 
     public function user() {
-        return $this->belongsToMany('App\User')->using('App\User_actividad');
+        return $this->belongsToMany(
+            'App\User',
+            'user_actividad',
+            'iduser',
+            'idcargo')
+            ->using('App\User_actividad')
+            ->withPivot([
+                'bonificacion',
+                'calificacion',
+                'created_at',
+                'updated_at'
+            ]);
     }
 
     public function actividad() {
-        return $this->belongsToMany('App\Actividad')->using('App\User_actividad');
+        return $this->belongsToMany(
+            'App\Actividad',
+            'idactividad',
+            'idcargo')
+            ->using('App\User_actividad')
+            ->withPivot([
+                'bonificacion',
+                'calificacion',
+                'created_at',
+                'updated_at'
+            ]);
     }
 
     public function tipoActividad() {

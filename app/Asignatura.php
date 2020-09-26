@@ -10,7 +10,16 @@ class Asignatura extends Model{
     protected $fillable = ['nombre','codigo'];
 
     public function actividad() {
-        return $this->belongsToMany('App\Actividad')->using('App\Actividad_asignatura');
+        return $this->belongsToMany(
+            'App\Actividad',
+            'actividad_asignatura',
+            'idactividad',
+            'idasignatura')
+            ->using('App\Actividad_asignatura')
+            ->withPivot([
+                'created_at',
+                'updated_at'
+            ]);
     }
 
     public function curso() {
