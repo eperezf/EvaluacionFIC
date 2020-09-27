@@ -27,6 +27,15 @@ class User extends Authenticatable {
   }
 
   public function actividad() {
-    return $this->belongsToMany('App\Actividad')->using('App\User_actividad');
+    return $this
+      ->belongsToMany('App\Actividad', 'user_actividad', 'iduser', 'idactividad')
+      ->using('App\User_actividad')
+      ->withPivot([
+        'idcargo',
+        'bonificacion',
+        'calificacion',
+        'created_at',
+        'updated_at'
+      ]);
   }
 }
