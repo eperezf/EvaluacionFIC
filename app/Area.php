@@ -14,6 +14,15 @@ class Area extends Model{
     }
 
     public function actividad() {
-        return $this->belongsToMany('App\Actividad')->using('App\Actividad_area');
+        return $this->belongsToMany(
+            'App\Actividad',
+            'actividad_area',
+            'idactividad',
+            'idarea')
+            ->using('App\Actividad_area')
+            ->withPivot([
+                'created_at',
+                'updated_at'
+            ]);
     }
 }
