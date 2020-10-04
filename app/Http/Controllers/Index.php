@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 
-class Index extends Controller{
-    public function loadIndex() {
+class Index extends Controller
+{
+    public function loadIndex()
+    {
         $nombre = Auth::user()->nombres;
-        if(!Auth::user()){
+        if(!Auth::user())
+        {
             return redirect('\login');
         }
-        else{
+        else
+        {
             return view('index', ['nombre' => $nombre]);
         }
     }
