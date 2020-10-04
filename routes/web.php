@@ -21,7 +21,7 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
 Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')->middleware('auth')->name('panelAdministracion');
-    Route::get('panelAdministracion/area', 'area@loadArea')->middleware('auth')->name('area');
-    Route::get('panelAdministracion/curso', 'curso@loadCurso')->middleware('auth')->name('curso');
-    Route::get('panelAdministracion/cargoAdministrativo', 'cargoAdministrativo@loadCargoAdministrativo')->middleware('auth')->name('cargoAdministrativo');
-    Route::get('panelAdministracion/publicacion', 'publicacion@loadPublicacion')->middleware('auth')->name('publicacion');
+    Route::get('panelAdministracion/area', 'PanelAdministracion@loadArea')->middleware('auth')->name('area');
+    Route::get('panelAdministracion/curso', 'PanelAdministracion@loadCurso')->middleware('auth')->name('curso');
+    Route::get('panelAdministracion/cargoAdministrativo', 'PanelAdministracion@loadCargoAdministrativo')->middleware('auth')->name('cargoAdministrativo');
+    Route::get('panelAdministracion/publicacion', 'PanelAdministracion@loadPublicacion')->middleware('auth')->name('publicacion');
