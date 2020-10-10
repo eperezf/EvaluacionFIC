@@ -11,7 +11,8 @@ class Curso extends Model{
         'calificacion',
         'respuestas',
         'material',
-        'seccion'
+        'seccion',
+        'idasignatura'
     ];
 
     public function actividad() {
