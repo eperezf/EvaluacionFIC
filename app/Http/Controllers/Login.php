@@ -23,12 +23,10 @@ class Login extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function loadLogin(){
-    if (Auth::user()) {
-      return redirect('/');
-    }
-    else {
-      return view('login');
-    }
+    return response()->view('login')
+      ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+      ->header('Pragma', 'no-cache')
+      ->header('Expires', '0');
   }
 
   /**
