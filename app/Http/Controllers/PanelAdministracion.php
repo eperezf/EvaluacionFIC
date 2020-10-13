@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\html;
+use Illuminate\Support\Facades\DB;
+use App\Asignatura;
 
 class PanelAdministracion extends Controller
 {
@@ -18,7 +21,8 @@ class PanelAdministracion extends Controller
 
     function loadCurso()
     {
-        return view('curso');
+        $asignaturas = Asignatura::all(['id','nombre']);
+        return view('curso', compact('asignaturas', $asignaturas));
     }
 
     function loadArea()

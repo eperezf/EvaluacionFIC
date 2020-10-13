@@ -12,6 +12,9 @@
       <h3>Añadir una Curso</h3>
       <select required="true" name="Asignatura" id="asignatura">
         <option disabled value="Seleccione una asignatura" selected>Seleccione una asignatura</option>
+        @foreach($asignaturas as $asignatura)
+          <option value="{{$asignatura->id}}">{{$asignatura->nombre}}</option>
+        @endforeach
       </select><br>
       <label for="seccion">Sección.</label><br>
       <input type="number" placeholder="Sección" name="seccion" id="seccion"><br>
