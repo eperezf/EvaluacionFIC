@@ -25,3 +25,5 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::get('panelAdministracion/curso', 'PanelAdministracion@loadCurso')->middleware('auth')->name('curso');
     Route::get('panelAdministracion/cargoAdministrativo', 'PanelAdministracion@loadCargoAdministrativo')->middleware('auth')->name('cargoAdministrativo');
     Route::get('panelAdministracion/publicacion', 'PanelAdministracion@loadPublicacion')->middleware('auth')->name('publicacion');
+    Route::get('panelAdministracion/asignatura', 'PanelAdministracion@loadAsignatura')->middleware('auth')->name('asignatura');
+    Route::get('panelAdministracion/tutoria', 'PanelAdministracion@loadTutoria')->middleware('auth')->name('tutoria');

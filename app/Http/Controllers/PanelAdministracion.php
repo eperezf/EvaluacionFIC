@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\html;
-use Illuminate\Support\Facades\DB;
 use App\Asignatura;
 
 class PanelAdministracion extends Controller
@@ -17,6 +16,16 @@ class PanelAdministracion extends Controller
     function loadPublicacion()
     {
         return view('publicacion');
+    }
+
+    function loadAsignatura()
+    {
+        return view('asignatura');
+    }
+
+    function loadTutoria()
+    {
+        return view('tutoria');
     }
 
     function loadCurso()

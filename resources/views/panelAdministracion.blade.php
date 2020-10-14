@@ -7,4 +7,6 @@
   <a class="btn-link" href="{{route('curso')}}">Modificar curso</a>
   <a class="btn-link" href="{{route('cargoAdministrativo')}}">Modificar cargo administrativo</a>
   <a class="btn-link" href="{{route('publicacion')}}">Modificar publicación</a>
+  <a class="btn-link" href="{{route('asignatura')}}">Modificar asignatura</a>
+  <a class="btn-link" href="{{route('tutoria')}}">Modificar tutoría</a>
 @endsection
