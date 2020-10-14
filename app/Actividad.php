@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Actividad extends Model {
     protected $table = 'actividad';
 
-    protected $fillable = ['inicio','termino'];
+    protected $fillable = ['inicio', 'termino', 'idtipoactividad'];
 
     //Relations
     public function publicacion() {
