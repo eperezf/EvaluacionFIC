@@ -26,11 +26,11 @@
       <div>
         <input type="radio" id="si" name="material" value="si"
               checked>
-        <label for="huey">Si</label>
+        <label for="si">Si</label>
       </div>
       <div>
         <input type="radio" id="no" name="material" value="no">
-        <label for="dewey">No</label>
+        <label for="no">No</label>
       </div>
       <a href="" class="btn btn-primary">Añadir Curso</a>
     </form>

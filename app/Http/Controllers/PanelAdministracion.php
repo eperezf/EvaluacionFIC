@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\html;
 use App\Asignatura;
+use App\Tipoactividad;
 
 class PanelAdministracion extends Controller
 {
@@ -18,6 +19,11 @@ class PanelAdministracion extends Controller
         return view('publicacion');
     }
 
+    function loadTipoActividad()
+    {
+        return view('tipoActividad');
+    }
+
     function loadAsignatura()
     {
         return view('asignatura');
@@ -26,6 +32,12 @@ class PanelAdministracion extends Controller
     function loadTutoria()
     {
         return view('tutoria');
+    }
+
+    function loadActividad()
+    {
+        $tipos = Tipoactividad::all(['id','nombre']);
+        return view('actividad', compact('tipos', $tipos));
     }
 
     function loadCurso()
