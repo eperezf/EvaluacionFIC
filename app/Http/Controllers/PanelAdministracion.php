@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\html;
 use App\Asignatura;
 use App\Tipoactividad;
+use App\Area;
 
 class PanelAdministracion extends Controller
 {
@@ -49,6 +50,11 @@ class PanelAdministracion extends Controller
     function loadArea()
     {
         return view('area');
+    }
+
+    function loadSubarea() {
+        $areas = Area::all(['id', 'nombre']);
+        return view('subarea', compact('areas', $areas));
     }
     
     function loadCargoAdministrativo()

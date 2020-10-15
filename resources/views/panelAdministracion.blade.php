@@ -4,6 +4,7 @@
 @section('contenido')
   <h1>Panel de Administración</h1>
   <a class="btn-link" href="{{route('area')}}">Modificar área</a><br>
+  <a class="btn-link" href="{{route('subarea')}}">Modificar subarea</a><br>
   <a class="btn-link" href="{{route('curso')}}">Modificar curso</a><br>
   <a class="btn-link" href="{{route('cargoAdministrativo')}}">Modificar cargo administrativo</a><br>
   <a class="btn-link" href="{{route('publicacion')}}">Modificar publicación</a><br>

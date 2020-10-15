@@ -29,3 +29,4 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::get('panelAdministracion/tutoria', 'PanelAdministracion@loadTutoria')->middleware('auth')->name('tutoria');
     Route::get('panelAdministracion/actividad', 'PanelAdministracion@loadActividad')->middleware('auth')->name('actividad');
     Route::get('panelAdministracion/tipoActividad', 'PanelAdministracion@loadTipoActividad')->middleware('auth')->name('tipoActividad');
+    Route::get('panelAdministracion/subarea', 'PanelAdministracion@loadSubarea')->middleware('auth')->name('subarea');
