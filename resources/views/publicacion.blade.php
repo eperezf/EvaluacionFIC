@@ -8,26 +8,81 @@
     <a href="#modificar">Modificar Publicación</a>
   </div><hr>
   <section id="agregar" name="Añadir Publicacion">
+    <h3>Añadir una Publicación</h3>
     <form action="" id="agregarPublicacion">
-      <h3>Añadir una Publicación</h3>
-      <input name="tipo" placeholder="Tipo de Publicación" type="text" id="tipo"><br>
-      <input name="titulo" type="text" id="tipo" placeholder="Título"><br>
-      <input name="volumen" type="text" id="volumen" placeholder="Volumen"><br>
-      <input name="issue" type="text" id="issue" placeholder="Issue"><br>
-      <input name="pages" type="text" id="pages" placeholder="Pages"><br>
-      <input name="issn" type="text" id="issn" placeholder="Issn"><br>
-      <input name="notas" type="text" id="notas" placeholder="Notas"><br>
-      <input name="doi" type="text" id="doi" placeholder="Doi"><br>
-      <input name="revista" type="text" id="revista" placeholder="Revista"><br>
-      <input name="tipoRevista" type="text" id="tipoRevista" placeholder="Tipo de la revista"><br>
-      <input name="publisher" type="text" id="publisher" placeholder="Publicador"><br>
-      <textarea name="abstract" cols="150" rows="5" id="" cols="30" rows="10" placeholder="Insertar Abstract Aquí..." form="agregarPublicacion"></textarea><br>
+      <div id="tipopublicacion" class="form-group row">
+        <label for="input-tipopublicacion" class="col-sm-2 col-form-label">Tipo de publicación</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="tipo" placeholder="Tipo de Publicación" type="text" id="input-tipopublicacion">
+        </div>
+      </div>
+      <div id="titulo" class="form-group row">
+        <label for="input-titulo" class="col-sm-2 col-form-label">Título</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="titulo" type="text" id="input-tipo" placeholder="Título">
+        </div>
+      </div>
+      <div id="volumen" class="form-group row">
+        <label for="input-volumen" class="col-sm-2 col-form-label">Volumen</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="volumen" type="text" id="input-volumen" placeholder="Volumen">
+        </div>
+      </div>
+      <div id="issue" class="form-group row">
+        <label for="input-issue" class="col-sm-2 col-form-label">Issue</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="issue" type="text" id="input-issue" placeholder="Issue">
+        </div>
+      </div>
+      <div id="pages" class="form-group row">
+        <label for="input-pages" class="col-sm-2 col-form-label">Páginas</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="pages" type="text" id="input-pages" placeholder="Páginas">
+        </div>
+      </div>
+      <div id="issn" class="form-group row">
+        <label for="input-issn" class="col-sm-2 col-form-label">ISSN</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="issn" type="text" id="input-issn" placeholder="ISSN">
+        </div>
+      </div>
+      <div id="notas" class="form-group row">
+        <label for="input-notas" class="col-sm-2 col-form-label">Notas</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="notas" type="text" id="input-notas" placeholder="Notas">
+        </div>
+      </div>
+      <div id="doi" class="form-group row">
+        <label for="input-doi" class="col-sm-2 col-form-label">DOI</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="doi" type="text" id="input-doi" placeholder="DOI">
+        </div>
+      </div>
+      <div id="revista" class="form-group row">
+        <label for="input-revista" class="col-sm-2 col-form-label">Revista</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="revista" type="text" id="input-revista" placeholder="Revista">
+        </div>
+      </div>
+      <div id="tiporevista" class="form-group row">
+        <label for="input-tiporevista" class="col-sm-2 col-form-label">Tipo de revista</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="tipoRevista" type="text" id="input-tiporevista" placeholder="Tipo de la revista">
+        </div>
+      </div>
+      <div id="publicador" class="form-group row">
+        <label for="input-publicador" class="col-sm-2 col-form-label">Publicador</label>
+        <div class="col-sm-10">
+          <input class="form-control col-sm-5" name="publisher" type="text" id="input-publisher" placeholder="Publicador">
+        </div>
+      </div>
+      <label for="abtract">Abstract</label>
+      <textarea class="form-control" name="abstract" cols="150" rows="5" id="abstract" cols="30" rows="10" placeholder="Insertar Abstract Aquí..." form="agregarPublicacion"></textarea><br>
       <a href="" class="btn btn-primary">Añadir Publicación</a>
     </form>
   </section><hr>
   <section id="modificar" name="Modificar Publicacion">
     <h3>Modificar Publicación</h3>
-
   </section>
 
 @endsection
