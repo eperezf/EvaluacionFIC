@@ -19,10 +19,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item {{ Route::currentRouteNamed( 'index' ) ?  'active' : '' }}">
-            <a class="nav-link" href="{{route('index')}}"><i class="fas fa-home mr-1"></i>Inicio</a>
+            <a class="nav-link" href="{{ route('index') }}"><i class="fas fa-home mr-1"></i>Inicio</a>
           </li>
-          <li class="nav-item {{ Route::currentRouteNamed( 'noticiasAgenda' ) ?  'active' : '' }}">
-            <a class="nav-link" href="{{route('noticiasAgenda')}}"><i class="far fa-calendar-alt mr-2"></i>Noticias y Agenda</a>
+          <li class="nav-item {{ Route::currentRouteNamed('noticiasAgenda') ?  'active' : '' }}">
+            <a class="nav-link" href="{{ route('noticiasAgenda') }}"><i class="far fa-calendar-alt mr-1"></i>Noticias y Agenda</a>
+          </li>
+        <li class="nav-item {{ Route::currentRouteNamed('panelAdministracion') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('panelAdministracion') }}"><i class="fas fa-columns mr-1"></i>Panel Administración</a>
           </li>
         </ul>
         <ul class="navbar-nav">
