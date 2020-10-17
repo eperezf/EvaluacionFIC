@@ -4,11 +4,11 @@
 @section('contenido')
   <div id="menu">
     <h1>Panel de Publicaciónes</h1>
-    <a href="#agregar">Añadir Publicación</a>
+    <a href="#agregar">Agregar Publicación</a>
     <a href="#modificar">Modificar Publicación</a>
   </div><hr>
-  <section id="agregar" name="Añadir Publicacion">
-    <h3>Añadir una Publicación</h3>
+  <section id="agregar" name="Agregar Publicacion">
+    <h3>Agregar una Publicación</h3>
     <form action="" id="agregarPublicacion">
       <div id="tipopublicacion" class="form-group row">
         <label for="input-tipopublicacion" class="col-sm-2 col-form-label">Tipo de publicación</label>
@@ -78,7 +78,7 @@
       </div>
       <label for="abtract">Abstract</label>
       <textarea class="form-control" name="abstract" cols="150" rows="5" id="abstract" cols="30" rows="10" placeholder="Insertar Abstract Aquí..." form="agregarPublicacion"></textarea><br>
-      <a href="" class="btn btn-primary">Añadir Publicación</a>
+      <a href="" class="btn btn-primary">Agregar Publicación</a>
     </form>
   </section><hr>
   <section id="modificar" name="Modificar Publicacion">

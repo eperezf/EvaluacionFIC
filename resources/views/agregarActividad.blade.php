@@ -4,11 +4,11 @@
 @section('contenido')
 <div id="menu">
   <h1>Panel de Actividades</h1>
-  <a href="#agregar">Añadir Actividad</a>
+  <a href="#agregar">Agregar Actividad</a>
   <a href="#modificar">Modificar Actividad</a>
 </div><hr>
-<section id="agregar" name="Añadir Actividad">
-  <h3>Añadir una Actividad</h3>
+<section id="agregar" name="Agregar Actividad">
+  <h3>Agregar una Actividad</h3>
   <form action="" id="agregarActividad">
     <div id="tipoactividad" class="form-group row">
       <label for="select-tipoactividad" class="col-sm-2 col-form-label">Tipo de actividad</label>
@@ -33,12 +33,7 @@
         <input class="form-control col-sm-5" type="date" name="termino" id="input-termino">
       </div>
     </div><br>
-    <a href="" class="btn btn-primary">Añadir Actividad</a><br>
+    <a href="" class="btn btn-primary">Agregar Actividad</a><br>
   </form>
-</section><hr>
-<section id="modificar" name="Modificar Actividad">
-  <h3>Modificar Actividad</h3>
-
 </section>
-
 @endsection

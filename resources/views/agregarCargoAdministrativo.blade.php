@@ -4,11 +4,11 @@
 @section('contenido')
   <div id="menu">
     <h1>Panel de Cargos Administrativos</h1>
-    <a href="#agregar">Añadir Cargo</a>
+    <a href="#agregar">Agregar Cargo</a>
     <a href="#modificar">Modificar Cargo</a>
   </div><hr>
-  <section id="agregar" name="Añadir Cargo">
-    <h3>Añadir Cargo</h3>
+  <section id="agregar" name="Agregar Cargo">
+    <h3>Agregar Cargo</h3>
     <form action="" id="agregarCargo">
       <div id="cargo" class="form-group row">
         <label for="input-cargo" class="col-sm-1 col-form-label">Cargo</label>
@@ -22,7 +22,7 @@
           <input name="peso" class="form-control col-sm-1" type="number" id="input-peso" placeholder="Peso">
         </div>
       </div><br>
-      <a href="" class="btn btn-primary">Añadir Cargo</a>
+      <a href="" class="btn btn-primary">Agregar Cargo</a>
     </form>
   </section><hr>
   <section id="modificar" name="Modificar Cargo">

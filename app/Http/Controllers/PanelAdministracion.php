@@ -15,50 +15,50 @@ class PanelAdministracion extends Controller
         return view('panelAdministracion');
     }
 
-    function loadPublicacion()
+    function loadAgregarPublicacion()
     {
-        return view('publicacion');
+        return view('agregarPublicacion');
     }
 
-    function loadTipoActividad()
+    function loadAgregarTipoActividad()
     {
-        return view('tipoActividad');
+        return view('agregarTipoActividad');
     }
 
-    function loadAsignatura()
+    function loadAgregarAsignatura()
     {
-        return view('asignatura');
+        return view('agregarAsignatura');
     }
 
-    function loadTutoria()
+    function loadAgregarTutoria()
     {
-        return view('tutoria');
+        return view('agregarTutoria');
     }
 
-    function loadActividad()
+    function loadAgregarActividad()
     {
         $tipos = Tipoactividad::all(['id','nombre']);
-        return view('actividad', compact('tipos', $tipos));
+        return view('agregarActividad', compact('tipos', $tipos));
     }
 
-    function loadCurso()
+    function loadAgregarCurso()
     {
         $asignaturas = Asignatura::all(['id','nombre']);
-        return view('curso', compact('asignaturas', $asignaturas));
+        return view('agregarCurso', compact('asignaturas', $asignaturas));
     }
 
-    function loadArea()
+    function loadAgregarArea()
     {
-        return view('area');
+        return view('agregarArea');
     }
 
-    function loadSubarea() {
+    function loadAgregarSubarea() {
         $areas = Area::all(['id', 'nombre']);
-        return view('subarea', compact('areas', $areas));
+        return view('agregarSubarea', compact('areas', $areas));
     }
     
-    function loadCargoAdministrativo()
+    function loadAgregarCargoAdministrativo()
     {
-        return view('cargoAdministrativo');
+        return view('agregarCargoAdministrativo');
     }
 }

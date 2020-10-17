@@ -4,11 +4,11 @@
 @section('contenido')
   <div id="menu">
     <h1>Panel de Cursos</h1>
-    <a href="#agregar">Añadir Curso</a>
+    <a href="#agregar">Agregar Curso</a>
     <a href="#modificar">Modificar Curso</a>
   </div><hr>
-  <section id="agregar" name="Añadir Curso">
-    <h3>Añadir una Curso</h3>
+  <section id="agregar" name="Agregar Curso">
+    <h3>Agregar una Curso</h3>
     <form action="" id="agregarCurso">
       <div id="asignatura" class="form-group row">
         <label for="select-asignatura" class="col-sm-2 col-form-label">Asignatura</label>
@@ -50,7 +50,7 @@
           <label for="no">No</label>
         </div>
       </div>
-      <a href="" class="btn btn-primary">Añadir Curso</a>
+      <a href="" class="btn btn-primary">Agregar Curso</a>
     </form>
   </section><hr>
 
