@@ -30,3 +30,12 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::get('panelAdministracion/agregarActividad', 'PanelAdministracion@loadAgregarActividad')->middleware('auth')->name('agregarActividad');
     Route::get('panelAdministracion/agregarTipoActividad', 'PanelAdministracion@loadAgregarTipoActividad')->middleware('auth')->name('agregarTipoActividad');
     Route::get('panelAdministracion/agregarSubarea', 'PanelAdministracion@loadAgregarSubarea')->middleware('auth')->name('agregarSubarea');
+    Route::get('panelAdministracion/agregarVinculacion', 'PanelAdministracion@loadAgregarVinculacion')->middleware('auth')->name('agregarVinculacion');
+    Route::get('panelAdministracion/agregarTransferenciaTecnologica', 'PanelAdministracion@loadAgregarTransferenciaTecnologica')->middleware('auth')->name('agregarTransferenciaTecnologica');
+    Route::get('panelAdministracion/agregarVinculacion', 'PanelAdministracion@loadAgregarVinculacion')->middleware('auth')->name('agregarVinculacion');
+    Route::get('panelAdministracion/agregarSpinoff', 'PanelAdministracion@loadAgregarSpinoff')->middleware('auth')->name('agregarSpinoff');
+    Route::get('panelAdministracion/agregarVinculacion', 'PanelAdministracion@loadAgregarVinculacion')->middleware('auth')->name('agregarVinculacion');
+    Route::get('panelAdministracion/agregarProyectoConcursable', 'PanelAdministracion@loadAgregarProyectoConcursable')->middleware('auth')->name('agregarProyectoConcursable');
+    Route::get('panelAdministracion/agregarPerfeccionamientoDocente', 'PanelAdministracion@loadAgregarPerfeccionamientoDocente')->middleware('auth')->name('agregarPerfeccionamientoDocente');
+    Route::get('panelAdministracion/agregarLicencia', 'PanelAdministracion@loadAgregarLicencia')->middleware('auth')->name('agregarLicencia');
+    Route::get('panelAdministracion/agregarLibro', 'PanelAdministracion@loadAgregarLibro')->middleware('auth')->name('agregarLibro');
