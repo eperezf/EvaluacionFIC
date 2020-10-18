@@ -61,4 +61,40 @@ class PanelAdministracion extends Controller
     {
         return view('agregarCargoAdministrativo');
     }
+
+    function loadAgregarVinculacion()
+    {
+        return view('agregarVinculacion');
+    }
+
+    function loadAgregarTransferenciaTecnologica()
+    {
+        return view('agregarTransferenciaTecnologica');
+    }
+
+    function loadAgregarSpinoff()
+    {
+        return view('agregarSpinoff');
+    }
+
+    function loadAgregarProyectoConcursable()
+    {
+        return view('agregarProyectoConcursable');
+    }
+
+    function loadAgregarPerfeccionamientoDocente()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        return view('agregarPerfeccionamientoDocente', compact('areas', $areas));
+    }
+
+    function loadAgregarLicencia()
+    {
+        return view('agregarLicencia');
+    }
+
+    function loadAgregarLibro()
+    {
+        return view('agregarLibro');
+    }
 }
