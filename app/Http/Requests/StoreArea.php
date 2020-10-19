@@ -24,8 +24,8 @@ class StoreArea extends FormRequest {
             'area' => [
                 'required',
                 'max:45',
-                'alpha',
-                'unique:area,nombre'
+                'regex:/^[a-zA-Z\s]+$/',
+                'unique:area,nombre',
             ]
         ];
     }
@@ -34,7 +34,7 @@ class StoreArea extends FormRequest {
         return [
             'area.required' => "Debe ingresar un área",
             'area.max' => "Área debe tener máximo 45 caracteres",
-            'area.alpha' => "Área debe tener solo letras",
+            'area.regex' => "Área debe tener solo letras",
             'area.unique' => "El área ya existe"
         ];
     }
