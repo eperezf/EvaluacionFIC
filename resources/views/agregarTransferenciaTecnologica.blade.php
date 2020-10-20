@@ -8,25 +8,31 @@
     <a href="#modificar">Modificar Tranferencia Tecnológica</a>
   </div><hr>
   <section id="agregar" name="Agregar Tranferencia Tecnológica">
-    <h3>Agregar Transferencia Tecnológica</h3>
-    <form action="" id="agregarTranferenciaTecnologica">
-      <div id="transferenciatecnologica" class="form-group row">
-        <label for="input-transferenciatecnologica" class="col-sm-2 col-form-label">Tranferencia Tecnológica</label>
-        <div class="col-sm-10">
-          <input name="nombre" class="form-control col-sm-5" placeholder="Nombre de la Transferencia Tecnológica" type="text" id="input-transferenciatecnologica">
+    <h3>Agregar una transferencia tecnológica</h3>
+    @if ($errors->any())
+      <div class="alert alert-danger pb-1 pt-1">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+    <form method="POST" action="{{ route('postTransferenciaTecnologica') }}" id="agregar-transferenciatecnologica">
+      @csrf
+      <div id="nombre" class="form-group row">
+        <label for="nombre-input" class="col-sm-3 col-form-label">Tranferencia Tecnológica</label>
+        <div class="col-sm-9">
+          <input name="transferenciaTecnologica" class="form-control col-sm-6" placeholder="Nombre de la transferencia tecnológica" type="text" id="nombre-input" value="{{ old('transferenciaTecnologica') }}">
         </div>
       </div>
       <div id="empresa" class="form-group row">
-        <label for="input-descripcion" class="col-sm-1 col-form-label">Empresa</label>
-        <div class="col-sm-10">
-          <input name="empresa" class="form-control col-sm-5" id="input-empresa" placeholder="Nombre de la empresa">
+        <label for="empresa-input" class="col-sm-1 col-form-label">Empresa</label>
+        <div class="col-sm-11">
+          <input name="empresa" class="form-control col-sm-7" id="empresa-input" placeholder="Nombre de la empresa" value="{{ old('empresa') }}">
         </div>
       </div><br>
-      <a href="" class="btn btn-primary">Agregar Transferencia Tecnológica</a>
+      <button class="btn btn-primary" type="submit" form="agregar-transferenciatecnologica" value="Submit">Agregar transferencia tecnológica</button>
     </form>
-  </section><hr>
-  <section id="modificar" name="Modificar Transferencia Tecnológica">
-    <h3>Modificar Tranferencia Tecnológica</h3>
   </section>
-
 @endsection
