@@ -3,6 +3,7 @@
 @section('title', 'Panel de Administración')
 @section('contenido')
   <h1>Panel de Administración</h1><hr>
+
   <div class="d-flex flex-wrap">
     <div class="col-auto">
       <div class="card mb-4">
@@ -55,13 +56,12 @@
       </div>
     </div>
     <div class="col-auto">
-        <div class="card mb-4">
-          <div class="card-body" style="min-width: 25rem;">
-            <h4 class="card-title">Libros</h4>
-            <p class="card-text">Agrega o modifica libros</p>
-            <a class="btn btn-primary" href="{{ route('agregarLibro') }}">Agregar</a>
-            <a class="btn btn-secondary" href="{{ route('modificarLibro') }}">Modificar</a>
-          </div>
+      <div class="card mb-4">
+        <div class="card-body" style="min-width: 25rem;">
+          <h4 class="card-title">Libros</h4>
+          <p class="card-text">Agrega o modifica libros</p>
+          <a class="btn btn-primary" href="{{ route('agregarLibro') }}">Agregar</a>
+          <a class="btn btn-secondary" href="{{ route('modificarLibro') }}">Modificar</a>
         </div>
       </div>
     </div>
@@ -165,5 +165,8 @@
         </div>
       </div>
     </div>
+  </div>
+
+
 
 @endsection
