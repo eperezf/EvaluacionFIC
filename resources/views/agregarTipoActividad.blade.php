@@ -8,19 +8,25 @@
     <a href="#modificar">Modificar Tipo de Actividad</a>
   </div><hr>
   <section id="agregar" name="Agregar Tipo de Actividad">
-    <h3>Agregar un Tipo de Actividad</h3>
-    <form action="" id="agregarTipoActividad">
+    <h3>Agregar un tipo de actividad</h3>
+    @if ($errors->any())
+      <div class="alert alert-danger pb-1 pt-1">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+    <form method="POST" action="{{ route('postTipoActividad') }}" id="agregar-tipoactividad">
+      @csrf
       <div id="tipoactividad" class="form-group row">
-        <label for="input-tipoactividad" class="col-sm-2 col-form-label">Tipo de actividad</label>
+        <label for="tipoactividad-input" class="col-sm-2 col-form-label">Tipo de actividad</label>
         <div class="col-sm-9">
-          <input class="form-control col-sm-5" type="text" placeholder="Tipo de Actividad" name="tipo" id="input-tipoactividad">
+          <input type="text" class="form-control col-sm-5" placeholder="Nombre del tipo de actividad" name="tipoActividad" id="tipoactividad-input" value="{{ old('tipoActividad') }}"> 
         </div>
       </div><br>
-      <a href="" class="btn btn-primary">Agregar Tipo de Actividad</a>
-    </form>
-  </section><hr>
-  <section id="modificar" name="Modificar Tipo de Actividad">
-    <h3>Modificar un Tipo de Actividad</h3>
-  </section>
-
+    <button class="btn btn-primary" type="submit" form="agregar-tipoactividad" value="Submit">Agregar tipo de actividad</button>
+  </form>
+</section>
 @endsection

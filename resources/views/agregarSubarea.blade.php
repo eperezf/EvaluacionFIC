@@ -9,7 +9,15 @@
   </div><hr>
   <section id="agregar">
     <h3>Agregar Subarea</h3>
-    <form action="">
+    @if ($errors->any())
+      <div class="alert alert-danger pb-1 pt-1">
+        @foreach ($errors->all() as $error)
+           <li>{{ $error }}</li> 
+        @endforeach
+      </div>
+    @endif
+    <form method="POST" action="{{ route('postSubarea') }}" id="agregar-area">
+      @csrf
       <div id="area" class="form-group row">
         <label for="select-area" class="col-sm-1 col-form-label">Área</label>
         <div class="col-sm-10">
@@ -24,14 +32,11 @@
       <div id="subarea" class="form-group row">
         <label for="input-subarea" class="col-sm-1 col-form-label">Subarea</label><br>
         <div class="col-sm-10">
-          <input type="text" class="form-control col-sm-5" placeholder="Subarea" name="subarea" id="input-subarea">
+        <input type="text" class="form-control col-sm-5" placeholder="Subarea" name="subarea" id="input-subarea" value="{{ old('subarea') }}">
         </div>
       </div><br>
-      <a href="#" class="btn btn-primary">Agregar subarea</a>
+      <button class="btn btn-primary" type="submit" form="agregar-area" value="Submit">Agregar subarea</button>
     </form>
-  </section><hr>
-  <section id="modificar">
-    <h3>Modificar Subarea</h3>
   </section>
 
 @endsection

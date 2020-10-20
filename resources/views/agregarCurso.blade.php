@@ -9,11 +9,19 @@
   </div><hr>
   <section id="agregar" name="Agregar Curso">
     <h3>Agregar una Curso</h3>
-    <form action="" id="agregarCurso">
+    @if ($errors->any())
+      <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+      </div>
+    @endif
+    <form action="{{route('postCurso')}}" method="POST" id="agregar-curso">
+      @csrf
       <div id="asignatura" class="form-group row">
         <label for="select-asignatura" class="col-sm-2 col-form-label">Asignatura</label>
         <div class="col-sm-10">
-          <select class="form-control col-sm-5" required="true" name="Asignatura" id="select-asignatura">
+          <select class="form-control col-sm-5" required="true" name="asignatura" id="select-asignatura">
             <option disabled value="Seleccione una asignatura" selected>Seleccione una asignatura</option>
             @foreach($asignaturas as $asignatura)
               <option value="{{ $asignatura->id }}">{{ $asignatura->nombre }}</option>
@@ -24,7 +32,7 @@
       <div id="seccion" class="form-group row">
         <label for="input-seccion" class="col-sm-2 col-form-label">Sección</label>
         <div class="col-sm-10">
-          <input class="form-control col-sm-5" type="number" placeholder="Sección" name="seccion" id="input-seccion">
+          <input class="form-control col-sm-5" type="text" placeholder="sección" name="seccion" id="input-seccion">
         </div>
       </div>
       <div id="calificacion" class="form-group row">
@@ -36,13 +44,13 @@
       <div id="respuestas" class="form-group row">
         <label for="input-respuestas" class="col-sm-5 col-form-label">Cantidad de respuestas en la encuesta docente</label>
         <div class="col-sm-6">
-          <input class="form-control col-sm-2" type="number" name="respuestas" id="input-respuestas" placeholder="N°">
+          <input class="form-control col-sm-2" type="text" name="respuestas" id="input-respuestas" placeholder="N°">
         </div>
       </div>
       <div id="material" class="form-group row">
         <label class="col-sm-2 col-form-label">Material docente</label>
-        <div>
-          <input type="radio" id="si" name="material" value="si" checked>
+        <div class="col-sm-1">
+          <input type="radio" id="si" name="material" value="si">
           <label for="si">Si</label>
         </div>
         <div class="col-sm-1">
@@ -50,12 +58,7 @@
           <label for="no">No</label>
         </div>
       </div>
-      <a href="" class="btn btn-primary">Agregar Curso</a>
+      <button type="submit" form="agregar-curso" class="btn btn-primary">Agregar Curso</button>
     </form>
-  </section><hr>
-
-  <section id="modificar" name="Modificar Curso">
-    <h3>Modificar Curso</h3>
   </section>
-
 @endsection

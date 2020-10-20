@@ -3,25 +3,30 @@
 @section('title', 'Panel de Administración')
 @section('contenido')
 <div id="menu">
-  <h1>Panel de Spinoff</h1>
-  <a href="#agregar">Agregar Spinoff</a>
-  <a href="#modificar">Modificar Spinoff</a>
+  <h1>Panel de Spin-off</h1>
+  <a href="#agregar">Agregar Spin-off</a>
+  <a href="#modificar">Modificar Spin-off</a>
 </div><hr>
 <section id="agregar" name="Agregar Spinoff">
-  <h3>Agregar un Spinoff</h3>
-  <form action="" id="agregar-spinoff">
-    <div id="spinoff" class="form-group row">
-      <label for="spinoff-input" class="col-sm-1 col-form-label">Spinoff</label>
+  <h3>Agregar un Spin-off</h3>
+  @if ($errors->any())
+    <div class="alert alert-danger pb-1 pt-1">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+  <form method="POST" action="{{ route('postSpinoff') }}" id="agregar-spinoff">
+    @csrf
+    <div id="nombre" class="form-group row">
+      <label for="input-nombre" class="col-sm-2 col-form-label">Spin-off</label>
       <div class="col-sm-10">
-        <input class="form-control col-sm-5" name="spinoff" placeholder="Nombre de Spinoff" type="text" id="spinoff-input">
+      <input class="form-control col-sm-5" name="spinOff" placeholder="Nombre del Spin-off" type="text" id="input-nombre" value="{{ old('spinOff') }}">
       </div>
     </div><br>
-    <a href="" class="btn btn-primary">Agregar Spinoff</a>
+    <button class="btn btn-primary" type="submit" form="agregar-spinoff" value="Submit">Agregar spin-off</button>
   </form>
-</section><hr>
-<section id="modificar" name="Modificar Spinoff">
-  <h3>Modificar Spinoff</h3>
-
 </section>
-
 @endsection

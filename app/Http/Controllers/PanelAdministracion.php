@@ -4,9 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\html;
+
 use App\Asignatura;
 use App\Tipoactividad;
 use App\Area;
+
+use App\Http\Requests\StoreArea;
+use App\Http\Requests\StoreSubarea;
+use App\Http\Requests\StoreCargo;
+use App\Http\Requests\StoreAsignatura;
+use App\Http\Requests\StorePublicacion;
+use App\Http\Requests\StoreActividad;
+use App\Http\Requests\StoreCurso;
+use App\Http\Requests\StoreSpinoff;
+use App\Http\Requests\StoreLibro;
+use App\Http\Requests\StoreLicencia;
+use App\Http\Requests\StoreTipoActividad;
+use App\Http\Requests\StoreVinculacion;
+use App\Http\Requests\StoreTutoria;
+use App\Http\Requests\StoreTransferenciaTecnologica;
+use App\Http\Requests\StorePerfeccionamientoDocente;
+use App\Http\Requests\StoreProyectoConcursable;
+
 
 class PanelAdministracion extends Controller
 {
@@ -15,86 +34,210 @@ class PanelAdministracion extends Controller
         return view('panelAdministracion');
     }
 
-    function loadAgregarPublicacion()
+    public function loadAgregarPublicacion()
     {
         return view('agregarPublicacion');
     }
 
-    function loadAgregarTipoActividad()
+    public function postPublicacion(StorePublicacion $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarTipoActividad()
     {
         return view('agregarTipoActividad');
     }
 
-    function loadAgregarAsignatura()
+    public function postTipoActividad(StoreTipoActividad $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarAsignatura()
     {
         return view('agregarAsignatura');
     }
 
-    function loadAgregarTutoria()
+    public function postAsignatura(StoreAsignatura $request) 
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarTutoria()
     {
         return view('agregarTutoria');
     }
 
-    function loadAgregarActividad()
+    public function postTutoria(StoreTutoria $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarActividad()
     {
         $tipos = Tipoactividad::all(['id','nombre']);
         return view('agregarActividad', compact('tipos', $tipos));
     }
 
-    function loadAgregarCurso()
+    public function postActividad(StoreActividad $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarCurso()
     {
         $asignaturas = Asignatura::all(['id','nombre']);
         return view('agregarCurso', compact('asignaturas', $asignaturas));
     }
 
-    function loadAgregarArea()
+    public function postCurso(StoreCurso $request)
+    {
+        $validate = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarArea()
     {
         return view('agregarArea');
     }
 
-    function loadAgregarSubarea() {
+    public function postArea(StoreArea $request) {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarSubarea()
+    {
         $areas = Area::all(['id', 'nombre']);
         return view('agregarSubarea', compact('areas', $areas));
     }
+
+    public function postSubarea(StoreSubarea $request) {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
     
-    function loadAgregarCargoAdministrativo()
+//--------------------------------------------------
+    
+    public function loadAgregarCargoAdministrativo()
     {
         return view('agregarCargoAdministrativo');
     }
 
-    function loadAgregarVinculacion()
+    public function postCargoAdministrativo(StoreCargo $request) {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarVinculacion()
     {
         return view('agregarVinculacion');
     }
 
-    function loadAgregarTransferenciaTecnologica()
+    public function postVinculacion(StoreVinculacion $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarTransferenciaTecnologica()
     {
         return view('agregarTransferenciaTecnologica');
     }
 
-    function loadAgregarSpinoff()
+    public function postTransferenciaTecnologica(StoreTransferenciaTecnologica $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarSpinoff()
     {
         return view('agregarSpinoff');
     }
 
-    function loadAgregarProyectoConcursable()
+    public function postSpinoff(StoreSpinoff $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarProyectoConcursable()
     {
         return view('agregarProyectoConcursable');
     }
 
-    function loadAgregarPerfeccionamientoDocente()
+    public function postProyectoConcursable(StoreProyectoConcursable $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarPerfeccionamientoDocente()
     {
         $areas = Area::all(['id', 'nombre']);
         return view('agregarPerfeccionamientoDocente', compact('areas', $areas));
     }
 
-    function loadAgregarLicencia()
+    public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarLicencia()
     {
         return view('agregarLicencia');
     }
 
-    function loadAgregarLibro()
+    public function postLicencia(StoreLicencia $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
+    }
+    
+//--------------------------------------------------
+
+    public function loadAgregarLibro()
     {
         return view('agregarLibro');
+    }
+
+    public function postLibro(StoreLibro $request)
+    {
+        $validated = $request->validated();
+        return redirect('/panelAdministracion');
     }
 }
