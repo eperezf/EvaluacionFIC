@@ -2,11 +2,7 @@
 
 @section('title', 'Panel de Administración')
 @section('contenido')
-<div id="menu">
-  <h1>Panel de Asignaturas</h1>
-  <a href="#agregar">Agregar Asignatura</a>
-  <a href="#modificar">Modificar Asignatura</a>
-</div><hr>
+<h1>Panel de Asignaturas</h1><hr>
 <section id="agregar" name="Agregar Asignatura">
   <h3>Agregar una Asignatura</h3>
   @if ($errors->any())

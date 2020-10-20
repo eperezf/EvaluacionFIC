@@ -34,9 +34,16 @@ class PanelAdministracion extends Controller
         return view('panelAdministracion');
     }
 
+//--------------------------------------------------
+
     public function loadAgregarPublicacion()
     {
         return view('agregarPublicacion');
+    }
+
+    public function loadModificarPublicacion()
+    {
+        return view('modificarPublicacion');
     }
 
     public function postPublicacion(StorePublicacion $request)
@@ -52,6 +59,11 @@ class PanelAdministracion extends Controller
         return view('agregarTipoActividad');
     }
 
+    public function loadModificarTipoActividad()
+    {
+        return view('modificarTipoActividad');
+    }
+
     public function postTipoActividad(StoreTipoActividad $request)
     {
         $validated = $request->validated();
@@ -65,6 +77,11 @@ class PanelAdministracion extends Controller
         return view('agregarAsignatura');
     }
 
+    public function loadModificarAsignatura()
+    {
+        return view('modificarAsignatura');
+    }
+
     public function postAsignatura(StoreAsignatura $request) 
     {
         $validated = $request->validated();
@@ -76,6 +93,11 @@ class PanelAdministracion extends Controller
     public function loadAgregarTutoria()
     {
         return view('agregarTutoria');
+    }
+
+    public function loadModificarTutoria()
+    {
+        return view('modificarTutoria');
     }
 
     public function postTutoria(StoreTutoria $request)
@@ -92,6 +114,11 @@ class PanelAdministracion extends Controller
         return view('agregarActividad', compact('tipos', $tipos));
     }
 
+    public function loadModificarActividad()
+    {
+        return view('modificarActividad');
+    }
+
     public function postActividad(StoreActividad $request)
     {
         $validated = $request->validated();
@@ -104,6 +131,11 @@ class PanelAdministracion extends Controller
     {
         $asignaturas = Asignatura::all(['id','nombre']);
         return view('agregarCurso', compact('asignaturas', $asignaturas));
+    }
+
+    public function loadModificarCurso()
+    {
+        return view('modificarCurso');
     }
 
     public function postCurso(StoreCurso $request)
@@ -119,6 +151,11 @@ class PanelAdministracion extends Controller
         return view('agregarArea');
     }
 
+    public function loadModificarArea()
+    {
+        return view('modificarArea');
+    }
+
     public function postArea(StoreArea $request) {
         $validated = $request->validated();
         return redirect('/panelAdministracion');
@@ -130,6 +167,11 @@ class PanelAdministracion extends Controller
     {
         $areas = Area::all(['id', 'nombre']);
         return view('agregarSubarea', compact('areas', $areas));
+    }
+
+    public function loadModificarSubarea()
+    {
+        return view('modificarSubarea');
     }
 
     public function postSubarea(StoreSubarea $request) {
@@ -144,6 +186,11 @@ class PanelAdministracion extends Controller
         return view('agregarCargoAdministrativo');
     }
 
+    public function loadModificarCargoAdministrativo()
+    {
+        return view('modificarCargoAdministrativo');
+    }
+
     public function postCargoAdministrativo(StoreCargo $request) {
         $validated = $request->validated();
         return redirect('/panelAdministracion');
@@ -154,6 +201,11 @@ class PanelAdministracion extends Controller
     public function loadAgregarVinculacion()
     {
         return view('agregarVinculacion');
+    }
+
+    public function loadModificarVinculacion()
+    {
+        return view('modificarVinculacion');
     }
 
     public function postVinculacion(StoreVinculacion $request)
@@ -169,6 +221,11 @@ class PanelAdministracion extends Controller
         return view('agregarTransferenciaTecnologica');
     }
 
+    public function loadModificarTransferenciaTecnologica()
+    {
+        return view('modificarTransferenciasTecnologica');
+    }
+
     public function postTransferenciaTecnologica(StoreTransferenciaTecnologica $request)
     {
         $validated = $request->validated();
@@ -182,6 +239,11 @@ class PanelAdministracion extends Controller
         return view('agregarSpinoff');
     }
 
+    public function loadModificarSpinoff()
+    {
+        return view('modificarSpinoff');
+    }
+
     public function postSpinoff(StoreSpinoff $request)
     {
         $validated = $request->validated();
@@ -193,6 +255,11 @@ class PanelAdministracion extends Controller
     public function loadAgregarProyectoConcursable()
     {
         return view('agregarProyectoConcursable');
+    }
+
+    public function loadModificarProyectoConcursable()
+    {
+        return view('modificarProyectoConcursable');
     }
 
     public function postProyectoConcursable(StoreProyectoConcursable $request)
@@ -209,6 +276,11 @@ class PanelAdministracion extends Controller
         return view('agregarPerfeccionamientoDocente', compact('areas', $areas));
     }
 
+    public function loadModificarPerfeccionamientoDocente()
+    {
+        return view('modificarPerfeccionamientoDocente');
+    }
+
     public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
     {
         $validated = $request->validated();
@@ -222,6 +294,11 @@ class PanelAdministracion extends Controller
         return view('agregarLicencia');
     }
 
+    public function loadModificarLicencia()
+    {
+        return view('modificarLicencia');
+    }
+
     public function postLicencia(StoreLicencia $request)
     {
         $validated = $request->validated();
@@ -233,6 +310,11 @@ class PanelAdministracion extends Controller
     public function loadAgregarLibro()
     {
         return view('agregarLibro');
+    }
+
+    public function loadModificarLibro()
+    {
+        return view('modificarLibro');
     }
 
     public function postLibro(StoreLibro $request)

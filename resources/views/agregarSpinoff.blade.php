@@ -2,11 +2,7 @@
 
 @section('title', 'Panel de Administración')
 @section('contenido')
-<div id="menu">
-  <h1>Panel de Spin-off</h1>
-  <a href="#agregar">Agregar Spin-off</a>
-  <a href="#modificar">Modificar Spin-off</a>
-</div><hr>
+<h1>Panel de Spin-off</h1><hr>
 <section id="agregar" name="Agregar Spinoff">
   <h3>Agregar un Spin-off</h3>
   @if ($errors->any())

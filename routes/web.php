@@ -22,7 +22,7 @@ Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('a
 
 Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')->middleware('auth')->name('panelAdministracion');
     Route::get('panelAdministracion/agregarArea', 'PanelAdministracion@loadAgregarArea')->middleware('auth')->name('agregarArea');
-    Route::get('panelAdministracion/agreagrCurso', 'PanelAdministracion@loadAgregarCurso')->middleware('auth')->name('agregarCurso');
+    Route::get('panelAdministracion/agregarCurso', 'PanelAdministracion@loadAgregarCurso')->middleware('auth')->name('agregarCurso');
     Route::get('panelAdministracion/agregarCargoAdministrativo', 'PanelAdministracion@loadAgregarCargoAdministrativo')->middleware('auth')->name('agregarCargo');
     Route::get('panelAdministracion/agregarPublicacion', 'PanelAdministracion@loadAgregarPublicacion')->middleware('auth')->name('agregarPublicacion');
     Route::get('panelAdministracion/agregarAsignatura', 'PanelAdministracion@loadAgregarAsignatura')->middleware('auth')->name('agregarAsignatura');
@@ -54,3 +54,20 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::post('panelAdministracion/postTransferenciaTecnologica', 'PanelAdministracion@postTransferenciaTecnologica')->middleware('auth')->name('postTransferenciaTecnologica');
     Route::post('panelAdministracion/postTutoria', 'PanelAdministracion@postTutoria')->middleware('auth')->name('postTutoria');
     Route::post('panelAdministracion/postVinculacion', 'PanelAdministracion@postVinculacion')->middleware('auth')->name('postVinculacion');
+
+    Route::get('panelAdministracion/modificarArea', 'PanelAdministracion@loadModificarArea')->middleware('auth')->name('modificarArea');
+    Route::get('panelAdministracion/modificarCurso', 'PanelAdministracion@loadModificarCurso')->middleware('auth')->name('modificarCurso');
+    Route::get('panelAdministracion/modificarCargoAdministrativo', 'PanelAdministracion@loadModificarCargoAdministrativo')->middleware('auth')->name('modificarCargo');
+    Route::get('panelAdministracion/modificarPublicacion', 'PanelAdministracion@loadModificarPublicacion')->middleware('auth')->name('modificarPublicacion');
+    Route::get('panelAdministracion/modificarAsignatura', 'PanelAdministracion@loadModificarAsignatura')->middleware('auth')->name('modificarAsignatura');
+    Route::get('panelAdministracion/modificarTutoria', 'PanelAdministracion@loadModificarTutoria')->middleware('auth')->name('modificarTutoria');
+    Route::get('panelAdministracion/modificarActividad', 'PanelAdministracion@loadModificarActividad')->middleware('auth')->name('modificarActividad');
+    Route::get('panelAdministracion/modificarTipoActividad', 'PanelAdministracion@loadModificarTipoActividad')->middleware('auth')->name('modificarTipoActividad');
+    Route::get('panelAdministracion/modificarSubarea', 'PanelAdministracion@loadModificarSubarea')->middleware('auth')->name('modificarSubarea');
+    Route::get('panelAdministracion/modificarVinculacion', 'PanelAdministracion@loadModificarVinculacion')->middleware('auth')->name('modificarVinculacion');
+    Route::get('panelAdministracion/modificarTransferenciaTecnologica', 'PanelAdministracion@loadModificarTransferenciaTecnologica')->middleware('auth')->name('modificarTransferenciaTecnologica');
+    Route::get('panelAdministracion/modificarSpinoff', 'PanelAdministracion@loadModificarSpinoff')->middleware('auth')->name('modificarSpinoff');
+    Route::get('panelAdministracion/modificarProyectoConcursable', 'PanelAdministracion@loadModificarProyectoConcursable')->middleware('auth')->name('modificarProyectoConcursable');
+    Route::get('panelAdministracion/modificarPerfeccionamientoDocente', 'PanelAdministracion@loadModificarPerfeccionamientoDocente')->middleware('auth')->name('modificarPerfeccionamientoDocente');
+    Route::get('panelAdministracion/modificarLicencia', 'PanelAdministracion@loadModificarLicencia')->middleware('auth')->name('modificarLicencia');
+    Route::get('panelAdministracion/modificarLibro', 'PanelAdministracion@loadModificarLibro')->middleware('auth')->name('modificarLibro');
