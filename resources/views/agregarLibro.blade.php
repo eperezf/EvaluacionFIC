@@ -8,25 +8,31 @@
     <a href="#modificar">Modificar Libro</a>
   </div><hr>
   <section id="agregar" name="Agregar Libro">
-    <h3>Agregar un Libro</h3>
-    <form action="" id="agregarLibro">
+    <h3>Agregar un libro</h3>
+    @if ($errors->any())
+      <div class="alert alert-danger pb-1 pt-1">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+    <form method="POST" action="{{ route('postLibro') }}" id="agregar-libro">
+      @csrf
       <div id="titulo" class="form-group row">
-        <label for="input-titulo" class="col-sm-1 col-form-label">Título</label>
+        <label for="titulo-input" class="col-sm-1 col-form-label">Título</label>
         <div class="col-sm-10">
-          <input class="form-control col-sm-5" name="titulo" type="text" id="input-tipo" placeholder="Título de libro">
+          <input class="form-control col-sm-5" name="libro" type="text" id="titulo-input" placeholder="Título del libro" value="{{ old('libro') }}"">
         </div>
       </div>
       <div id="isbn" class="form-group row">
-        <label for="input-isbn" class="col-sm-1 col-form-label">Isbn</label>
+        <label for="isbn-input" class="col-sm-1 col-form-label">Isbn</label>
         <div class="col-sm-10">
-          <input class="form-control col-sm-5" name="isbn" type="text" id="input-isbn" placeholder="isbn">
+          <input class="form-control col-sm-5" name="isbn" type="text" id="isbn-input" placeholder="isbn" value="{{ old('isbn') }}">
         </div>
-      </div>
-      <a href="" class="btn btn-primary">Agregar Libro</a>
+      </div><br>
+      <button class="btn btn-primary" type="submit" form="agregar-libro" value="Submit">Agregar libro</button>
     </form>
-  </section><hr>
-  <section id="modificar" name="Modificar Libro">
-    <h3>Modificar Libro</h3>
   </section>
-
 @endsection

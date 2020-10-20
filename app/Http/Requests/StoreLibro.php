@@ -13,7 +13,7 @@ class StoreLibro extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,19 @@ class StoreLibro extends FormRequest
     public function rules()
     {
         return [
-            //
+            'libro' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
+            'isbn' => ['required','max:45'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'libro.required' => "Debe ingresar un libro.",
+            'libro.max' => "El título del ibro debe tener máximo 45 caracteres",
+            'libro.regex' => "El título del libro debe tener solo letras",
+            'isbn.required' => "Debe ingresar un ISBN.",
+            'isbn.max' => "El ISBN debe tener máximo 45 caracteres",
         ];
     }
 }

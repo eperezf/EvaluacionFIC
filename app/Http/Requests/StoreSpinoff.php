@@ -13,7 +13,7 @@ class StoreSpinoff extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class StoreSpinoff extends FormRequest
     public function rules()
     {
         return [
-            //
+            'spinOff' => ['required', 'max:45','regex:/^[a-zA-Z\s]+$/'],
+        ];
+    }
+
+    public function messages() 
+    {
+        return [
+            'spinOff.required' => "Debe ingresar un spin off",
+            'spinOff.max' => "El spin-off debe tener máximo 45 caracteres",
+            'spinOff.regex'=> "El spin-off debe tener solo letras",
         ];
     }
 }

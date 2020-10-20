@@ -13,7 +13,7 @@ class StoreTransferenciaTecnologica extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class StoreTransferenciaTecnologica extends FormRequest
     public function rules()
     {
         return [
-            //
+            'transferenciaTecnologica' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
+            'empresa' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'transferenciaTecnologica.required' => "Debe ingresar una transferencia tecnológica.",
+            'transferenciaTecnologica.max' => "La transferencia tecnológica debe tener máximo 45 caracteres",
+            'transferenciaTecnologica.regex' => "La transferencia tecnológica debe tener solo letras",
+            'empresa.required' => "Debe ingresar una empresa.",
+            'empresa.max' => "La empresa debe tener máximo 45 caracteres",
+            'empresa.regex' => "La empresa debe tener solo letras",
         ];
     }
 }

@@ -13,7 +13,7 @@ class StoreTutoria extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class StoreTutoria extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tutoria' => ['required', 'max:45','regex:/^[a-zA-Z\s]+$/'],
+        ];
+    }
+
+    public function messages() 
+    {
+        return [
+            'tutoria.required' => "Debe ingresar una tutoría",
+            'tutoria.max' => "La tutoría debe tener máximo 45 caracteres",
+            'tutoria.regex'=> "La tutoría debe tener solo letras",
         ];
     }
 }

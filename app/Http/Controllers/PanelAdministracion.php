@@ -209,7 +209,7 @@ class PanelAdministracion extends Controller
         return view('agregarPerfeccionamientoDocente', compact('areas', $areas));
     }
 
-    public function postPerfeccionamientoDocente(StorePrefeccionamientoDocente $request)
+    public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
     {
         $validated = $request->validated();
         return redirect('/panelAdministracion');

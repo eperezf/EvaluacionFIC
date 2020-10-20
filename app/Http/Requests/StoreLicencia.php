@@ -13,7 +13,7 @@ class StoreLicencia extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class StoreLicencia extends FormRequest
     public function rules()
     {
         return [
-            //
+            'licencia' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
+            'empresa' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'licencia.required' => "Debe ingresar una licencia.",
+            'licencia.max' => "La licencia debe tener máximo 45 caracteres",
+            'licencia.regex' => "La licencia debe tener solo letras",
+            'empresa.required' => "Debe ingresar una empresa.",
+            'empresa.max' => "La empresa debe tener máximo 45 caracteres",
+            'empresa.regex' => "La empresa debe tener solo letras",
         ];
     }
 }

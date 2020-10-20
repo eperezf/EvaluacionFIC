@@ -8,19 +8,25 @@
     <a href="#modificar">Modificar Tutoría</a>
   </div><hr>
   <section id="agregar" name="Agregar Tutoria">
-    <h3>Agregar una Tutoría</h3>
-    <form action="" id="agregarTutoria">
-      <div id="tutoria" class="form-group row">
-        <label for="input-tutoria" class="col-sm-1 col-form-label">Tutoría</label>
+    <h3>Agregar una tutoría</h3>
+    @if ($errors->any())
+      <div class="alert alert-danger pb-1 pt-1">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+    <form method="POST" action="{{ route('postTutoria') }}" id="agregar-tutoria">
+      @csrf
+      <div id="nombre" class="form-group row">
+        <label for="nombre-input" class="col-sm-1 col-form-label">Tutoría</label>
         <div class="col-sm-10">
-          <input name="nombre" class="form-control col-sm-5" placeholder="Nombre de la Tutoría" type="text" id="input-tutoria">
+        <input name="tutoria" class="form-control col-sm-5" placeholder="Nombre de la tutoría" type="text" id="nombre-input" value="{{ old('tutoria') }}">
         </div>
       </div><br>
-      <a href="" class="btn btn-primary">Agregar Tutoría</a>
+      <button class="btn btn-primary" type="submit" form="agregar-tutoria" value="Submit">Agregar tutoría</button>
     </form>
-  </section><hr>
-  <section id="modificar" name="Modificar Tutoria">
-    <h3>Modificar Tutoría</h3>
   </section>
-
 @endsection
