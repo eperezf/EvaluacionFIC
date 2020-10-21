@@ -2,11 +2,7 @@
 
 @section('title', 'Panel de Administración')
 @section('contenido')
-<div id="menu">
-  <h1>Panel de Actividades</h1>
-  <a href="#agregar">Agregar Actividad</a>
-  <a href="#modificar">Modificar Actividad</a>
-</div><hr>
+<h1>Panel de Actividades</h1><hr>
 <section id="agregar" name="Agregar Actividad">
   <h3>Agregar una Actividad</h3>
   @if ($errors->any())
