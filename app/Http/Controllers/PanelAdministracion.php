@@ -31,12 +31,19 @@ class PanelAdministracion extends Controller
 {
     public function loadPanelAdministracion()
     {
-        return view('panelAdministracion');
+        return view('panel.panelAdministracion');
     }
+
+//--------------------------------------------------
 
     public function loadAgregarPublicacion()
     {
-        return view('agregarPublicacion');
+        return view('panel.agregar.agregarPublicacion');
+    }
+
+    public function loadModificarPublicacion()
+    {
+        return view('panel.modificar.modificarPublicacion');
     }
 
     public function postPublicacion(StorePublicacion $request)
@@ -49,7 +56,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarTipoActividad()
     {
-        return view('agregarTipoActividad');
+        return view('panel.agregar.agregarTipoActividad');
+    }
+
+    public function loadModificarTipoActividad()
+    {
+        return view('panel.modificar.modificarTipoActividad');
     }
 
     public function postTipoActividad(StoreTipoActividad $request)
@@ -62,7 +74,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarAsignatura()
     {
-        return view('agregarAsignatura');
+        return view('panel.agregar.agregarAsignatura');
+    }
+
+    public function loadModificarAsignatura()
+    {
+        return view('panel.modificar.modificarAsignatura');
     }
 
     public function postAsignatura(StoreAsignatura $request) 
@@ -75,7 +92,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarTutoria()
     {
-        return view('agregarTutoria');
+        return view('panel.agregar.agregarTutoria');
+    }
+
+    public function loadModificarTutoria()
+    {
+        return view('panel.modificar.modificarTutoria');
     }
 
     public function postTutoria(StoreTutoria $request)
@@ -89,7 +111,12 @@ class PanelAdministracion extends Controller
     public function loadAgregarActividad()
     {
         $tipos = Tipoactividad::all(['id','nombre']);
-        return view('agregarActividad', compact('tipos', $tipos));
+        return view('panel.agregar.agregarActividad', compact('tipos', $tipos));
+    }
+
+    public function loadModificarActividad()
+    {
+        return view('panel.modificar.modificarActividad');
     }
 
     public function postActividad(StoreActividad $request)
@@ -103,7 +130,12 @@ class PanelAdministracion extends Controller
     public function loadAgregarCurso()
     {
         $asignaturas = Asignatura::all(['id','nombre']);
-        return view('agregarCurso', compact('asignaturas', $asignaturas));
+        return view('panel.agregar.agregarCurso', compact('asignaturas', $asignaturas));
+    }
+
+    public function loadModificarCurso()
+    {
+        return view('panel.modificar.modificarCurso');
     }
 
     public function postCurso(StoreCurso $request)
@@ -116,7 +148,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarArea()
     {
-        return view('agregarArea');
+        return view('panel.agregar.agregarArea');
+    }
+
+    public function loadModificarArea()
+    {
+        return view('panel.modificar.modificarArea');
     }
 
     public function postArea(StoreArea $request) {
@@ -129,7 +166,12 @@ class PanelAdministracion extends Controller
     public function loadAgregarSubarea()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('agregarSubarea', compact('areas', $areas));
+        return view('panel.agregar.agregarSubarea', compact('areas', $areas));
+    }
+
+    public function loadModificarSubarea()
+    {
+        return view('panel.modificar.modificarSubarea');
     }
 
     public function postSubarea(StoreSubarea $request) {
@@ -141,7 +183,12 @@ class PanelAdministracion extends Controller
     
     public function loadAgregarCargoAdministrativo()
     {
-        return view('agregarCargoAdministrativo');
+        return view('panel.agregar.agregarCargoAdministrativo');
+    }
+
+    public function loadModificarCargoAdministrativo()
+    {
+        return view('panel.modificar.modificarCargoAdministrativo');
     }
 
     public function postCargoAdministrativo(StoreCargo $request) {
@@ -153,7 +200,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarVinculacion()
     {
-        return view('agregarVinculacion');
+        return view('panel.agregar.agregarVinculacion');
+    }
+
+    public function loadModificarVinculacion()
+    {
+        return view('panel.modificar.modificarVinculacion');
     }
 
     public function postVinculacion(StoreVinculacion $request)
@@ -166,7 +218,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarTransferenciaTecnologica()
     {
-        return view('agregarTransferenciaTecnologica');
+        return view('panel.agregar.agregarTransferenciaTecnologica');
+    }
+
+    public function loadModificarTransferenciaTecnologica()
+    {
+        return view('panel.modificar.modificarTransferenciaTecnologica');
     }
 
     public function postTransferenciaTecnologica(StoreTransferenciaTecnologica $request)
@@ -179,7 +236,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarSpinoff()
     {
-        return view('agregarSpinoff');
+        return view('panel.agregar.agregarSpinoff');
+    }
+
+    public function loadModificarSpinoff()
+    {
+        return view('panel.modificar.modificarSpinoff');
     }
 
     public function postSpinoff(StoreSpinoff $request)
@@ -192,7 +254,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarProyectoConcursable()
     {
-        return view('agregarProyectoConcursable');
+        return view('panel.agregar.agregarProyectoConcursable');
+    }
+
+    public function loadModificarProyectoConcursable()
+    {
+        return view('panel.modificar.modificarProyectoConcursable');
     }
 
     public function postProyectoConcursable(StoreProyectoConcursable $request)
@@ -206,7 +273,12 @@ class PanelAdministracion extends Controller
     public function loadAgregarPerfeccionamientoDocente()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('agregarPerfeccionamientoDocente', compact('areas', $areas));
+        return view('panel.agregar.agregarPerfeccionamientoDocente', compact('areas', $areas));
+    }
+
+    public function loadModificarPerfeccionamientoDocente()
+    {
+        return view('panel.modificar.modificarPerfeccionamientoDocente');
     }
 
     public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
@@ -219,7 +291,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarLicencia()
     {
-        return view('agregarLicencia');
+        return view('panel.agregar.agregarLicencia');
+    }
+
+    public function loadModificarLicencia()
+    {
+        return view('panel.modificar.modificarLicencia');
     }
 
     public function postLicencia(StoreLicencia $request)
@@ -232,7 +309,12 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarLibro()
     {
-        return view('agregarLibro');
+        return view('panel.agregar.agregarLibro');
+    }
+
+    public function loadModificarLibro()
+    {
+        return view('panel.modificar.modificarLibro');
     }
 
     public function postLibro(StoreLibro $request)
