@@ -19,7 +19,7 @@
     <div id="area" class="form-group row">
       <label for="area-input" class="col-sm-1 col-form-label">Área</label>
       <div class="col-sm-10">
-      <input class="form-control col-sm-5" name="area" placeholder="Nombre área" type="text" id="area-input" value="{{ old('area') }}">
+        <input class="form-control col-sm-5" name="nombre" placeholder="Nombre área" type="text" id="area-input" value="{{ old('area') }}">
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="agregar-area" value="Submit">Agregar área</button>
