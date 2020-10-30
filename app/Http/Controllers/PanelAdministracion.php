@@ -124,7 +124,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarAsignatura()
     {
-        return view('panel.agregar.agregarAsignatura');
+        $subareas = Subarea::all(['id', 'nombre']);
+        return view('panel.agregar.agregarAsignatura', compact('subareas', $subareas));
     }
 
     public function loadModificarAsignatura()
@@ -134,7 +135,15 @@ class PanelAdministracion extends Controller
 
     public function postAsignatura(StoreAsignatura $request) 
     {
+        $originalRequest = $request->duplicate();
+        $request->name = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $asignatura = new Asignatura;
+        $asignatura->nombre = $request->nombre;
+        $asignatura->codigo = $request->codigo;
+        $asignatura->idsubarea = $request->subarea;
+        $asignatura->save();
         return redirect('/panelAdministracion');
     }
     
