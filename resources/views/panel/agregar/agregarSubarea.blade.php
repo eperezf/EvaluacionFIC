@@ -28,7 +28,7 @@
     <div id="subarea" class="form-group row">
       <label for="input-subarea" class="col-sm-1 col-form-label">Subarea</label><br>
       <div class="col-sm-10">
-      <input type="text" class="form-control col-sm-5" placeholder="Subarea" name="subarea" id="input-subarea" value="{{ old('subarea') }}">
+      <input type="text" class="form-control col-sm-5" placeholder="Subarea" name="nombre" id="input-subarea" value="{{ old('subarea') }}">
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="agregar-area" value="Submit">Agregar subarea</button>

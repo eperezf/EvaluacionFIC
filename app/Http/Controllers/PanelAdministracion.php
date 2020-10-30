@@ -8,6 +8,7 @@ use Illuminate\html;
 use App\Asignatura;
 use App\Tipoactividad;
 use App\Area;
+use App\Subarea;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -206,7 +207,6 @@ class PanelAdministracion extends Controller
     }
 
     public function postArea(StoreArea $request) {
-        $originalRequest = new Request;
         $originalRequest = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
@@ -230,8 +230,16 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarSubarea');
     }
 
-    public function postSubarea(StoreSubarea $request) {
+    public function postSubarea(StoreSubarea $request)
+    {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $subarea = new Subarea;
+        $subarea->nombre = $request->nombre;
+        $subarea->idarea = $request->area;
+        $subarea->save();
         return redirect('/panelAdministracion');
     }
     
