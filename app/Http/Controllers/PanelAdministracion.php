@@ -9,6 +9,7 @@ use App\Asignatura;
 use App\Tipoactividad;
 use App\Area;
 use App\Subarea;
+use App\PerfeccionamientoDocente;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -356,7 +357,16 @@ class PanelAdministracion extends Controller
 
     public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
     {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
+        $request->institucion = $this->deleteAccentMark($request->institucion);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $perfeccionamiento = new PerfeccionamientoDocente;
+        $perfeccionamiento->nombre = $request->nombre;
+        $perfeccionamiento->area = $request->area;
+        $perfeccionamiento->institucion = $request->institucion;
+        $perfeccionamiento->save();
         return redirect('/panelAdministracion');
     }
     
