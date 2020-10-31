@@ -19,7 +19,18 @@
     <div id="asignatura" class="form-group row">
       <label for="input-asignatura" class="col-sm-2 col-form-label">Asignatura</label>
       <div class="col-sm-10">
-        <input name="asignatura" class="form-control col-sm-5" placeholder="Nombre Asignatura" type="text" id="input-asignatura" value="{{ old('asignatura') }}">
+        <input name="nombre" class="form-control col-sm-5" placeholder="Nombre Asignatura" type="text" id="input-asignatura" value="{{ old('nombre') }}">
+      </div>
+    </div>
+    <div id="subarea" class="form-group row">
+      <label for="select-subarea" class="col-sm-2 col-form-label">Subarea</label>
+      <div class="col-sm-10">
+        <select class="form-control col-sm-5" requiered="true" name="subarea" id="select-subarea">
+          <option disabled value="Seleccione una asignatura" selected>Seleccione una subarea</option>
+          @foreach ($subareas as $subarea)
+            <option value="{{ $subarea->id }}">{{ $subarea->nombre }}</option>
+          @endforeach
+        </select>
       </div>
     </div>
     <div id="codigo" class="form-group row">

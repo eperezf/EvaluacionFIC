@@ -24,16 +24,17 @@ class StoreAsignatura extends FormRequest
     public function rules()
     {
         return [
-            'asignatura' => [
+            'nombre' => [
                 'required',
                 'max:512',
-                'regex:/^[a-zA-Z0-9\s]+$/',
+                'regex:/^[a-zA-Z0-9\s\W]+$/',
                 'unique:asignatura,nombre'
             ],
+            'subarea' => 'required',
             'codigo' => [
                 'required',
                 'max:45',
-                'regex:/^[a-zA-Z0-9\s]+$/',
+                'regex:/^[A-Z0-9]+$/',
                 'unique:asignatura,codigo'
             ]
         ];
@@ -41,14 +42,15 @@ class StoreAsignatura extends FormRequest
 
     public function messages() {
         return [
-            'asignatura.required' => "Debe ingresar una asignatura",
-            'asignatura.max' => "Asignatura debe tener máximo 512 caracteres",
-            'asignatura.regex' => "Asignatura no puede tener simbolos (!/@$&#...)",
-            'asignatura.unique' => "La asignatura ya existe",
+            'nombre.required' => "Debe ingresar una asignatura",
+            'nombre.max' => "Asignatura debe tener máximo 512 caracteres",
+            'nombre.regex' => "Asignatura no puede tener simbolos (!/@$&#...)",
+            'nombre.unique' => "La asignatura ya existe",
             'codigo.required' => "Debe ingresar un código",
             'codigo.max' => "Código debe tener máximo 45 caracteres",
             'codigo.regex' => "Código no puede tener simbolos (!/@$&#...)",
-            'codigo.unique' => "El código ya existe"
+            'codigo.unique' => "El código ya existe",
+            'subarea.required' => "Debe ingresar una subarea"
         ];
     }
 }

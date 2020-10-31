@@ -19,7 +19,7 @@
       <div id="tipoactividad" class="form-group row">
         <label for="tipoactividad-input" class="col-sm-2 col-form-label">Tipo de actividad</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control col-sm-5" placeholder="Nombre del tipo de actividad" name="tipoActividad" id="tipoactividad-input" value="{{ old('tipoActividad') }}"> 
+          <input type="text" class="form-control col-sm-5" placeholder="Nombre del tipo de actividad" name="nombre" id="tipoactividad-input" value="{{ old('nombre') }}"> 
         </div>
       </div><br>
     <button class="btn btn-primary" type="submit" form="agregar-tipoactividad" value="Submit">Agregar tipo de actividad</button>

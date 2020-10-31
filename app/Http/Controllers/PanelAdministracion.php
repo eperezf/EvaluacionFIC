@@ -8,6 +8,8 @@ use Illuminate\html;
 use App\Asignatura;
 use App\Tipoactividad;
 use App\Area;
+use App\Subarea;
+use App\PerfeccionamientoDocente;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -29,6 +31,55 @@ use App\Http\Requests\StoreProyectoConcursable;
 
 class PanelAdministracion extends Controller
 {
+//Funciones generales
+
+    private function deleteAccentMark($string)
+    {
+        $string = str_replace(
+            array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª'),
+            array('A', 'A', 'A', 'A', 'a', 'a', 'a', 'a', 'a'),
+            $string
+        );
+     
+        //Reemplazamos la E y e
+        $string = str_replace(
+            array('É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê'),
+            array('E', 'E', 'E', 'E', 'e', 'e', 'e', 'e'),
+            $string
+        );
+     
+        //Reemplazamos la I y i
+        $string = str_replace(
+            array('Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î'),
+            array('I', 'I', 'I', 'I', 'i', 'i', 'i', 'i'),
+            $string
+        );
+     
+        //Reemplazamos la O y o
+        $string = str_replace(
+            array('Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô'),
+            array('O', 'O', 'O', 'O', 'o', 'o', 'o', 'o'),
+            $string
+        );
+     
+        //Reemplazamos la U y u
+        $string = str_replace(
+            array('Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û'),
+            array('U', 'U', 'U', 'U', 'u', 'u', 'u', 'u'),
+            $string
+        );
+    
+        //Reemplazamos la N, n, C y c
+        $string = str_replace(
+            array('Ñ', 'ñ', 'Ç', 'ç'),
+            array('N', 'n', 'C', 'c'),
+            $string
+        );
+        return strtolower($string);
+    }
+
+//--------------------------------------------------
+
     public function loadPanelAdministracion()
     {
         return view('panel.panelAdministracion');
@@ -66,7 +117,13 @@ class PanelAdministracion extends Controller
 
     public function postTipoActividad(StoreTipoActividad $request)
     {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $tipoActividad = new Tipoactividad;
+        $tipoActividad->nombre = $request->nombre;
+        $tipoActividad->save();
         return redirect('/panelAdministracion');
     }
     
@@ -74,7 +131,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarAsignatura()
     {
-        return view('panel.agregar.agregarAsignatura');
+        $subareas = Subarea::all(['id', 'nombre']);
+        return view('panel.agregar.agregarAsignatura', compact('subareas', $subareas));
     }
 
     public function loadModificarAsignatura()
@@ -84,7 +142,15 @@ class PanelAdministracion extends Controller
 
     public function postAsignatura(StoreAsignatura $request) 
     {
+        $originalRequest = $request->duplicate();
+        $request->name = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $asignatura = new Asignatura;
+        $asignatura->nombre = $request->nombre;
+        $asignatura->codigo = $request->codigo;
+        $asignatura->idsubarea = $request->subarea;
+        $asignatura->save();
         return redirect('/panelAdministracion');
     }
     
@@ -157,7 +223,13 @@ class PanelAdministracion extends Controller
     }
 
     public function postArea(StoreArea $request) {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $area = new Area;
+        $area->nombre = $request->nombre;
+        $area->save();
         return redirect('/panelAdministracion');
     }
     
@@ -174,8 +246,16 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarSubarea');
     }
 
-    public function postSubarea(StoreSubarea $request) {
+    public function postSubarea(StoreSubarea $request)
+    {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $subarea = new Subarea;
+        $subarea->nombre = $request->nombre;
+        $subarea->idarea = $request->area;
+        $subarea->save();
         return redirect('/panelAdministracion');
     }
     
@@ -283,7 +363,16 @@ class PanelAdministracion extends Controller
 
     public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
     {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
+        $request->institucion = $this->deleteAccentMark($request->institucion);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $perfeccionamiento = new PerfeccionamientoDocente;
+        $perfeccionamiento->nombre = $request->nombre;
+        $perfeccionamiento->area = $request->area;
+        $perfeccionamiento->institucion = $request->institucion;
+        $perfeccionamiento->save();
         return redirect('/panelAdministracion');
     }
     
