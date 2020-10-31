@@ -24,16 +24,22 @@ class StoreTipoActividad extends FormRequest
     public function rules()
     {
         return [
-            'tipoActividad' => ['required', 'max:45','regex:/^[a-zA-Z\s]+$/'],
+            'nombre' => [
+                'required',
+                'max:45',
+                'regex:/^[a-zA-Z\s]+$/',
+                'unique:tipoactividad,nombre'
+            ]
         ];
     }
 
     public function messages() 
     {
         return [
-            'tipoActividad.required' => "Debe ingresar un tipo de actividad",
-            'tipoActividad.max' => "El tipo de actividad debe tener máximo 45 caracteres",
-            'tipoActividad.regex'=> "El tipo de actividad debe tener solo letras",
+            'nombre.required' => "Debe ingresar un tipo de actividad",
+            'nombre.max' => "El tipo de actividad debe tener máximo 45 caracteres",
+            'nombre.regex' => "El tipo de actividad debe tener solo letras",
+            'nombre.unique' => "El tipo de actividad ya existe"
         ];
     }
 }

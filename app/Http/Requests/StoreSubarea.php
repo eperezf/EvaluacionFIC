@@ -22,7 +22,7 @@ class StoreSubarea extends FormRequest {
     public function rules() {
         return [
             'area' => ['required'],
-            'subarea' => [
+            'nombre' => [
                 'required',
                 'max:45',
                 'unique:subarea,nombre',
@@ -34,10 +34,10 @@ class StoreSubarea extends FormRequest {
     public function messages() {
         return [
             'area.required' => "Debe ingresar una área",
-            'subarea.required' => "Debe ingresar una subarea",
-            'subarea.max' => "Subarea debe tener máximo 45 caracteres",
-            'subarea.unique' => "La subarea ya existe",
-            'subarea.alpha' => "Subarea debe tener solo letras"
+            'nombre.required' => "Debe ingresar una subarea",
+            'nombre.max' => "Subarea debe tener máximo 45 caracteres",
+            'nombre.unique' => "La subarea ya existe",
+            'nombre.alpha' => "Subarea debe tener solo letras"
         ];
     }
 }
