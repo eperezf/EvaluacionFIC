@@ -117,7 +117,13 @@ class PanelAdministracion extends Controller
 
     public function postTipoActividad(StoreTipoActividad $request)
     {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $tipoActividad = new Tipoactividad;
+        $tipoActividad->nombre = $request->nombre;
+        $tipoActividad->save();
         return redirect('/panelAdministracion');
     }
     
