@@ -89,7 +89,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarPublicacion()
     {
-        return view('panel.agregar.agregarPublicacion');
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarPublicacion', ['areas' => $areas]);
     }
 
     public function loadModificarPublicacion()
@@ -158,7 +159,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarTutoria()
     {
-        return view('panel.agregar.agregarTutoria');
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarTutoria', ['areas' => $areas]);
     }
 
     public function loadModificarTutoria()
@@ -196,7 +198,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarCurso()
     {
         $asignaturas = Asignatura::all(['id','nombre']);
-        return view('panel.agregar.agregarCurso', compact('asignaturas', $asignaturas));
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarCurso', ['asignaturas' => $asignaturas, 'areas' => $areas]);
     }
 
     public function loadModificarCurso()
@@ -280,7 +283,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarVinculacion()
     {
-        return view('panel.agregar.agregarVinculacion');
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarVinculacion', ['areas' => $areas]);
     }
 
     public function loadModificarVinculacion()
@@ -298,7 +302,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarTransferenciaTecnologica()
     {
-        return view('panel.agregar.agregarTransferenciaTecnologica');
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarTransferenciaTecnologica', ['areas' => $areas]);
     }
 
     public function loadModificarTransferenciaTecnologica()
@@ -316,7 +321,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarSpinoff()
     {
-        return view('panel.agregar.agregarSpinoff');
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarSpinoff', ['areas' => $areas]);
     }
 
     public function loadModificarSpinoff()
@@ -334,7 +340,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarProyectoConcursable()
     {
-        return view('panel.agregar.agregarProyectoConcursable');
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarProyectoConcursable', ['areas' => $areas]);
     }
 
     public function loadModificarProyectoConcursable()
@@ -380,7 +387,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarLicencia()
     {
-        return view('panel.agregar.agregarLicencia');
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarLicencia', ['areas' => $areas]);
     }
 
     public function loadModificarLicencia()
@@ -398,7 +406,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarLibro()
     {
-        return view('panel.agregar.agregarLibro');
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarLibro', ['areas' => $areas]);
     }
 
     public function loadModificarLibro()
