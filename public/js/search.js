@@ -35,7 +35,7 @@ function alertFunc()
       $('#sugerencias').append(
       '<div class="row p-1 bg-light rounded">' +
         '<h5 class="col-8">'+item.nombre+'</h5>' +
-        '<a href="" class="btn btn-secondary col-2">Modificar</a>' +
+        '<a href="/panelAdministracion/modificarArea/' + item.id + '" class="btn btn-secondary col-2">Modificar</a>' +
         '<a href="" class="btn btn-danger col-2">Eliminar</a>' +
       '</div>'
       );

@@ -56,6 +56,7 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::post('panelAdministracion/postVinculacion', 'PanelAdministracion@postVinculacion')->middleware('auth')->name('postVinculacion');
 
     Route::get('panelAdministracion/modificarArea', 'PanelAdministracion@loadModificarArea')->middleware('auth')->name('modificarArea');
+        Route::get('panelAdministracion/modificarArea/{id}', 'PanelAdministracion@loadModificarAreaForm')->middleware('auth')->name('modificarAreaForm');
     Route::get('panelAdministracion/modificarCurso', 'PanelAdministracion@loadModificarCurso')->middleware('auth')->name('modificarCurso');
     Route::get('panelAdministracion/modificarCargoAdministrativo', 'PanelAdministracion@loadModificarCargoAdministrativo')->middleware('auth')->name('modificarCargo');
     Route::get('panelAdministracion/modificarPublicacion', 'PanelAdministracion@loadModificarPublicacion')->middleware('auth')->name('modificarPublicacion');

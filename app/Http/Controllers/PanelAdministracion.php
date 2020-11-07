@@ -225,7 +225,14 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarArea');
     }
 
-    public function postArea(StoreArea $request) {
+    public function loadModificarAreaForm($id)
+    {
+        $area = Area::find($id);
+        return view('panel.modificar.modificarAreaForm', ['area'=>$area]);
+    }
+
+    public function postArea(StoreArea $request)
+    {
         $originalRequest = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
