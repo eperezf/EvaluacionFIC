@@ -53,8 +53,8 @@
         <div class="card-body" style="min-width: 25rem;">
           <h4 class="card-title">Actividad de área</h4>
           <p class="card-text">Agrega o modifica actividades de área</p>
-          <a class="btn btn-primary" href="{{ route('agregarCurso') }}">Agregar</a>
-          <a class="btn btn-secondary" href="{{ route('modificarCurso') }}">Modificar</a>
+          <a class="btn btn-primary" href="{{ route('agregarActividadArea') }}">Agregar</a>
+          <a class="btn btn-secondary" href="{{ route('modificarActividadArea') }}">Modificar</a>
         </div>
       </div>
     </div>
@@ -64,8 +64,8 @@
         <div class="card-body" style="min-width: 25rem;">
           <h4 class="card-title">Actividad de asignatura</h4>
           <p class="card-text">Agrega o modifica actividades de asignatura</p>
-          <a class="btn btn-primary" href="{{ route('agregarCurso') }}">Agregar</a>
-          <a class="btn btn-secondary" href="{{ route('modificarCurso') }}">Modificar</a>
+          <a class="btn btn-primary" href="{{ route('agregarActividadAsignatura') }}">Agregar</a>
+          <a class="btn btn-secondary" href="{{ route('modificarActividadAsignatura') }}">Modificar</a>
         </div>
       </div>
     </div>

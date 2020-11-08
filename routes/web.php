@@ -21,6 +21,8 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
 Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')->middleware('auth')->name('panelAdministracion');
+    Route::get('paneladministracion/agregarActividadArea', 'PanelAdministracion@loadAgregarActividadArea')->middleware('auth')->name('agregarActividadArea');
+    Route::get('panelAdministracion/agregarActividadAsignatura', 'PanelAdministracion@loadAgregarActividadAsignatura')->middleware('auth')->name('agregarActividadAsignatura');
     Route::get('panelAdministracion/agregarArea', 'PanelAdministracion@loadAgregarArea')->middleware('auth')->name('agregarArea');
     Route::get('panelAdministracion/agregarCurso', 'PanelAdministracion@loadAgregarCurso')->middleware('auth')->name('agregarCurso');
     Route::get('panelAdministracion/agregarCargoAdministrativo', 'PanelAdministracion@loadAgregarCargoAdministrativo')->middleware('auth')->name('agregarCargo');
@@ -57,6 +59,8 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
 
     Route::get('panelAdministracion/modificarArea', 'PanelAdministracion@loadModificarArea')->middleware('auth')->name('modificarArea');
         Route::get('panelAdministracion/modificarArea/{id}', 'PanelAdministracion@loadModificarAreaForm')->middleware('auth')->name('modificarAreaForm');
+    Route::get('panelAdministracion/modificarActividadAsignatura', 'PanelAdministracion@loadModificarActividadAsignatura')->middleware('auth')->name('modificarActividadAsignatura');
+    Route::get('panelAdministracion/modificarActividadArea', 'PanelAdministracion@loadModificarActividadArea')->middleware('auth')->name('modificarActividadArea');
     Route::get('panelAdministracion/modificarCurso', 'PanelAdministracion@loadModificarCurso')->middleware('auth')->name('modificarCurso');
     Route::get('panelAdministracion/modificarCargoAdministrativo', 'PanelAdministracion@loadModificarCargoAdministrativo')->middleware('auth')->name('modificarCargo');
     Route::get('panelAdministracion/modificarPublicacion', 'PanelAdministracion@loadModificarPublicacion')->middleware('auth')->name('modificarPublicacion');

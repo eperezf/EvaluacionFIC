@@ -98,6 +98,21 @@ class PanelAdministracion extends Controller
         return view('panel.agregar.agregarPublicacion', ['areas' => $areas]);
     }
 
+//--------------------------------------------------
+
+    public function loadAgregarActividadAsignatura()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarActividadAsignatura', ['areas' => $areas]);
+    }
+
+    public function loadModificarActividadAsignatura()
+    {
+        return view('panel.modificar.modificarActividadAsignatura');
+    }
+
+//--------------------------------------------------
+
     public function loadModificarPublicacion()
     {
         return view('panel.modificar.modificarPublicacion');
@@ -110,6 +125,17 @@ class PanelAdministracion extends Controller
     }
     
 //--------------------------------------------------
+
+    public function loadAgregarActividadArea()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarActividadArea', ['areas' => $areas]);
+    }
+
+    public function loadModificarActividadArea()
+    {
+        return view('panel.modificar.modificarActividadArea');
+    }
 
     public function loadAgregarAsignatura()
     {
