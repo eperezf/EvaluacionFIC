@@ -19,7 +19,7 @@
     <div id="nombre" class="form-group row">
       <label for="nombre-input" class="col-sm-3 col-form-label">Tranferencia Tecnológica</label>
       <div class="col-sm-9">
-        <input name="transferenciaTecnologica" class="form-control col-sm-5" placeholder="Nombre de la transferencia tecnológica" type="text" id="nombre-input" value="{{ old('transferenciaTecnologica') }}">
+        <input name="nombre" class="form-control col-sm-5" placeholder="Nombre de la transferencia tecnológica" type="text" id="nombre-input" value="{{ old('nombre') }}">
       </div>
     </div>
     <div id="empresa" class="form-group row">
@@ -39,19 +39,8 @@
       <div class="col-sm-9">
         <input class="form-control col-sm-5" type="date" name="fechaTermino" id="input-termino" value="{{ old('fechaTermino') }}">
       </div>
-    </div>
-    <div id="area" class="form-group row">
-      <label for="select-area" class="col-sm-3 col-form-label">Área</label>
-      <div class="col-sm-9">
-        <select class="form-control col-sm-5" requiered="true" name="area" id="select-area">
-          <option disabled value="Seleccione una asignatura" selected>Seleccione una área</option>
-          @foreach ($areas as $area)
-            <option value="{{ $area->id }}">{{ $area->nombre }}</option>
-          @endforeach
-        </select>
-      </div>
     </div><br>
-    <button class="btn btn-primary" type="submit" form="agregar-transferenciatecnologica" value="Submit">Agregar transferencia tecnológica</button>
+    <button class="btn btn-primary" type="submit" form="agregar-transferenciatecnologica" value="Submit">Guardar</button>
   </form>
 </section>
 @endsection

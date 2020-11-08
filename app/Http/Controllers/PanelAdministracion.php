@@ -14,6 +14,8 @@ use App\Libro;
 use App\Actividad;
 use App\Licencia;
 use App\Proyectoconcursable;
+use App\Spinoff;
+use App\TransferenciaTecnologica;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -299,7 +301,20 @@ class PanelAdministracion extends Controller
 
     public function postTransferenciaTecnologica(StoreTransferenciaTecnologica $request)
     {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Transferencia'.'%')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $transferencia = new Transferenciatecnologica;
+        $transferencia->nombre = $request->nombre;
+        $transferencia->empresa = $request->empresa;
+        $transferencia->idactividad = Actividad::latest()->first()->id;
+        $transferencia->save();
         return redirect('/panelAdministracion');
     }
     
@@ -318,7 +333,19 @@ class PanelAdministracion extends Controller
 
     public function postSpinoff(StoreSpinoff $request)
     {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Spinoff'.'%')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $spinoff = new Spinoff;
+        $spinoff->nombre = $request->nombre;
+        $spinoff->idactividad = Actividad::latest()->first()->id;
+        $spinoff->save();
         return redirect('/panelAdministracion');
     }
     
@@ -373,10 +400,16 @@ class PanelAdministracion extends Controller
         $request->institucion = $this->deleteAccentMark($request->institucion);
         $validated = $request->validated();
         $request = $originalRequest;
-        $perfeccionamiento = new PerfeccionamientoDocente;
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Perfeccionamiento'.'%')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $perfeccionamiento = new Perfeccionamientodocente;
         $perfeccionamiento->nombre = $request->nombre;
         $perfeccionamiento->area = $request->area;
         $perfeccionamiento->institucion = $request->institucion;
+        $perfeccionamiento->idactividad = Actividad::latest()->first()->id;
         $perfeccionamiento->save();
         return redirect('/panelAdministracion');
     }
