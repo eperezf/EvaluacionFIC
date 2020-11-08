@@ -10,6 +10,8 @@ use App\Tipoactividad;
 use App\Area;
 use App\Subarea;
 use App\PerfeccionamientoDocente;
+use App\Libro;
+use App\Actividad;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -424,7 +426,22 @@ class PanelAdministracion extends Controller
 
     public function postLibro(StoreLibro $request)
     {
+        $originalRequest = $request->duplicate();
+        $request->titulo = $this->deleteAccentMark($request->nombre);
+        $request->isbn = $this->deleteAccentMark($request->isbn);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $actividad = new Actividad;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->idtipoactividad = 1;
+        $actividad->save();
+        $idActividad = Actividad::latest()->first()->id;
+        $libro = new Libro;
+        $libro->titulo = $request->titulo;
+        $libro->isbn = $request->isbn;
+        $libro->idactividad = $idActividad;
+        $libro->save();
         return redirect('/panelAdministracion');
     }
 }

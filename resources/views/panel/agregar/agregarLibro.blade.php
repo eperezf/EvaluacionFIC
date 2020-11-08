@@ -19,7 +19,7 @@
     <div id="titulo" class="form-group row">
       <label for="titulo-input" class="col-sm-2 col-form-label">Título</label>
       <div class="col-sm-10">
-        <input class="form-control col-sm-5" name="libro" type="text" id="titulo-input" placeholder="Título del libro" value="{{ old('libro') }}"">
+        <input class="form-control col-sm-5" name="titulo" type="text" id="titulo-input" placeholder="Título del libro" value="{{ old('titulo') }}"">
       </div>
     </div>
     <div id="isbn" class="form-group row">
@@ -38,17 +38,6 @@
       <label for="input-termino" class="col-sm-2 col-form-label">Fecha de término</label>
       <div class="col-sm-10">
         <input class="form-control col-sm-5" type="date" name="fechaTermino" id="input-termino" value="{{ old('fechaTermino') }}">
-      </div>
-    </div>
-    <div id="area" class="form-group row">
-      <label for="select-area" class="col-sm-2 col-form-label">Área</label>
-      <div class="col-sm-10">
-        <select class="form-control col-sm-5" requiered="true" name="area" id="select-area">
-          <option disabled value="Seleccione una asignatura" selected>Seleccione una área</option>
-          @foreach ($areas as $area)
-            <option value="{{ $area->id }}">{{ $area->nombre }}</option>
-          @endforeach
-        </select>
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="agregar-libro" value="Submit">Guardar</button>
