@@ -12,6 +12,8 @@ use App\Subarea;
 use App\PerfeccionamientoDocente;
 use App\Libro;
 use App\Actividad;
+use App\Licencia;
+use App\Proyectoconcursable;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -23,7 +25,6 @@ use App\Http\Requests\StoreCurso;
 use App\Http\Requests\StoreSpinoff;
 use App\Http\Requests\StoreLibro;
 use App\Http\Requests\StoreLicencia;
-use App\Http\Requests\StoreTipoActividad;
 use App\Http\Requests\StoreVinculacion;
 use App\Http\Requests\StoreTutoria;
 use App\Http\Requests\StoreTransferenciaTecnologica;
@@ -103,30 +104,6 @@ class PanelAdministracion extends Controller
     public function postPublicacion(StorePublicacion $request)
     {
         $validated = $request->validated();
-        return redirect('/panelAdministracion');
-    }
-    
-//--------------------------------------------------
-
-    public function loadAgregarTipoActividad()
-    {
-        return view('panel.agregar.agregarTipoActividad');
-    }
-
-    public function loadModificarTipoActividad()
-    {
-        return view('panel.modificar.modificarTipoActividad');
-    }
-
-    public function postTipoActividad(StoreTipoActividad $request)
-    {
-        $originalRequest = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $validated = $request->validated();
-        $request = $originalRequest;
-        $tipoActividad = new Tipoactividad;
-        $tipoActividad->nombre = $request->nombre;
-        $tipoActividad->save();
         return redirect('/panelAdministracion');
     }
     
@@ -360,7 +337,19 @@ class PanelAdministracion extends Controller
 
     public function postProyectoConcursable(StoreProyectoConcursable $request)
     {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Proyecto'.'%')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $proyecto = new Proyectoconcursable;
+        $proyecto->nombre = $request->nombre;
+        $proyecto->idactividad = Actividad::latest()->first()->id;
+        $proyecto->save();
         return redirect('/panelAdministracion');
     }
     
@@ -407,7 +396,21 @@ class PanelAdministracion extends Controller
 
     public function postLicencia(StoreLicencia $request)
     {
+        $originalRequest = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
+        $request->empresa = $this->deleteAccentMark($request->empresa);
         $validated = $request->validated();
+        $request = $originalRequest;
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Licencia')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $licencia = new Licencia;
+        $licencia->nombre = $request->nombre;
+        $licencia->empresa = $request->empresa;
+        $licencia->idactividad = Actividad::latest()->first()->id;
+        $licencia->save();
         return redirect('/panelAdministracion');
     }
     
@@ -432,15 +435,14 @@ class PanelAdministracion extends Controller
         $validated = $request->validated();
         $request = $originalRequest;
         $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Libro')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;
         $actividad->termino = $request->fechaTermino;
-        $actividad->idtipoactividad = 1;
         $actividad->save();
-        $idActividad = Actividad::latest()->first()->id;
         $libro = new Libro;
         $libro->titulo = $request->titulo;
         $libro->isbn = $request->isbn;
-        $libro->idactividad = $idActividad;
+        $libro->idactividad = Actividad::latest()->first()->id;;
         $libro->save();
         return redirect('/panelAdministracion');
     }
