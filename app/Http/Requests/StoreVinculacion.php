@@ -24,20 +24,19 @@ class StoreVinculacion extends FormRequest
     public function rules()
     {
         return [
-            'vinculacion' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
-            'descripcion' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
+            'nombre' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
+            'descripcion' => ['required', 'max:45'],
         ];
     }
 
     public function messages()
     {
         return [
-            'vinculacion.required' => "Debe ingresar una vinculación.",
-            'vinculacion.max' => "La vinculación debe tener máximo 45 caracteres",
-            'vinculacion.regex' => "La vinculación debe tener solo letras",
+            'nombre.required' => "Debe ingresar una vinculación.",
+            'nombre.max' => "La vinculación debe tener máximo 45 caracteres",
+            'nombre.regex' => "La vinculación debe tener solo letras",
             'descripcion.required' => "Debe ingresar una descripción.",
             'descripcion.max' => "La descrpción debe tener máximo 45 caracteres",
-            'descripcion.regex' => "La descripción debe tener solo letras",
         ];
     }
 }

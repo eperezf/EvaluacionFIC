@@ -27,9 +27,8 @@ class StoreCurso extends FormRequest
         return [
           'asignatura' => ['required'],
           'seccion' => ['required','integer','min:0'],
-          'calificacion' => ['required','between:1,7','numeric'],
-          'respuestas' => ['required','integer','numeric','min:0'],
-          'material' => ['required','in:si,no']
+          'fechaInicio' => ['required', 'date'],
+          'fechaTermino' => ['required', 'date', 'after:fechaInicio']
         ];
     }
 
@@ -40,14 +39,9 @@ class StoreCurso extends FormRequest
           'seccion.required' => "Debe ingresar un número de sección.",
           'seccion.integer' => "La sección debe ser un número entero.",
           'seccion.min' => "El número de sección no puede ser negativo.",
-          'calificacion.required' => "Debe ingresar la calificación de la encuesta docente.",
-          'calificacion.between' => "La calificación debe ser un número entre 1,0 y 7,0.",
-          'calificacion.numeric' => "La calificación debe ser un número.",
-          'respuestas.required' => "Debe ingresar la cantidad de respuestas que se obtuvieron en la encuesta docente.",
-          'respuestas.min' => "La cantidad de respuestas en la encuesta docente no puede ser negativa.",
-          'respuestas.numeric' => "La cantidad de respuestas en la encuesta docente debe ser un número.",
-          'respuestas.integer' => "La cantidad de respuestas en la encuesta docente debe ser un número entero.",
-          'material.required' => "Debe marcar una opcion en el campo de material docente."
+          'fechaInicio.required' => "Debe ingresar una fecha de inicio",
+          'fechaTermino.required' => "Debe ingresar una fecha de termino",
+          'fechaTermino.after' => "La fecha de termino no puede estar antes que la fecha de inicio"
         ];
     }
 }

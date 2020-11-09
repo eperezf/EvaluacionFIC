@@ -16,6 +16,12 @@ use App\Licencia;
 use App\Proyectoconcursable;
 use App\Spinoff;
 use App\TransferenciaTecnologica;
+use App\Actividad_Asignatura;
+use App\Actividad_area;
+use App\Vinculacion;
+use App\Curso;
+use App\Tutoria;
+use App\Publicacion;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -32,7 +38,8 @@ use App\Http\Requests\StoreTutoria;
 use App\Http\Requests\StoreTransferenciaTecnologica;
 use App\Http\Requests\StorePerfeccionamientoDocente;
 use App\Http\Requests\StoreProyectoConcursable;
-
+use App\Http\Requests\StoreActividadAsignatura;
+use App\Http\Requests\StoreActividadArea;
 
 class PanelAdministracion extends Controller
 {
@@ -98,21 +105,6 @@ class PanelAdministracion extends Controller
         return view('panel.agregar.agregarPublicacion', ['areas' => $areas]);
     }
 
-//--------------------------------------------------
-
-    public function loadAgregarActividadAsignatura()
-    {
-        $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarActividadAsignatura', ['areas' => $areas]);
-    }
-
-    public function loadModificarActividadAsignatura()
-    {
-        return view('panel.modificar.modificarActividadAsignatura');
-    }
-
-//--------------------------------------------------
-
     public function loadModificarPublicacion()
     {
         return view('panel.modificar.modificarPublicacion');
@@ -120,10 +112,71 @@ class PanelAdministracion extends Controller
 
     public function postPublicacion(StorePublicacion $request)
     {
+        $original = $request->duplicate();
+        $request->tipopublicacion = $this->deleteAccentMark($request->tipopublicacion);
+        $request->titulo = $this->deleteAccentMark($request->titulo);
+        $request->volumen = $this->deleteAccentMark($request->volumen);
+        $request->issue = $this->deleteAccentMark($request->issue);
+        $request->notas = $this->deleteAccentMark($request->notas);
+        $request->doi = $this->deleteAccentMark($request->doi);
+        $request->revista = $this->deleteAccentMark($request->revista);
+        $request->tiporevista = $this->deleteAccentMark($request->tiporevista);
+        $request->publisher = $this->deleteAccentMark($request->publisher);
+        $request->abstract = $this->deleteAccentMark($request->abstract);
         $validated = $request->validated();
+        $request = $original;
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Publicación')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $publicacion = new Publicacion;
+        $publicacion->tipo = $request->tipopublicacion;
+        $publicacion->titulo = $request->titulo;
+        $publicacion->volumen = $request->volumen;
+        $publicacion->issue = $request->issue;
+        $publicacion->pages = $request->pages;
+        $publicacion->issn = $request->issn;
+        $publicacion->doi = $request->doi;
+        $publicacion->notas = $request->notas;
+        $publicacion->revista = $request->revista;
+        $publicacion->tipoRevista = $request->tiporevista;
+        $publicacion->publisher = $request->publisher;
+        $publicacion->abstract = $request->abstract;
+        $publicacion->idactividad = Actividad::latest()->first()->id;
+        $publicacion->save();
         return redirect('/panelAdministracion');
     }
     
+//--------------------------------------------------
+
+    public function loadAgregarActividadAsignatura()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        $asignaturas = Asignatura::all('id', 'nombre');
+        return view('panel.agregar.agregarActividadAsignatura', ['areas' => $areas, 'asignaturas' => $asignaturas]);
+    }
+
+    public function loadModificarActividadAsignatura()
+    {
+        return view('panel.modificar.modificarActividadAsignatura');
+    }
+
+    public function postActividadAsignatura(StoreActividadAsignatura $request)
+    {
+        $validated = $request->validated();
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Asignatura')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $actividadAsignatura = new Actividad_Asignatura;
+        $actividadAsignatura->idasignatura = $request->asignatura;
+        $actividadAsignatura->idactividad = Actividad::latest()->first()->id;
+        $actividadAsignatura->save();
+        return redirect('/panelAdministracion');
+    }
+
 //--------------------------------------------------
 
     public function loadAgregarActividadArea()
@@ -136,6 +189,23 @@ class PanelAdministracion extends Controller
     {
         return view('panel.modificar.modificarActividadArea');
     }
+
+    public function postActividadArea(StoreActividadArea $request)
+    {
+        $validated = $request->validated();
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Area')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $actividadArea = new Actividad_area;
+        $actividadArea->idactividad = Actividad::latest()->first()->id;
+        $actividadArea->idarea = $request->area;
+        $actividadArea->save();
+        return redirect('/panelAdministracion');
+    }
+
+//--------------------------------------------------
 
     public function loadAgregarAsignatura()
     {
@@ -150,10 +220,10 @@ class PanelAdministracion extends Controller
 
     public function postAsignatura(StoreAsignatura $request) 
     {
-        $originalRequest = $request->duplicate();
+        $original = $request->duplicate();
         $request->name = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
-        $request = $originalRequest;
+        $request = $original;
         $asignatura = new Asignatura;
         $asignatura->nombre = $request->nombre;
         $asignatura->codigo = $request->codigo;
@@ -166,8 +236,7 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarTutoria()
     {
-        $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarTutoria', ['areas' => $areas]);
+        return view('panel.agregar.agregarTutoria');
     }
 
     public function loadModificarTutoria()
@@ -177,26 +246,19 @@ class PanelAdministracion extends Controller
 
     public function postTutoria(StoreTutoria $request)
     {
+        $original = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
-        return redirect('/panelAdministracion');
-    }
-    
-//--------------------------------------------------
-
-    public function loadAgregarActividad()
-    {
-        $tipos = Tipoactividad::all(['id','nombre']);
-        return view('panel.agregar.agregarActividad', compact('tipos', $tipos));
-    }
-
-    public function loadModificarActividad()
-    {
-        return view('panel.modificar.modificarActividad');
-    }
-
-    public function postActividad(StoreActividad $request)
-    {
-        $validated = $request->validated();
+        $request = $original;
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Tutoría')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $tutoria = new Tutoria;
+        $tutoria->idactividad = Actividad::latest()->first()->id;
+        $tutoria->nombre = $request->nombre;
+        $tutoria->save();
         return redirect('/panelAdministracion');
     }
     
@@ -205,8 +267,7 @@ class PanelAdministracion extends Controller
     public function loadAgregarCurso()
     {
         $asignaturas = Asignatura::all(['id','nombre']);
-        $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarCurso', ['asignaturas' => $asignaturas, 'areas' => $areas]);
+        return view('panel.agregar.agregarCurso', ['asignaturas' => $asignaturas]);
     }
 
     public function loadModificarCurso()
@@ -216,7 +277,22 @@ class PanelAdministracion extends Controller
 
     public function postCurso(StoreCurso $request)
     {
+        $original = $request->duplicate();
+        $request->seccion = $this->deleteAccentMark($request->seccion);
         $validate = $request->validated();
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Curso')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $curso = new Curso;
+        $curso->calificacion = null;
+        $curso->respuestas = null;
+        $curso->material = null;
+        $curso->seccion = $request->seccion;
+        $curso->idactividad = Actividad::latest()->first()->id;
+        $curso->idasignatura = $request->asignatura;
+        $curso->save();
         return redirect('/panelAdministracion');
     }
     
@@ -240,10 +316,10 @@ class PanelAdministracion extends Controller
 
     public function postArea(StoreArea $request)
     {
-        $originalRequest = $request->duplicate();
+        $original = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
-        $request = $originalRequest;
+        $request = $original;
         $area = new Area;
         $area->nombre = $request->nombre;
         $area->save();
@@ -265,10 +341,10 @@ class PanelAdministracion extends Controller
 
     public function postSubarea(StoreSubarea $request)
     {
-        $originalRequest = $request->duplicate();
+        $original = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
-        $request = $originalRequest;
+        $request = $original;
         $subarea = new Subarea;
         $subarea->nombre = $request->nombre;
         $subarea->idarea = $request->area;
@@ -288,7 +364,8 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarCargoAdministrativo');
     }
 
-    public function postCargoAdministrativo(StoreCargo $request) {
+    public function postCargoAdministrativo(StoreCargo $request) 
+    {
         $validated = $request->validated();
         return redirect('/panelAdministracion');
     }
@@ -308,7 +385,21 @@ class PanelAdministracion extends Controller
 
     public function postVinculacion(StoreVinculacion $request)
     {
+        $original = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
+        $request->descripcion = $this->deleteAccentMark($request->descripcion);
         $validated = $request->validated();
+        $request = $original;
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Vinculación')->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        $vinculacion = new Vinculacion;
+        $vinculacion->nombre = $request->nombre;
+        $vinculacion->descripcion = $request->descripcion;
+        $vinculacion->idactividad = Actividad::latest()->first()->id;
+        $vinculacion->save();
         return redirect('/panelAdministracion');
     }
     
@@ -327,10 +418,10 @@ class PanelAdministracion extends Controller
 
     public function postTransferenciaTecnologica(StoreTransferenciaTecnologica $request)
     {
-        $originalRequest = $request->duplicate();
+        $original = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
-        $request = $originalRequest;
+        $request = $original;
         $actividad = new Actividad;
         $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Transferencia'.'%')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;
@@ -359,10 +450,10 @@ class PanelAdministracion extends Controller
 
     public function postSpinoff(StoreSpinoff $request)
     {
-        $originalRequest = $request->duplicate();
+        $original = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
-        $request = $originalRequest;
+        $request = $original;
         $actividad = new Actividad;
         $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Spinoff'.'%')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;
@@ -390,10 +481,10 @@ class PanelAdministracion extends Controller
 
     public function postProyectoConcursable(StoreProyectoConcursable $request)
     {
-        $originalRequest = $request->duplicate();
+        $original = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $validated = $request->validated();
-        $request = $originalRequest;
+        $request = $original;
         $actividad = new Actividad;
         $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Proyecto'.'%')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;
@@ -421,11 +512,11 @@ class PanelAdministracion extends Controller
 
     public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
     {
-        $originalRequest = $request->duplicate();
+        $original = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $request->institucion = $this->deleteAccentMark($request->institucion);
         $validated = $request->validated();
-        $request = $originalRequest;
+        $request = $original;
         $actividad = new Actividad;
         $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Perfeccionamiento'.'%')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;
@@ -455,11 +546,11 @@ class PanelAdministracion extends Controller
 
     public function postLicencia(StoreLicencia $request)
     {
-        $originalRequest = $request->duplicate();
+        $original = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $request->empresa = $this->deleteAccentMark($request->empresa);
         $validated = $request->validated();
-        $request = $originalRequest;
+        $request = $original;
         $actividad = new Actividad;
         $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Licencia')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;
@@ -488,11 +579,11 @@ class PanelAdministracion extends Controller
 
     public function postLibro(StoreLibro $request)
     {
-        $originalRequest = $request->duplicate();
+        $original = $request->duplicate();
         $request->titulo = $this->deleteAccentMark($request->nombre);
         $request->isbn = $this->deleteAccentMark($request->isbn);
         $validated = $request->validated();
-        $request = $originalRequest;
+        $request = $original;
         $actividad = new Actividad;
         $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Libro')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;

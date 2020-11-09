@@ -14,21 +14,15 @@
       </ul>
     </div>
   @endif
-  <form method="POST" action="" id="agregar-ActividadAsignatura">
+  <form method="POST" action="{{ route('postActividadAsignatura') }}" id="agregar-ActividadAsignatura">
     @csrf
-    <div id="nombre" class="form-group row">
-      <label for="nombre-actividad" class="col-sm-3 col-form-label" required="true" name="actividad" id="input-actividad">Nombre de la Activdad</label>
+    <div id="asignatura" class="form-group row">
+      <label for="nombre-input" class="col-sm-3 col-form-label">Asignatura</label>
       <div class="col-sm-9">
-        <input class="form-control col-sm-5" placeholder="Nombre actividad" type="text" name="nombre" id="nombre-actividad" value="{{ old('nombre') }}">
-      </div>
-    </div>
-    <div id="nombre" class="form-group row">
-      <label for="nombre-input" class="col-sm-3 col-form-label">Área</label>
-      <div class="col-sm-9">
-        <select class="form-control col-sm-5" requiered="true" name="area" id="select-area">
-          <option disabled value="Seleccione una asignatura" selected>Seleccione una área</option>
-          @foreach ($areas as $area)
-            <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+        <select class="form-control col-sm-5" requiered="true" name="asignatura" id="select-asignatura">
+          <option disabled value="Seleccione una asignatura" selected>Seleccione una asignatura</option>
+          @foreach ($asignaturas as $asignatura)
+            <option value="{{ $asignatura->id }}">{{ $asignatura->nombre }}</option>
           @endforeach
         </select>
       </div>
@@ -45,7 +39,7 @@
         <input class="form-control col-sm-5" type="date" name="fechaTermino" id="input-termino" value="{{ old('fechaTermino') }}">
       </div>
     </div><br>
-    <button class="btn btn-primary" type="submit" form="agregar-proyectoconcursable" value="Submit">Guardar</button>
+    <button class="btn btn-primary" type="submit" form="agregar-ActividadAsignatura" value="Submit">Guardar</button>
   </form>
 </section>
 @endsection

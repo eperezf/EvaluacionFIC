@@ -56,6 +56,8 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::post('panelAdministracion/postTransferenciaTecnologica', 'PanelAdministracion@postTransferenciaTecnologica')->middleware('auth')->name('postTransferenciaTecnologica');
     Route::post('panelAdministracion/postTutoria', 'PanelAdministracion@postTutoria')->middleware('auth')->name('postTutoria');
     Route::post('panelAdministracion/postVinculacion', 'PanelAdministracion@postVinculacion')->middleware('auth')->name('postVinculacion');
+    Route::post('panelAdministracion/postActividadAsignatura', 'PanelAdministracion@postActividadAsignatura')->middleware('auth')->name('postActividadAsignatura');
+    Route::post('panelAdministracion/postActividadArea', 'PanelAdministracion@postActividadArea')->middleware('auth')->name('postActividadArea');
 
     Route::get('panelAdministracion/modificarArea', 'PanelAdministracion@loadModificarArea')->middleware('auth')->name('modificarArea');
         Route::get('panelAdministracion/modificarArea/{id}', 'PanelAdministracion@loadModificarAreaForm')->middleware('auth')->name('modificarAreaForm');

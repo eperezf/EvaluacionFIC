@@ -14,19 +14,13 @@
       </ul>
     </div>
   @endif
-  <form method="POST" action="{{ route('postProyectoConcursable') }}" id="agregar-ActividadArea">
+  <form method="POST" action="{{ route('postActividadArea') }}" id="agregar-ActividadArea">
     @csrf
-    <div id="actividad" class="form-group row">
-      <label for="nombre-actividad" class="col-sm-3 col-form-label" required="true" name="actividad" id="input-actividad">Nombre de la Activdad</label>
-      <div class="col-sm-9">
-        <input class="form-control col-sm-5" placeholder="Nombre actividad" type="text" name="nombre-actividad" id="nombre-actividad">
-      </div>
-    </div>
-    <div id="nombre" class="form-group row">
+    <div id="area" class="form-group row">
       <label for="nombre-input" class="col-sm-3 col-form-label">Área</label>
       <div class="col-sm-9">
         <select class="form-control col-sm-5" requiered="true" name="area" id="select-area">
-          <option disabled value="Seleccione una asignatura" selected>Seleccione una área</option>
+          <option disabled value="Seleccione una area" selected>Seleccione una área</option>
           @foreach ($areas as $area)
             <option value="{{ $area->id }}">{{ $area->nombre }}</option>
           @endforeach
@@ -45,7 +39,7 @@
         <input class="form-control col-sm-5" type="date" name="fechaTermino" id="input-termino" value="{{ old('fechaTermino') }}">
       </div>
     </div><br>
-    <button class="btn btn-primary" type="submit" form="agregar-proyectoconcursable" value="Submit">Guardar</button>
+    <button class="btn btn-primary" type="submit" form="agregar-ActividadArea" value="Submit">Guardar</button>
   </form>
 </section>
 @endsection

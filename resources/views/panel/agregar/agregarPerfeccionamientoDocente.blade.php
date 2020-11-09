@@ -26,6 +26,12 @@
       <input type="text" class="form-control col-sm-5" placeholder="Nombre de la institución" name="institucion" id="institucion-input" value="{{ old('institucion') }}">
       </div>
     </div>
+    <div id="area" class="form-group row">
+      <label for="input-termino" class="col-sm-3 col-form-label">Área</label>
+      <div class="col-sm-9">
+        <input class="form-control col-sm-5" placeholder="Área de perfeccionamiento" name="area" id="input-termino" value="{{ old('area') }}">
+      </div>
+    </div>
     <div id="inicio" class="form-group row">
       <label for="input-inicio" class="col-sm-3 col-form-label">Fecha de inicio</label>
       <div class="col-sm-9">
@@ -36,17 +42,6 @@
       <label for="input-termino" class="col-sm-3 col-form-label">Fecha de término</label>
       <div class="col-sm-9">
         <input class="form-control col-sm-5" type="date" name="fechaTermino" id="input-termino" value="{{ old('fechaTermino') }}">
-      </div>
-    </div>
-    <div id="area" class="form-group row">
-      <label for="select-area" class="col-sm-3 col-form-label">Área</label>
-      <div class="col-sm-9">
-        <select class="form-control col-sm-5" requiered="true" name="area" id="select-area">
-          <option disabled value="Seleccione una asignatura" selected>Seleccione una área</option>
-          @foreach ($areas as $area)
-            <option value="{{ $area->id }}">{{ $area->nombre }}</option>
-          @endforeach
-        </select>
       </div>
     </div><br>
     <button type="submit" form="agregar-perfeccionamientodocente" class="btn btn-primary">Guardar</button>
