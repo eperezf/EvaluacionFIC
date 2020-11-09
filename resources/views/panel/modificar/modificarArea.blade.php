@@ -3,8 +3,6 @@
 @section('title', 'Panel de Administración')
 @section('contenido')
 
-
-
 <h1>Modificar área</h1>
 <hr>
 <a class="btn btn-primary" href="{{ route('panelAdministracion') }}" role="button">Volver</a>
@@ -14,6 +12,7 @@
 </div>
 <script type="text/javascript">
   var ruta = "getAreas";
+  var ruta2 = "modificarArea";
 </script>
 <script type="text/javascript" src="{{asset('js/search.js')}}"></script>
 
