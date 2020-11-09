@@ -13,7 +13,7 @@
       </ul>
     </div>
   @endif
-  <form method="POST" action="{{ route('postAsignatura') }}" id="modificar-asignatura">
+  <form method="POST" action="{{ route('postModificar') }}" id="modificar-asignatura">
     @csrf
     <div id="asignatura" class="form-group row">
         <label for="input-asignatura" class="col-sm-2 col-form-label">Asignatura</label>
@@ -34,6 +34,8 @@
         </div>
       </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-area" value="Submit">Guardar</button>
+    <input type="hidden" value="asignatura" name="modelo">
+    <input type="hidden" name="id" value="{{ $asignatura->id }}">
   </form>
 </section>
 @endsection

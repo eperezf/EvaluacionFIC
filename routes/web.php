@@ -93,4 +93,4 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::get('panelAdministracion/modificarLibro', 'PanelAdministracion@loadModificarLibro')->middleware('auth')->name('modificarLibro');
         Route::get('panelAdministracion/modificarLibro/{id}', 'PanelAdministracion@loadModificarLibroForm')->middleware('auth')->name('modificarLibroForm');
 
-    Route::post('panelAdministracion/modificar', 'PanelAdministracion@postModificacion')->middleware('auth')->name('postModificacion');
+    Route::post('panelAdministracion/modificar', 'PanelAdministracion@postModificacion')->middleware('auth')->name('postModificar');

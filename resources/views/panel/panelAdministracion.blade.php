@@ -4,7 +4,7 @@
 @section('contenido')
   <h1>Panel de Administración</h1><hr>
   @if(session()->get('success'))
-    <div class="alert alert-danger">
+    <div class="alert alert-success">
       {{session()->get('success') }}
     </div>
   @endif

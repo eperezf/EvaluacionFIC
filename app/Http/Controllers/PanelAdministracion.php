@@ -99,9 +99,76 @@ class PanelAdministracion extends Controller
 
 //--------------------------------------------------
 
-    public function postModificacion(Request $request)
+    public function postModificacion(Request $old_request)
     {
         //switch case para cada modelo
+        switch ($old_request->modelo)
+        {
+        case 'actividadArea':
+            $request = new Requests\StoreActividadArea;
+            $this->validate($old_request, $request->rules(), $request->messages());
+            $dato = ActividadArea::find($old_request->id);
+            break;
+        case 'actividadAsignatura':
+
+            break;
+        case 'area':
+            $request = new StoreArea;
+            $this->validate($old_request, $request->rules(), $request->messages());
+            $dato = Area::find($old_request->id);
+            $dato->nombre = $old_request->nombre;
+            $dato->save();
+            return redirect('/panelAdministracion')->with('success', 'Area modificada con éxito.');
+            break;
+        case 'asignatura':
+            $request = new StoreAsignatura;
+            $this->validate($old_request, $request->rules(), $request->messages());
+            $dato = Area::find($old_request->id);
+            $dato->nombre = $old_request->nombre;
+            $dato->subarea = $old_request->subarea;
+            $dato->codigo = $old_request->codigo;
+            $dato->save();
+            return redirect('/panelAdministracion')->with('success', 'Asignatura modificada con éxito.');
+            break;
+        case 'cargoAdministrativo':
+
+            break;
+        case 'curso':
+
+            break;
+        case 'libro':
+
+            break;
+        case 'licencia':
+
+            break;
+        case 'perfeccionamientoDocente':
+
+            break;
+        case 'proyectoConcursable':
+
+            break;
+        case 'publicacion':
+
+            break;
+        case 'spinoff':
+
+            break;
+        case 'subarea':
+
+            break;
+        case 'transferenciaTecnologica':
+
+            break;
+        case 'tutoria':
+
+            break;
+        case 'vinculacion':
+
+            break;
+        default:
+            break;
+        }
         //validacion
         //procesamiento de datos
         redirect ('/panelAdministracion')->with('Modificado con éxito.');
@@ -674,7 +741,7 @@ class PanelAdministracion extends Controller
         $libro = new Libro;
         $libro->titulo = $request->titulo;
         $libro->isbn = $request->isbn;
-        $libro->idactividad = Actividad::latest()->first()->id;;
+        $libro->idactividad = Actividad::latest()->first()->id;
         $libro->save();
         return redirect('/panelAdministracion');
     }
