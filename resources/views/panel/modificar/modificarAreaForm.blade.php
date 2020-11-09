@@ -13,7 +13,7 @@
       </ul>
     </div>
   @endif
-  <form method="POST" action="{{ route('postArea') }}" id="modificar-area">
+  <form method="POST" action="{{ route('postModificar') }}" id="modificar-area">
     @csrf
     <div id="area" class="form-group row">
       <label for="area-input" class="col-sm-1 col-form-label">Área</label>

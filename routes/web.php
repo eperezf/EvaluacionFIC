@@ -62,8 +62,12 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::get('panelAdministracion/modificarArea', 'PanelAdministracion@loadModificarArea')->middleware('auth')->name('modificarArea');
         Route::get('panelAdministracion/modificarArea/{id}', 'PanelAdministracion@loadModificarAreaForm')->middleware('auth')->name('modificarAreaForm');
     Route::get('panelAdministracion/modificarActividadAsignatura', 'PanelAdministracion@loadModificarActividadAsignatura')->middleware('auth')->name('modificarActividadAsignatura');
+    
+    
     Route::get('panelAdministracion/modificarActividadArea', 'PanelAdministracion@loadModificarActividadArea')->middleware('auth')->name('modificarActividadArea');
+    
     Route::get('panelAdministracion/modificarCurso', 'PanelAdministracion@loadModificarCurso')->middleware('auth')->name('modificarCurso');
+    
     Route::get('panelAdministracion/modificarCargoAdministrativo', 'PanelAdministracion@loadModificarCargoAdministrativo')->middleware('auth')->name('modificarCargo');
     Route::get('panelAdministracion/modificarPublicacion', 'PanelAdministracion@loadModificarPublicacion')->middleware('auth')->name('modificarPublicacion');
     Route::get('panelAdministracion/modificarAsignatura', 'PanelAdministracion@loadModificarAsignatura')->middleware('auth')->name('modificarAsignatura');
@@ -78,3 +82,5 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::get('panelAdministracion/modificarPerfeccionamientoDocente', 'PanelAdministracion@loadModificarPerfeccionamientoDocente')->middleware('auth')->name('modificarPerfeccionamientoDocente');
     Route::get('panelAdministracion/modificarLicencia', 'PanelAdministracion@loadModificarLicencia')->middleware('auth')->name('modificarLicencia');
     Route::get('panelAdministracion/modificarLibro', 'PanelAdministracion@loadModificarLibro')->middleware('auth')->name('modificarLibro');
+
+    Route::post('panelAdministracion/modificar', 'PanelAdministracion@postModificacion')->middleware('auth')->name('postModificacion');

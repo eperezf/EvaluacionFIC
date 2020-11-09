@@ -99,6 +99,16 @@ class PanelAdministracion extends Controller
 
 //--------------------------------------------------
 
+    public function postModificacion(Request $request)
+    {
+        //switch case para cada modelo
+        //validacion
+        //procesamiento de datos
+        redirect ('/panelAdministracion')->with('Modificado con éxito.');
+    }
+
+//--------------------------------------------------
+
     public function loadAgregarPublicacion()
     {
         $areas = Area::all(['id', 'nombre']);
