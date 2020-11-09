@@ -30,7 +30,6 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::get('panelAdministracion/agregarAsignatura', 'PanelAdministracion@loadAgregarAsignatura')->middleware('auth')->name('agregarAsignatura');
     Route::get('panelAdministracion/agregarTutoria', 'PanelAdministracion@loadAgregarTutoria')->middleware('auth')->name('agregarTutoria');
     Route::get('panelAdministracion/agregarActividad', 'PanelAdministracion@loadAgregarActividad')->middleware('auth')->name('agregarActividad');
-    Route::get('panelAdministracion/agregarTipoActividad', 'PanelAdministracion@loadAgregarTipoActividad')->middleware('auth')->name('agregarTipoActividad');
     Route::get('panelAdministracion/agregarSubarea', 'PanelAdministracion@loadAgregarSubarea')->middleware('auth')->name('agregarSubarea');
     Route::get('panelAdministracion/agregarVinculacion', 'PanelAdministracion@loadAgregarVinculacion')->middleware('auth')->name('agregarVinculacion');
     Route::get('panelAdministracion/agregarTransferenciaTecnologica', 'PanelAdministracion@loadAgregarTransferenciaTecnologica')->middleware('auth')->name('agregarTransferenciaTecnologica');
@@ -63,24 +62,35 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
         Route::get('panelAdministracion/modificarArea/{id}', 'PanelAdministracion@loadModificarAreaForm')->middleware('auth')->name('modificarAreaForm');
     Route::get('panelAdministracion/modificarActividadAsignatura', 'PanelAdministracion@loadModificarActividadAsignatura')->middleware('auth')->name('modificarActividadAsignatura');
     
-    
     Route::get('panelAdministracion/modificarActividadArea', 'PanelAdministracion@loadModificarActividadArea')->middleware('auth')->name('modificarActividadArea');
     
     Route::get('panelAdministracion/modificarCurso', 'PanelAdministracion@loadModificarCurso')->middleware('auth')->name('modificarCurso');
-    
+        Route::get('panelAdministracion/modificarCurso/{id}', 'PanelAdministracion@loadModificarCursoForm')->middleware('auth')->name('modificarCursoForm');
     Route::get('panelAdministracion/modificarCargoAdministrativo', 'PanelAdministracion@loadModificarCargoAdministrativo')->middleware('auth')->name('modificarCargo');
+
     Route::get('panelAdministracion/modificarPublicacion', 'PanelAdministracion@loadModificarPublicacion')->middleware('auth')->name('modificarPublicacion');
+        Route::get('panelAdministracion/modificarPublicacion/{id}', 'PanelAdministracion@loadModificarPublicacionForm')->middleware('auth')->name('modificarPublicacionForm');
     Route::get('panelAdministracion/modificarAsignatura', 'PanelAdministracion@loadModificarAsignatura')->middleware('auth')->name('modificarAsignatura');
+        Route::get('panelAdministracion/modificarAsignatura/{id}', 'PanelAdministracion@loadModificarAsignaturaForm')->middleware('auth')->name('modificarAsignaturaForm');
     Route::get('panelAdministracion/modificarTutoria', 'PanelAdministracion@loadModificarTutoria')->middleware('auth')->name('modificarTutoria');
+        Route::get('panelAdministracion/modificarTutoria/{id}', 'PanelAdministracion@loadModificarTutoriaForm')->middleware('auth')->name('modificarTutoriaForm');
     Route::get('panelAdministracion/modificarActividad', 'PanelAdministracion@loadModificarActividad')->middleware('auth')->name('modificarActividad');
-    Route::get('panelAdministracion/modificarTipoActividad', 'PanelAdministracion@loadModificarTipoActividad')->middleware('auth')->name('modificarTipoActividad');
+  
     Route::get('panelAdministracion/modificarSubarea', 'PanelAdministracion@loadModificarSubarea')->middleware('auth')->name('modificarSubarea');
+        Route::get('panelAdministracion/modificarSubarea/{id}', 'PanelAdministracion@loadModificarSubareaForm')->middleware('auth')->name('modificarSubareaForm');
     Route::get('panelAdministracion/modificarVinculacion', 'PanelAdministracion@loadModificarVinculacion')->middleware('auth')->name('modificarVinculacion');
+        Route::get('panelAdministracion/modificarVinculacion/{id}', 'PanelAdministracion@loadModificarVinculacionForm')->middleware('auth')->name('modificarVinculacionForm');
     Route::get('panelAdministracion/modificarTransferenciaTecnologica', 'PanelAdministracion@loadModificarTransferenciaTecnologica')->middleware('auth')->name('modificarTransferenciaTecnologica');
+        Route::get('panelAdministracion/modificarTransferenciaTecnologica/{id}', 'PanelAdministracion@loadModificarTransferenciaTecnologicaForm')->middleware('auth')->name('modificarTransferenciaTecnologicaForm');
     Route::get('panelAdministracion/modificarSpinoff', 'PanelAdministracion@loadModificarSpinoff')->middleware('auth')->name('modificarSpinoff');
+        Route::get('panelAdministracion/modificarSpinoff/{id}', 'PanelAdministracion@loadModificarSpinoffForm')->middleware('auth')->name('modificarSpinoffForm');
     Route::get('panelAdministracion/modificarProyectoConcursable', 'PanelAdministracion@loadModificarProyectoConcursable')->middleware('auth')->name('modificarProyectoConcursable');
+        Route::get('panelAdministracion/modificarProyectoConcursable/{id}', 'PanelAdministracion@loadModificarProyectoConcursableForm')->middleware('auth')->name('modificarProyectoConcursableForm');
     Route::get('panelAdministracion/modificarPerfeccionamientoDocente', 'PanelAdministracion@loadModificarPerfeccionamientoDocente')->middleware('auth')->name('modificarPerfeccionamientoDocente');
+        Route::get('panelAdministracion/modificarPerfeccionamientoDocente/{id}', 'PanelAdministracion@loadModificarPerfeccionamientoDocenteForm')->middleware('auth')->name('modificarPerfeccionamientoDocenteForm');
     Route::get('panelAdministracion/modificarLicencia', 'PanelAdministracion@loadModificarLicencia')->middleware('auth')->name('modificarLicencia');
+        Route::get('panelAdministracion/modificarLicencia/{id}', 'PanelAdministracion@loadModificarLicenciaForm')->middleware('auth')->name('modificarLicenciaForm');
     Route::get('panelAdministracion/modificarLibro', 'PanelAdministracion@loadModificarLibro')->middleware('auth')->name('modificarLibro');
+        Route::get('panelAdministracion/modificarLibro/{id}', 'PanelAdministracion@loadModificarLibroForm')->middleware('auth')->name('modificarLibroForm');
 
     Route::post('panelAdministracion/modificar', 'PanelAdministracion@postModificacion')->middleware('auth')->name('postModificacion');

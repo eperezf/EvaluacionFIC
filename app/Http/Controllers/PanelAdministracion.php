@@ -120,6 +120,12 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarPublicacion');
     }
 
+    public function loadModificarPublicacionForm($id)
+    {
+        $publicacion = Publicacion::find($id);
+        return view('panel.modificar.modificarPublicacionForm', ['publicacion'=>$publicacion]);
+    }
+
     public function postPublicacion(StorePublicacion $request)
     {
         $original = $request->duplicate();
@@ -228,6 +234,12 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarAsignatura');
     }
 
+    public function loadModificarAsignaturaForm($id)
+    {
+        $asignatura = Asignatura::find($id);
+        return view('panel.modificar.modificarAsignaturaForm', ['asignatura'=>$asignatura]);
+    }
+
     public function postAsignatura(StoreAsignatura $request) 
     {
         $original = $request->duplicate();
@@ -252,6 +264,12 @@ class PanelAdministracion extends Controller
     public function loadModificarTutoria()
     {
         return view('panel.modificar.modificarTutoria');
+    }
+
+    public function loadModificarTutoriaForm($id)
+    {
+        $tutoria = Tutoria::find($id);
+        return view('panel.modificar.modificarTutoriaForm', ['tutoria'=>$tutoria]);
     }
 
     public function postTutoria(StoreTutoria $request)
@@ -283,6 +301,12 @@ class PanelAdministracion extends Controller
     public function loadModificarCurso()
     {
         return view('panel.modificar.modificarCurso');
+    }
+
+    public function loadModificarCursoForm($id)
+    {
+        $curso = Curso::find($id);
+        return view('panel.modificar.modificarCursoForm', ['curso'=>$curso]);
     }
 
     public function postCurso(StoreCurso $request)
@@ -349,6 +373,12 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarSubarea');
     }
 
+    public function loadModificarSubareaForm($id)
+    {
+        $subarea = Subarea::find($id);
+        return view('panel.modificar.modificarSubareaForm', ['subarea'=>$subarea]);
+    }
+
     public function postSubarea(StoreSubarea $request)
     {
         $original = $request->duplicate();
@@ -393,6 +423,12 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarVinculacion');
     }
 
+    public function loadModificarVinculacionForm($id)
+    {
+        $vinculacion = Vinculacion::find($id);
+        return view('panel.modificar.modificarVinculacionForm', ['vinculacion'=>$vinculacion]);
+    }
+
     public function postVinculacion(StoreVinculacion $request)
     {
         $original = $request->duplicate();
@@ -424,6 +460,12 @@ class PanelAdministracion extends Controller
     public function loadModificarTransferenciaTecnologica()
     {
         return view('panel.modificar.modificarTransferenciaTecnologica');
+    }
+
+    public function loadModificarTransferenciaTecnologicaForm($id)
+    {
+        $transferencia = TransferenciaTecnologica::find($id);
+        return view('panel.modificar.modificarTransferenciaTecnologicaForm', ['transferenciatecnologica'=>$transferencia]);
     }
 
     public function postTransferenciaTecnologica(StoreTransferenciaTecnologica $request)
@@ -458,6 +500,12 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarSpinoff');
     }
 
+    public function loadModificarSpinoffForm($id)
+    {
+        $spinoff = Spinoff::find($id);
+        return view('panel.modificar.modificarSpinoffForm', ['spinoff'=>$spinoff]);
+    }
+
     public function postSpinoff(StoreSpinoff $request)
     {
         $original = $request->duplicate();
@@ -489,6 +537,12 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarProyectoConcursable');
     }
 
+    public function loadModificarProyectoConcursableForm($id)
+    {
+        $proyecto = ProyectoConcursable::find($id);
+        return view('panel.modificar.modificarProyectoConcursableForm', ['proyectoconcursable'=>$proyecto]);
+    }
+
     public function postProyectoConcursable(StoreProyectoConcursable $request)
     {
         $original = $request->duplicate();
@@ -518,6 +572,12 @@ class PanelAdministracion extends Controller
     public function loadModificarPerfeccionamientoDocente()
     {
         return view('panel.modificar.modificarPerfeccionamientoDocente');
+    }
+
+    public function loadModificarPerfeccionamientoDocenteForm($id)
+    {
+        $perfeccionamiento = PerfeccionamientoDocente::find($id);
+        return view('panel.modificar.modificarPerfeccionamientoDocenteForm', ['perfeccionamientodocente'=>$perfeccionamiento]);
     }
 
     public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
@@ -554,6 +614,12 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarLicencia');
     }
 
+    public function loadModificarLicenciaForm($id)
+    {
+        $licencia = Licencia::find($id);
+        return view('panel.modificar.modificarLicenciaForm', ['licencia'=>$licencia]);
+    }
+
     public function postLicencia(StoreLicencia $request)
     {
         $original = $request->duplicate();
@@ -585,6 +651,12 @@ class PanelAdministracion extends Controller
     public function loadModificarLibro()
     {
         return view('panel.modificar.modificarLibro');
+    }
+    
+    public function loadModificarLibroForm($id)
+    {
+        $libro = Libro::find($id);
+        return view('panel.modificar.modificarLibroForm', ['libro'=>$libro]);
     }
 
     public function postLibro(StoreLibro $request)
