@@ -32,6 +32,9 @@ function alertFunc()
     }
     lista.forEach((item, i) =>
     {
+      if (!item.nombre) {
+        item.nombre = item.titulo
+      }
       $('#sugerencias').append(
       '<div class="row p-1 bg-light rounded">' +
         '<h5 class="col-8">'+item.nombre+'</h5>' +
