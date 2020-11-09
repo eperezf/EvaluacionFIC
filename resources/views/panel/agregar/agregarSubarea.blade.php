@@ -31,7 +31,7 @@
       <input type="text" class="form-control col-sm-5" placeholder="Subarea" name="nombre" id="input-subarea" value="{{ old('nombre') }}">
       </div>
     </div><br>
-    <button class="btn btn-primary" type="submit" form="agregar-area" value="Submit">Agregar subarea</button>
+    <button class="btn btn-primary" type="submit" form="agregar-area" value="Submit">Guardar</button>
   </form>
 </section>
 @endsection

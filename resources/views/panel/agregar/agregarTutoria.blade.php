@@ -34,7 +34,7 @@
         <input class="form-control col-sm-5" type="date" name="fechaTermino" id="input-termino" value="{{ old('fechaTermino') }}">
       </div>
     </div><br>
-    <button class="btn btn-primary" type="submit" form="agregar-tutoria" value="Submit">Agregar tutoría</button>
+    <button class="btn btn-primary" type="submit" form="agregar-tutoria" value="Submit">Guardar</button>
   </form>
 </section>
 @endsection
