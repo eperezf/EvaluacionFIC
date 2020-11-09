@@ -3,6 +3,11 @@
 @section('title', 'Panel de Administración')
 @section('contenido')
   <h1>Panel de Administración</h1><hr>
+  @if(session()->get('success'))
+    <div class="alert alert-danger">
+      {{session()->get('success') }}
+    </div>
+  @endif
   <div class="d-flex flex-wrap">
     <div class="col-auto">
       <div class="card mb-4">
