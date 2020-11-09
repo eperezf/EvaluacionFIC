@@ -11,7 +11,7 @@
       @endforeach
     </div>
   @endif
-  <form method="POST" action="{{ route('postSubarea') }}" id="modificar-subarea">
+  <form method="POST" action="{{ route('postModificar') }}" id="modificar-subarea">
     @csrf
     <div id="area" class="form-group row">
       <label for="select-area" class="col-sm-1 col-form-label">Área</label>

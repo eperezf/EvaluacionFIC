@@ -33,7 +33,7 @@
             <input class="form-control col-sm-5" autocomplete="off" name="codigo" placeholder="Código (Ej: CORE101)" type="text" id="codigo-input" value="{{ $asignatura->codigo }}">
         </div>
       </div><br>
-    <button class="btn btn-primary" type="submit" form="modificar-area" value="Submit">Guardar</button>
+    <button class="btn btn-primary" type="submit" form="modificar-asignatura" value="Submit">Guardar</button>
     <input type="hidden" value="asignatura" name="modelo">
     <input type="hidden" name="id" value="{{ $asignatura->id }}">
   </form>

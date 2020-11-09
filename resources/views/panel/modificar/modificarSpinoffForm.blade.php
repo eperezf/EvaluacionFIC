@@ -11,7 +11,7 @@
         @endforeach
     </div>
   @endif
-  <form method="POST" action="{{ route('postSpinoff') }}" id="modificar-spinoff">
+  <form method="POST" action="{{ route('postModificar') }}" id="modificar-spinoff">
     @csrf
     <div id="nombre" class="form-group row">
       <label for="input-nombre" class="col-sm-2 col-form-label">Spin-off</label>

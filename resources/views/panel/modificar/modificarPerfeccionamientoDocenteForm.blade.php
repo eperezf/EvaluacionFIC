@@ -11,7 +11,7 @@
       @endforeach
     </div>
   @endif
-  <form action="{{route('postPerfeccionamientoDocente')}}" method="POST" id="modificar-perfeccionamientodocente">
+  <form action="{{route('postModificar')}}" method="POST" id="modificar-perfeccionamientodocente">
     @csrf
     <div id="perfeccionamiento" class="form-group row">
       <label for="input-perfeccionamiento" class="col-sm-3 col-form-label">Perfeccionamiento Docente</label>

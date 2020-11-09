@@ -11,7 +11,7 @@
       @endforeach
     </div>
   @endif
-  <form method="POST" action="{{ route('postPublicacion') }}" id="modificar-publicacion">
+  <form method="POST" action="{{ route('postModificar') }}" id="modificar-publicacion">
     @csrf
     <div id="tipopublicacion" class="form-group row">
       <label for="input-tipopublicacion" class="col-sm-2 col-form-label">Tipo de publicación</label>

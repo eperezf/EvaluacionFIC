@@ -11,7 +11,7 @@
       @endforeach
     </div>
   @endif
-  <form action="{{route('postCurso')}}" method="POST" id="modificar-curso">
+  <form action="{{route('postModificar')}}" method="POST" id="modificar-curso">
     @csrf
     <div id="asignatura" class="form-group row">
       <label for="select-asignatura" class="col-sm-2 col-form-label">Asignatura</label>
@@ -43,6 +43,8 @@
       </div>
     </div><br>
     <button type="submit" form="modificar-curso" class="btn btn-primary">Guardar</button>
+    <input type="hidden" name="modelo" value="curso">
+    <input type="hidden" name="id" value="{{ $curso->id }}">
   </form>
 </section>
 @endsection

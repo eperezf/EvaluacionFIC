@@ -13,7 +13,7 @@
       </ul>
     </div>
   @endif
-  <form method="POST" action="{{ route('postVinculacion') }}" id="modificar-vinculacion">
+  <form method="POST" action="{{ route('postModificar') }}" id="modificar-vinculacion">
     @csrf
     <div id="nombre" class="form-group row">
       <label for="nombre-input" class="col-sm-2 col-form-label">Vinculación</label>

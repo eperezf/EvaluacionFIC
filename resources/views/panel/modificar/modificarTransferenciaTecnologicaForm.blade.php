@@ -13,7 +13,7 @@
       </ul>
     </div>
   @endif
-  <form method="POST" action="{{ route('postTransferenciaTecnologica') }}" id="modificar-transferenciatecnologica">
+  <form method="POST" action="{{ route('postModificar') }}" id="modificar-transferenciatecnologica">
     @csrf
     <div id="nombre" class="form-group row">
       <label for="nombre-input" class="col-sm-3 col-form-label">Tranferencia Tecnológica</label>

@@ -13,7 +13,7 @@
       </ul>
     </div>
   @endif
-  <form method="POST" action="{{ route('postLicencia') }}" id="modificar-licencia">
+  <form method="POST" action="{{ route('postModificar') }}" id="modificar-licencia">
     @csrf
     <div id="nombre" class="form-group row">
       <label for="nombre-input" class="col-sm-2 col-form-label">Licencia</label>
