@@ -24,13 +24,13 @@
     <div id="inicio" class="form-group row">
       <label for="input-inicio" class="col-sm-2 col-form-label">Fecha de inicio</label>
       <div class="col-sm-10">
-        <input class="form-control col-sm-5" type="date" autocomplete="off" name="fechaInicio" id="input-inicio" value="{{ $tutoria->idactividad }}">
+        <input class="form-control col-sm-5" type="date" autocomplete="off" name="fechaInicio" id="input-inicio" value="{{ $actividad->inicio }}">
       </div>
     </div>
     <div id="termino" class="form-group row">
       <label for="input-termino" class="col-sm-2 col-form-label">Fecha de término</label>
       <div class="col-sm-10">
-        <input class="form-control col-sm-5" type="date" autocomplemente="off" name="fechaTermino" id="input-termino" value="{{ $tutoria->idactividad }}">
+        <input class="form-control col-sm-5" type="date" autocomplemente="off" name="fechaTermino" id="input-termino" value="{{ $actividad->termino }}">
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-tutoria" value="Submit">Guardar</button>

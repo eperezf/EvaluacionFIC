@@ -190,7 +190,8 @@ class PanelAdministracion extends Controller
     public function loadModificarPublicacionForm($id)
     {
         $publicacion = Publicacion::find($id);
-        return view('panel.modificar.modificarPublicacionForm', ['publicacion'=>$publicacion]);
+        $actividad = Actividad::find($publicacion->idactividad);
+        return view('panel.modificar.modificarPublicacionForm', ['publicacion' => $publicacion, 'actividad' => $actividad]);
     }
 
     public function postPublicacion(StorePublicacion $request)
@@ -336,7 +337,8 @@ class PanelAdministracion extends Controller
     public function loadModificarTutoriaForm($id)
     {
         $tutoria = Tutoria::find($id);
-        return view('panel.modificar.modificarTutoriaForm', ['tutoria'=>$tutoria]);
+        $actividad = Actividad::find($tutoria->idactividad);
+        return view('panel.modificar.modificarTutoriaForm', ['tutoria' => $tutoria, 'actividad' => $actividad]);
     }
 
     public function postTutoria(StoreTutoria $request)
@@ -493,7 +495,8 @@ class PanelAdministracion extends Controller
     public function loadModificarVinculacionForm($id)
     {
         $vinculacion = Vinculacion::find($id);
-        return view('panel.modificar.modificarVinculacionForm', ['vinculacion'=>$vinculacion]);
+        $actividad = Actividad::find($vinculacion->idactividad);
+        return view('panel.modificar.modificarVinculacionForm', ['vinculacion' => $vinculacion, 'actividad' => $actividad]);
     }
 
     public function postVinculacion(StoreVinculacion $request)
@@ -532,7 +535,8 @@ class PanelAdministracion extends Controller
     public function loadModificarTransferenciaTecnologicaForm($id)
     {
         $transferencia = TransferenciaTecnologica::find($id);
-        return view('panel.modificar.modificarTransferenciaTecnologicaForm', ['transferenciatecnologica'=>$transferencia]);
+        $actividad = Actividad::find($transferencia->idactividad);
+        return view('panel.modificar.modificarTransferenciaTecnologicaForm', ['transferenciatecnologica' => $transferencia, 'actividad' => $actividad]);
     }
 
     public function postTransferenciaTecnologica(StoreTransferenciaTecnologica $request)
@@ -570,7 +574,8 @@ class PanelAdministracion extends Controller
     public function loadModificarSpinoffForm($id)
     {
         $spinoff = Spinoff::find($id);
-        return view('panel.modificar.modificarSpinoffForm', ['spinoff'=>$spinoff]);
+        $actividad = Actividad::find($spinoff->idactividad);
+        return view('panel.modificar.modificarSpinoffForm', ['spinoff' => $spinoff, 'actividad' => $actividad]);
     }
 
     public function postSpinoff(StoreSpinoff $request)
@@ -607,7 +612,8 @@ class PanelAdministracion extends Controller
     public function loadModificarProyectoConcursableForm($id)
     {
         $proyecto = ProyectoConcursable::find($id);
-        return view('panel.modificar.modificarProyectoConcursableForm', ['proyectoconcursable'=>$proyecto]);
+        $actividad = Actividad::find($proyecto->idactividad);
+        return view('panel.modificar.modificarProyectoConcursableForm', ['proyectoconcursable' => $proyecto, 'actividad' => $actividad]);
     }
 
     public function postProyectoConcursable(StoreProyectoConcursable $request)
@@ -644,7 +650,8 @@ class PanelAdministracion extends Controller
     public function loadModificarPerfeccionamientoDocenteForm($id)
     {
         $perfeccionamiento = PerfeccionamientoDocente::find($id);
-        return view('panel.modificar.modificarPerfeccionamientoDocenteForm', ['perfeccionamientodocente'=>$perfeccionamiento]);
+        $actividad = Actividad::find($perfeccionamiento->idactividad);
+        return view('panel.modificar.modificarPerfeccionamientoDocenteForm', ['perfeccionamientodocente' => $perfeccionamiento, 'actividad' => $actividad]);
     }
 
     public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
@@ -684,7 +691,8 @@ class PanelAdministracion extends Controller
     public function loadModificarLicenciaForm($id)
     {
         $licencia = Licencia::find($id);
-        return view('panel.modificar.modificarLicenciaForm', ['licencia'=>$licencia]);
+        $actividad = Actividad::find($licencia->idactividad);
+        return view('panel.modificar.modificarLicenciaForm', ['licencia' => $licencia, 'actividad' => $actividad]);
     }
 
     public function postLicencia(StoreLicencia $request)
@@ -723,7 +731,8 @@ class PanelAdministracion extends Controller
     public function loadModificarLibroForm($id)
     {
         $libro = Libro::find($id);
-        return view('panel.modificar.modificarLibroForm', ['libro'=>$libro]);
+        $actividad = Actividad::find($libro->idactividad);
+        return view('panel.modificar.modificarLibroForm', ['libro' => $libro, 'actividad' => $actividad]);
     }
 
     public function postLibro(StoreLibro $request)

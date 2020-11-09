@@ -34,13 +34,13 @@
     <div id="inicio" class="form-group row">
       <label for="input-inicio" class="col-sm-3 col-form-label">Fecha de inicio</label>
       <div class="col-sm-9">
-        <input class="form-control col-sm-5" type="date" autocomplete="off" name="fechaInicio" id="input-inicio" value="{{ $perfeccionamientodocente->idactividad }}">
+        <input class="form-control col-sm-5" type="date" autocomplete="off" name="fechaInicio" id="input-inicio" value="{{ $actividad->inicio }}">
       </div>
     </div>
     <div id="termino" class="form-group row">
       <label for="input-termino" class="col-sm-3 col-form-label">Fecha de término</label>
       <div class="col-sm-9">
-        <input class="form-control col-sm-5" type="date" autocomplete="off" name="fechaTermino" id="input-termino" value="{{ $perfeccionamientodocente->idactividad }}">
+        <input class="form-control col-sm-5" type="date" autocomplete="off" name="fechaTermino" id="input-termino" value="{{ $actividad->termino }}">
       </div>
     </div><br>
     <button type="submit" form="modificar-perfeccionamientodocente" class="btn btn-primary">Guardar</button>

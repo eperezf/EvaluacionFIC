@@ -81,7 +81,7 @@
       </div>
     </div>
     <label for="abtract">Abstract</label>
-    <textarea class="form-control" name="abstract" cols="150" rows="5" id="abstract" cols="30" rows="10" placeholder="Insertar Abstract Aquí..." form="agregar-publicacion" value="{{ old('abstract') }}"></textarea><br>
+    <textarea class="form-control" name="abstract" cols="150" rows="5" id="abstract" cols="30" rows="10" placeholder="Insertar Abstract Aquí..." form="agregar-publicacion">{{ old('abstract') }}</textarea><br>
     <div id="inicio" class="form-group row">
       <label for="input-inicio" class="col-sm-2 col-form-label">Fecha de inicio</label>
       <div class="col-sm-10">
