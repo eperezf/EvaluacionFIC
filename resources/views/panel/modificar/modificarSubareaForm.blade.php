@@ -16,7 +16,7 @@
     <div id="area" class="form-group row">
       <label for="select-area" class="col-sm-1 col-form-label">Área</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control col-sm-5" autocomplete="off" placeholder="Seleccionar el área" name="nombre" id="input-subarea" value="{{ $subarea->idarea }}">
+        <input type="text" class="form-control col-sm-5" autocomplete="off" placeholder="Nombre del área" name="nombre" id="input-subarea" value="{{ $area->nombre }}">
       </div>
     </div>
     <div id="subarea" class="form-group row">

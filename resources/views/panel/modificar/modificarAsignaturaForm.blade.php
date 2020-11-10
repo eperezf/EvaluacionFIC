@@ -24,7 +24,7 @@
       <div id="subarea" class="form-group row">
         <label for="input-subarea" class="col-sm-2 col-form-label">Subárea</label>
         <div class="col-sm-10">
-            <input class="form-control col-sm-5" autocomplete="off" name="subarea" placeholder="Seleccione una subárea" type="text" id="subarea-input" value="{{ $asignatura->idsubarea }}">
+            <input class="form-control col-sm-5" autocomplete="off" name="subarea" placeholder="Nombre de subárea" type="text" id="subarea-input" value="{{ $subarea->nombre }}">
         </div>
       </div>
       <div id="codigo" class="form-group row">

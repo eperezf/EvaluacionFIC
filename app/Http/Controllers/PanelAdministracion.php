@@ -305,7 +305,8 @@ class PanelAdministracion extends Controller
     public function loadModificarAsignaturaForm($id)
     {
         $asignatura = Asignatura::find($id);
-        return view('panel.modificar.modificarAsignaturaForm', ['asignatura'=>$asignatura]);
+        $subarea = Subarea::find($asignatura->idsubarea);
+        return view('panel.modificar.modificarAsignaturaForm', ['asignatura'=>$asignatura, 'subarea'=>$subarea]);
     }
 
     public function postAsignatura(StoreAsignatura $request) 
@@ -445,7 +446,8 @@ class PanelAdministracion extends Controller
     public function loadModificarSubareaForm($id)
     {
         $subarea = Subarea::find($id);
-        return view('panel.modificar.modificarSubareaForm', ['subarea'=>$subarea]);
+        $area = Area::find($subarea->idarea);
+        return view('panel.modificar.modificarSubareaForm', ['subarea'=>$subarea, 'area'=>$area]);
     }
 
     public function postSubarea(StoreSubarea $request)
