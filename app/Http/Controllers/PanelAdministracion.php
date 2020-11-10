@@ -376,7 +376,9 @@ class PanelAdministracion extends Controller
     public function loadModificarCursoForm($id)
     {
         $curso = Curso::find($id);
-        return view('panel.modificar.modificarCursoForm', ['curso'=>$curso]);
+        $asignatura = Asignatura::find($curso->idasignatura);
+        $actividad = Actividad::find($curso->idactividad);
+        return view('panel.modificar.modificarCursoForm', ['curso'=>$curso, 'asignatura'=>$asignatura, 'actividad'=>$actividad]);
     }
 
     public function postCurso(StoreCurso $request)

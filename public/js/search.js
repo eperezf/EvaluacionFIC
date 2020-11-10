@@ -32,7 +32,10 @@ function alertFunc()
     }
     lista.forEach((item, i) =>
     {
-      if (!item.nombre) {
+      if (item.seccion) {
+        item.nombre = item.seccion
+      }
+      if (item.titulo) {
         item.nombre = item.titulo
       }
       $('#sugerencias').append(

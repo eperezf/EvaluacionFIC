@@ -78,7 +78,7 @@ class ApiController extends Controller
   }
   
   public function getCurso($name){
-    return response(Curso::where('nombre', 'LIKE', '%'.$name.'%')->get())->header('Content-Type', 'application/json');
+    return response(Curso::where('seccion', 'LIKE', '%'.$name.'%')->get())->header('Content-Type', 'application/json');
   }
 
   public function getPublicacion($name){
