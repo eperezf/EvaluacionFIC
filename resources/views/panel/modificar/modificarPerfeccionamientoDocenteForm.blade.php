@@ -44,6 +44,8 @@
       </div>
     </div><br>
     <button type="submit" form="modificar-perfeccionamientodocente" class="btn btn-primary">Guardar</button>
+    <input type="hidden" value="perfeccionamientoDocente" name="modelo">
+    <input type="hidden" value="{{ $perfeccionamientodocente->id }}" name="id">
   </form>
 </section>
 @endsection

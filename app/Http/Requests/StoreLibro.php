@@ -21,7 +21,17 @@ class StoreLibro extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function addRules()
+    {
+        return [
+            'titulo' => ['required', 'max:45', 'regex:/^[a-zA-Z\W]+$/'],
+            'isbn' => ['required', 'max:45', 'regex:/^[0-9\D]+$/', 'unique:libro,isbn'], // Por completar
+            'fechaInicio' => ['required', 'date'],
+            'fechaTermino' => ['required', 'date', 'after:fechaInicio']
+        ];
+    }
+    
+    public function modRules()
     {
         return [
             'titulo' => ['required', 'max:45', 'regex:/^[a-zA-Z\W]+$/'],

@@ -99,35 +99,35 @@ class PanelAdministracion extends Controller
 
 //--------------------------------------------------
 
-    public function postModificacion(Request $old_request)
+    public function postModificacion(Request $new_request)
     {
         //switch case para cada modelo
-        switch ($old_request->modelo)
+        switch ($new_request->modelo)
         {
         case 'actividadArea':
             $request = new Requests\StoreActividadArea;
-            $this->validate($old_request, $request->rules(), $request->messages());
-            $dato = ActividadArea::find($old_request->id);
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $actividad = ActividadArea::find($new_request->id);
             break;
         case 'actividadAsignatura':
 
             break;
         case 'area':
             $request = new StoreArea;
-            $this->validate($old_request, $request->rules(), $request->messages());
-            $dato = Area::find($old_request->id);
-            $dato->nombre = $old_request->nombre;
-            $dato->save();
-            return redirect('/panelAdministracion')->with('success', 'Area modificada con éxito.');
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $area = Area::find($new_request->id);
+            $area->nombre = $new_request->nombre;
+            $area->save();
+            $success = "Área modificada";
             break;
         case 'asignatura':
             $request = new StoreAsignatura;
-            $this->validate($old_request, $request->rules(), $request->messages());
-            $dato = Area::find($old_request->id);
-            $dato->nombre = $old_request->nombre;
-            $dato->subarea = $old_request->subarea;
-            $dato->codigo = $old_request->codigo;
-            $dato->save();
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $asignatura = Area::find($new_request->id);
+            $asignatura->nombre = $new_request->nombre;
+            $asignatura->subarea = $new_request->subarea;
+            $asignatura->codigo = $new_request->codigo;
+            $asignatura->save();
             return redirect('/panelAdministracion')->with('success', 'Asignatura modificada con éxito.');
             break;
         case 'cargoAdministrativo':
@@ -137,25 +137,74 @@ class PanelAdministracion extends Controller
 
             break;
         case 'libro':
-
+            $request = new StoreLibro;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $libro = Libro::find($new_request->id);
+            $libro->titulo = $new_request->titulo;
+            $libro->isbn = $new_request->isbn;
+            $libro->save();
+            $actividad = Actividad::find($libro->idactividad);
+            $actividad->inicio = $new_request->fechaInicio;
+            $actividad->termino = $new_request->fechaTermino;
+            $actividad->save();
+            $success = "Libro modificado";
             break;
         case 'licencia':
-
+            $request = new StoreLicencia;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $licencia = Licencia::find($new_request->id);
+            $licencia->nombre = $new_request->nombre;
+            $licencia->empresa = $new_request->empresa;
+            $licencia->save();
+            $actividad = Actividad::find($licencia->idactividad);
+            $actividad->inicio = $new_request->fechaInicio;
+            $actividad->termino = $new_request->fechaTermino;
+            $actividad->save();
+            $success = "Licencia modificada";
             break;
         case 'perfeccionamientoDocente':
-
+            $request = new StorePerfeccionamientoDocente;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $perfeccionamiento = Perfeccionamientodocente::find($new_request->id);
+            $perfeccionamiento->nombre = $new_request->nombre;
+            $perfeccionamiento->institucion = $new_request->institucion;
+            $perfeccionamiento->area = $new_request->area;
+            $perfeccionamiento->save();
+            $actividad = Actividad::find($perfeccionamiento->idactividad);
+            $actividad->inicio = $new_request->fechaInicio;
+            $actividad->termino = $new_request->fechaTermino;
+            $actividad->save();
+            $success = "Perfeccionamiento docente modificado";
             break;
         case 'proyectoConcursable':
-
+            $request = new StoreProyectoConcursable;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $proyecto = Proyectoconcursable::find($new_request->id);
+            $proyecto->nombre = $new_request->nombre;
+            $proyecto->save();
+            $actividad = Actividad::find($proyecto->idactividad);
+            $actividad->inicio = $new_request->fechaInicio;
+            $actividad->termino = $new_request->fechaTermino;
+            $actividad->save();
+            $success = "Proyecto concursable modificado";
             break;
         case 'publicacion':
 
             break;
         case 'spinoff':
-
+            $request = new StoreSpinoff;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $spinoff = Spinoff::find($new_request->id);
+            $spinoff->nombre = $new_request->nombre;
+            $spinoff->save();
+            $actividad = Actividad::find($spinoff->idactividad);
+            $actividad->inicio = $new_request->fechaInicio;
+            $actividad->termino = $new_request->fechaTermino;
+            $actividad->save();
+            $success = "Spinoff modificado";
             break;
         case 'subarea':
-
+            
             break;
         case 'transferenciaTecnologica':
 
@@ -171,7 +220,7 @@ class PanelAdministracion extends Controller
         }
         //validacion
         //procesamiento de datos
-        redirect ('/panelAdministracion')->with('Modificado con éxito.');
+        return redirect('/panelAdministracion')->with('success', $success.' con éxito.');
     }
 
 //--------------------------------------------------

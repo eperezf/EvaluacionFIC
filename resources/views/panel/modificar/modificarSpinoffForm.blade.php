@@ -31,6 +31,8 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-spinoff" value="Submit">Guardar</button>
+    <input type="hidden" value="spinoff" name="modelo">
+    <input type="hidden" value="{{ $spinoff->id }}" name="id">
   </form>
 </section>
 @endsection

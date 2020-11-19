@@ -40,6 +40,8 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-libro" value="Submit">Guardar</button>
+    <input type="hidden" value="libro" name="modelo">
+    <input type="hidden" value="{{ $libro->id }}" name="id">
   </form>
 </section>
 @endsection

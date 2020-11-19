@@ -34,6 +34,8 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-proyectoconcursable" value="Submit">Guardar</button>
+    <input type="hidden" value="proyectoConcursable" name="modelo">
+    <input type="hidden" value="{{ $proyectoconcursable->id }}" name="id">
   </form>
 </section>
 @endsection

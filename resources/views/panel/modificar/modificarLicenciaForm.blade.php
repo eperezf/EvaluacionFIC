@@ -40,6 +40,8 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-licencia" value="Submit">Guardar</button>
+    <input type="hidden" value="licencia" name="modelo">
+    <input type="hidden" value="{{ $licencia->id }}" name="id">
   </form>
 </section>
 @endsection
