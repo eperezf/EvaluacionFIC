@@ -41,6 +41,14 @@ use App\Http\Requests\StoreProyectoConcursable;
 use App\Http\Requests\StoreActividadAsignatura;
 use App\Http\Requests\StoreActividadArea;
 
+use App\Http\Requests\UpdateLibro;
+use App\Http\Requests\UpdateArea;
+use App\Http\Requests\UpdateAsignatura;
+use App\Http\Requests\UpdateSubarea;
+use App\Http\Requests\UpdateLicencia;
+use App\Http\Requests\UpdatePerfeccionamientoDocente;
+
+
 class PanelAdministracion extends Controller
 {
 //Funciones generales
@@ -113,7 +121,7 @@ class PanelAdministracion extends Controller
 
             break;
         case 'area':
-            $request = new StoreArea;
+            $request = new UpdateArea;
             $this->validate($new_request, $request->rules(), $request->messages());
             $area = Area::find($new_request->id);
             $area->nombre = $new_request->nombre;
@@ -121,14 +129,14 @@ class PanelAdministracion extends Controller
             $success = "Área modificada";
             break;
         case 'asignatura':
-            $request = new StoreAsignatura;
+            $request = new UpdateAsignatura;
             $this->validate($new_request, $request->rules(), $request->messages());
-            $asignatura = Area::find($new_request->id);
+            $asignatura = Asignatura::find($new_request->id);
             $asignatura->nombre = $new_request->nombre;
-            $asignatura->subarea = $new_request->subarea;
+            $asignatura->idsubarea = $new_request->subarea;
             $asignatura->codigo = $new_request->codigo;
             $asignatura->save();
-            return redirect('/panelAdministracion')->with('success', 'Asignatura modificada con éxito.');
+            $success = "Asignatura modificada";
             break;
         case 'cargoAdministrativo':
 
@@ -137,7 +145,7 @@ class PanelAdministracion extends Controller
 
             break;
         case 'libro':
-            $request = new StoreLibro;
+            $request = new UpdateLibro;
             $this->validate($new_request, $request->rules(), $request->messages());
             $libro = Libro::find($new_request->id);
             $libro->titulo = $new_request->titulo;
@@ -150,7 +158,7 @@ class PanelAdministracion extends Controller
             $success = "Libro modificado";
             break;
         case 'licencia':
-            $request = new StoreLicencia;
+            $request = new UpdateLicencia;
             $this->validate($new_request, $request->rules(), $request->messages());
             $licencia = Licencia::find($new_request->id);
             $licencia->nombre = $new_request->nombre;
@@ -163,7 +171,7 @@ class PanelAdministracion extends Controller
             $success = "Licencia modificada";
             break;
         case 'perfeccionamientoDocente':
-            $request = new StorePerfeccionamientoDocente;
+            $request = new UpdatePerfeccionamientoDocente;
             $this->validate($new_request, $request->rules(), $request->messages());
             $perfeccionamiento = Perfeccionamientodocente::find($new_request->id);
             $perfeccionamiento->nombre = $new_request->nombre;
@@ -204,7 +212,13 @@ class PanelAdministracion extends Controller
             $success = "Spinoff modificado";
             break;
         case 'subarea':
-            
+            $request = new UpdateSubarea;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $subarea = Subarea::find($new_request->id);
+            $subarea->nombre = $new_request->nombre;
+            $subarea->idarea = $new_request->area;
+            $subarea->save();
+            $success = "Subarea modificada";
             break;
         case 'transferenciaTecnologica':
 
@@ -354,8 +368,8 @@ class PanelAdministracion extends Controller
     public function loadModificarAsignaturaForm($id)
     {
         $asignatura = Asignatura::find($id);
-        $subarea = Subarea::find($asignatura->idsubarea);
-        return view('panel.modificar.modificarAsignaturaForm', ['asignatura'=>$asignatura, 'subarea'=>$subarea]);
+        $subareas = Subarea::all(['id', 'nombre']);
+        return view('panel.modificar.modificarAsignaturaForm', ['asignatura' => $asignatura, 'subareas' => $subareas]);
     }
 
     public function postAsignatura(StoreAsignatura $request) 
@@ -497,8 +511,8 @@ class PanelAdministracion extends Controller
     public function loadModificarSubareaForm($id)
     {
         $subarea = Subarea::find($id);
-        $area = Area::find($subarea->idarea);
-        return view('panel.modificar.modificarSubareaForm', ['subarea'=>$subarea, 'area'=>$area]);
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.modificar.modificarSubareaForm', ['subarea'=>$subarea, 'areas'=>$areas]);
     }
 
     public function postSubarea(StoreSubarea $request)

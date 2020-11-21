@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreLibro extends FormRequest
+class UpdateLicencia extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class StoreLibro extends FormRequest
     public function rules()
     {
         return [
-            'titulo' => ['required', 'max:45', 'regex:/^[a-zA-Z\W]+$/'],
-            'isbn' => ['required', 'max:45', 'regex:/^[0-9\D]+$/', 'unique:libro,isbn'], // Por completar
+            'nombre' => ['required', 'max:45', 'regex:/^[a-zA-Z0-9\s\W]+$/'],
+            'empresa' => ['required', 'max:45', 'regex:/^[a-zA-Z0-9\s\W]+$/'],
             'fechaInicio' => ['required', 'date'],
             'fechaTermino' => ['required', 'date', 'after:fechaInicio']
         ];
@@ -34,13 +34,12 @@ class StoreLibro extends FormRequest
     public function messages()
     {
         return [
-            'titulo.required' => "Debe ingresar un titulo.",
-            'titulo.max' => "El título del ibro debe tener máximo 45 caracteres",
-            'titulo.regex' => "El título del titulo debe tener solo letras",
-            'isbn.required' => "Debe ingresar un ISBN.",
-            'isbn.max' => "El ISBN debe tener máximo 45 caracteres",
-            'isbn.regex' => "El ISBN debe tener solo numeros y guiones",
-            'isbn.unique' => "El ISBN ya existe",
+            'nombre.required' => "Debe ingresar una licencia.",
+            'nombre.max' => "La licencia debe tener máximo 45 caracteres",
+            'nombre.regex' => "La licencia debe tener solo letras",
+            'empresa.required' => "Debe ingresar una empresa.",
+            'empresa.max' => "La empresa debe tener máximo 45 caracteres",
+            'empresa.regex' => "La empresa debe tener solo letras",
             'fechaInicio.required' => "Debe ingresar una fecha de inicio",
             'fechaTermino.required' => "Debe ingresar una fecha de termino",
             'fechaTermino.after' => "La fecha de termino no puede estar antes que la fecha de inicio"

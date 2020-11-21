@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreLibro extends FormRequest
+class UpdateLibro extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class StoreLibro extends FormRequest
     {
         return [
             'titulo' => ['required', 'max:45', 'regex:/^[a-zA-Z\W]+$/'],
-            'isbn' => ['required', 'max:45', 'regex:/^[0-9\D]+$/', 'unique:libro,isbn'], // Por completar
+            'isbn' => ['required', 'max:45', 'regex:/^[0-9\D]+$/'], // Por completar
             'fechaInicio' => ['required', 'date'],
             'fechaTermino' => ['required', 'date', 'after:fechaInicio']
         ];
@@ -40,7 +40,6 @@ class StoreLibro extends FormRequest
             'isbn.required' => "Debe ingresar un ISBN.",
             'isbn.max' => "El ISBN debe tener máximo 45 caracteres",
             'isbn.regex' => "El ISBN debe tener solo numeros y guiones",
-            'isbn.unique' => "El ISBN ya existe",
             'fechaInicio.required' => "Debe ingresar una fecha de inicio",
             'fechaTermino.required' => "Debe ingresar una fecha de termino",
             'fechaTermino.after' => "La fecha de termino no puede estar antes que la fecha de inicio"

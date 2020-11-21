@@ -16,15 +16,24 @@
   <form method="POST" action="{{ route('postModificar') }}" id="modificar-asignatura">
     @csrf
     <div id="asignatura" class="form-group row">
-        <label for="input-asignatura" class="col-sm-2 col-form-label">Asignatura</label>
-        <div class="col-sm-10">
-            <input class="form-control col-sm-5" autocomplete="off" name="nombre" placeholder="Nombre asignatura" type="text" id="asignatura-input" value="{{ $asignatura->nombre }}">
-        </div>
+      <label for="input-asignatura" class="col-sm-2 col-form-label">Asignatura</label>
+      <div class="col-sm-10">
+          <input class="form-control col-sm-5" autocomplete="off" name="nombre" placeholder="Nombre asignatura" type="text" id="asignatura-input" value="{{ $asignatura->nombre }}">
       </div>
+    </div>
       <div id="subarea" class="form-group row">
-        <label for="input-subarea" class="col-sm-2 col-form-label">Subárea</label>
+        <label for="select-subarea" class="col-sm-2 col-form-label">Subarea</label>
         <div class="col-sm-10">
-            <input class="form-control col-sm-5" autocomplete="off" name="subarea" placeholder="Nombre de subárea" type="text" id="subarea-input" value="{{ $subarea->nombre }}">
+          <select class="form-control col-sm-5" requiered="true" name="subarea" id="select-subarea">
+            <option disabled value="Seleccione una asignatura">Seleccione una subarea</option>
+            @foreach ($subareas as $subarea)
+              @if ($subarea->id == $asignatura->idsubarea)
+                <option value="{{ $subarea->id }}" selected>{{ $subarea->nombre }}</option>
+              @else
+                <option value="{{ $subarea->id }}">{{ $subarea->nombre }}</option>
+              @endif
+            @endforeach
+          </select>
         </div>
       </div>
       <div id="codigo" class="form-group row">
