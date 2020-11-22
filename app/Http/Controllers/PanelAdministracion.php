@@ -41,12 +41,24 @@ use App\Http\Requests\StoreProyectoConcursable;
 use App\Http\Requests\StoreActividadAsignatura;
 use App\Http\Requests\StoreActividadArea;
 
-use App\Http\Requests\UpdateLibro;
 use App\Http\Requests\UpdateArea;
-use App\Http\Requests\UpdateAsignatura;
 use App\Http\Requests\UpdateSubarea;
+//use App\Http\Requests\UpdateCargo;
+use App\Http\Requests\UpdateAsignatura;
+//use App\Http\Requests\UpdatePublicacion;
+//use App\Http\Requests\UpdateActividad;
+//use App\Http\Requests\UpdateCurso;
+use App\Http\Requests\UpdateSpinoff;
+use App\Http\Requests\UpdateLibro;
 use App\Http\Requests\UpdateLicencia;
+use App\Http\Requests\UpdateVinculacion;
+//use App\Http\Requests\UpdateTutoria;
+//use App\Http\Requests\UpdateTransferenciaTecnologica;
 use App\Http\Requests\UpdatePerfeccionamientoDocente;
+//use App\Http\Requests\UpdateProyectoConcursable;
+//use App\Http\Requests\UpdateActividadAsignatura;
+//use App\Http\Requests\UpdateActividadArea;
+
 
 
 class PanelAdministracion extends Controller
@@ -200,7 +212,7 @@ class PanelAdministracion extends Controller
 
             break;
         case 'spinoff':
-            $request = new StoreSpinoff;
+            $request = new UpdateSpinoff;
             $this->validate($new_request, $request->rules(), $request->messages());
             $spinoff = Spinoff::find($new_request->id);
             $spinoff->nombre = $new_request->nombre;
@@ -227,7 +239,17 @@ class PanelAdministracion extends Controller
 
             break;
         case 'vinculacion':
-
+            $request = new UpdateVinculacion;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $vinculacion = Vinculacion::find($new_request->id);
+            $vinculacion->nombre = $new_request->nombre;
+            $vinculacion->descripcion = $new_request->descripcion;
+            $vinculacion->save();
+            $actividad = Actividad::find($vinculacion->idactividad);
+            $actividad->inicio = $new_request->fechaInicio;
+            $actividad->termino = $new_request->fechaTermino;
+            $actividad->save();
+            $success = "Vinculación modificada";
             break;
         default:
             break;

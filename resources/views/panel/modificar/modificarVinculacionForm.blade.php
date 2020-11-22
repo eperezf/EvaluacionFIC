@@ -26,7 +26,7 @@
     <div id="inicio" class="form-group row">
       <label for="input-inicio" class="col-sm-2 col-form-label">Fecha de inicio</label>
       <div class="col-sm-10">
-        <input class="form-control col-sm-5" type="date" autocomplete="off" name="fechaInicio" id="input-inicio" value="{{ $actividad->termino  }}">
+        <input class="form-control col-sm-5" type="date" autocomplete="off" name="fechaInicio" id="input-inicio" value="{{ $actividad->inicio  }}">
       </div>
     </div>
     <div id="termino" class="form-group row">
@@ -35,7 +35,9 @@
         <input class="form-control col-sm-5" type="date" autocomplete="off" name="fechaTermino" id="input-termino" value="{{ $actividad->termino  }}">
       </div>
     </div><br>
-    <button class="btn btn-primary" type="submit" form="agregar-vinculacion" value="Submit">Guardar</button>
+    <button class="btn btn-primary" type="submit" form="modificar-vinculacion" value="Submit">Guardar</button>
+    <input type="hidden" value="vinculacion" name="modelo">
+    <input type="hidden" value="{{ $vinculacion->id }}" name="id">
   </form>
 </section>
 @endsection
