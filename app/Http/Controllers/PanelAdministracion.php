@@ -52,10 +52,10 @@ use App\Http\Requests\UpdateSpinoff;
 use App\Http\Requests\UpdateLibro;
 use App\Http\Requests\UpdateLicencia;
 use App\Http\Requests\UpdateVinculacion;
-//use App\Http\Requests\UpdateTutoria;
-//use App\Http\Requests\UpdateTransferenciaTecnologica;
+use App\Http\Requests\UpdateTutoria;
+use App\Http\Requests\UpdateTransferenciaTecnologica;
 use App\Http\Requests\UpdatePerfeccionamientoDocente;
-//use App\Http\Requests\UpdateProyectoConcursable;
+use App\Http\Requests\UpdateProyectoConcursable;
 //use App\Http\Requests\UpdateActividadAsignatura;
 //use App\Http\Requests\UpdateActividadArea;
 
@@ -197,7 +197,7 @@ class PanelAdministracion extends Controller
             $success = "Perfeccionamiento docente modificado";
             break;
         case 'proyectoConcursable':
-            $request = new StoreProyectoConcursable;
+            $request = new UpdateProyectoConcursable;
             $this->validate($new_request, $request->rules(), $request->messages());
             $proyecto = Proyectoconcursable::find($new_request->id);
             $proyecto->nombre = $new_request->nombre;
@@ -233,10 +233,29 @@ class PanelAdministracion extends Controller
             $success = "Subarea modificada";
             break;
         case 'transferenciaTecnologica':
-
+            $request = new UpdateTransferenciaTecnologica;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $transferencia = TransferenciaTecnologica::find($new_request->id);
+            $transferencia->nombre = $new_request->nombre;
+            $transferencia->empresa = $new_request->empresa;
+            $transferencia->save();
+            $actividad = Actividad::find($transferencia->idactividad);
+            $actividad->inicio = $new_request->fechaInicio;
+            $actividad->termino = $new_request->fechaTermino;
+            $actividad->save();
+            $success = "Transferencia tecnológica modificada";
             break;
         case 'tutoria':
-
+            $request = new UpdateTutoria;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $tutoria = Tutoria::find($new_request->id);
+            $tutoria->nombre = $new_request->nombre;
+            $tutoria->save();
+            $actividad = Actividad::find($tutoria->idactividad);
+            $actividad->inicio = $new_request->fechaInicio;
+            $actividad->termino = $new_request->fechaTermino;
+            $actividad->save();
+            $success = "Tutoria modificada";
             break;
         case 'vinculacion':
             $request = new UpdateVinculacion;
