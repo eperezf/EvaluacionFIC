@@ -22,6 +22,7 @@ use App\Vinculacion;
 use App\Curso;
 use App\Tutoria;
 use App\Publicacion;
+//use App\Cargo;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -43,10 +44,9 @@ use App\Http\Requests\StoreActividadArea;
 
 use App\Http\Requests\UpdateArea;
 use App\Http\Requests\UpdateSubarea;
-//use App\Http\Requests\UpdateCargo;
+use App\Http\Requests\UpdateCargo;
 use App\Http\Requests\UpdateAsignatura;
-//use App\Http\Requests\UpdatePublicacion;
-//use App\Http\Requests\UpdateActividad;
+use App\Http\Requests\UpdatePublicacion;
 //use App\Http\Requests\UpdateCurso;
 use App\Http\Requests\UpdateSpinoff;
 use App\Http\Requests\UpdateLibro;
@@ -154,7 +154,7 @@ class PanelAdministracion extends Controller
 
             break;
         case 'curso':
-
+            
             break;
         case 'libro':
             $request = new UpdateLibro;
@@ -209,7 +209,27 @@ class PanelAdministracion extends Controller
             $success = "Proyecto concursable modificado";
             break;
         case 'publicacion':
-
+            $request = new UpdatePublicacion;
+            $this->validate($new_request, $request->rules(), $request->messages());
+            $publicacion = Publicacion::find($new_request->id);
+            $publicacion->tipo = $new_request->tipopublicacion;
+            $publicacion->titulo = $new_request->titulo;
+            $publicacion->volumen = $new_request->volumen;
+            $publicacion->issue = $new_request->issue;
+            $publicacion->pages = $new_request->pages;
+            $publicacion->issn = $new_request->issn;
+            $publicacion->doi = $new_request->notas;
+            $publicacion->notas = $new_request->doi;
+            $publicacion->revista = $new_request->revista;
+            $publicacion->tipoRevista = $new_request->tiporevista;
+            $publicacion->publisher = $new_request->publisher;
+            $publicacion->abstract = $new_request->abstract;
+            $publicacion->save();
+            $actividad = Actividad::find($publicacion->idactividad);
+            $actividad->inicio = $new_request->fechaInicio;
+            $actividad->termino = $new_request->fechaTermino;
+            $actividad->save();
+            $success = "Publicación modificada";
             break;
         case 'spinoff':
             $request = new UpdateSpinoff;
@@ -273,8 +293,6 @@ class PanelAdministracion extends Controller
         default:
             break;
         }
-        //validacion
-        //procesamiento de datos
         return redirect('/panelAdministracion')->with('success', $success.' con éxito.');
     }
 
@@ -583,7 +601,14 @@ class PanelAdministracion extends Controller
 
     public function postCargoAdministrativo(StoreCargo $request) 
     {
-        $validated = $request->validated();
+        /* $original = $request->duplicate();
+        $request->nombre = $this->deleteAccentMark($request->nombre);
+        $this->validate($request, $request->rules(), $request->messages());
+        $request = $original;
+        $cargo = new Cargo;
+        $cargo->nombre = $request->nombre;
+        $cargo->peso = $request->peso;
+        $cargo->save(); */
         return redirect('/panelAdministracion');
     }
     
