@@ -39,12 +39,7 @@ function updateSuggestions(response, customTag)
     case "#usuario":
       lista.forEach((user, i) =>
       {
-        console.log($('#' + user.id).lenght);
-        if($('#' + user.id).lenght)
-        {
-          
-        }
-        else
+        if(!$('#' + user.id).length)
         {
           $('#sugerencias').append(
             '<div class="row bg-' + colors[i%2] + ' rounded col-11 pb-1 pt-1">' +
@@ -56,7 +51,6 @@ function updateSuggestions(response, customTag)
       });
       break;
     default:
-
       break;
   }
 }
@@ -71,7 +65,7 @@ function addUser(nombre, apellidoPaterno, apellidoMaterno, id)
       '<button class="btn btn-danger col-2" type="button" onclick="deleteUser(' + id + ')"><i class="fas fa-trash"></i></button>' +
       '<input id="user-' + id + '" name="user[]" hidden value="' + id + '"' +
     '</div>'
-  ) 
+  )
 }
 
 function deleteUser(id)

@@ -22,6 +22,7 @@ use App\Vinculacion;
 use App\Curso;
 use App\Tutoria;
 use App\Publicacion;
+use App\User_actividad;
 //use App\Cargo;
 
 use App\Http\Requests\StoreArea;
@@ -72,35 +73,35 @@ class PanelAdministracion extends Controller
             array('A', 'A', 'A', 'A', 'a', 'a', 'a', 'a', 'a'),
             $string
         );
-     
+
         //Reemplazamos la E y e
         $string = str_replace(
             array('É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê'),
             array('E', 'E', 'E', 'E', 'e', 'e', 'e', 'e'),
             $string
         );
-     
+
         //Reemplazamos la I y i
         $string = str_replace(
             array('Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î'),
             array('I', 'I', 'I', 'I', 'i', 'i', 'i', 'i'),
             $string
         );
-     
+
         //Reemplazamos la O y o
         $string = str_replace(
             array('Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô'),
             array('O', 'O', 'O', 'O', 'o', 'o', 'o', 'o'),
             $string
         );
-     
+
         //Reemplazamos la U y u
         $string = str_replace(
             array('Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û'),
             array('U', 'U', 'U', 'U', 'u', 'u', 'u', 'u'),
             $string
         );
-    
+
         //Reemplazamos la N, n, C y c
         $string = str_replace(
             array('Ñ', 'ñ', 'Ç', 'ç'),
@@ -332,7 +333,7 @@ class PanelAdministracion extends Controller
         $validated = $request->validated();
         $request = $original;
         $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Publicación')->get()[0]->id;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Publicación')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;
         $actividad->termino = $request->fechaTermino;
         $actividad->save();
@@ -349,11 +350,22 @@ class PanelAdministracion extends Controller
         $publicacion->tipoRevista = $request->tiporevista;
         $publicacion->publisher = $request->publisher;
         $publicacion->abstract = $request->abstract;
-        $publicacion->idactividad = Actividad::latest()->first()->id;
+        $publicacion->idactividad = $actividad->id;
         $publicacion->save();
+
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = 3;
+          $user_actividad->save();
+
+        }
+
+
         return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarActividadAsignatura()
@@ -376,17 +388,29 @@ class PanelAdministracion extends Controller
 
     public function postActividadAsignatura(StoreActividadAsignatura $request)
     {
-        $validated = $request->validated();
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Asignatura')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $actividadAsignatura = new Actividad_Asignatura;
-        $actividadAsignatura->idasignatura = $request->asignatura;
-        $actividadAsignatura->idactividad = Actividad::latest()->first()->id;
-        $actividadAsignatura->save();
-        return redirect('/panelAdministracion');
+      //Creamos la actividad
+      $actividad = new Actividad;
+      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Asignatura')->get()[0]->id;
+      $actividad->inicio = $request->fechaInicio;
+      $actividad->termino = $request->fechaTermino;
+      $actividad->save();
+
+      //Creamos la actividad en asignatura
+      $actividad_asignatura = new Actividad_Asignatura;
+      $actividad_asignatura->idactividad = $actividad->id;
+      $actividad_asignatura->idasignatura = $request->asignatura;
+      $actividad_asignatura->save();
+
+      //Asignamos los usuarios con la actividad
+      foreach ($request->user as $user => $value) {
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $value;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = 3;
+        $user_actividad->save();
+
+      }
+      return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -404,17 +428,29 @@ class PanelAdministracion extends Controller
 
     public function postActividadArea(StoreActividadArea $request)
     {
-        $validated = $request->validated();
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Area')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $actividadArea = new Actividad_area;
-        $actividadArea->idactividad = Actividad::latest()->first()->id;
-        $actividadArea->idarea = $request->area;
-        $actividadArea->save();
-        return redirect('/panelAdministracion');
+      //Creamos la actividad
+      $actividad = new Actividad;
+      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Área')->get()[0]->id;
+      $actividad->inicio = $request->fechaInicio;
+      $actividad->termino = $request->fechaTermino;
+      $actividad->save();
+
+      //Creamos la actividad en el área
+      $actividad_area = new Actividad_area;
+      $actividad_area->idactividad = $actividad->id;
+      $actividad_area->idarea = $request->area;
+      $actividad_area->save();
+
+      //Asignamos los usuarios con la actividad
+      foreach ($request->user as $user => $value) {
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $value;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = 3;
+        $user_actividad->save();
+
+      }
+      return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -437,7 +473,7 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarAsignaturaForm', ['asignatura' => $asignatura, 'subareas' => $subareas]);
     }
 
-    public function postAsignatura(StoreAsignatura $request) 
+    public function postAsignatura(StoreAsignatura $request)
     {
         $original = $request->duplicate();
         $request->name = $this->deleteAccentMark($request->nombre);
@@ -450,7 +486,7 @@ class PanelAdministracion extends Controller
         $asignatura->save();
         return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarTutoria()
@@ -472,22 +508,31 @@ class PanelAdministracion extends Controller
 
     public function postTutoria(StoreTutoria $request)
     {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $validated = $request->validated();
-        $request = $original;
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Tutoría')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $tutoria = new Tutoria;
-        $tutoria->idactividad = Actividad::latest()->first()->id;
-        $tutoria->nombre = $request->nombre;
-        $tutoria->save();
-        return redirect('/panelAdministracion');
+      //Creamos la actividad
+      $actividad = new Actividad;
+      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Tutoría')->get()[0]->id;
+      $actividad->inicio = $request->fechaInicio;
+      $actividad->termino = $request->fechaTermino;
+      $actividad->save();
+
+      //Creamos la tutoría
+      $tutoria = new Tutoria;
+      $tutoria->nombre = $request->nombre;
+      $tutoria->idactividad = $actividad->id;
+      $tutoria->save();
+
+      //Asignamos los usuarios con la actividad
+      foreach ($request->user as $user => $value) {
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $value;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = 3;
+        $user_actividad->save();
+
+      }
+      return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarCurso()
@@ -511,25 +556,36 @@ class PanelAdministracion extends Controller
 
     public function postCurso(StoreCurso $request)
     {
-        $original = $request->duplicate();
-        $request->seccion = $this->deleteAccentMark($request->seccion);
-        $validate = $request->validated();
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Curso')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $curso = new Curso;
-        $curso->calificacion = null;
-        $curso->respuestas = null;
-        $curso->material = null;
-        $curso->seccion = $request->seccion;
-        $curso->idactividad = Actividad::latest()->first()->id;
-        $curso->idasignatura = $request->asignatura;
-        $curso->save();
-        return redirect('/panelAdministracion');
+      //Creamos la actividad
+      $actividad = new Actividad;
+      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Curso')->get()[0]->id;
+      $actividad->inicio = $request->fechaInicio;
+      $actividad->termino = $request->fechaTermino;
+      $actividad->save();
+
+      //Creamos el curso
+      $curso = new Curso;
+      $curso->nombre = $request->nombre;
+      $curso->calificacion = null;
+      $curso->respuestas = null;
+      $curso->material = null;
+      $curso->seccion = $request->seccion;
+      $curso->idactividad = $actividad->id;
+      $curso->idasignatura = $request->asignatura;
+      $curso->save();
+
+      //Asignamos los usuarios con la actividad
+      foreach ($request->user as $user => $value) {
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $value;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = 3;
+        $user_actividad->save();
+
+      }
+      return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarArea()
@@ -559,7 +615,7 @@ class PanelAdministracion extends Controller
         $area->save();
         return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarSubarea()
@@ -592,9 +648,9 @@ class PanelAdministracion extends Controller
         $subarea->save();
         return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
-    
+
     public function loadAgregarCargoAdministrativo()
     {
         return view('panel.agregar.agregarCargoAdministrativo');
@@ -605,7 +661,7 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarCargoAdministrativo');
     }
 
-    public function postCargoAdministrativo(StoreCargo $request) 
+    public function postCargoAdministrativo(StoreCargo $request)
     {
         /* $original = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
@@ -617,7 +673,7 @@ class PanelAdministracion extends Controller
         $cargo->save(); */
         return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarVinculacion()
@@ -640,24 +696,32 @@ class PanelAdministracion extends Controller
 
     public function postVinculacion(StoreVinculacion $request)
     {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $request->descripcion = $this->deleteAccentMark($request->descripcion);
-        $validated = $request->validated();
-        $request = $original;
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Vinculación')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $vinculacion = new Vinculacion;
-        $vinculacion->nombre = $request->nombre;
-        $vinculacion->descripcion = $request->descripcion;
-        $vinculacion->idactividad = Actividad::latest()->first()->id;
-        $vinculacion->save();
-        return redirect('/panelAdministracion');
+      //Creamos la actividad
+      $actividad = new Actividad;
+      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Vinculación')->get()[0]->id;
+      $actividad->inicio = $request->fechaInicio;
+      $actividad->termino = $request->fechaTermino;
+      $actividad->save();
+
+      //Creamos la vinculación
+      $vinculacion = new Vinculacion;
+      $vinculacion->nombre = $request->nombre;
+      $vinculacion->descripcion = $request->descripcion;
+      $vinculacion->idactividad = $actividad->id;
+      $vinculacion->save();
+
+      //Asignamos los usuarios con la actividad
+      foreach ($request->user as $user => $value) {
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $value;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = 3;
+        $user_actividad->save();
+
+      }
+      return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarTransferenciaTecnologica()
@@ -680,23 +744,31 @@ class PanelAdministracion extends Controller
 
     public function postTransferenciaTecnologica(StoreTransferenciaTecnologica $request)
     {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $validated = $request->validated();
-        $request = $original;
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Transferencia'.'%')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $transferencia = new Transferenciatecnologica;
-        $transferencia->nombre = $request->nombre;
-        $transferencia->empresa = $request->empresa;
-        $transferencia->idactividad = Actividad::latest()->first()->id;
-        $transferencia->save();
-        return redirect('/panelAdministracion');
+      //Creamos la actividad
+      $actividad = new Actividad;
+      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Transferencia tecnológica')->get()[0]->id;
+      $actividad->inicio = $request->fechaInicio;
+      $actividad->termino = $request->fechaTermino;
+      $actividad->save();
+
+      //Creamos la transferencia tecnológica
+      $transferencia_tecnologica = new TransferenciaTecnologica;
+      $transferencia_tecnologica->nombre = $request->nombre;
+      $transferencia_tecnologica->empresa = $request->empresa;
+      $transferencia_tecnologica->idactividad = $actividad->id;
+      $transferencia_tecnologica->save();
+
+      //Asignamos los usuarios con la actividad
+      foreach ($request->user as $user => $value) {
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $value;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = 3;
+        $user_actividad->save();
+      }
+      return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarSpinoff()
@@ -719,22 +791,31 @@ class PanelAdministracion extends Controller
 
     public function postSpinoff(StoreSpinoff $request)
     {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $validated = $request->validated();
-        $request = $original;
+        //Creamos la actividad
         $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Spinoff'.'%')->get()[0]->id;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Spinoff')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;
         $actividad->termino = $request->fechaTermino;
         $actividad->save();
+
+        //Creamos el spinoff
         $spinoff = new Spinoff;
         $spinoff->nombre = $request->nombre;
-        $spinoff->idactividad = Actividad::latest()->first()->id;
+        $spinoff->idactividad = $actividad->id;
         $spinoff->save();
+
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = 3;
+          $user_actividad->save();
+
+        }
         return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarProyectoConcursable()
@@ -757,22 +838,31 @@ class PanelAdministracion extends Controller
 
     public function postProyectoConcursable(StoreProyectoConcursable $request)
     {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $validated = $request->validated();
-        $request = $original;
+        //Creamos la actividad
         $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Proyecto'.'%')->get()[0]->id;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Proyecto concursable')->get()[0]->id;
         $actividad->inicio = $request->fechaInicio;
         $actividad->termino = $request->fechaTermino;
         $actividad->save();
-        $proyecto = new Proyectoconcursable;
-        $proyecto->nombre = $request->nombre;
-        $proyecto->idactividad = Actividad::latest()->first()->id;
-        $proyecto->save();
+
+        //Creamos el proyecto concursable
+        $proyecto_concursable = new Proyectoconcursable;
+        $proyecto_concursable->nombre = $request->nombre;
+        $proyecto_concursable->idactividad = $actividad->id;
+        $proyecto_concursable->save();
+
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = 3;
+          $user_actividad->save();
+
+        }
         return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarPerfeccionamientoDocente()
@@ -795,25 +885,33 @@ class PanelAdministracion extends Controller
 
     public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
     {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $request->institucion = $this->deleteAccentMark($request->institucion);
-        $validated = $request->validated();
-        $request = $original;
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Perfeccionamiento'.'%')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $perfeccionamiento = new Perfeccionamientodocente;
-        $perfeccionamiento->nombre = $request->nombre;
-        $perfeccionamiento->area = $request->area;
-        $perfeccionamiento->institucion = $request->institucion;
-        $perfeccionamiento->idactividad = Actividad::latest()->first()->id;
-        $perfeccionamiento->save();
-        return redirect('/panelAdministracion');
+      //Creamos la actividad
+      $actividad = new Actividad;
+      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Perfeccionamiento Docente')->get()[0]->id;
+      $actividad->inicio = $request->fechaInicio;
+      $actividad->termino = $request->fechaTermino;
+      $actividad->save();
+
+      //Creamos el perfeccionamiento docente
+      $perfeccionamiento_docente = new PerfeccionamientoDocente;
+      $perfeccionamiento_docente->nombre = $request->nombre;
+      $perfeccionamiento_docente->area = $request->area;
+      $perfeccionamiento_docente->institucion = $request->institucion;
+      $perfeccionamiento_docente->idactividad = $actividad->id;
+      $perfeccionamiento_docente->save();
+
+      //Asignamos los usuarios con la actividad
+      foreach ($request->user as $user => $value) {
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $value;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = 3;
+        $user_actividad->save();
+
+      }
+      return redirect('/panelAdministracion');
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarLicencia()
@@ -836,24 +934,32 @@ class PanelAdministracion extends Controller
 
     public function postLicencia(StoreLicencia $request)
     {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $request->empresa = $this->deleteAccentMark($request->empresa);
-        $validated = $request->validated();
-        $request = $original;
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Licencia')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $licencia = new Licencia;
-        $licencia->nombre = $request->nombre;
-        $licencia->empresa = $request->empresa;
-        $licencia->idactividad = Actividad::latest()->first()->id;
-        $licencia->save();
-        return redirect('/panelAdministracion');
+
+      //Creamos la actividad
+      $actividad = new Actividad;
+      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Licencia')->get()[0]->id;
+      $actividad->inicio = $request->fechaInicio;
+      $actividad->termino = $request->fechaTermino;
+      $actividad->save();
+
+      //Creamos la licencia
+      $licencia = new Licencia;
+      $licencia->nombre = $request->nombre;
+      $licencia->empresa = $request->empresa;
+      $licencia->idactividad = $actividad->id;
+      $licencia->save();
+
+      //Asignamos los usuarios con la actividad
+      foreach ($request->user as $user => $value) {
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $value;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = 3;
+        $user_actividad->save();
+
+      }
     }
-    
+
 //--------------------------------------------------
 
     public function loadAgregarLibro()
@@ -866,7 +972,7 @@ class PanelAdministracion extends Controller
     {
         return view('panel.modificar.modificarLibro');
     }
-    
+
     public function loadModificarLibroForm($id)
     {
         $libro = Libro::find($id);
@@ -876,21 +982,30 @@ class PanelAdministracion extends Controller
 
     public function postLibro(StoreLibro $request)
     {
-        $original = $request->duplicate();
-        $request->titulo = $this->deleteAccentMark($request->nombre);
-        $request->isbn = $this->deleteAccentMark($request->isbn);
-        $validated = $request->validated();
-        $request = $original;
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'LIKE', 'Libro')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $libro = new Libro;
-        $libro->titulo = $request->titulo;
-        $libro->isbn = $request->isbn;
-        $libro->idactividad = Actividad::latest()->first()->id;
-        $libro->save();
-        return redirect('/panelAdministracion');
+
+      //Creamos la actividad
+      $actividad = new Actividad;
+      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Libro')->get()[0]->id;
+      $actividad->inicio = $request->fechaInicio;
+      $actividad->termino = $request->fechaTermino;
+      $actividad->save();
+
+      //Creamos el libro
+      $libro = new Libro;
+      $libro->titulo = $request->titulo;
+      $libro->isbn = $request->isbn;
+      $libro->idactividad = $actividad->id;
+      $libro->save();
+
+      //Asignamos los usuarios con la actividad
+      foreach ($request->user as $user => $value) {
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $value;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = 3;
+        $user_actividad->save();
+
+      }
+      return redirect('/panelAdministracion');
     }
 }
