@@ -59,9 +59,12 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::post('panelAdministracion/postActividadArea', 'PanelAdministracion@postActividadArea')->middleware('auth')->name('postActividadArea');
 
     Route::get('panelAdministracion/modificarArea', 'PanelAdministracion@loadModificarArea')->middleware('auth')->name('modificarArea');
-        Route::get('panelAdministracion/modificarArea/{id}', 'PanelAdministracion@loadModificarAreaForm')->middleware('auth')->name('modificarAreaForm');
-    Route::get('panelAdministracion/modificarActividadAsignatura', 'PanelAdministracion@loadModificarActividadAsignatura')->middleware('auth')->name('modificarActividadAsignatura');
+    Route::get('panelAdministracion/modificarArea/{id}', 'PanelAdministracion@loadModificarAreaForm')->middleware('auth')->name('modificarAreaForm');
     
+    Route::get('panelAdministracion/modificarActividadAsignatura', 'PanelAdministracion@loadModificarActividadAsignatura')->middleware('auth')->name('modificarActividadAsignatura');
+    Route::get('panelAdministracion/modificarActividadAsignatura/{id}/actividades', 'PanelAdministracion@loadActividadesAsignatura')->middleware('auth')->name('actividadesAsignatura');
+
+
     Route::get('panelAdministracion/modificarActividadArea', 'PanelAdministracion@loadModificarActividadArea')->middleware('auth')->name('modificarActividadArea');
     
     Route::get('panelAdministracion/modificarCurso', 'PanelAdministracion@loadModificarCurso')->middleware('auth')->name('modificarCurso');

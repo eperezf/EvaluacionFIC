@@ -11,6 +11,8 @@ $( "#search" ).on('input', function( event )
   }
 });
 
+
+
 function alertFunc()
 {
   if ($("#search").val() == "")
@@ -39,7 +41,7 @@ function alertFunc()
       $('#sugerencias').append(
       '<div class="row p-1 bg-light rounded">' +
         '<h5 class="col-8">'+item.nombre+'</h5>' +
-        '<a href="/panelAdministracion/' + ruta2 + '/' + item.id + '" class="btn btn-secondary col-2">Modificar</a>' +
+        '<a href="/panelAdministracion/' + ruta2 + '/' + item.id + '/actividades" class="btn btn-secondary col-2">Ver actividades</a>' +
         '<a href="" class="btn btn-danger col-2">Eliminar</a>' +
       '</div>'
       );

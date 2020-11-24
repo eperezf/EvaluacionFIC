@@ -35,3 +35,4 @@ Route::get('getVinculacion/{name}', 'ApiController@GetVinculacion');
 Route::get('getCurso/{name}', 'ApiController@GetCurso');
 Route::get('getTutoria/{name}', 'ApiController@GetTutoria');
 Route::get('getPublicacion/{name}', 'ApiController@GetPublicacion');
+Route::get('getUser/{name}', 'ApiController@GetUser');

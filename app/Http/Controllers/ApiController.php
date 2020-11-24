@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\html;
+
 use App\Area;
 use App\Asignatura;
 use App\Subarea;
@@ -14,13 +15,13 @@ use App\TransferenciaTecnologica;
 use App\Vinculacion;
 use App\Tutoria;
 use App\Licencia;
-
 use App\Actividad_Asignatura;
 use App\Actividad_Area;
 use App\Libro;
 use App\Actividad;
 use App\Curso;
 use App\Publicacion;
+use App\User;
 
 class ApiController extends Controller
 {
@@ -83,5 +84,9 @@ class ApiController extends Controller
 
   public function getPublicacion($name){
     return response(Publicacion::where('titulo', 'LIKE', '%'.$name.'%')->get())->header('Content-Type', 'application/json');
+  }
+
+  public function getUser($name){
+    return response(User::where('nombres', 'LIKE', '%'.$name.'%')->orWhere('apellidoPaterno','LIKE','%'.$name.'%')->orWhere('apellidoMaterno','LIKE','%'.$name.'%')->get())->header('Content-Type', 'application/json');
   }
 }

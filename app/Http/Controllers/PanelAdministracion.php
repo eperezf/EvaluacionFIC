@@ -154,7 +154,7 @@ class PanelAdministracion extends Controller
 
             break;
         case 'curso':
-            
+
             break;
         case 'libro':
             $request = new UpdateLibro;
@@ -366,6 +366,12 @@ class PanelAdministracion extends Controller
     public function loadModificarActividadAsignatura()
     {
         return view('panel.modificar.modificarActividadAsignatura');
+    }
+
+    public function loadActividadesAsignatura($idAsignatura)
+    {
+        $actividades = Actividad_Asignatura::where('idasignatura', $idAsignatura);
+        return view('panel.modificar.modificarActividadAsignaturaSelect');
     }
 
     public function postActividadAsignatura(StoreActividadAsignatura $request)
