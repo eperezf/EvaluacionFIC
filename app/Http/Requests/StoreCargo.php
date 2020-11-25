@@ -21,12 +21,13 @@ class StoreCargo extends FormRequest {
      */
     public function rules() {
         return [
-            'cargo' => [
+            'nombre' => [
                 'required',
                 'alpha',
                 'max:45',
                 'unique:cargo,nombre'
             ],
+            'tipoactividad' => ['required', 'numeric'],
             'peso' => ['required']
         ];
     }
@@ -37,6 +38,8 @@ class StoreCargo extends FormRequest {
             'cargo.alpha' => "Cargo debe tener solo letras",
             'cargo.max' => "Cargo debe tener máximo 45 caracteres",
             'cargo.unique' => "El cargo ya existe",
+            'tipoactividad.required' => "Debe ingresar un tipo de actividad",
+            'tipoactividad.numeric' => "Tipo actividad debe tener solo numeros",
             'peso.required' => "Debe ingresar un peso"
         ];
     }

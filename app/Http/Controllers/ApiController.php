@@ -22,6 +22,7 @@ use App\Actividad;
 use App\Curso;
 use App\Publicacion;
 use App\User;
+use App\Cargo;
 
 class ApiController extends Controller
 {
@@ -88,5 +89,9 @@ class ApiController extends Controller
 
   public function getUser($name){
     return response(User::where('nombres', 'LIKE', '%'.$name.'%')->orWhere('apellidoPaterno','LIKE','%'.$name.'%')->orWhere('apellidoMaterno','LIKE','%'.$name.'%')->get())->header('Content-Type', 'application/json');
+  }
+
+  public function getCargoTipoActividad($id){
+    return response(Cargo::where('idtipoactividad', $id)->get())->header('Content-Type', 'application/json');
   }
 }

@@ -3,7 +3,7 @@
 @section('title', 'Panel de Administración')
 @section('contenido')
 
-<h1>Modificar asignatura</h1>
+<h1>Modificar actividad de asignatura</h1>
 <hr>
 <a class="btn btn-primary" href="{{ route('panelAdministracion') }}" role="button">Volver</a>
 <input type="text" autofocus class="form-control" id="search" name="search" autocomplete="off">

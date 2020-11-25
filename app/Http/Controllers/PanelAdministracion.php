@@ -23,7 +23,7 @@ use App\Curso;
 use App\Tutoria;
 use App\Publicacion;
 use App\User_actividad;
-//use App\Cargo;
+use App\Cargo;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -110,6 +110,8 @@ class PanelAdministracion extends Controller
         );
         return strtolower($string);
     }
+
+    
 
 //--------------------------------------------------
 
@@ -653,7 +655,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarCargoAdministrativo()
     {
-        return view('panel.agregar.agregarCargoAdministrativo');
+        $tipoactividad = Tipoactividad::all(['id', 'nombre']);
+        return view('panel.agregar.agregarCargoAdministrativo', ['tipoactividad' => $tipoactividad]);
     }
 
     public function loadModificarCargoAdministrativo()
@@ -663,14 +666,15 @@ class PanelAdministracion extends Controller
 
     public function postCargoAdministrativo(StoreCargo $request)
     {
-        /* $original = $request->duplicate();
+        $original = $request->duplicate();
         $request->nombre = $this->deleteAccentMark($request->nombre);
         $this->validate($request, $request->rules(), $request->messages());
         $request = $original;
         $cargo = new Cargo;
         $cargo->nombre = $request->nombre;
         $cargo->peso = $request->peso;
-        $cargo->save(); */
+        $cargo->idtipoactividad = $request->tipoactividad;
+        $cargo->save();
         return redirect('/panelAdministracion');
     }
 
@@ -804,6 +808,8 @@ class PanelAdministracion extends Controller
         $spinoff->idactividad = $actividad->id;
         $spinoff->save();
 
+        addUserActividad($request->user, $request->cargo);
+
         //Verificamos si la actividad tiene usuarios asignados
         if($request->user != null)
         {
@@ -820,6 +826,11 @@ class PanelAdministracion extends Controller
         
         
         return redirect('/panelAdministracion');
+    }
+
+    private function addUserActividad($users, $cargos)
+    {
+        
     }
 
 //--------------------------------------------------
