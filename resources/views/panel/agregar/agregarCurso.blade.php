@@ -2,6 +2,9 @@
 
 @section('title', 'Panel de Administración')
 @section('contenido')
+<script type="text/javascript">
+  idtipoactividad = {{ $idtipoactividad }}
+</script>
 <h1>Panel de Cursos</h1><hr>
 <div id="errors">
   @if ($errors->any())
@@ -61,8 +64,8 @@
     </section>
   </div>
 </form>
-
 <script type="text/javascript">
+  var idtipoactividad = {{ $idtipoactividad }}
   var ruta = "getUser";
   var tag = "#usuario"
 </script>

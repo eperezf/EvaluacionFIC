@@ -2,6 +2,9 @@
 
 @section('title', 'Panel de Publicaciones')
 @section('contenido')
+<script type="text/javascript">
+  idtipoactividad = {{ $idtipoactividad }}
+</script>
 <h1>Panel de Libros</h1><hr>
 <div name="errors">
   @if ($errors->any())
@@ -22,7 +25,7 @@
       <div id="titulo" class="form-group row">
         <label for="titulo-input" class="col-sm-3 col-form-label">Título</label>
         <div class="col-sm-9">
-          <input class="form-control col-sm-10" name="titulo" type="text" id="titulo-input" placeholder="Título del libro" value="{{ old('titulo') }}"">
+          <input class="form-control col-sm-10" name="titulo" type="text" id="titulo-input" placeholder="Título del libro" value="{{ old('titulo') }}">
         </div>
       </div>
       <div id="isbn" class="form-group row">
@@ -59,6 +62,7 @@
   </div>
 </form>
 <script type="text/javascript">
+  var idtipoactividad = {{ $idtipoactividad }}
   var ruta = "getUser";
   var tag = "#usuario"
 </script>

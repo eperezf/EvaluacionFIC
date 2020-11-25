@@ -23,7 +23,7 @@ class StoreCargo extends FormRequest {
         return [
             'nombre' => [
                 'required',
-                'alpha',
+                'regex:/^[\pL\s\-]+$/u',
                 'max:45',
                 'unique:cargo,nombre'
             ],

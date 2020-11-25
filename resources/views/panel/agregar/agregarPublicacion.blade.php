@@ -7,7 +7,7 @@
   @if ($errors->any())
     <div class="alert alert-danger pb-1 pt-1">
       @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li> 
+          <li>{{ $error }}</li>
       @endforeach
     </div>
   @endif
@@ -113,6 +113,7 @@
   </div>
 </form>
 <script type="text/javascript">
+  var idtipoactividad = {{ $idtipoactividad }}
   var ruta = "getUser";
   var tag = "#usuario"
 </script>

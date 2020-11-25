@@ -1,7 +1,7 @@
 @extends('includes/template')
 
 @section('title', 'Panel de Administración')
-@section('contenido')
+@section('contenido')<
 <h1>Panel de Licencias</h1><hr>
 <div class="errors">
   @if ($errors->any())
@@ -60,6 +60,7 @@
 </form>
 
 <script type="text/javascript">
+  var idtipoactividad = {{ $idtipoactividad }}
   var ruta = "getUser";
   var tag = "#usuario"
 </script>

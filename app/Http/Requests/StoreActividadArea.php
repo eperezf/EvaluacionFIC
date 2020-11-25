@@ -36,7 +36,8 @@ class StoreActividadArea extends FormRequest
             'area.required' => "Debe ingresar una área.",
             'fechaInicio.required' => "Debe ingresar una fecha de inicio",
             'fechaTermino.required' => "Debe ingresar una fecha de termino",
-            'fechaTermino.after' => "La fecha de termino no puede estar antes que la fecha de inicio"
+            'fechaTermino.after' => "La fecha de termino no puede estar antes que la fecha de inicio",
+            'cargo.required_if' => "El cargo del usuario no puede ser vacío"
         ];
     }
 }

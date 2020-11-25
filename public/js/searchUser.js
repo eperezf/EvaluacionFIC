@@ -1,6 +1,21 @@
 var timer;
 var lista;
 var string;
+var select;
+
+$(document).ready(()=>{
+  console.log(idtipoactividad);
+  var request = new Request('/api/getCargoTipoActividad/' + idtipoactividad);
+  fetch(request).then(function(response){return response.json();}).then(function(res)
+  {
+    select = '<select class="form-control col-sm-7 mr-1" requiered="true" name="cargo[]" id="cargo[]"><option disabled selected>Seleccione un cargo</option>'
+    res.forEach((item, i) => {
+      select = select + '<option value='+item.id+'>'+item.nombre+'</option>'
+    });
+    select = select + '</select>'
+
+  });
+})
 
 $(tag).on('input', function( event )
 {
@@ -61,7 +76,7 @@ function addUser(nombre, apellidoPaterno, apellidoMaterno, id)
   $("#usuario").val("");
   $("#usuarios-añadidos").append(
     '<div class="row rounded col-11 pb-1 pt-1" id="' + id + '">' +
-      '<h5 class="col-10">' + nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno + '</h5>' +
+      '<h5 class="col-10">' + nombre + ' ' + apellidoPaterno + ' ' + apellidoMaterno + '</h5>' +select+
       '<button class="btn btn-danger col-2" type="button" onclick="deleteUser(' + id + ')"><i class="fas fa-trash"></i></button>' +
       '<input id="user-' + id + '" name="user[]" hidden value="' + id + '"' +
     '</div>'

@@ -59,6 +59,7 @@
 </form>
 
 <script type="text/javascript">
+  var idtipoactividad = {{ $idtipoactividad }};
   var ruta = "getUser";
   var ruta2 = "modificarAsignatura";
   var tag = "#usuario"

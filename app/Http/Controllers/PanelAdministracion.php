@@ -111,7 +111,7 @@ class PanelAdministracion extends Controller
         return strtolower($string);
     }
 
-    
+
 
 //--------------------------------------------------
 
@@ -304,7 +304,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarPublicacion()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarPublicacion', ['areas' => $areas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Publicación')->get()[0]->id;
+        return view('panel.agregar.agregarPublicacion', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarPublicacion()
@@ -374,7 +375,8 @@ class PanelAdministracion extends Controller
     {
         $areas = Area::all(['id', 'nombre']);
         $asignaturas = Asignatura::all('id', 'nombre');
-        return view('panel.agregar.agregarActividadAsignatura', ['areas' => $areas, 'asignaturas' => $asignaturas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Asignatura')->get()[0]->id;
+        return view('panel.agregar.agregarActividadAsignatura', ['areas' => $areas, 'asignaturas' => $asignaturas, 'idtipoactividad'=> $idtipoactividad]);
     }
 
     public function loadModificarActividadAsignatura()
@@ -384,8 +386,9 @@ class PanelAdministracion extends Controller
 
     public function loadActividadesAsignatura($idAsignatura)
     {
-        $actividades = Actividad_Asignatura::where('idasignatura', $idAsignatura);
-        return view('panel.modificar.modificarActividadAsignaturaSelect');
+        $actividades = Actividad_Asignatura::where('idasignatura', $idAsignatura)->get();
+        dd($actividades);
+        //return view('panel.modificar.modificarActividadAsignaturaSelect');
     }
 
     public function postActividadAsignatura(StoreActividadAsignatura $request)
@@ -403,14 +406,16 @@ class PanelAdministracion extends Controller
       $actividad_asignatura->idasignatura = $request->asignatura;
       $actividad_asignatura->save();
 
-      //Asignamos los usuarios con la actividad
-      foreach ($request->user as $user => $value) {
-        $user_actividad = new User_actividad;
-        $user_actividad->iduser = $value;
-        $user_actividad->idactividad = $actividad->id;
-        $user_actividad->idcargo = 3;
-        $user_actividad->save();
-
+      //Si existen usuarios asignados
+      if ($request->user) {
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = $request->cargo[$user];
+          $user_actividad->save();
+        }
       }
       return redirect('/panelAdministracion');
     }
@@ -420,7 +425,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarActividadArea()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarActividadArea', ['areas' => $areas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Área')->get()[0]->id;
+        return view('panel.agregar.agregarActividadArea', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarActividadArea()
@@ -430,6 +436,7 @@ class PanelAdministracion extends Controller
 
     public function postActividadArea(StoreActividadArea $request)
     {
+      //dd($request);
       //Creamos la actividad
       $actividad = new Actividad;
       $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Área')->get()[0]->id;
@@ -443,14 +450,16 @@ class PanelAdministracion extends Controller
       $actividad_area->idarea = $request->area;
       $actividad_area->save();
 
-      //Asignamos los usuarios con la actividad
-      foreach ($request->user as $user => $value) {
-        $user_actividad = new User_actividad;
-        $user_actividad->iduser = $value;
-        $user_actividad->idactividad = $actividad->id;
-        $user_actividad->idcargo = 3;
-        $user_actividad->save();
-
+      //Si existen usuarios asignados
+      if ($request->user) {
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = $request->cargo[$user];
+          $user_actividad->save();
+        }
       }
       return redirect('/panelAdministracion');
     }
@@ -493,7 +502,8 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarTutoria()
     {
-        return view('panel.agregar.agregarTutoria');
+        $idtipoactividad = Tipoactividad::where('nombre', 'Tutoría')->get()[0]->id;
+        return view('panel.agregar.agregarTutoria', ['idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarTutoria()
@@ -523,14 +533,16 @@ class PanelAdministracion extends Controller
       $tutoria->idactividad = $actividad->id;
       $tutoria->save();
 
-      //Asignamos los usuarios con la actividad
-      foreach ($request->user as $user => $value) {
-        $user_actividad = new User_actividad;
-        $user_actividad->iduser = $value;
-        $user_actividad->idactividad = $actividad->id;
-        $user_actividad->idcargo = 3;
-        $user_actividad->save();
-
+      //Si existen usuarios asignados
+      if ($request->user) {
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = $request->cargo[$user];
+          $user_actividad->save();
+        }
       }
       return redirect('/panelAdministracion');
     }
@@ -540,7 +552,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarCurso()
     {
         $asignaturas = Asignatura::all(['id','nombre']);
-        return view('panel.agregar.agregarCurso', ['asignaturas' => $asignaturas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Curso')->get()[0]->id;
+        return view('panel.agregar.agregarCurso', ['asignaturas' => $asignaturas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarCurso()
@@ -576,14 +589,16 @@ class PanelAdministracion extends Controller
       $curso->idasignatura = $request->asignatura;
       $curso->save();
 
-      //Asignamos los usuarios con la actividad
-      foreach ($request->user as $user => $value) {
-        $user_actividad = new User_actividad;
-        $user_actividad->iduser = $value;
-        $user_actividad->idactividad = $actividad->id;
-        $user_actividad->idcargo = 3;
-        $user_actividad->save();
-
+      //Si existen usuarios asignados
+      if ($request->user) {
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = $request->cargo[$user];
+          $user_actividad->save();
+        }
       }
       return redirect('/panelAdministracion');
     }
@@ -683,7 +698,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarVinculacion()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarVinculacion', ['areas' => $areas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Vinculación')->get()[0]->id;
+        return view('panel.agregar.agregarVinculacion', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarVinculacion()
@@ -714,14 +730,16 @@ class PanelAdministracion extends Controller
       $vinculacion->idactividad = $actividad->id;
       $vinculacion->save();
 
-      //Asignamos los usuarios con la actividad
-      foreach ($request->user as $user => $value) {
-        $user_actividad = new User_actividad;
-        $user_actividad->iduser = $value;
-        $user_actividad->idactividad = $actividad->id;
-        $user_actividad->idcargo = 3;
-        $user_actividad->save();
-
+      //Si existen usuarios asignados
+      if ($request->user) {
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = $request->cargo[$user];
+          $user_actividad->save();
+        }
       }
       return redirect('/panelAdministracion');
     }
@@ -731,7 +749,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarTransferenciaTecnologica()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarTransferenciaTecnologica', ['areas' => $areas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Transferencia tecnológica')->get()[0]->id;
+        return view('panel.agregar.agregarTransferenciaTecnologica', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarTransferenciaTecnologica()
@@ -762,13 +781,16 @@ class PanelAdministracion extends Controller
       $transferencia_tecnologica->idactividad = $actividad->id;
       $transferencia_tecnologica->save();
 
-      //Asignamos los usuarios con la actividad
-      foreach ($request->user as $user => $value) {
-        $user_actividad = new User_actividad;
-        $user_actividad->iduser = $value;
-        $user_actividad->idactividad = $actividad->id;
-        $user_actividad->idcargo = 3;
-        $user_actividad->save();
+      //Si existen usuarios asignados
+      if ($request->user) {
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = $request->cargo[$user];
+          $user_actividad->save();
+        }
       }
       return redirect('/panelAdministracion');
     }
@@ -778,7 +800,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarSpinoff()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarSpinoff', ['areas' => $areas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Spinoff')->get()[0]->id;
+        return view('panel.agregar.agregarSpinoff', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarSpinoff()
@@ -808,29 +831,23 @@ class PanelAdministracion extends Controller
         $spinoff->idactividad = $actividad->id;
         $spinoff->save();
 
-        addUserActividad($request->user, $request->cargo);
-
-        //Verificamos si la actividad tiene usuarios asignados
-        if($request->user != null)
-        {
-            //Asignamos los usuarios con la actividad
-            foreach ($request->user as $user => $value)
-            {
-                $user_actividad = new User_actividad;
-                $user_actividad->iduser = $value;
-                $user_actividad->idactividad = $actividad->id;
-                $user_actividad->idcargo = 3;
-                $user_actividad->save();
-            }
+        //Si existen usuarios asignados
+        if ($request->user) {
+          //Asignamos los usuarios con la actividad
+          foreach ($request->user as $user => $value) {
+            $user_actividad = new User_actividad;
+            $user_actividad->iduser = $value;
+            $user_actividad->idactividad = $actividad->id;
+            $user_actividad->idcargo = $request->cargo[$user];
+            $user_actividad->save();
+          }
         }
-        
-        
         return redirect('/panelAdministracion');
     }
 
     private function addUserActividad($users, $cargos)
     {
-        
+
     }
 
 //--------------------------------------------------
@@ -838,7 +855,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarProyectoConcursable()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarProyectoConcursable', ['areas' => $areas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Proyecto concursable')->get()[0]->id;
+        return view('panel.agregar.agregarProyectoConcursable', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarProyectoConcursable()
@@ -868,14 +886,16 @@ class PanelAdministracion extends Controller
         $proyecto_concursable->idactividad = $actividad->id;
         $proyecto_concursable->save();
 
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = 3;
-          $user_actividad->save();
-
+        //Si existen usuarios asignados
+        if ($request->user) {
+          //Asignamos los usuarios con la actividad
+          foreach ($request->user as $user => $value) {
+            $user_actividad = new User_actividad;
+            $user_actividad->iduser = $value;
+            $user_actividad->idactividad = $actividad->id;
+            $user_actividad->idcargo = $request->cargo[$user];
+            $user_actividad->save();
+          }
         }
         return redirect('/panelAdministracion');
     }
@@ -885,7 +905,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarPerfeccionamientoDocente()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarPerfeccionamientoDocente', compact('areas', $areas));
+        $idtipoactividad = Tipoactividad::where('nombre', 'Perfeccionamiento docente')->get()[0]->id;
+        return view('panel.agregar.agregarPerfeccionamientoDocente', ['areas' =>$areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarPerfeccionamientoDocente()
@@ -917,14 +938,16 @@ class PanelAdministracion extends Controller
       $perfeccionamiento_docente->idactividad = $actividad->id;
       $perfeccionamiento_docente->save();
 
-      //Asignamos los usuarios con la actividad
-      foreach ($request->user as $user => $value) {
-        $user_actividad = new User_actividad;
-        $user_actividad->iduser = $value;
-        $user_actividad->idactividad = $actividad->id;
-        $user_actividad->idcargo = 3;
-        $user_actividad->save();
-
+      //Si existen usuarios asignados
+      if ($request->user) {
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = $request->cargo[$user];
+          $user_actividad->save();
+        }
       }
       return redirect('/panelAdministracion');
     }
@@ -934,7 +957,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarLicencia()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarLicencia', ['areas' => $areas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Licencia')->get()[0]->id;
+        return view('panel.agregar.agregarLicencia', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarLicencia()
@@ -966,15 +990,18 @@ class PanelAdministracion extends Controller
       $licencia->idactividad = $actividad->id;
       $licencia->save();
 
-      //Asignamos los usuarios con la actividad
-      foreach ($request->user as $user => $value) {
-        $user_actividad = new User_actividad;
-        $user_actividad->iduser = $value;
-        $user_actividad->idactividad = $actividad->id;
-        $user_actividad->idcargo = 3;
-        $user_actividad->save();
-
+      //Si existen usuarios asignados
+      if ($request->user) {
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = $request->cargo[$user];
+          $user_actividad->save();
+        }
       }
+      return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -982,7 +1009,8 @@ class PanelAdministracion extends Controller
     public function loadAgregarLibro()
     {
         $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarLibro', ['areas' => $areas]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Libro')->get()[0]->id;
+        return view('panel.agregar.agregarLibro', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
     public function loadModificarLibro()
@@ -1014,14 +1042,15 @@ class PanelAdministracion extends Controller
       $libro->idactividad = $actividad->id;
       $libro->save();
 
-      //Asignamos los usuarios con la actividad
-      foreach ($request->user as $user => $value) {
-        $user_actividad = new User_actividad;
-        $user_actividad->iduser = $value;
-        $user_actividad->idactividad = $actividad->id;
-        $user_actividad->idcargo = 3;
-        $user_actividad->save();
-
+      if ($request->user) {
+        //Asignamos los usuarios con la actividad
+        foreach ($request->user as $user => $value) {
+          $user_actividad = new User_actividad;
+          $user_actividad->iduser = $value;
+          $user_actividad->idactividad = $actividad->id;
+          $user_actividad->idcargo = $request->cargo[$user];
+          $user_actividad->save();
+        }
       }
       return redirect('/panelAdministracion');
     }
