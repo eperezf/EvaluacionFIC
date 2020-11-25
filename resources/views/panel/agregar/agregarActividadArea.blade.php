@@ -1,6 +1,3 @@
-
-
-
 @extends('includes/template')
 
 @section('title', 'Panel de Administración')

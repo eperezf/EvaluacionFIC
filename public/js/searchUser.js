@@ -71,4 +71,5 @@ function addUser(nombre, apellidoPaterno, apellidoMaterno, id)
 function deleteUser(id)
 {
   document.getElementById(id).remove();
+  getData(tag);
 }
