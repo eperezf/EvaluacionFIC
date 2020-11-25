@@ -11,8 +11,6 @@ $( "#search" ).on('input', function( event )
   }
 });
 
-
-
 function alertFunc()
 {
   if ($("#search").val() == "")
@@ -28,11 +26,23 @@ function alertFunc()
     $("#sugerencias").empty();
     if(!lista[0])
     {
-      $('#sugerencias').append('<div>No hay resultados</div>');
+      $('#sugerencias').append('<h5 class="col-8">No hay resultados</h5>');
     }
     lista.forEach((item, i) =>
     {
-      $('#sugerencias').append('<div>'+item.nombre+'</div>');
+      if (item.seccion) {
+        item.nombre = item.seccion
+      }
+      if (item.titulo) {
+        item.nombre = item.titulo
+      }
+      $('#sugerencias').append(
+      '<div class="row p-1 bg-light rounded">' +
+        '<h5 class="col-8">'+item.nombre+'</h5>' +
+        '<a href="/panelAdministracion/' + ruta2 + '/' + item.id + '" class="btn btn-secondary col-2">Modificar</a>' +
+        '<a href="" class="btn btn-danger col-2">Eliminar</a>' +
+      '</div>'
+      );
     });
   });
 }

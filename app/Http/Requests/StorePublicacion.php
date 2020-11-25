@@ -24,8 +24,8 @@ class StorePublicacion extends FormRequest
     public function rules()
     {
         return [
-            'tipoPublicacion' => ['required', 'alpha', 'max:45'],
-            'titulo' => ['required', 'regex:/^[a-zA-Z0-9\s-]+$/', 'max:45'], //Falta poder considerar los puntos y comas
+            'tipopublicacion' => ['required', 'alpha', 'max:45'],
+            'titulo' => ['required', 'max:45'], //Falta poder considerar los puntos y comas
             'volumen' => ['required', 'numeric', 'max:45'],
             'issue' => ['required'], //Falta informacion
             'pages' => ['required', 'regex:/^[0-9\s-]+$/'],
@@ -33,20 +33,21 @@ class StorePublicacion extends FormRequest
             'notas' => ['required'], //Falta informacion
             'doi' => ['required'], //Falta poder considerar los puntos y slashes
             'revista' => ['required'], //Falta informacion
-            'tipoRevista' => ['required', 'alpha'],
+            'tiporevista' => ['required', 'alpha'],
             'publisher' => ['required'], //Falta informacion
             'abstract' => ['required'], //Falta informacion
+            'fechaInicio' => ['required', 'date'],
+            'fechaTermino' => ['required', 'date', 'after:fechaInicio']
         ];
     }
     
     public function messages()
     {
         return [
-            'tipoPublicacion.required' => "Debe ingresar un tipo de publicación.",
-            'tipoPublicacion.alpha' => "Tipo de publicación debe tener solo letras.",
-            'tipoPublicacion.max' => "Tipo de publicación debe tener máximo 45 caracteres.",
+            'tipopublicacion.required' => "Debe ingresar un tipo de publicación.",
+            'tipopublicacion.alpha' => "Tipo de publicación debe tener solo letras.",
+            'tipopublicacion.max' => "Tipo de publicación debe tener máximo 45 caracteres.",
             'titulo.required' => "Debe ingresar un titulo.",
-            'titulo.regex' => "",
             'titulo.max' => "Título debe tener máximo 45 caracteres.",
             'volumen.required' => "Debe ingresar un volumen.",
             'volumen.numeric' => "Volumen debe ser un caracter numérico.",
@@ -59,10 +60,13 @@ class StorePublicacion extends FormRequest
             'notas.required' => "Debe ingresar notas.",
             'doi.required' => "Debe ingresar un DOI.",
             'revista.required' => "Debe ingresar una revista.",
-            'tipoRevista.required' => "Debe ingresar un tipo de revista.",
-            'tipoRevista.alpha' => "Tipo de revista debe tener solo letras.",
+            'tiporevista.required' => "Debe ingresar un tipo de revista.",
+            'tiporevista.alpha' => "Tipo de revista debe tener solo letras.",
             'publisher.required' => "Debe ingresar un publicador.",
-            'abstract.required' => "Debe ingresar un abtract.",
+            'abstract.required' => "Debe ingresar un abstract.",
+            'fechaInicio.required' => "Debe ingresar una fecha de inicio.",
+            'fechaTermino.required' => "Debe ingresar una fecha de termino.",
+            'fechaTermino.after' => "La fecha de termino no puede estar antes que la fecha de inicio."
         ];
     }
 }

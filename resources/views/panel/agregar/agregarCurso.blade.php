@@ -2,59 +2,73 @@
 
 @section('title', 'Panel de Administración')
 @section('contenido')
+<script type="text/javascript">
+  idtipoactividad = {{ $idtipoactividad }}
+</script>
 <h1>Panel de Cursos</h1><hr>
-<section id="agregar" name="Agregar Curso">
-  <h3>Agregar una Curso</h3>
+<div id="errors">
   @if ($errors->any())
     <div class="alert alert-danger">
       @foreach ($errors->all() as $error)
-          <li>{{$error}}</li>
+        <li>{{$error}}</li>
       @endforeach
     </div>
   @endif
-  <form action="{{route('postCurso')}}" method="POST" id="agregar-curso">
-    @csrf
-    <div id="asignatura" class="form-group row">
-      <label for="select-asignatura" class="col-sm-2 col-form-label">Asignatura</label>
-      <div class="col-sm-10">
-        <select class="form-control col-sm-5" required="true" name="asignatura" id="select-asignatura">
-          <option disabled value="Seleccione una asignatura" selected>Seleccione una asignatura</option>
-          @foreach($asignaturas as $asignatura)
-            <option value="{{ $asignatura->id }}">{{ $asignatura->nombre }}</option>
-          @endforeach
-        </select>
+</div>
+<form action="{{route('postCurso')}}" method="POST" id="agregar-curso">
+  <div class="row">
+    <section id="agregar" name="Agregar Curso" class="col-6">
+      @csrf
+      <h3>Agregar una Curso</h3>
+      <div id="asignatura" class="form-group row">
+        <label for="select-asignatura" class="col-sm-3 col-form-label">Asignatura</label>
+        <div class="col-sm-9">
+          <select class="form-control col-sm-10" required="true" name="asignatura" id="select-asignatura">
+            <option disabled value="Seleccione una asignatura" selected>Seleccione una asignatura</option>
+            @foreach($asignaturas as $asignatura)
+              <option value="{{ $asignatura->id }}">{{ $asignatura->nombre }}</option>
+            @endforeach
+          </select>
+        </div>
       </div>
-    </div>
-    <div id="seccion" class="form-group row">
-      <label for="input-seccion" class="col-sm-2 col-form-label">Sección</label>
-      <div class="col-sm-10">
-        <input class="form-control col-sm-5" type="text" placeholder="sección" name="seccion" id="input-seccion">
+      <div id="seccion" class="form-group row">
+        <label for="input-seccion" class="col-sm-3 col-form-label">Sección</label>
+        <div class="col-sm-9">
+          <input class="form-control col-sm-10" type="text" placeholder="sección" name="seccion" id="input-seccion" value="{{ old('seccion') }}">
+        </div>
       </div>
-    </div>
-    <div id="calificacion" class="form-group row">
-      <label for="input-calificacion" class="col-sm-5 col-form-label">Calificación obtenida en la encuesta docente</label>
-      <div class="col-sm-6">
-        <input class="form-control col-sm-2" type="text" name="calificacion" id="input-calificacion" placeholder="Nota">
+      <div id="inicio" class="form-group row">
+        <label for="input-inicio" class="col-sm-3 col-form-label">Fecha de inicio</label>
+        <div class="col-sm-9">
+          <input class="form-control col-sm-10" type="date" name="fechaInicio" id="input-inicio" value="{{ old('fechaInicio') }}">
+        </div>
       </div>
-    </div>
-    <div id="respuestas" class="form-group row">
-      <label for="input-respuestas" class="col-sm-5 col-form-label">Cantidad de respuestas en la encuesta docente</label>
-      <div class="col-sm-6">
-        <input class="form-control col-sm-2" type="text" name="respuestas" id="input-respuestas" placeholder="N°">
+      <div id="termino" class="form-group row">
+        <label for="input-termino" class="col-sm-3 col-form-label">Fecha de término</label>
+        <div class="col-sm-9">
+          <input class="form-control col-sm-10" type="date" name="fechaTermino" id="input-termino" value="{{ old('fechaTermino') }}">
+        </div>
       </div>
-    </div>
-    <div id="material" class="form-group row">
-      <label class="col-sm-2 col-form-label">Material docente</label>
-      <div class="col-sm-1">
-        <input type="radio" id="si" name="material" value="si">
-        <label for="si">Si</label>
-      </div>
-      <div class="col-sm-1">
-        <input type="radio" id="no" name="material" value="no">
-        <label for="no">No</label>
-      </div>
-    </div>
-    <button type="submit" form="agregar-curso" class="btn btn-primary">Agregar Curso</button>
-  </form>
-</section>
+      <div id="usuarios" class="form-group row">
+        <label for="input-usuario" class="col-sm-3 col-form-label">Asignar usuario</label>
+        <div class="col-sm-9">
+          <input class="form-control col-sm-10" type="text" name="usuario" id="usuario" value="{{ old('usuario') }}">
+          <div class="p-2" id="sugerencias" name="sugerencias"></div>
+        </div>
+      </div><br>
+      <button type="submit" form="agregar-curso" class="btn btn-primary">Guardar</button>
+    </section>
+    <section class="col-6" id="lista-usuarios" name="lista-usuarios">
+      <h3>Usuarios Añadidos</h3>
+      <div id="usuarios-añadidos"></div>
+    </section>
+  </div>
+</form>
+<script type="text/javascript">
+  var idtipoactividad = {{ $idtipoactividad }}
+  var ruta = "getUser";
+  var tag = "#usuario"
+</script>
+<script type="text/javascript" src="{{ asset('js/searchUser.js') }}"></script>
+
 @endsection

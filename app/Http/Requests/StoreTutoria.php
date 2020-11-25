@@ -24,16 +24,21 @@ class StoreTutoria extends FormRequest
     public function rules()
     {
         return [
-            'tutoria' => ['required', 'max:45','regex:/^[a-zA-Z\s]+$/'],
+            'nombre' => ['required', 'max:45','regex:/^[a-zA-Z\s\W]+$/'],
+            'fechaInicio' => ['required', 'date'],
+            'fechaTermino' => ['required', 'date', 'after:fechaInicio']
         ];
     }
 
     public function messages() 
     {
         return [
-            'tutoria.required' => "Debe ingresar una tutoría",
-            'tutoria.max' => "La tutoría debe tener máximo 45 caracteres",
-            'tutoria.regex'=> "La tutoría debe tener solo letras",
+            'nombre.required' => "Debe ingresar una tutoría.",
+            'nombre.max' => "La tutoría debe tener máximo 45 caracteres.",
+            'nombre.regex'=> "La tutoría debe tener solo letras.",
+            'fechaInicio.required' => "Debe ingresar una fecha de inicio.",
+            'fechaTermino.required' => "Debe ingresar una fecha de termino.",
+            'fechaTermino.after' => "La fecha de termino no puede estar antes que la fecha de inicio."
         ];
     }
 }

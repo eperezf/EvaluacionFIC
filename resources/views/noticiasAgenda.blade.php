@@ -1,6 +1,10 @@
 @extends('includes/template')
 @section('title', 'Agenda y Noticias')
 
+@section('extra_header')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.css">
+@endsection
+
 @section('contenido')
 <div class="row mb-3 justify-content-center">
   <h1 class=" mb-3">Agenda y Noticias de {{$nombres}}</h1>
@@ -35,10 +39,6 @@
 </div>
 
 
-@endsection
-
-@section('extra_header')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.css">
 @endsection
 
 @section('extra_footer')

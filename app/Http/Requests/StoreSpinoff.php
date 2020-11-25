@@ -24,16 +24,21 @@ class StoreSpinoff extends FormRequest
     public function rules()
     {
         return [
-            'spinOff' => ['required', 'max:45','regex:/^[a-zA-Z\s]+$/'],
+            'nombre' => ['required', 'max:45','regex:/^[a-zA-Z\s]+$/'],
+            'fechaInicio' => ['required', 'date'],
+            'fechaTermino' => ['required', 'date', 'after:fechaInicio']
         ];
     }
 
     public function messages() 
     {
         return [
-            'spinOff.required' => "Debe ingresar un spin off",
-            'spinOff.max' => "El spin-off debe tener máximo 45 caracteres",
-            'spinOff.regex'=> "El spin-off debe tener solo letras",
+            'nombre.required' => "Debe ingresar un spin off",
+            'nombre.max' => "El spin-off debe tener máximo 45 caracteres",
+            'nombre.regex'=> "El spin-off debe tener solo letras",
+            'fechaInicio.required' => "Debe ingresar una fecha de inicio",
+            'fechaTermino.required' => "Debe ingresar una fecha de termino",
+            'fechaTermino.after' => "La fecha de termino no puede estar antes que la fecha de inicio"
         ];
     }
 }

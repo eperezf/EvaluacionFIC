@@ -2,5 +2,18 @@
 
 @section('title', 'Panel de Administración')
 @section('contenido')
-<h1>Panel de Cursos</h1><hr>  
+
+<h1>Modificar curso</h1>
+<hr>
+<a class="btn btn-primary" href="{{ route('panelAdministracion') }}" role="button">Volver</a>
+<input type="text" class="form-control" id="search" name="search" autocomplete="off">
+<div class="p-2" id="sugerencias" name="sugerencias">
+
+</div>
+<script type="text/javascript">
+  var ruta = "getCurso";
+  var ruta2 = "modificarCurso";
+</script>
+<script type="text/javascript" src="{{asset('js/search.js')}}"></script>
+
 @endsection

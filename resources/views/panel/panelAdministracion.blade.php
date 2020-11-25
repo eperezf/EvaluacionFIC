@@ -3,18 +3,12 @@
 @section('title', 'Panel de Administración')
 @section('contenido')
   <h1>Panel de Administración</h1><hr>
-
-  <div class="d-flex flex-wrap">
-    <div class="col-auto">
-      <div class="card mb-4">
-        <div class="card-body" style="min-width: 25rem;">
-          <h4 class="card-title">Actividades</h4>
-          <p class="card-text">Agrega o modifica actividades</p>
-          <a class="btn btn-primary" href="{{ route('agregarActividad') }}">Agregar</a>
-          <a class="btn btn-secondary" href="{{ route('modificarActividad') }}">Modificar</a>
-        </div>
-      </div>
+  @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{session()->get('success') }}
     </div>
+  @endif
+  <div class="d-flex flex-wrap">
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -48,6 +42,42 @@
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
+          <h4 class="card-title">Subáreas</h4>
+          <p class="card-text">Agrega o modifica subáreas</p>
+          <a class="btn btn-primary" href="{{ route('agregarSubarea') }}">Agregar</a>
+          <a class="btn btn-secondary" href="{{ route('modificarSubarea') }}">Modificar</a>
+        </div>
+      </div>
+    </div>
+  </div><br>
+  <h2>Actividades</h2><hr>
+
+  <div class="d-flex flex-wrap">
+  <div class="col-auto">
+      <div class="card mb-4">
+        <div class="card-body" style="min-width: 25rem;">
+          <h4 class="card-title">Actividad de área</h4>
+          <p class="card-text">Agrega o modifica actividades de área</p>
+          <a class="btn btn-primary" href="{{ route('agregarActividadArea') }}">Agregar</a>
+          <a class="btn btn-secondary" href="{{ route('modificarActividadArea') }}">Modificar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto">
+      <div class="card mb-4">
+        <div class="card-body" style="min-width: 25rem;">
+          <h4 class="card-title">Actividad de asignatura</h4>
+          <p class="card-text">Agrega o modifica actividades de asignatura</p>
+          <a class="btn btn-primary" href="{{ route('agregarActividadAsignatura') }}">Agregar</a>
+          <a class="btn btn-secondary" href="{{ route('modificarActividadAsignatura') }}">Modificar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto">
+      <div class="card mb-4">
+        <div class="card-body" style="min-width: 25rem;">
           <h4 class="card-title">Cursos</h4>
           <p class="card-text">Agrega o modifica cursos</p>
           <a class="btn btn-primary" href="{{ route('agregarCurso') }}">Agregar</a>
@@ -55,6 +85,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -65,6 +96,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -75,6 +107,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -85,6 +118,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -95,6 +129,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -105,6 +140,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -115,26 +151,11 @@
         </div>
       </div>
     </div>
-    <div class="col-auto">
-      <div class="card mb-4">
-        <div class="card-body" style="min-width: 25rem;">
-          <h4 class="card-title">Subáreas</h4>
-          <p class="card-text">Agrega o modifica subáreas</p>
-          <a class="btn btn-primary" href="{{ route('agregarSubarea') }}">Agregar</a>
-          <a class="btn btn-secondary" href="{{ route('modificarSubarea') }}">Modificar</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-auto">
-      <div class="card mb-4">
-        <div class="card-body" style="min-width: 25rem;">
-          <h4 class="card-title">Tipos de Actividades</h4>
-          <p class="card-text">Agrega o modifica tipos de actividad</p>
-          <a class="btn btn-primary" href="{{ route('agregarTipoActividad') }}">Agregar</a>
-          <a class="btn btn-secondary" href="{{ route('modificarTipoActividad') }}">Modificar</a>
-        </div>
-      </div>
-    </div>
+
+    
+
+    
+
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -145,6 +166,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -155,6 +177,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-auto">
       <div class="card mb-4">
         <div class="card-body" style="min-width: 25rem;">
@@ -165,6 +188,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
 

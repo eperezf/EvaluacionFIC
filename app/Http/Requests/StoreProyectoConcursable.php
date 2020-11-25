@@ -24,16 +24,21 @@ class StoreProyectoConcursable extends FormRequest
     public function rules()
     {
         return [
-            'proyectoConcursable' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
+            'nombre' => ['required', 'max:45', 'regex:/^[a-zA-Z0-9\s\W]+$/'],
+            'fechaInicio' => ['required', 'date'],
+            'fechaTermino' => ['required', 'date', 'after:fechaInicio']
         ];
     }
 
     public function messages()
     {
         return[
-            'proyectoConcursable.required' => "Debe ingresar un proyecto concursable",
-            'proyectoConcursable.max' => "El proyecto concursable debe tener máximo 45 caracteres",
-            'proyectoConcursable.regex' => "El proyecto concursable debe tener solo letras",
+            'nombre.required' => "Debe ingresar un proyecto concursable",
+            'nombre.max' => "El proyecto concursable debe tener máximo 45 caracteres",
+            'nombre.regex' => "El proyecto concursable debe tener solo letras",
+            'fechaInicio.required' => "Debe ingresar una fecha de inicio",
+            'fechaTermino.required' => "Debe ingresar una fecha de termino",
+            'fechaTermino.after' => "La fecha de termino no puede estar antes que la fecha de inicio"
         ];
     }
 }

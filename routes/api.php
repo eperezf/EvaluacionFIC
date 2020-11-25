@@ -19,3 +19,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('getAreas/{name}', 'ApiController@GetAreas');
+Route::get('getAsignatura/{name}', 'ApiController@GetAsignatura');
+Route::get('getActividadAsignatura/{name}', 'ApiController@GetActividadAsignatura');
+Route::get('getActividadArea/{name}', 'ApiController@GetActividadArea');
+Route::get('getTipoactividad/{name}', 'ApiController@GetTipoactividad');
+Route::get('getSubarea/{name}', 'ApiController@GetSubarea');
+Route::get('getPerfeccionamientoDocente/{name}', 'ApiController@GetPerfeccionamientoDocente');
+Route::get('getLibro/{name}', 'ApiController@GetLibro');
+Route::get('getActividad/{name}', 'ApiController@GetActividad');
+Route::get('getLicencia/{name}', 'ApiController@GetLicencia');
+Route::get('getProyectoConcursable/{name}', 'ApiController@GetProyectoConcursable');
+Route::get('getSpinoff/{name}', 'ApiController@GetSpinoff');
+Route::get('getTransferenciaTecnologica/{name}', 'ApiController@GetTransferenciaTecnologica');
+Route::get('getVinculacion/{name}', 'ApiController@GetVinculacion');
+Route::get('getCurso/{name}', 'ApiController@GetCurso');
+Route::get('getTutoria/{name}', 'ApiController@GetTutoria');
+Route::get('getPublicacion/{name}', 'ApiController@GetPublicacion');
+Route::get('getUser/{name}', 'ApiController@GetUser');
+Route::get('getCargoTipoActividad/{id}', 'ApiController@getCargoTipoActividad');
