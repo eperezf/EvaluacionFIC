@@ -804,15 +804,21 @@ class PanelAdministracion extends Controller
         $spinoff->idactividad = $actividad->id;
         $spinoff->save();
 
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = 3;
-          $user_actividad->save();
-
+        //Verificamos si la actividad tiene usuarios asignados
+        if($request->user != null)
+        {
+            //Asignamos los usuarios con la actividad
+            foreach ($request->user as $user => $value)
+            {
+                $user_actividad = new User_actividad;
+                $user_actividad->iduser = $value;
+                $user_actividad->idactividad = $actividad->id;
+                $user_actividad->idcargo = 3;
+                $user_actividad->save();
+            }
         }
+        
+        
         return redirect('/panelAdministracion');
     }
 

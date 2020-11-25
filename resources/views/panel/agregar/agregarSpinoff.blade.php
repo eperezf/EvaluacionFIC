@@ -3,19 +3,21 @@
 @section('title', 'Panel de Administración')
 @section('contenido')
 <h1>Panel de Spin-off</h1><hr>
+<div id="errors">
+  @if ($errors->any())
+    <div class="alert alert-danger pb-1 pt-1">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+</div>
+<h3>Agregar un Spin-off</h3>
 <form method="POST" action="{{ route('postSpinoff') }}" id="agregar-spinoff">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Spinoff">
-      <h3>Agregar un Spin-off</h3>
-      @if ($errors->any())
-        <div class="alert alert-danger pb-1 pt-1">
-          <ul>
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-      @endif
       @csrf
       <div id="nombre" class="form-group row">
         <label for="input-nombre" class="col-sm-2 col-form-label">Spin-off</label>
@@ -52,7 +54,6 @@
 
 <script type="text/javascript">
   var ruta = "getUser";
-  var ruta2 = "modificarAsignatura";
   var tag = "#usuario"
 </script>
 <script type="text/javascript" src="{{ asset('js/searchUser.js') }}"></script>
