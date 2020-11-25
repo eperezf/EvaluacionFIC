@@ -14,11 +14,11 @@
     </div>
   @endif
 </div>
-<h3>Agregar un proyecto concursable</h3>
 <form method="POST" action="{{ route('postProyectoConcursable') }}" id="agregar-proyectoconcursable">
   <div class="row">
     <section id="agregar" name="Agregar ProyectoConcursable" class="col-6">
       @csrf
+      <h3>Agregar un proyecto concursable</h3>
       <div id="nombre" class="form-group row">
         <label for="nombre-input" class="col-sm-3 col-form-label">Proyecto</label>
         <div class="col-sm-9">

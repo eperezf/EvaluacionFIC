@@ -14,11 +14,11 @@
     </div>
   @endif
 </div>
-<h3>Agregar una tutoría</h3>
 <form method="POST" action="{{ route('postTutoria') }}" id="agregar-tutoria">
   <div class="row">
     <section id="agregar" name="Agregar Tutoria" class="col-6">
       @csrf
+      <h3>Agregar una tutoría</h3>
       <div id="nombre" class="form-group row">
         <label for="nombre-input" class="col-sm-3 col-form-label">Tutoría</label>
         <div class="col-sm-9">

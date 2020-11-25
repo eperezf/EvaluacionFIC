@@ -15,8 +15,8 @@
 <form method="POST" action="{{ route('postPublicacion') }}" id="agregar-publicacion">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Publicacion">
-      <h3>Agregar una Publicación</h3>
         @csrf
+        <h3>Agregar una Publicación</h3>
         <div id="tipopublicacion" class="form-group row">
           <label for="input-tipopublicacion" class="col-sm-3 col-form-label">Tipo de publicación</label>
           <div class="col-sm-9">

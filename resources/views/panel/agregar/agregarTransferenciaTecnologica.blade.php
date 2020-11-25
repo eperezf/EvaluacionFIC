@@ -17,8 +17,8 @@
 <form method="POST" action="{{ route('postTransferenciaTecnologica') }}" id="agregar-transferenciatecnologica">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Tranferencia Tecnológica">
-      <h3>Agregar una transferencia tecnológica</h3>
         @csrf
+        <h3>Agregar una transferencia tecnológica</h3>
         <div id="nombre" class="form-group row">
           <label for="nombre-input" class="col-sm-3 col-form-label">Tranferencia Tecnológica</label>
           <div class="col-sm-9">

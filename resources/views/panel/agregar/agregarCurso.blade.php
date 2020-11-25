@@ -12,11 +12,11 @@
     </div>
   @endif
 </div>
-<h3>Agregar una Curso</h3>
 <form action="{{route('postCurso')}}" method="POST" id="agregar-curso">
   <div class="row">
     <section id="agregar" name="Agregar Curso" class="col-6">
       @csrf
+      <h3>Agregar una Curso</h3>
       <div id="asignatura" class="form-group row">
         <label for="select-asignatura" class="col-sm-3 col-form-label">Asignatura</label>
         <div class="col-sm-9">

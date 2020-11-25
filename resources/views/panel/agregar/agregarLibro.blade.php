@@ -17,8 +17,8 @@
 <form method="POST" action="{{ route('postLibro') }}" id="agregar-libro">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Libro">
-      <h3>Agregar un libro</h3>
       @csrf
+      <h3>Agregar un libro</h3>
       <div id="titulo" class="form-group row">
         <label for="titulo-input" class="col-sm-3 col-form-label">Título</label>
         <div class="col-sm-9">

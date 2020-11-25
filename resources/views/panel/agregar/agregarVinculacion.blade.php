@@ -14,14 +14,11 @@
     </div>
   @endif
 </div>
-<h3>Agregar una vinculación</h3>
-
-  
-
 <form method="POST" action="{{ route('postVinculacion') }}" id="agregar-vinculacion">
   <div class="row">
     <section id="agregar" name="Agregar Vinculación" class="col-6">
       @csrf
+      <h3>Agregar una vinculación</h3>
       <div id="nombre" class="form-group row">
         <label for="nombre-input" class="col-sm-3 col-form-label">Vinculación</label>
         <div class="col-sm-9">

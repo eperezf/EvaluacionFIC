@@ -6,9 +6,9 @@
 <div name="errors"></div>
 <form action="{{route('postPerfeccionamientoDocente')}}" method="POST" id="agregar-perfeccionamientodocente">
   <div class="row">
-    <section id="agregar">
-      <h3>Agregar perfeccionamiento docente</h3>  
+    <section id="agregar" class="col-6"> 
       @csrf
+      <h3>Agregar perfeccionamiento docente</h3> 
       <div id="perfeccionamiento" class="form-group row">
         <label for="input-perfeccionamiento" class="col-sm-3 col-form-label">Perfeccionamiento Docente</label>
         <div class="col-sm-9">

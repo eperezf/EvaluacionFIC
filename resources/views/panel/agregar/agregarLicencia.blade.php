@@ -14,12 +14,11 @@
     </div>
   @endif
 </div>
-<h3>Agregar una licencia</h3>
 <form method="POST" action="{{ route('postLicencia') }}" id="agregar-licencia">
   <div class="row">
-
     <section id="agregar" name="Agregar Licencia" class="col-6">
       @csrf
+      <h3>Agregar una licencia</h3>
       <div id="nombre" class="form-group row">
         <label for="nombre-input" class="col-sm-3 col-form-label">Licencia</label>
         <div class="col-sm-9">
