@@ -580,7 +580,7 @@ class PanelAdministracion extends Controller
 
       //Creamos el curso
       $curso = new Curso;
-      $curso->nombre = $request->nombre;
+      /* $curso->nombre = $request->nombre; */
       $curso->calificacion = null;
       $curso->respuestas = null;
       $curso->material = null;
