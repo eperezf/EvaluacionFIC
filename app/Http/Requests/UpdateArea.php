@@ -25,7 +25,7 @@ class UpdateArea extends FormRequest
             'nombre' => [
                 'required',
                 'max:45',
-                'alpha',
+                'regex:/^[a-zA-Z\W]+$/',
             ]
         ];
     }
@@ -34,7 +34,7 @@ class UpdateArea extends FormRequest
         return [
             'nombre.required' => "Debe ingresar un área",
             'nombre.max' => "Área debe tener máximo 45 caracteres",
-            'nombre.alpha' => "Área debe tener solo letras",
+            'nombre.regex' => "Área debe tener solo letras y espacios",
         ];
     }
 }
