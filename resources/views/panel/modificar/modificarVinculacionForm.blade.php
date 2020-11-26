@@ -36,6 +36,7 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-vinculacion" value="Submit">Guardar</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     <input type="hidden" value="vinculacion" name="modelo">
     <input type="hidden" value="{{ $vinculacion->id }}" name="id">
   </form>

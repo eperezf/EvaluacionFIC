@@ -40,6 +40,7 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" value="Submit" form="agregar-asignatura">Agregar asignatura</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
   </form>
 </section>
 

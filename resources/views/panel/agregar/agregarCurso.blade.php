@@ -57,6 +57,7 @@
         </div>
       </div><br>
       <button type="submit" form="agregar-curso" class="btn btn-primary">Guardar</button>
+      <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     </section>
     <section class="col-6" id="lista-usuarios" name="lista-usuarios">
       <h3>Usuarios Añadidos</h3>

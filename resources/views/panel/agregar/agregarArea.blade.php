@@ -23,6 +23,7 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="agregar-area" value="Submit">Agregar área</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
   </form>
 </section>
 

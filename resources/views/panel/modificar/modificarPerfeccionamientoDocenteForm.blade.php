@@ -44,6 +44,7 @@
       </div>
     </div><br>
     <button type="submit" form="modificar-perfeccionamientodocente" class="btn btn-primary">Guardar</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     <input type="hidden" value="perfeccionamientoDocente" name="modelo">
     <input type="hidden" value="{{ $perfeccionamientodocente->id }}" name="id">
   </form>
