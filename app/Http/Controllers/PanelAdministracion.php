@@ -492,7 +492,7 @@ class PanelAdministracion extends Controller
         $request = $original;
         $asignatura = new Asignatura;
         $asignatura->nombre = $request->nombre;
-        $asignatura->codigo = $request->codigo;
+        $asignatura->codigo = strtoupper($request->codigo);
         $asignatura->idsubarea = $request->subarea;
         $asignatura->save();
         return redirect('/panelAdministracion');

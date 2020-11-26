@@ -34,7 +34,7 @@ class StoreAsignatura extends FormRequest
             'codigo' => [
                 'required',
                 'max:45',
-                'regex:/^[A-Z0-9]+$/',
+                'regex:/^[a-zA-Z0-9]+$/',
                 'unique:asignatura,codigo'
             ]
         ];
