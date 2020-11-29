@@ -14,7 +14,7 @@
     </div>
   @endif
 </div>
-<form method="POST" action="{{ route('postSpinoff') }}" id="agregar-spinoff">
+<form method="POST" action="{{ route('postAgregar') }}" id="agregar-spinoff">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Spinoff">
       @csrf
@@ -51,6 +51,7 @@
       <div id="usuarios-añadidos"></div>
     </section>
   </div>
+  <input type="hidden" value="spinoff" name="modelo">
 </form>
 
 <script type="text/javascript">

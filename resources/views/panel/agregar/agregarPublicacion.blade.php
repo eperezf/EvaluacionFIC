@@ -12,7 +12,7 @@
     </div>
   @endif
 </div>
-<form method="POST" action="{{ route('postPublicacion') }}" id="agregar-publicacion">
+<form method="POST" action="{{ route('postAgregar') }}" id="agregar-publicacion">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Publicacion">
         @csrf
@@ -112,6 +112,7 @@
       <div id="usuarios-añadidos"></div>
     </section>
   </div>
+  <input type="hidden" value="publicacion" name="modelo">
 </form>
 <script type="text/javascript">
   var idtipoactividad = {{ $idtipoactividad }}

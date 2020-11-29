@@ -14,7 +14,7 @@
     </div>
   @endif
 </div>
-<form method="POST" action="{{ route('postVinculacion') }}" id="agregar-vinculacion">
+<form method="POST" action="{{ route('postAgregar') }}" id="agregar-vinculacion">
   <div class="row">
     <section id="agregar" name="Agregar Vinculación" class="col-6">
       @csrf
@@ -54,6 +54,7 @@
       <div id="usuarios-añadidos"></div>
     </section>
   </div>
+  <input type="hidden" value="vinculacion" name="modelo">
 </form>
 
 <script type="text/javascript">

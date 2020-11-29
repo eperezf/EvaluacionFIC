@@ -111,7 +111,28 @@ class PanelAdministracion extends Controller
         return strtolower($string);
     }
 
+    private function linkUsers(Request $request, $idactividad)
+    {
+        //Se realiza la vinculacion de todos los usuarios a la actividad
+        foreach($request->user as $user => $value)
+        {
+            $user_actividad = new User_actividad;
+            $user_actividad->iduser = $value;
+            $user_actividad->idactividad = $idactividad;
+            $user_actividad->idcargo = $request->cargo[$user];
+            $user_actividad->save();
+        }
+    }
 
+    private function createActivity(Request $request, $tipoactividad)
+    {
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = Tipoactividad::where('nombre', $tipoactividad)->get()[0]->id;
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+        return $actividad;
+    }
 
 //--------------------------------------------------
 
@@ -127,177 +148,564 @@ class PanelAdministracion extends Controller
         //switch case para cada modelo
         switch ($new_request->modelo)
         {
-        case 'actividadArea':
-            $request = new Requests\StoreActividadArea;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $actividad = ActividadArea::find($new_request->id);
-            break;
-        case 'actividadAsignatura':
+            case 'actividadArea':
+                $request = new Requests\StoreActividadArea;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $actividad = ActividadArea::find($new_request->id);
+                break;
+            case 'actividadAsignatura':
 
-            break;
-        case 'area':
-            $request = new UpdateArea;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $area = Area::find($new_request->id);
-            $area->nombre = $new_request->nombre;
-            $area->save();
-            $success = "Área modificada";
-            break;
-        case 'asignatura':
-            $request = new UpdateAsignatura;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $asignatura = Asignatura::find($new_request->id);
-            $asignatura->nombre = $new_request->nombre;
-            $asignatura->idsubarea = $new_request->subarea;
-            $asignatura->codigo = $new_request->codigo;
-            $asignatura->save();
-            $success = "Asignatura modificada";
-            break;
-        case 'cargoAdministrativo':
+                break;
+            case 'area':
+                $request = new UpdateArea;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $area = Area::find($new_request->id);
+                $area->nombre = $new_request->nombre;
+                $area->save();
+                $success = "Área modificada";
+                break;
+            case 'asignatura':
+                $request = new UpdateAsignatura;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $asignatura = Asignatura::find($new_request->id);
+                $asignatura->nombre = $new_request->nombre;
+                $asignatura->idsubarea = $new_request->subarea;
+                $asignatura->codigo = $new_request->codigo;
+                $asignatura->save();
+                $success = "Asignatura modificada";
+                break;
+            case 'cargoAdministrativo':
 
-            break;
-        case 'curso':
+                break;
+            case 'curso':
 
+                break;
+            case 'libro':
+                $request = new UpdateLibro;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $libro = Libro::find($new_request->id);
+                $libro->titulo = $new_request->titulo;
+                $libro->isbn = $new_request->isbn;
+                $libro->save();
+                $actividad = Actividad::find($libro->idactividad);
+                $actividad->inicio = $new_request->fechaInicio;
+                $actividad->termino = $new_request->fechaTermino;
+                $actividad->save();
+                $success = "Libro modificado";
+                break;
+            case 'licencia':
+                $request = new UpdateLicencia;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $licencia = Licencia::find($new_request->id);
+                $licencia->nombre = $new_request->nombre;
+                $licencia->empresa = $new_request->empresa;
+                $licencia->save();
+                $actividad = Actividad::find($licencia->idactividad);
+                $actividad->inicio = $new_request->fechaInicio;
+                $actividad->termino = $new_request->fechaTermino;
+                $actividad->save();
+                $success = "Licencia modificada";
+                break;
+            case 'perfeccionamientoDocente':
+                $request = new UpdatePerfeccionamientoDocente;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $perfeccionamiento = Perfeccionamientodocente::find($new_request->id);
+                $perfeccionamiento->nombre = $new_request->nombre;
+                $perfeccionamiento->institucion = $new_request->institucion;
+                $perfeccionamiento->area = $new_request->area;
+                $perfeccionamiento->save();
+                $actividad = Actividad::find($perfeccionamiento->idactividad);
+                $actividad->inicio = $new_request->fechaInicio;
+                $actividad->termino = $new_request->fechaTermino;
+                $actividad->save();
+                $success = "Perfeccionamiento docente modificado";
+                break;
+            case 'proyectoConcursable':
+                $request = new UpdateProyectoConcursable;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $proyecto = Proyectoconcursable::find($new_request->id);
+                $proyecto->nombre = $new_request->nombre;
+                $proyecto->save();
+                $actividad = Actividad::find($proyecto->idactividad);
+                $actividad->inicio = $new_request->fechaInicio;
+                $actividad->termino = $new_request->fechaTermino;
+                $actividad->save();
+                $success = "Proyecto concursable modificado";
+                break;
+            case 'publicacion':
+                $request = new UpdatePublicacion;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $publicacion = Publicacion::find($new_request->id);
+                $publicacion->tipo = $new_request->tipopublicacion;
+                $publicacion->titulo = $new_request->titulo;
+                $publicacion->volumen = $new_request->volumen;
+                $publicacion->issue = $new_request->issue;
+                $publicacion->pages = $new_request->pages;
+                $publicacion->issn = $new_request->issn;
+                $publicacion->doi = $new_request->notas;
+                $publicacion->notas = $new_request->doi;
+                $publicacion->revista = $new_request->revista;
+                $publicacion->tipoRevista = $new_request->tiporevista;
+                $publicacion->publisher = $new_request->publisher;
+                $publicacion->abstract = $new_request->abstract;
+                $publicacion->save();
+                $actividad = Actividad::find($publicacion->idactividad);
+                $actividad->inicio = $new_request->fechaInicio;
+                $actividad->termino = $new_request->fechaTermino;
+                $actividad->save();
+                $success = "Publicación modificada";
+                break;
+            case 'spinoff':
+                $request = new UpdateSpinoff;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $spinoff = Spinoff::find($new_request->id);
+                $spinoff->nombre = $new_request->nombre;
+                $spinoff->save();
+                $actividad = Actividad::find($spinoff->idactividad);
+                $actividad->inicio = $new_request->fechaInicio;
+                $actividad->termino = $new_request->fechaTermino;
+                $actividad->save();
+                $success = "Spinoff modificado";
+                break;
+            case 'subarea':
+                $request = new UpdateSubarea;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $subarea = Subarea::find($new_request->id);
+                $subarea->nombre = $new_request->nombre;
+                $subarea->idarea = $new_request->area;
+                $subarea->save();
+                $success = "Subarea modificada";
+                break;
+            case 'transferenciaTecnologica':
+                $request = new UpdateTransferenciaTecnologica;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $transferencia = TransferenciaTecnologica::find($new_request->id);
+                $transferencia->nombre = $new_request->nombre;
+                $transferencia->empresa = $new_request->empresa;
+                $transferencia->save();
+                $actividad = Actividad::find($transferencia->idactividad);
+                $actividad->inicio = $new_request->fechaInicio;
+                $actividad->termino = $new_request->fechaTermino;
+                $actividad->save();
+                $success = "Transferencia tecnológica modificada";
+                break;
+            case 'tutoria':
+                $request = new UpdateTutoria;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $tutoria = Tutoria::find($new_request->id);
+                $tutoria->nombre = $new_request->nombre;
+                $tutoria->save();
+                $actividad = Actividad::find($tutoria->idactividad);
+                $actividad->inicio = $new_request->fechaInicio;
+                $actividad->termino = $new_request->fechaTermino;
+                $actividad->save();
+                $success = "Tutoria modificada";
+                break;
+            case 'vinculacion':
+                $request = new UpdateVinculacion;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $vinculacion = Vinculacion::find($new_request->id);
+                $vinculacion->nombre = $new_request->nombre;
+                $vinculacion->descripcion = $new_request->descripcion;
+                $vinculacion->save();
+                $actividad = Actividad::find($vinculacion->idactividad);
+                $actividad->inicio = $new_request->fechaInicio;
+                $actividad->termino = $new_request->fechaTermino;
+                $actividad->save();
+                $success = "Vinculación modificada";
+                break;
+            default:
+                break;
+        }
+        return redirect('/panelAdministracion')->with('success', $success.' con éxito.');
+    }
+
+//--------------------------------------------------
+
+    public function postAgregar(Request $new_request)
+    {
+        switch($new_request->modelo)
+        {
+            //Administración
+            case 'area':
+                //Validación de los datos almacenando los datos originales en una variable temporal
+                $request = new StoreArea;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea la nueva área
+                $area = new Area;
+                $area->nombre = $new_request->nombre;
+                $area->save();
+
+                $success = 'Área "'.$area->nombre.'" agregada';
             break;
-        case 'libro':
-            $request = new UpdateLibro;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $libro = Libro::find($new_request->id);
-            $libro->titulo = $new_request->titulo;
-            $libro->isbn = $new_request->isbn;
-            $libro->save();
-            $actividad = Actividad::find($libro->idactividad);
-            $actividad->inicio = $new_request->fechaInicio;
-            $actividad->termino = $new_request->fechaTermino;
-            $actividad->save();
-            $success = "Libro modificado";
+
+            case 'asignatura':
+                //Validación de los datos
+                $request = new StoreAsignatura;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea la nueva asignatura
+                $asignatura = new Asignatura;
+                $asignatura->nombre = $new_request->nombre;
+                $asignatura->idsubarea = $new_request->subarea;
+                $asignatura->codigo = strtoupper($new_request->codigo);
+                $asignatura->save();
+
+                $success = 'Asignatura "'.$asignatura->nombre.'" agregada';
             break;
-        case 'licencia':
-            $request = new UpdateLicencia;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $licencia = Licencia::find($new_request->id);
-            $licencia->nombre = $new_request->nombre;
-            $licencia->empresa = $new_request->empresa;
-            $licencia->save();
-            $actividad = Actividad::find($licencia->idactividad);
-            $actividad->inicio = $new_request->fechaInicio;
-            $actividad->termino = $new_request->fechaTermino;
-            $actividad->save();
-            $success = "Licencia modificada";
+
+            case 'cargo':
+                //validación de los datos
+                $request = new StoreCargo;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea el nuevo cargo
+                $cargo = new Cargo;
+                $cargo->nombre = $new_request->nombre;
+                $cargo->idtipoactividad = $new_request->tipoactividad;
+                $cargo->peso = $new_request->peso;
+                $cargo->save();
+
+                $success = 'Cargo administrativo "'.$cargo->nombre.'" agregado';
             break;
-        case 'perfeccionamientoDocente':
-            $request = new UpdatePerfeccionamientoDocente;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $perfeccionamiento = Perfeccionamientodocente::find($new_request->id);
-            $perfeccionamiento->nombre = $new_request->nombre;
-            $perfeccionamiento->institucion = $new_request->institucion;
-            $perfeccionamiento->area = $new_request->area;
-            $perfeccionamiento->save();
-            $actividad = Actividad::find($perfeccionamiento->idactividad);
-            $actividad->inicio = $new_request->fechaInicio;
-            $actividad->termino = $new_request->fechaTermino;
-            $actividad->save();
-            $success = "Perfeccionamiento docente modificado";
+
+            case 'subarea':
+                //Validación de los datos
+                $request = new StoreSubarea;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea la nueva subarea
+                $subarea = new Subarea;
+                $subarea->nombre = $new_request->nombre;
+                $subarea->idarea = $new_request->area;
+                $subarea->save();
+
+                $success = 'Subarea "'.$subarea->nombre.'" agregada';
             break;
-        case 'proyectoConcursable':
-            $request = new UpdateProyectoConcursable;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $proyecto = Proyectoconcursable::find($new_request->id);
-            $proyecto->nombre = $new_request->nombre;
-            $proyecto->save();
-            $actividad = Actividad::find($proyecto->idactividad);
-            $actividad->inicio = $new_request->fechaInicio;
-            $actividad->termino = $new_request->fechaTermino;
-            $actividad->save();
-            $success = "Proyecto concursable modificado";
+
+            //Actividades
+            case 'actividadArea':
+                //Validación de los datos
+                $request = new StoreActividadArea;
+                $this->validate($new_request, $request->rules(), $request->messages());
+
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Área');
+
+                //Se crea la actividad en el área
+                $actividad_area = new Actividad_area;
+                $actividad_area->idactividad = $actividad->id;
+                $actividad_area->idarea = $new_request->area;
+                $actividad_area->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Actividad de área agregada';
             break;
-        case 'publicacion':
-            $request = new UpdatePublicacion;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $publicacion = Publicacion::find($new_request->id);
-            $publicacion->tipo = $new_request->tipopublicacion;
-            $publicacion->titulo = $new_request->titulo;
-            $publicacion->volumen = $new_request->volumen;
-            $publicacion->issue = $new_request->issue;
-            $publicacion->pages = $new_request->pages;
-            $publicacion->issn = $new_request->issn;
-            $publicacion->doi = $new_request->notas;
-            $publicacion->notas = $new_request->doi;
-            $publicacion->revista = $new_request->revista;
-            $publicacion->tipoRevista = $new_request->tiporevista;
-            $publicacion->publisher = $new_request->publisher;
-            $publicacion->abstract = $new_request->abstract;
-            $publicacion->save();
-            $actividad = Actividad::find($publicacion->idactividad);
-            $actividad->inicio = $new_request->fechaInicio;
-            $actividad->termino = $new_request->fechaTermino;
-            $actividad->save();
-            $success = "Publicación modificada";
+
+            case 'actividadAsignatura':
+                //Validacion de los datos
+                $request = new StoreActividadAsignatura;
+                $this->validate($new_request, $request->rules(), $request->messages());
+
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Asignatura');
+
+                //Se crea la actividad en la asignatura
+                $actividad_asignatura = new Actividad_Asignatura;
+                $actividad_asignatura->idactividad = $actividad->id;
+                $actividad_asignatura->idasignatura = $new_request->asignatura;
+                $actividad_asignatura->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Actividad de asignatura agregada';
             break;
-        case 'spinoff':
-            $request = new UpdateSpinoff;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $spinoff = Spinoff::find($new_request->id);
-            $spinoff->nombre = $new_request->nombre;
-            $spinoff->save();
-            $actividad = Actividad::find($spinoff->idactividad);
-            $actividad->inicio = $new_request->fechaInicio;
-            $actividad->termino = $new_request->fechaTermino;
-            $actividad->save();
-            $success = "Spinoff modificado";
+
+            case 'curso':
+                //Validación de los datos
+                $request = new StoreCurso;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Curso');
+
+                //Se crea el curso
+                $curso = new Curso;
+                $curso->calificacion = null;
+                $curso->respuestas = null;
+                $curso->material = null;
+                $curso->seccion = $new_request->seccion;
+                $curso->idactividad = $actividad->id;
+                $curso->idasignatura = $new_request->asignatura;
+                $curso->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+                
+                $success = 'Curso "'.Asignatura::where('id', $curso->idasignatura)->get('codigo')[0]->codigo.'-'.$curso->seccion.'" agregado';
             break;
-        case 'subarea':
-            $request = new UpdateSubarea;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $subarea = Subarea::find($new_request->id);
-            $subarea->nombre = $new_request->nombre;
-            $subarea->idarea = $new_request->area;
-            $subarea->save();
-            $success = "Subarea modificada";
+
+            case 'libro':
+                //Validación de los datos
+                $request = new StoreLibro;
+                $original = $new_request->duplicate();
+                $new_request->titulo = $this->deleteAccentMark($new_request->titulo);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Libro');
+
+                //Se crea el libro
+                $libro = new Libro;
+                $libro->titulo = $new_request->titulo;
+                $libro->isbn = $new_request->isbn;
+                $libro->idactividad = $actividad->id;
+                $libro->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Libro "'.$libro->titulo.'" agregado';
             break;
-        case 'transferenciaTecnologica':
-            $request = new UpdateTransferenciaTecnologica;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $transferencia = TransferenciaTecnologica::find($new_request->id);
-            $transferencia->nombre = $new_request->nombre;
-            $transferencia->empresa = $new_request->empresa;
-            $transferencia->save();
-            $actividad = Actividad::find($transferencia->idactividad);
-            $actividad->inicio = $new_request->fechaInicio;
-            $actividad->termino = $new_request->fechaTermino;
-            $actividad->save();
-            $success = "Transferencia tecnológica modificada";
+
+            case 'licencia':
+                //Validación de los datos
+                $request = new StoreLicencia;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->empresa = $this->deleteAccentMark($new_request->empresa);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+                
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Licencia');
+          
+                //Se crea la licencia
+                $licencia = new Licencia;
+                $licencia->nombre = $new_request->nombre;
+                $licencia->empresa = $new_request->empresa;
+                $licencia->idactividad = $actividad->id;
+                $licencia->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Licencia "'.$licencia->nombre.'" agregada';
             break;
-        case 'tutoria':
-            $request = new UpdateTutoria;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $tutoria = Tutoria::find($new_request->id);
-            $tutoria->nombre = $new_request->nombre;
-            $tutoria->save();
-            $actividad = Actividad::find($tutoria->idactividad);
-            $actividad->inicio = $new_request->fechaInicio;
-            $actividad->termino = $new_request->fechaTermino;
-            $actividad->save();
-            $success = "Tutoria modificada";
+
+            case 'perfeccionamiento':
+                //Validación de los datos
+                $request = new StorePerfeccionamientoDocente;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->institucion = $this->deleteAccentMark($new_request->institucion);
+                $new_request->area = $this->deleteAccentMark($new_request->area);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+                
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Perfeccionamiento docente');
+          
+                //Se crea el perfeccionamiento docente
+                $perfeccionamiento = new PerfeccionamientoDocente;
+                $perfeccionamiento->nombre = $new_request->nombre;
+                $perfeccionamiento->area = $new_request->area;
+                $perfeccionamiento->institucion = $new_request->institucion;
+                $perfeccionamiento->idactividad = $actividad->id;
+                $perfeccionamiento->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Perfeccionamiento docente "'.$perfeccionamiento->nombre.'" de asignatura agregada';
             break;
-        case 'vinculacion':
-            $request = new UpdateVinculacion;
-            $this->validate($new_request, $request->rules(), $request->messages());
-            $vinculacion = Vinculacion::find($new_request->id);
-            $vinculacion->nombre = $new_request->nombre;
-            $vinculacion->descripcion = $new_request->descripcion;
-            $vinculacion->save();
-            $actividad = Actividad::find($vinculacion->idactividad);
-            $actividad->inicio = $new_request->fechaInicio;
-            $actividad->termino = $new_request->fechaTermino;
-            $actividad->save();
-            $success = "Vinculación modificada";
+
+            case 'proyecto':
+                //Validación de los datos
+                $request = new StoreProyectoConcursable;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+                
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Proyecto concursable');
+        
+                //Creamos el proyecto concursable
+                $proyecto = new Proyectoconcursable;
+                $proyecto->nombre = $new_request->nombre;
+                $proyecto->idactividad = $actividad->id;
+                $proyecto->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Proyecto concursable"'.$proyecto->nombre.'" agregado';
             break;
-        default:
+
+            case 'publicacion':
+                //Validación de los datos
+                $request = new StorePublicacion;
+                $original = $new_request->duplicate();
+                $new_request->tipopublicacion = $this->deleteAccentMark($new_request->tipopublicacion);
+                $new_request->titulo = $this->deleteAccentMark($new_request->titulo);
+                $new_request->volumen = $this->deleteAccentMark($new_request->volumen);
+                $new_request->issue = $this->deleteAccentMark($new_request->issue);
+                $new_request->notas = $this->deleteAccentMark($new_request->notas);
+                $new_request->doi = $this->deleteAccentMark($new_request->doi);
+                $new_request->revista = $this->deleteAccentMark($new_request->revista);
+                $new_request->tiporevista = $this->deleteAccentMark($new_request->tiporevista);
+                $new_request->publisher = $this->deleteAccentMark($new_request->publisher);
+                $new_request->abstract = $this->deleteAccentMark($new_request->abstract);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Publicación');
+
+                //Se crea la publicacion
+                $publicacion = new Publicacion;
+                $publicacion->tipo = $new_request->tipopublicacion;
+                $publicacion->titulo = $new_request->titulo;
+                $publicacion->volumen = $new_request->volumen;
+                $publicacion->issue = $new_request->issue;
+                $publicacion->pages = $new_request->pages;
+                $publicacion->issn = $new_request->issn;
+                $publicacion->doi = $new_request->doi;
+                $publicacion->notas = $new_request->notas;
+                $publicacion->revista = $new_request->revista;
+                $publicacion->tipoRevista = $new_request->tiporevista;
+                $publicacion->publisher = $new_request->publisher;
+                $publicacion->abstract = $new_request->abstract;
+                $publicacion->idactividad = $actividad->id;
+                $publicacion->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Publicación "'.$publicacion->titulo.'" agregada';
+            break;
+
+            case 'spinoff':
+                //Validación de los datos
+                $request = new StoreSpinoff;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Spinoff');
+        
+                //Creamos el spinoff
+                $spinoff = new Spinoff;
+                $spinoff->nombre = $new_request->nombre;
+                $spinoff->idactividad = $actividad->id;
+                $spinoff->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Spinoff "'.$spinoff->nombre.'" agregado';
+            break;
+
+            case 'transferencia':
+                //Validación de los datos
+                $request = new StoreTransferenciaTecnologica;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->empresa = $this->deleteAccentMark($new_request->empresa);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Transferencia tecnológica');
+
+                //Se crea la transferencia tecnológica
+                $transferencia = new TransferenciaTecnologica;
+                $transferencia->nombre = $new_request->nombre;
+                $transferencia->empresa = $new_request->empresa;
+                $transferencia->idactividad = $actividad->id;
+                $transferencia->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Transferencia tecnológica "'.$transferencia->nombre.'" agregada';
+            break;
+
+            case 'tutoria':
+                //Validación de los datos
+                $request = new StoreTutoria;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Tutoría');
+
+                //Se crea la tutoría
+                $tutoria = new Tutoria;
+                $tutoria->nombre = $new_request->nombre;
+                $tutoria->idactividad = $actividad->id;
+                $tutoria->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Tutoría "'.$tutoria->nombre.'" agregada';
+            break;
+
+            case 'vinculacion':
+                //Validación de los datos
+                $request = new StoreVinculacion;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->descripcion = $this->deleteAccentMark($new_request->descripcion);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Se crea la actividad
+                $actividad = $this->createActivity($new_request, 'Vinculación');
+
+                //Se crea la vinculación
+                $vinculacion = new Vinculacion;
+                $vinculacion->nombre = $new_request->nombre;
+                $vinculacion->descripcion = $new_request->descripcion;
+                $vinculacion->idactividad = $actividad->id;
+                $vinculacion->save();
+
+                //Si existen usuarios asignados, se vinculan con la actividad
+                if($new_request->user) { $this->linkUsers($new_request, $actividad->id); }
+
+                $success = 'Vinculación "'.$vinculacion->nombre.'" agregada';
+            break;
+
+            default:
             break;
         }
         return redirect('/panelAdministracion')->with('success', $success.' con éxito.');
     }
+
+    
 
 //--------------------------------------------------
 
@@ -318,55 +726,6 @@ class PanelAdministracion extends Controller
         $publicacion = Publicacion::find($id);
         $actividad = Actividad::find($publicacion->idactividad);
         return view('panel.modificar.modificarPublicacionForm', ['publicacion' => $publicacion, 'actividad' => $actividad]);
-    }
-
-    public function postPublicacion(StorePublicacion $request)
-    {
-        $original = $request->duplicate();
-        $request->tipopublicacion = $this->deleteAccentMark($request->tipopublicacion);
-        $request->titulo = $this->deleteAccentMark($request->titulo);
-        $request->volumen = $this->deleteAccentMark($request->volumen);
-        $request->issue = $this->deleteAccentMark($request->issue);
-        $request->notas = $this->deleteAccentMark($request->notas);
-        $request->doi = $this->deleteAccentMark($request->doi);
-        $request->revista = $this->deleteAccentMark($request->revista);
-        $request->tiporevista = $this->deleteAccentMark($request->tiporevista);
-        $request->publisher = $this->deleteAccentMark($request->publisher);
-        $request->abstract = $this->deleteAccentMark($request->abstract);
-        $validated = $request->validated();
-        $request = $original;
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Publicación')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-        $publicacion = new Publicacion;
-        $publicacion->tipo = $request->tipopublicacion;
-        $publicacion->titulo = $request->titulo;
-        $publicacion->volumen = $request->volumen;
-        $publicacion->issue = $request->issue;
-        $publicacion->pages = $request->pages;
-        $publicacion->issn = $request->issn;
-        $publicacion->doi = $request->doi;
-        $publicacion->notas = $request->notas;
-        $publicacion->revista = $request->revista;
-        $publicacion->tipoRevista = $request->tiporevista;
-        $publicacion->publisher = $request->publisher;
-        $publicacion->abstract = $request->abstract;
-        $publicacion->idactividad = $actividad->id;
-        $publicacion->save();
-
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = 3;
-          $user_actividad->save();
-
-        }
-
-
-        return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -391,35 +750,6 @@ class PanelAdministracion extends Controller
         //return view('panel.modificar.modificarActividadAsignaturaSelect');
     }
 
-    public function postActividadAsignatura(StoreActividadAsignatura $request)
-    {
-      //Creamos la actividad
-      $actividad = new Actividad;
-      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Asignatura')->get()[0]->id;
-      $actividad->inicio = $request->fechaInicio;
-      $actividad->termino = $request->fechaTermino;
-      $actividad->save();
-
-      //Creamos la actividad en asignatura
-      $actividad_asignatura = new Actividad_Asignatura;
-      $actividad_asignatura->idactividad = $actividad->id;
-      $actividad_asignatura->idasignatura = $request->asignatura;
-      $actividad_asignatura->save();
-
-      //Si existen usuarios asignados
-      if ($request->user) {
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = $request->cargo[$user];
-          $user_actividad->save();
-        }
-      }
-      return redirect('/panelAdministracion');
-    }
-
 //--------------------------------------------------
 
     public function loadAgregarActividadArea()
@@ -432,36 +762,6 @@ class PanelAdministracion extends Controller
     public function loadModificarActividadArea()
     {
         return view('panel.modificar.modificarActividadArea');
-    }
-
-    public function postActividadArea(StoreActividadArea $request)
-    {
-      //dd($request);
-      //Creamos la actividad
-      $actividad = new Actividad;
-      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Área')->get()[0]->id;
-      $actividad->inicio = $request->fechaInicio;
-      $actividad->termino = $request->fechaTermino;
-      $actividad->save();
-
-      //Creamos la actividad en el área
-      $actividad_area = new Actividad_area;
-      $actividad_area->idactividad = $actividad->id;
-      $actividad_area->idarea = $request->area;
-      $actividad_area->save();
-
-      //Si existen usuarios asignados
-      if ($request->user) {
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = $request->cargo[$user];
-          $user_actividad->save();
-        }
-      }
-      return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -484,20 +784,6 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarAsignaturaForm', ['asignatura' => $asignatura, 'subareas' => $subareas]);
     }
 
-    public function postAsignatura(StoreAsignatura $request)
-    {
-        $original = $request->duplicate();
-        $request->name = $this->deleteAccentMark($request->nombre);
-        $validated = $request->validated();
-        $request = $original;
-        $asignatura = new Asignatura;
-        $asignatura->nombre = $request->nombre;
-        $asignatura->codigo = $request->codigo;
-        $asignatura->idsubarea = $request->subarea;
-        $asignatura->save();
-        return redirect('/panelAdministracion');
-    }
-
 //--------------------------------------------------
 
     public function loadAgregarTutoria()
@@ -516,35 +802,6 @@ class PanelAdministracion extends Controller
         $tutoria = Tutoria::find($id);
         $actividad = Actividad::find($tutoria->idactividad);
         return view('panel.modificar.modificarTutoriaForm', ['tutoria' => $tutoria, 'actividad' => $actividad]);
-    }
-
-    public function postTutoria(StoreTutoria $request)
-    {
-      //Creamos la actividad
-      $actividad = new Actividad;
-      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Tutoría')->get()[0]->id;
-      $actividad->inicio = $request->fechaInicio;
-      $actividad->termino = $request->fechaTermino;
-      $actividad->save();
-
-      //Creamos la tutoría
-      $tutoria = new Tutoria;
-      $tutoria->nombre = $request->nombre;
-      $tutoria->idactividad = $actividad->id;
-      $tutoria->save();
-
-      //Si existen usuarios asignados
-      if ($request->user) {
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = $request->cargo[$user];
-          $user_actividad->save();
-        }
-      }
-      return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -569,40 +826,6 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarCursoForm', ['curso'=>$curso, 'asignatura'=>$asignatura, 'actividad'=>$actividad]);
     }
 
-    public function postCurso(StoreCurso $request)
-    {
-      //Creamos la actividad
-      $actividad = new Actividad;
-      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Curso')->get()[0]->id;
-      $actividad->inicio = $request->fechaInicio;
-      $actividad->termino = $request->fechaTermino;
-      $actividad->save();
-
-      //Creamos el curso
-      $curso = new Curso;
-      /* $curso->nombre = $request->nombre; */
-      $curso->calificacion = null;
-      $curso->respuestas = null;
-      $curso->material = null;
-      $curso->seccion = $request->seccion;
-      $curso->idactividad = $actividad->id;
-      $curso->idasignatura = $request->asignatura;
-      $curso->save();
-
-      //Si existen usuarios asignados
-      if ($request->user) {
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = $request->cargo[$user];
-          $user_actividad->save();
-        }
-      }
-      return redirect('/panelAdministracion');
-    }
-
 //--------------------------------------------------
 
     public function loadAgregarArea()
@@ -619,18 +842,6 @@ class PanelAdministracion extends Controller
     {
         $area = Area::find($id);
         return view('panel.modificar.modificarAreaForm', ['area'=>$area]);
-    }
-
-    public function postArea(StoreArea $request)
-    {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $validated = $request->validated();
-        $request = $original;
-        $area = new Area;
-        $area->nombre = $request->nombre;
-        $area->save();
-        return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -653,19 +864,6 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarSubareaForm', ['subarea'=>$subarea, 'areas'=>$areas]);
     }
 
-    public function postSubarea(StoreSubarea $request)
-    {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $validated = $request->validated();
-        $request = $original;
-        $subarea = new Subarea;
-        $subarea->nombre = $request->nombre;
-        $subarea->idarea = $request->area;
-        $subarea->save();
-        return redirect('/panelAdministracion');
-    }
-
 //--------------------------------------------------
 
     public function loadAgregarCargoAdministrativo()
@@ -677,20 +875,6 @@ class PanelAdministracion extends Controller
     public function loadModificarCargoAdministrativo()
     {
         return view('panel.modificar.modificarCargoAdministrativo');
-    }
-
-    public function postCargoAdministrativo(StoreCargo $request)
-    {
-        $original = $request->duplicate();
-        $request->nombre = $this->deleteAccentMark($request->nombre);
-        $this->validate($request, $request->rules(), $request->messages());
-        $request = $original;
-        $cargo = new Cargo;
-        $cargo->nombre = $request->nombre;
-        $cargo->peso = $request->peso;
-        $cargo->idtipoactividad = $request->tipoactividad;
-        $cargo->save();
-        return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -714,36 +898,6 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarVinculacionForm', ['vinculacion' => $vinculacion, 'actividad' => $actividad]);
     }
 
-    public function postVinculacion(StoreVinculacion $request)
-    {
-      //Creamos la actividad
-      $actividad = new Actividad;
-      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Vinculación')->get()[0]->id;
-      $actividad->inicio = $request->fechaInicio;
-      $actividad->termino = $request->fechaTermino;
-      $actividad->save();
-
-      //Creamos la vinculación
-      $vinculacion = new Vinculacion;
-      $vinculacion->nombre = $request->nombre;
-      $vinculacion->descripcion = $request->descripcion;
-      $vinculacion->idactividad = $actividad->id;
-      $vinculacion->save();
-
-      //Si existen usuarios asignados
-      if ($request->user) {
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = $request->cargo[$user];
-          $user_actividad->save();
-        }
-      }
-      return redirect('/panelAdministracion');
-    }
-
 //--------------------------------------------------
 
     public function loadAgregarTransferenciaTecnologica()
@@ -763,36 +917,6 @@ class PanelAdministracion extends Controller
         $transferencia = TransferenciaTecnologica::find($id);
         $actividad = Actividad::find($transferencia->idactividad);
         return view('panel.modificar.modificarTransferenciaTecnologicaForm', ['transferenciatecnologica' => $transferencia, 'actividad' => $actividad]);
-    }
-
-    public function postTransferenciaTecnologica(StoreTransferenciaTecnologica $request)
-    {
-      //Creamos la actividad
-      $actividad = new Actividad;
-      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Transferencia tecnológica')->get()[0]->id;
-      $actividad->inicio = $request->fechaInicio;
-      $actividad->termino = $request->fechaTermino;
-      $actividad->save();
-
-      //Creamos la transferencia tecnológica
-      $transferencia_tecnologica = new TransferenciaTecnologica;
-      $transferencia_tecnologica->nombre = $request->nombre;
-      $transferencia_tecnologica->empresa = $request->empresa;
-      $transferencia_tecnologica->idactividad = $actividad->id;
-      $transferencia_tecnologica->save();
-
-      //Si existen usuarios asignados
-      if ($request->user) {
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = $request->cargo[$user];
-          $user_actividad->save();
-        }
-      }
-      return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -816,39 +940,6 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarSpinoffForm', ['spinoff' => $spinoff, 'actividad' => $actividad]);
     }
 
-    public function postSpinoff(StoreSpinoff $request)
-    {
-        //Creamos la actividad
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Spinoff')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-
-        //Creamos el spinoff
-        $spinoff = new Spinoff;
-        $spinoff->nombre = $request->nombre;
-        $spinoff->idactividad = $actividad->id;
-        $spinoff->save();
-
-        //Si existen usuarios asignados
-        if ($request->user) {
-          //Asignamos los usuarios con la actividad
-          foreach ($request->user as $user => $value) {
-            $user_actividad = new User_actividad;
-            $user_actividad->iduser = $value;
-            $user_actividad->idactividad = $actividad->id;
-            $user_actividad->idcargo = $request->cargo[$user];
-            $user_actividad->save();
-          }
-        }
-        return redirect('/panelAdministracion');
-    }
-
-    private function addUserActividad($users, $cargos)
-    {
-
-    }
 
 //--------------------------------------------------
 
@@ -869,35 +960,6 @@ class PanelAdministracion extends Controller
         $proyecto = ProyectoConcursable::find($id);
         $actividad = Actividad::find($proyecto->idactividad);
         return view('panel.modificar.modificarProyectoConcursableForm', ['proyectoconcursable' => $proyecto, 'actividad' => $actividad]);
-    }
-
-    public function postProyectoConcursable(StoreProyectoConcursable $request)
-    {
-        //Creamos la actividad
-        $actividad = new Actividad;
-        $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Proyecto concursable')->get()[0]->id;
-        $actividad->inicio = $request->fechaInicio;
-        $actividad->termino = $request->fechaTermino;
-        $actividad->save();
-
-        //Creamos el proyecto concursable
-        $proyecto_concursable = new Proyectoconcursable;
-        $proyecto_concursable->nombre = $request->nombre;
-        $proyecto_concursable->idactividad = $actividad->id;
-        $proyecto_concursable->save();
-
-        //Si existen usuarios asignados
-        if ($request->user) {
-          //Asignamos los usuarios con la actividad
-          foreach ($request->user as $user => $value) {
-            $user_actividad = new User_actividad;
-            $user_actividad->iduser = $value;
-            $user_actividad->idactividad = $actividad->id;
-            $user_actividad->idcargo = $request->cargo[$user];
-            $user_actividad->save();
-          }
-        }
-        return redirect('/panelAdministracion');
     }
 
 //--------------------------------------------------
@@ -921,37 +983,6 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarPerfeccionamientoDocenteForm', ['perfeccionamientodocente' => $perfeccionamiento, 'actividad' => $actividad]);
     }
 
-    public function postPerfeccionamientoDocente(StorePerfeccionamientoDocente $request)
-    {
-      //Creamos la actividad
-      $actividad = new Actividad;
-      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Perfeccionamiento Docente')->get()[0]->id;
-      $actividad->inicio = $request->fechaInicio;
-      $actividad->termino = $request->fechaTermino;
-      $actividad->save();
-
-      //Creamos el perfeccionamiento docente
-      $perfeccionamiento_docente = new PerfeccionamientoDocente;
-      $perfeccionamiento_docente->nombre = $request->nombre;
-      $perfeccionamiento_docente->area = $request->area;
-      $perfeccionamiento_docente->institucion = $request->institucion;
-      $perfeccionamiento_docente->idactividad = $actividad->id;
-      $perfeccionamiento_docente->save();
-
-      //Si existen usuarios asignados
-      if ($request->user) {
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = $request->cargo[$user];
-          $user_actividad->save();
-        }
-      }
-      return redirect('/panelAdministracion');
-    }
-
 //--------------------------------------------------
 
     public function loadAgregarLicencia()
@@ -973,37 +1004,6 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarLicenciaForm', ['licencia' => $licencia, 'actividad' => $actividad]);
     }
 
-    public function postLicencia(StoreLicencia $request)
-    {
-
-      //Creamos la actividad
-      $actividad = new Actividad;
-      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Licencia')->get()[0]->id;
-      $actividad->inicio = $request->fechaInicio;
-      $actividad->termino = $request->fechaTermino;
-      $actividad->save();
-
-      //Creamos la licencia
-      $licencia = new Licencia;
-      $licencia->nombre = $request->nombre;
-      $licencia->empresa = $request->empresa;
-      $licencia->idactividad = $actividad->id;
-      $licencia->save();
-
-      //Si existen usuarios asignados
-      if ($request->user) {
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = $request->cargo[$user];
-          $user_actividad->save();
-        }
-      }
-      return redirect('/panelAdministracion');
-    }
-
 //--------------------------------------------------
 
     public function loadAgregarLibro()
@@ -1023,35 +1023,5 @@ class PanelAdministracion extends Controller
         $libro = Libro::find($id);
         $actividad = Actividad::find($libro->idactividad);
         return view('panel.modificar.modificarLibroForm', ['libro' => $libro, 'actividad' => $actividad]);
-    }
-
-    public function postLibro(StoreLibro $request)
-    {
-
-      //Creamos la actividad
-      $actividad = new Actividad;
-      $actividad->idtipoactividad = Tipoactividad::where('nombre', 'Libro')->get()[0]->id;
-      $actividad->inicio = $request->fechaInicio;
-      $actividad->termino = $request->fechaTermino;
-      $actividad->save();
-
-      //Creamos el libro
-      $libro = new Libro;
-      $libro->titulo = $request->titulo;
-      $libro->isbn = $request->isbn;
-      $libro->idactividad = $actividad->id;
-      $libro->save();
-
-      if ($request->user) {
-        //Asignamos los usuarios con la actividad
-        foreach ($request->user as $user => $value) {
-          $user_actividad = new User_actividad;
-          $user_actividad->iduser = $value;
-          $user_actividad->idactividad = $actividad->id;
-          $user_actividad->idcargo = $request->cargo[$user];
-          $user_actividad->save();
-        }
-      }
-      return redirect('/panelAdministracion');
     }
 }

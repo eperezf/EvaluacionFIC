@@ -12,7 +12,7 @@
       @endforeach
     </div>
   @endif
-  <form method="POST" action="{{ route('postSubarea') }}" id="agregar-area">
+  <form method="POST" action="{{ route('postAgregar') }}" id="agregar-area">
     @csrf
     <div id="area" class="form-group row">
       <label for="select-area" class="col-sm-1 col-form-label">Área</label>
@@ -28,11 +28,12 @@
     <div id="subarea" class="form-group row">
       <label for="input-subarea" class="col-sm-1 col-form-label">Subarea</label><br>
       <div class="col-sm-10">
-      <input type="text" class="form-control col-sm-5" placeholder="Subarea" name="nombre" id="input-subarea" value="{{ old('nombre') }}">
+        <input type="text" class="form-control col-sm-5" placeholder="Subarea" name="nombre" id="input-subarea" value="{{ old('nombre') }}">
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="agregar-area" value="Submit">Guardar</button>
     <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
+    <input type="hidden" value="subarea" name="modelo">
   </form>
 </section>
 @endsection

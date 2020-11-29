@@ -14,7 +14,7 @@
     </div>
   @endif
 </div>
-<form method="POST" action="{{ route('postActividadArea') }}" id="agregar-actividadArea">
+<form method="POST" action="{{ route('postAgregar') }}" id="agregar-actividadArea">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Actividad en área">
       @csrf
@@ -57,6 +57,7 @@
       <div id="usuarios-añadidos"></div>
     </section>
   </div>
+  <input type="hidden" value="actividadArea" name="modelo">
 </form>
 
 <script type="text/javascript">

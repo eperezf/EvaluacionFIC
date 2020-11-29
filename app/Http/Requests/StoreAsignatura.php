@@ -27,14 +27,14 @@ class StoreAsignatura extends FormRequest
             'nombre' => [
                 'required',
                 'max:512',
-                'regex:/^[a-zA-Z0-9\s\W]+$/',
+                'regex:/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/',
                 'unique:asignatura,nombre'
             ],
             'subarea' => 'required',
             'codigo' => [
                 'required',
                 'max:45',
-                'regex:/^[A-Z0-9]+$/',
+                'regex:/^[a-zA-Z0-9]+$/',
                 'unique:asignatura,codigo'
             ]
         ];

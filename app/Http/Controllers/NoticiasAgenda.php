@@ -47,7 +47,7 @@ class NoticiasAgenda extends Controller {
         case 4: //Actividad area
           $area = Area::where('id', Actividad_area::where('idactividad', $actividadUser->idactividad)->get('idarea')[0]->idarea)->get()[0];
           $nombreActividad = $area->nombre;
-          break;
+        break;
         case 5: //Actividad asignatura
           $asignatura = Asignatura::where('id', Actividad_Asignatura::where('idactividad', $actividadUser->idactividad)->get('idasignatura')[0]->idasignatura)->get()[0];
           $nombreActividad = $asignatura->nombre;
