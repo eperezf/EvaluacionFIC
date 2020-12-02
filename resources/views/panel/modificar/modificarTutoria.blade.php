@@ -1,0 +1,18 @@
+@extends('includes/template')
+
+@section('title', 'Panel de Administración')
+@section('contenido')
+
+<h1>Modificar tutoría</h1>
+<hr>
+<input type="text" class="form-control" id="search" name="search" autocomplete="off" placeholder="Buscar">
+<div class="p-2" id="sugerencias" name="sugerencias">
+
+</div>
+<script type="text/javascript">
+  var ruta = "getTutoria";
+  var ruta2 = "modificarTutoria";
+</script>
+<script type="text/javascript" src="{{asset('js/search.js')}}"></script>
+
+@endsection
