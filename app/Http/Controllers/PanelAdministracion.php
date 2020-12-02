@@ -134,6 +134,14 @@ class PanelAdministracion extends Controller
         return $actividad;
     }
 
+    private function modifyActivity(Request $request, $tipoactividad)
+    {
+        $actividad = Actividad::find($tipoactividad->idactividad);
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+    }
+
 //--------------------------------------------------
 
     public function loadPanelAdministracion()
@@ -148,90 +156,157 @@ class PanelAdministracion extends Controller
         //switch case para cada modelo
         switch ($new_request->modelo)
         {
-            case 'actividadArea':
-                $request = new Requests\StoreActividadArea;
-                $this->validate($new_request, $request->rules(), $request->messages());
-                $actividad = ActividadArea::find($new_request->id);
-                break;
-            case 'actividadAsignatura':
-
-                break;
+            //Administrativo
             case 'area':
+                //Validación de los datos
                 $request = new UpdateArea;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación del área
                 $area = Area::find($new_request->id);
                 $area->nombre = $new_request->nombre;
                 $area->save();
+
                 $success = "Área modificada";
-                break;
+            break;
+
             case 'asignatura':
+                //Validación de los datos
                 $request = new UpdateAsignatura;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->codigo = $this->deleteAccentMark($new_request->codigo);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación de la asignatura
                 $asignatura = Asignatura::find($new_request->id);
                 $asignatura->nombre = $new_request->nombre;
                 $asignatura->idsubarea = $new_request->subarea;
                 $asignatura->codigo = $new_request->codigo;
                 $asignatura->save();
+
                 $success = "Asignatura modificada";
-                break;
+            break;
+
             case 'cargoAdministrativo':
 
-                break;
+            break;
+
+            case 'subarea':
+                //Validación de los datos
+                $request = new UpdateSubarea;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación de la subarea
+                $subarea = Subarea::find($new_request->id);
+                $subarea->nombre = $new_request->nombre;
+                $subarea->idarea = $new_request->area;
+                $subarea->save();
+
+                $success = "Subarea modificada";
+            break;
+
+            //Actividades
+            case 'actividadArea':
+                $request = new Requests\StoreActividadArea;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $actividad = ActividadArea::find($new_request->id);
+            break;
+
+            case 'actividadAsignatura':
+
+            break;
+
             case 'curso':
 
-                break;
+            break;
+
             case 'libro':
+                //Validación de los datos
                 $request = new UpdateLibro;
+                $original = $new_request->duplicate();
+                $new_request->titulo = $this->deleteAccentMark($new_request->titulo);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación del libro específico
                 $libro = Libro::find($new_request->id);
                 $libro->titulo = $new_request->titulo;
                 $libro->isbn = $new_request->isbn;
                 $libro->save();
-                $actividad = Actividad::find($libro->idactividad);
-                $actividad->inicio = $new_request->fechaInicio;
-                $actividad->termino = $new_request->fechaTermino;
-                $actividad->save();
+
+                //Modificacion de los datos de la actividad asociada al libro
+                $this->modifyActivity($new_request, $libro);
+
                 $success = "Libro modificado";
-                break;
+            break;
+
             case 'licencia':
+                //Validación de los datos
                 $request = new UpdateLicencia;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->empresa = $this->deleteAccentMark($new_request->empresa);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación de la licencia específica
                 $licencia = Licencia::find($new_request->id);
                 $licencia->nombre = $new_request->nombre;
                 $licencia->empresa = $new_request->empresa;
                 $licencia->save();
-                $actividad = Actividad::find($licencia->idactividad);
-                $actividad->inicio = $new_request->fechaInicio;
-                $actividad->termino = $new_request->fechaTermino;
-                $actividad->save();
-                $success = "Licencia modificada";
-                break;
+
+                //Modificacion de los datos de la actividad asociada a la licencia
+                $this->modifyActivity($new_request, $licencia);
+
+                $success = "Licencia modificada";  
+            break;
+
             case 'perfeccionamientoDocente':
+                //Validación de los datos
                 $request = new UpdatePerfeccionamientoDocente;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->institucion = $this->deleteAccentMark($new_request->institucion);
+                $new_request->area = $this->deleteAccentMark($new_request->area);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación del perfeccionamiento docente específico
                 $perfeccionamiento = Perfeccionamientodocente::find($new_request->id);
                 $perfeccionamiento->nombre = $new_request->nombre;
                 $perfeccionamiento->institucion = $new_request->institucion;
                 $perfeccionamiento->area = $new_request->area;
                 $perfeccionamiento->save();
-                $actividad = Actividad::find($perfeccionamiento->idactividad);
-                $actividad->inicio = $new_request->fechaInicio;
-                $actividad->termino = $new_request->fechaTermino;
-                $actividad->save();
+
+                //Modificacion de los datos de la actividad asociada al perfeccionamiento docente
+                $this->modifyActivity($new_request, $perfeccionamiento);
+
                 $success = "Perfeccionamiento docente modificado";
-                break;
+            break;
+
             case 'proyectoConcursable':
                 $request = new UpdateProyectoConcursable;
                 $this->validate($new_request, $request->rules(), $request->messages());
                 $proyecto = Proyectoconcursable::find($new_request->id);
                 $proyecto->nombre = $new_request->nombre;
                 $proyecto->save();
+
                 $actividad = Actividad::find($proyecto->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Proyecto concursable modificado";
-                break;
+            break;
+
             case 'publicacion':
                 $request = new UpdatePublicacion;
                 $this->validate($new_request, $request->rules(), $request->messages());
@@ -249,33 +324,30 @@ class PanelAdministracion extends Controller
                 $publicacion->publisher = $new_request->publisher;
                 $publicacion->abstract = $new_request->abstract;
                 $publicacion->save();
+
                 $actividad = Actividad::find($publicacion->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Publicación modificada";
-                break;
+            break;
+
             case 'spinoff':
                 $request = new UpdateSpinoff;
                 $this->validate($new_request, $request->rules(), $request->messages());
                 $spinoff = Spinoff::find($new_request->id);
                 $spinoff->nombre = $new_request->nombre;
                 $spinoff->save();
+
                 $actividad = Actividad::find($spinoff->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Spinoff modificado";
-                break;
-            case 'subarea':
-                $request = new UpdateSubarea;
-                $this->validate($new_request, $request->rules(), $request->messages());
-                $subarea = Subarea::find($new_request->id);
-                $subarea->nombre = $new_request->nombre;
-                $subarea->idarea = $new_request->area;
-                $subarea->save();
-                $success = "Subarea modificada";
-                break;
+            break;
+
             case 'transferenciaTecnologica':
                 $request = new UpdateTransferenciaTecnologica;
                 $this->validate($new_request, $request->rules(), $request->messages());
@@ -283,24 +355,30 @@ class PanelAdministracion extends Controller
                 $transferencia->nombre = $new_request->nombre;
                 $transferencia->empresa = $new_request->empresa;
                 $transferencia->save();
+
                 $actividad = Actividad::find($transferencia->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Transferencia tecnológica modificada";
-                break;
+            break;
+
             case 'tutoria':
                 $request = new UpdateTutoria;
                 $this->validate($new_request, $request->rules(), $request->messages());
                 $tutoria = Tutoria::find($new_request->id);
                 $tutoria->nombre = $new_request->nombre;
                 $tutoria->save();
+
                 $actividad = Actividad::find($tutoria->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Tutoria modificada";
-                break;
+            break;
+
             case 'vinculacion':
                 $request = new UpdateVinculacion;
                 $this->validate($new_request, $request->rules(), $request->messages());
@@ -308,14 +386,18 @@ class PanelAdministracion extends Controller
                 $vinculacion->nombre = $new_request->nombre;
                 $vinculacion->descripcion = $new_request->descripcion;
                 $vinculacion->save();
+
                 $actividad = Actividad::find($vinculacion->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
-                $success = "Vinculación modificada";
-                break;
+
+                $success = "Vinculación modificada"; 
+            break;
+
             default:
-                break;
+                
+            break;
         }
         return redirect('/panelAdministracion')->with('success', $success.' con éxito.');
     }
