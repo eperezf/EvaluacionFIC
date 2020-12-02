@@ -14,7 +14,7 @@
   </div>
 @endif
 </div>
-<form method="POST" action="{{ route('postTransferenciaTecnologica') }}" id="agregar-transferenciatecnologica">
+<form method="POST" action="{{ route('postAgregar') }}" id="agregar-transferenciatecnologica">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Tranferencia Tecnológica">
         @csrf
@@ -51,12 +51,14 @@
           </div>
         </div><br>
         <button class="btn btn-primary" type="submit" form="agregar-transferenciatecnologica" value="Submit">Guardar</button>
+        <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     </section>
     <section class="col-6" id="lista-usuarios" name="lista-usuarios">
       <h3>Usuarios Añadidos</h3>
       <div id="usuarios-añadidos"></div>
     </section>
   </div>
+  <input type="hidden" value="transferencia" name="modelo">
 </form>
 <script type="text/javascript">
   var idtipoactividad = {{ $idtipoactividad }}

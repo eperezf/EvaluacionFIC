@@ -3,8 +3,18 @@
 @section('title','Panel de Administración')
 @section('contenido')
 <h1>Panel de Perfeccionamiento Docente</h1><hr>
-<div name="errors"></div>
-<form action="{{route('postPerfeccionamientoDocente')}}" method="POST" id="agregar-perfeccionamientodocente">
+<div class="errors">
+  @if ($errors->any())
+    <div class="alert alert-danger pb-1 pt-1">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+</div>
+<form action="{{route('postAgregar')}}" method="POST" id="agregar-perfeccionamientodocente">
   <div class="row">
     <section id="agregar" class="col-6"> 
       @csrf
@@ -46,13 +56,15 @@
           <div class="p-2" id="sugerencias" name="sugerencias"></div>
         </div>
       </div><br>
-      <button type="submit" form="agregar-perfeccionamientodocente" class="btn btn-primary">Guardar</button>
+      <button type="submit" value="Submit" form="agregar-perfeccionamientodocente" class="btn btn-primary">Guardar</button>
+      <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     </section>
     <section class="col-6" id="lista-usuarios" name="lista-usuarios">
       <h3>Usuarios Añadidos</h3>
       <div id="usuarios-añadidos"></div>
     </section>
   </div>
+  <input type="hidden" value="perfeccionamiento" name="modelo">
 </form>
 <script type="text/javascript">
   var idtipoactividad = {{ $idtipoactividad }}

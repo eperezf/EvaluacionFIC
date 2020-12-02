@@ -24,8 +24,8 @@ class StoreTransferenciaTecnologica extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
-            'empresa' => ['required', 'max:45', 'regex:/^[a-zA-Z\s]+$/'],
+            'nombre' => ['required', 'max:45', 'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'],
+            'empresa' => ['required', 'max:45', 'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'],
             'fechaInicio' => ['required', 'date'],
             'fechaTermino' => ['required', 'date', 'after:fechaInicio']
         ];

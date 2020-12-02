@@ -34,6 +34,7 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-proyectoconcursable" value="Submit">Guardar</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     <input type="hidden" value="proyectoConcursable" name="modelo">
     <input type="hidden" value="{{ $proyectoconcursable->id }}" name="id">
   </form>

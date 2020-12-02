@@ -43,6 +43,7 @@
         </div>
       </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-asignatura" value="Submit">Guardar</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     <input type="hidden" value="asignatura" name="modelo">
     <input type="hidden" name="id" value="{{ $asignatura->id }}">
   </form>

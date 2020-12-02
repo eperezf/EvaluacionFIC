@@ -94,6 +94,7 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" value="Submit" form="modificar-publicacion">Guardar</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     <input type="hidden" value="publicacion" name="modelo">
     <input type="hidden" value="{{ $publicacion->id }}" name="id">
   </form>

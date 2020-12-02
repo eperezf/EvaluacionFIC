@@ -24,7 +24,7 @@ class StoreArea extends FormRequest {
             'nombre' => [
                 'required',
                 'max:45',
-                'alpha',
+                'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/',
                 'unique:area,nombre',
             ]
         ];

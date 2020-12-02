@@ -39,24 +39,7 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::get('panelAdministracion/agregarLicencia', 'PanelAdministracion@loadAgregarLicencia')->middleware('auth')->name('agregarLicencia');
     Route::get('panelAdministracion/agregarLibro', 'PanelAdministracion@loadAgregarLibro')->middleware('auth')->name('agregarLibro');
 
-    Route::post('panelAdministracion/postArea', 'PanelAdministracion@postArea')->middleware('auth')->name('postArea');
-    Route::post('panelAdministracion/postSubarea', 'PanelAdministracion@postSubarea')->middleware('auth')->name('postSubarea');
-    Route::post('panelAdministracion/postCargoAdministrativo', 'PanelAdministracion@postCargoAdministrativo')->middleware('auth')->name('postCargoAdministrativo');
-    Route::post('panelAdministracion/postAsignatura', 'PanelAdministracion@postAsignatura')->middleware('auth')->name('postAsignatura');
-    Route::post('panelAdministracion/postPublicacion', 'PanelAdministracion@postPublicacion')->middleware('auth')->name('postPublicacion');
-    Route::post('panelAdministracion/postActividad', 'PanelAdministracion@postActividad')->middleware('auth')->name('postActividad');
-    Route::post('panelAdministracion/postCurso', 'PanelAdministracion@postCurso')->middleware('auth')->name('postCurso');
-    Route::post('panelAdministracion/postLibro', 'PanelAdministracion@postLibro')->middleware('auth')->name('postLibro');
-    Route::post('panelAdministracion/postLicencia', 'PanelAdministracion@postLicencia')->middleware('auth')->name('postLicencia');
-    Route::post('panelAdministracion/postPerfeccionamientoDocente', 'PanelAdministracion@postPerfeccionamientoDocente')->middleware('auth')->name('postPerfeccionamientoDocente');
-    Route::post('panelAdministracion/postProyectoConcursable', 'PanelAdministracion@postProyectoConcursable')->middleware('auth')->name('postProyectoConcursable');
-    Route::post('panelAdministracion/postSpinoff', 'PanelAdministracion@postSpinoff')->middleware('auth')->name('postSpinoff');
-    Route::post('panelAdministracion/postTipoActividad', 'PanelAdministracion@postTipoActividad')->middleware('auth')->name('postTipoActividad');
-    Route::post('panelAdministracion/postTransferenciaTecnologica', 'PanelAdministracion@postTransferenciaTecnologica')->middleware('auth')->name('postTransferenciaTecnologica');
-    Route::post('panelAdministracion/postTutoria', 'PanelAdministracion@postTutoria')->middleware('auth')->name('postTutoria');
-    Route::post('panelAdministracion/postVinculacion', 'PanelAdministracion@postVinculacion')->middleware('auth')->name('postVinculacion');
-    Route::post('panelAdministracion/postActividadAsignatura', 'PanelAdministracion@postActividadAsignatura')->middleware('auth')->name('postActividadAsignatura');
-    Route::post('panelAdministracion/postActividadArea', 'PanelAdministracion@postActividadArea')->middleware('auth')->name('postActividadArea');
+Route::post('panelAdministracion/postAgregar', 'PanelAdministracion@postAgregar')->middleware('auth')->name('postAgregar');
 
     Route::get('panelAdministracion/modificarArea', 'PanelAdministracion@loadModificarArea')->middleware('auth')->name('modificarArea');
     Route::get('panelAdministracion/modificarArea/{id}', 'PanelAdministracion@loadModificarAreaForm')->middleware('auth')->name('modificarAreaForm');

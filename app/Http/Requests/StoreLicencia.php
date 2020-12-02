@@ -24,8 +24,8 @@ class StoreLicencia extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required', 'max:45', 'regex:/^[a-zA-Z0-9\s\W]+$/'],
-            'empresa' => ['required', 'max:45', 'regex:/^[a-zA-Z0-9\s\W]+$/'],
+            'nombre' => ['required', 'max:45', 'regex:/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/'],
+            'empresa' => ['required', 'max:45', 'regex:/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+$/'],
             'fechaInicio' => ['required', 'date'],
             'fechaTermino' => ['required', 'date', 'after:fechaInicio']
         ];

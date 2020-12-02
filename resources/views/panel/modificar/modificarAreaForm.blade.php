@@ -22,6 +22,7 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-area" value="Submit">Modificar área</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     <input type="hidden" value="area" name="modelo">
     <input type="hidden" value="{{ $area->id }}" name="id">
   </form>

@@ -5,13 +5,12 @@
 
 <h1>Modificar actividad de área</h1>
 <hr>
-<a class="btn btn-primary" href="{{ route('panelAdministracion') }}" role="button">Volver</a>
-<input type="text" autofocus class="form-control" id="search" name="search" autocomplete="off">
+<input type="text" autofocus class="form-control" id="search" name="search" autocomplete="off" placeholder="Buscar">
 <div class="p-2" id="sugerencias" name="sugerencias">
 
 </div>
 <script type="text/javascript">
-  var ruta = "getArea";
+  var ruta = "getAreas";
   var ruta2 = "modificarActividadArea";
 </script>
 <script type="text/javascript" src="{{asset('js/select.js')}}"></script>

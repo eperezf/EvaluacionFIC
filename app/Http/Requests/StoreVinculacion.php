@@ -24,7 +24,7 @@ class StoreVinculacion extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required', 'max:45', 'regex:/^[a-zA-Z\s\W]+$/'],
+            'nombre' => ['required', 'max:45', 'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'],
             'descripcion' => ['required', 'max:45'],
             'fechaInicio' => ['required', 'date'],
             'fechaTermino' => ['required', 'date', 'after:fechaInicio']
