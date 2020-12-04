@@ -800,7 +800,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarPublicacion()
     {
-        return view('panel.modificar.modificarPublicacion');
+        $modelo = "Publicacion";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarPublicacionForm($id)
@@ -822,7 +823,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarActividadAsignatura()
     {
-        return view('panel.modificar.modificarActividadAsignatura');
+        $modelo = "ActividadAsignatura";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadActividadesAsignatura($idAsignatura)
@@ -843,7 +845,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarActividadArea()
     {
-        return view('panel.modificar.modificarActividadArea');
+        $modelo = "ActividadArea";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
 //--------------------------------------------------
@@ -856,7 +859,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarAsignatura()
     {
-        return view('panel.modificar.modificarAsignatura');
+        $modelo = "Asignatura";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarAsignaturaForm($id)
@@ -876,7 +880,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarTutoria()
     {
-        return view('panel.modificar.modificarTutoria');
+        $modelo = "Tutoria";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarTutoriaForm($id)
@@ -897,7 +902,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarCurso()
     {
-        return view('panel.modificar.modificarCurso');
+        $modelo = "Curso";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarCursoForm($id)
@@ -917,7 +923,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarArea()
     {
-        return view('panel.modificar.modificarArea');
+        $modelo = "Area";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarAreaForm($id)
@@ -936,7 +943,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarSubarea()
     {
-        return view('panel.modificar.modificarSubarea');
+        $modelo = "Subarea";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarSubareaForm($id)
@@ -956,7 +964,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarCargoAdministrativo()
     {
-        return view('panel.modificar.modificarCargoAdministrativo');
+        $modelo = "CargoAdministrativo";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
 //--------------------------------------------------
@@ -970,7 +979,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarVinculacion()
     {
-        return view('panel.modificar.modificarVinculacion');
+        $modelo = "Vinculacion";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarVinculacionForm($id)
@@ -991,7 +1001,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarTransferenciaTecnologica()
     {
-        return view('panel.modificar.modificarTransferenciaTecnologica');
+        $modelo = "TransferenciaTecnologica";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarTransferenciaTecnologicaForm($id)
@@ -1012,7 +1023,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarSpinoff()
     {
-        return view('panel.modificar.modificarSpinoff');
+        $modelo = "Spinoff";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarSpinoffForm($id)
@@ -1034,7 +1046,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarProyectoConcursable()
     {
-        return view('panel.modificar.modificarProyectoConcursable');
+        $modelo = "ProyectoConcursable";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarProyectoConcursableForm($id)
@@ -1055,7 +1068,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarPerfeccionamientoDocente()
     {
-        return view('panel.modificar.modificarPerfeccionamientoDocente');
+        $modelo = "PerfeccionamientoDocente";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarPerfeccionamientoDocenteForm($id)
@@ -1076,7 +1090,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarLicencia()
     {
-        return view('panel.modificar.modificarLicencia');
+        $modelo = "Licencia";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarLicenciaForm($id)
@@ -1097,7 +1112,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarLibro()
     {
-        return view('panel.modificar.modificarLibro');
+        $modelo = "Libro";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarLibroForm($id)
