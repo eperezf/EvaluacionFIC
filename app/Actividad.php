@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Actividad extends Model {
     protected $table = 'actividad';
 
-    protected $fillable = ['inicio', 'termino', 'idtipoactividad'];
+    protected $fillable = [
+        'inicio',
+        'termino',
+        'idtipoactividad',
+        'comentario'
+    ];
 
     //Relations
     public function publicacion() {
@@ -51,11 +56,8 @@ class Actividad extends Model {
     }
     
     public function asignatura() {
-        return $this->belongsToMany(
-            'App\Asignatura',
-            'actividad_asignatura',
-            'idasignatura',
-            'idactividad')
+        return $this
+            ->belongsToMany('App\Asignatura', 'actividad_asignatura', 'idasignatura', 'idactividad')
             ->using('App\Actividad_asignatura')
             ->withPivot([
                 'created_at',
@@ -64,11 +66,8 @@ class Actividad extends Model {
     }
 
     public function area() {
-        return $this->belongsToMany(
-            'App\Area',
-            'actividad_area',
-            'idarea',
-            'idactividad')
+        return $this
+            ->belongsToMany('App\Area', 'actividad_area', 'idarea', 'idactividad')
             ->using('App\Actividad_area')
             ->withPivot([
                 'created_at',
@@ -77,11 +76,8 @@ class Actividad extends Model {
     }
 
     public function user() {
-        return $this->belongsToMany(
-            'App\User',
-            'user_actividad',
-            'iduser',
-            'idactividad')
+        return $this
+            ->belongsToMany('App\User', 'user_actividad', 'iduser', 'idactividad')
             ->using('App\User_actividad')
             ->withPivot([
                 'bonificacion',
@@ -92,11 +88,8 @@ class Actividad extends Model {
     }
 
     public function cargo() {
-        return $this->belongsToMany(
-            'App\Cargo',
-            'user_actividad',
-            'iduser',
-            'idcargo')
+        return $this
+            ->belongsToMany('App\Cargo', 'user_actividad', 'iduser', 'idcargo')
             ->using('App\User_actividad')
             ->withPivot([
                 'bonificacion',
