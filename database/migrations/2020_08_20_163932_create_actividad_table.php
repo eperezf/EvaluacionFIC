@@ -9,6 +9,7 @@ class CreateActividadTable extends Migration {
     Schema::create('actividad', function (Blueprint $table) {
       $table->id();
       $table->foreignId('idtipoactividad')->references('id')->on('tipoactividad');
+      $table->string('comentario', 512)->nullable();
       $table->date('inicio');
       $table->date('termino');
       $table->timestamps();
