@@ -3,16 +3,15 @@
 @section('title', 'Panel de Administración')
 @section('contenido')
 
-<h1>Modificar área</h1>
+<h1>Modificar {{ $modelo }}</h1>
 <hr>
-<a class="btn btn-primary" href="{{ route('panelAdministracion') }}" role="button">Volver</a>
-<input type="text" class="form-control" id="search" name="search" autocomplete="off">
+<input type="text" class="form-control" id="search" name="search" autocomplete="off" placeholder="Buscar">
 <div class="p-2" id="sugerencias" name="sugerencias">
 
 </div>
 <script type="text/javascript">
-  var ruta = "getAreas";
-  var ruta2 = "modificarArea";
+  var ruta = "get{{ $modelo }}";
+  var ruta2 = "modificar{{ $modelo }}";
 </script>
 <script type="text/javascript" src="{{asset('js/search.js')}}"></script>
 

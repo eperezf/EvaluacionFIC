@@ -14,7 +14,7 @@
       </ul>
     </div>
   @endif
-  <form method="POST" action="{{ route('postCargoAdministrativo') }}" id="agregar-cargo">
+  <form method="POST" action="{{ route('postAgregar') }}" id="agregar-cargo">
     @csrf
     <div id="cargo" class="form-group row">
       <label for="input-cargo" class="col-sm-1 col-form-label">Cargo</label>
@@ -40,6 +40,8 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" value="Submit" form="agregar-cargo">Agregar Cargo</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
+    <input type="hidden" value="cargo" name="modelo">
   </form>
 </section>
 

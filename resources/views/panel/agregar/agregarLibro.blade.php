@@ -17,7 +17,7 @@
     </div>
   @endif
 </div>
-<form method="POST" action="{{ route('postLibro') }}" id="agregar-libro">
+<form method="POST" action="{{ route('postAgregar') }}" id="agregar-libro">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Libro">
       @csrf
@@ -54,12 +54,14 @@
         </div>
       </div><br>
       <button class="btn btn-primary" type="submit" form="agregar-libro" value="Submit">Guardar</button>
+      <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     </section>
     <section class="col-6" id="lista-usuarios" name="lista-usuarios">
       <h3>Usuarios Añadidos</h3>
       <div id="usuarios-añadidos"></div>
     </section>
   </div>
+  <input type="hidden" value="libro" name="modelo">
 </form>
 <script type="text/javascript">
   var idtipoactividad = {{ $idtipoactividad }}

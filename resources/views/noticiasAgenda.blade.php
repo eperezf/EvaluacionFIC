@@ -19,11 +19,12 @@
   <div class="col-12 text-center">
     <h1 class=" mb-3">Modificaciones recientes</h1>
   </div>
+  @php ($i = 0)
   @foreach ($actividades as $actividad)
   <div class="col-4">
     <div class="card">
       <div class="card-header">
-        Nombre Actividad
+        {{ $cargos[$i] }} en {{ $nombreActividades[$i] }}
       </div>
       <div class="card-body">
         <p>Cargo: {{$actividad->pivot->cargo->nombre}}</p>
@@ -35,6 +36,7 @@
       </div>
     </div>
   </div>
+  @php ($i++)
   @endforeach
 </div>
 

@@ -14,7 +14,7 @@
     </div>
   @endif
 </div>
-<form method="POST" action="{{ route('postActividadArea') }}" id="agregar-actividadArea">
+<form method="POST" action="{{ route('postAgregar') }}" id="agregar-actividadArea">
   <div class="row">
     <section class="col-6" id="agregar" name="Agregar Actividad en área">
       @csrf
@@ -50,12 +50,14 @@
         </div>
       </div><br>
       <button class="btn btn-primary" type="submit" form="agregar-actividadArea" value="Submit">Guardar</button>
+      <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     </section>
     <section class="col-6" id="lista-usuarios" name="lista-usuarios">
       <h3>Usuarios Añadidos</h3>
       <div id="usuarios-añadidos"></div>
     </section>
   </div>
+  <input type="hidden" value="actividadArea" name="modelo">
 </form>
 
 <script type="text/javascript">

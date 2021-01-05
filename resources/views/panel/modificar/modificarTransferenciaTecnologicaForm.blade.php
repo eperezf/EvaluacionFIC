@@ -40,6 +40,7 @@
       </div>
     </div><br>
     <button class="btn btn-primary" type="submit" form="modificar-transferenciatecnologica" value="Submit">Guardar</button>
+    <a class="btn btn-danger" href="{{ route('panelAdministracion') }}" role="button">Cancelar</a>
     <input type="hidden" value="transferenciaTecnologica" name="modelo">
     <input type="hidden" value="{{ $transferenciatecnologica->id }}" name="id">
   </form>

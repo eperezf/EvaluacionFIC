@@ -26,7 +26,7 @@ class StoreSubarea extends FormRequest {
                 'required',
                 'max:45',
                 'unique:subarea,nombre',
-                'alpha'
+                'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'
             ]
         ];
     }
@@ -37,7 +37,7 @@ class StoreSubarea extends FormRequest {
             'nombre.required' => "Debe ingresar una subarea",
             'nombre.max' => "Subarea debe tener máximo 45 caracteres",
             'nombre.unique' => "La subarea ya existe",
-            'nombre.alpha' => "Subarea debe tener solo letras"
+            'nombre.regex' => "Subarea debe tener solo letras"
         ];
     }
 }
