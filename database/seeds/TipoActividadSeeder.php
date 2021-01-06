@@ -12,6 +12,7 @@ class TipoActividadSeeder extends Seeder
     public function run()
     {
       DB::table('tipoactividad')->insert([
+        ['id' => '3', 'nombre' => 'Administración'],
 				['id'=>'4', 'nombre'=>'Área'],
 				['id'=>'5', 'nombre'=>'Asignatura'],
         ['id'=>'6', 'nombre'=>'Curso'],
