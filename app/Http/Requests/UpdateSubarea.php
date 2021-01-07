@@ -26,7 +26,7 @@ class UpdateSubarea extends FormRequest
             'nombre' => [
                 'required',
                 'max:45',
-                'alpha'
+                'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'
             ]
         ];
     }
@@ -36,7 +36,7 @@ class UpdateSubarea extends FormRequest
             'area.required' => "Debe ingresar una área",
             'nombre.required' => "Debe ingresar una subarea",
             'nombre.max' => "Subarea debe tener máximo 45 caracteres",
-            'nombre.alpha' => "Subarea debe tener solo letras"
+            'nombre.regex' => "Subarea debe tener solo letras"
         ];
     }
 }

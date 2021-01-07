@@ -134,104 +134,179 @@ class PanelAdministracion extends Controller
         return $actividad;
     }
 
-//--------------------------------------------------
+    private function modifyActivity(Request $request, $tipoactividad)
+    {
+        $actividad = Actividad::find($tipoactividad->idactividad);
+        $actividad->inicio = $request->fechaInicio;
+        $actividad->termino = $request->fechaTermino;
+        $actividad->save();
+    }
+
+//--Cargar el panel de Administración
 
     public function loadPanelAdministracion()
     {
         return view('panel.panelAdministracion');
     }
 
-//--------------------------------------------------
+//--Post Modificación
 
     public function postModificacion(Request $new_request)
     {
         //switch case para cada modelo
         switch ($new_request->modelo)
         {
-            case 'actividadArea':
-                $request = new Requests\StoreActividadArea;
-                $this->validate($new_request, $request->rules(), $request->messages());
-                $actividad = ActividadArea::find($new_request->id);
-                break;
-            case 'actividadAsignatura':
-
-                break;
+            //Administrativo
             case 'area':
+                //Validación de los datos
                 $request = new UpdateArea;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación del área
                 $area = Area::find($new_request->id);
                 $area->nombre = $new_request->nombre;
                 $area->save();
+
                 $success = "Área modificada";
-                break;
+            break;
+
             case 'asignatura':
+                //Validación de los datos
                 $request = new UpdateAsignatura;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->codigo = $this->deleteAccentMark($new_request->codigo);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación de la asignatura
                 $asignatura = Asignatura::find($new_request->id);
                 $asignatura->nombre = $new_request->nombre;
                 $asignatura->idsubarea = $new_request->subarea;
                 $asignatura->codigo = $new_request->codigo;
                 $asignatura->save();
+
                 $success = "Asignatura modificada";
-                break;
+            break;
+
             case 'cargoAdministrativo':
 
-                break;
+            break;
+
+            case 'subarea':
+                //Validación de los datos
+                $request = new UpdateSubarea;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación de la subarea
+                $subarea = Subarea::find($new_request->id);
+                $subarea->nombre = $new_request->nombre;
+                $subarea->idarea = $new_request->area;
+                $subarea->save();
+
+                $success = "Subarea modificada";
+            break;
+
+            //Actividades
+            case 'actividadArea':
+                $request = new Requests\StoreActividadArea;
+                $this->validate($new_request, $request->rules(), $request->messages());
+                $actividad = ActividadArea::find($new_request->id);
+            break;
+
+            case 'actividadAsignatura':
+
+            break;
+
             case 'curso':
 
-                break;
+            break;
+
             case 'libro':
+                //Validación de los datos
                 $request = new UpdateLibro;
+                $original = $new_request->duplicate();
+                $new_request->titulo = $this->deleteAccentMark($new_request->titulo);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación del libro específico
                 $libro = Libro::find($new_request->id);
                 $libro->titulo = $new_request->titulo;
                 $libro->isbn = $new_request->isbn;
                 $libro->save();
-                $actividad = Actividad::find($libro->idactividad);
-                $actividad->inicio = $new_request->fechaInicio;
-                $actividad->termino = $new_request->fechaTermino;
-                $actividad->save();
+
+                //Modificacion de los datos de la actividad asociada al libro
+                $this->modifyActivity($new_request, $libro);
+
                 $success = "Libro modificado";
-                break;
+            break;
+
             case 'licencia':
+                //Validación de los datos
                 $request = new UpdateLicencia;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->empresa = $this->deleteAccentMark($new_request->empresa);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación de la licencia específica
                 $licencia = Licencia::find($new_request->id);
                 $licencia->nombre = $new_request->nombre;
                 $licencia->empresa = $new_request->empresa;
                 $licencia->save();
-                $actividad = Actividad::find($licencia->idactividad);
-                $actividad->inicio = $new_request->fechaInicio;
-                $actividad->termino = $new_request->fechaTermino;
-                $actividad->save();
-                $success = "Licencia modificada";
-                break;
+
+                //Modificacion de los datos de la actividad asociada a la licencia
+                $this->modifyActivity($new_request, $licencia);
+
+                $success = "Licencia modificada";  
+            break;
+
             case 'perfeccionamientoDocente':
+                //Validación de los datos
                 $request = new UpdatePerfeccionamientoDocente;
+                $original = $new_request->duplicate();
+                $new_request->nombre = $this->deleteAccentMark($new_request->nombre);
+                $new_request->institucion = $this->deleteAccentMark($new_request->institucion);
+                $new_request->area = $this->deleteAccentMark($new_request->area);
                 $this->validate($new_request, $request->rules(), $request->messages());
+                $new_request = $original;
+
+                //Modificación del perfeccionamiento docente específico
                 $perfeccionamiento = Perfeccionamientodocente::find($new_request->id);
                 $perfeccionamiento->nombre = $new_request->nombre;
                 $perfeccionamiento->institucion = $new_request->institucion;
                 $perfeccionamiento->area = $new_request->area;
                 $perfeccionamiento->save();
-                $actividad = Actividad::find($perfeccionamiento->idactividad);
-                $actividad->inicio = $new_request->fechaInicio;
-                $actividad->termino = $new_request->fechaTermino;
-                $actividad->save();
+
+                //Modificacion de los datos de la actividad asociada al perfeccionamiento docente
+                $this->modifyActivity($new_request, $perfeccionamiento);
+
                 $success = "Perfeccionamiento docente modificado";
-                break;
+            break;
+
             case 'proyectoConcursable':
                 $request = new UpdateProyectoConcursable;
                 $this->validate($new_request, $request->rules(), $request->messages());
                 $proyecto = Proyectoconcursable::find($new_request->id);
                 $proyecto->nombre = $new_request->nombre;
                 $proyecto->save();
+
                 $actividad = Actividad::find($proyecto->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Proyecto concursable modificado";
-                break;
+            break;
+
             case 'publicacion':
                 $request = new UpdatePublicacion;
                 $this->validate($new_request, $request->rules(), $request->messages());
@@ -249,33 +324,30 @@ class PanelAdministracion extends Controller
                 $publicacion->publisher = $new_request->publisher;
                 $publicacion->abstract = $new_request->abstract;
                 $publicacion->save();
+
                 $actividad = Actividad::find($publicacion->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Publicación modificada";
-                break;
+            break;
+
             case 'spinoff':
                 $request = new UpdateSpinoff;
                 $this->validate($new_request, $request->rules(), $request->messages());
                 $spinoff = Spinoff::find($new_request->id);
                 $spinoff->nombre = $new_request->nombre;
                 $spinoff->save();
+
                 $actividad = Actividad::find($spinoff->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Spinoff modificado";
-                break;
-            case 'subarea':
-                $request = new UpdateSubarea;
-                $this->validate($new_request, $request->rules(), $request->messages());
-                $subarea = Subarea::find($new_request->id);
-                $subarea->nombre = $new_request->nombre;
-                $subarea->idarea = $new_request->area;
-                $subarea->save();
-                $success = "Subarea modificada";
-                break;
+            break;
+
             case 'transferenciaTecnologica':
                 $request = new UpdateTransferenciaTecnologica;
                 $this->validate($new_request, $request->rules(), $request->messages());
@@ -283,24 +355,30 @@ class PanelAdministracion extends Controller
                 $transferencia->nombre = $new_request->nombre;
                 $transferencia->empresa = $new_request->empresa;
                 $transferencia->save();
+
                 $actividad = Actividad::find($transferencia->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Transferencia tecnológica modificada";
-                break;
+            break;
+
             case 'tutoria':
                 $request = new UpdateTutoria;
                 $this->validate($new_request, $request->rules(), $request->messages());
                 $tutoria = Tutoria::find($new_request->id);
                 $tutoria->nombre = $new_request->nombre;
                 $tutoria->save();
+
                 $actividad = Actividad::find($tutoria->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
+
                 $success = "Tutoria modificada";
-                break;
+            break;
+
             case 'vinculacion':
                 $request = new UpdateVinculacion;
                 $this->validate($new_request, $request->rules(), $request->messages());
@@ -308,19 +386,23 @@ class PanelAdministracion extends Controller
                 $vinculacion->nombre = $new_request->nombre;
                 $vinculacion->descripcion = $new_request->descripcion;
                 $vinculacion->save();
+
                 $actividad = Actividad::find($vinculacion->idactividad);
                 $actividad->inicio = $new_request->fechaInicio;
                 $actividad->termino = $new_request->fechaTermino;
                 $actividad->save();
-                $success = "Vinculación modificada";
-                break;
+
+                $success = "Vinculación modificada"; 
+            break;
+
             default:
-                break;
+                
+            break;
         }
         return redirect('/panelAdministracion')->with('success', $success.' con éxito.');
     }
 
-//--------------------------------------------------
+//--Post Agregar
 
     public function postAgregar(Request $new_request)
     {
@@ -705,30 +787,22 @@ class PanelAdministracion extends Controller
         return redirect('/panelAdministracion')->with('success', $success.' con éxito.');
     }
 
-    
+//--Actividad Area
 
-//--------------------------------------------------
-
-    public function loadAgregarPublicacion()
+    public function loadAgregarActividadArea()
     {
         $areas = Area::all(['id', 'nombre']);
-        $idtipoactividad = Tipoactividad::where('nombre', 'Publicación')->get()[0]->id;
-        return view('panel.agregar.agregarPublicacion', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Área')->get()[0]->id;
+        return view('panel.agregar.agregarActividadArea', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
     }
 
-    public function loadModificarPublicacion()
+    public function loadModificarActividadArea()
     {
-        return view('panel.modificar.modificarPublicacion');
+        $modelo = "ActividadArea";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
-    public function loadModificarPublicacionForm($id)
-    {
-        $publicacion = Publicacion::find($id);
-        $actividad = Actividad::find($publicacion->idactividad);
-        return view('panel.modificar.modificarPublicacionForm', ['publicacion' => $publicacion, 'actividad' => $actividad]);
-    }
-
-//--------------------------------------------------
+//--Actividad Asignatura
 
     public function loadAgregarActividadAsignatura()
     {
@@ -740,7 +814,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarActividadAsignatura()
     {
-        return view('panel.modificar.modificarActividadAsignatura');
+        $modelo = "ActividadAsignatura";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadActividadesAsignatura($idAsignatura)
@@ -750,21 +825,26 @@ class PanelAdministracion extends Controller
         //return view('panel.modificar.modificarActividadAsignaturaSelect');
     }
 
-//--------------------------------------------------
+//--Area
 
-    public function loadAgregarActividadArea()
+    public function loadAgregarArea()
     {
-        $areas = Area::all(['id', 'nombre']);
-        $idtipoactividad = Tipoactividad::where('nombre', 'Área')->get()[0]->id;
-        return view('panel.agregar.agregarActividadArea', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
+        return view('panel.agregar.agregarArea');
     }
 
-    public function loadModificarActividadArea()
+    public function loadModificarArea()
     {
-        return view('panel.modificar.modificarActividadArea');
+        $modelo = "Area";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
-//--------------------------------------------------
+    public function loadModificarAreaForm($id)
+    {
+        $area = Area::find($id);
+        return view('panel.modificar.modificarAreaForm', ['area'=>$area]);
+    }
+
+//--Asignatura
 
     public function loadAgregarAsignatura()
     {
@@ -774,7 +854,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarAsignatura()
     {
-        return view('panel.modificar.modificarAsignatura');
+        $modelo = "Asignatura";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarAsignaturaForm($id)
@@ -784,27 +865,21 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarAsignaturaForm', ['asignatura' => $asignatura, 'subareas' => $subareas]);
     }
 
-//--------------------------------------------------
+//--Cargo Administrativo
 
-    public function loadAgregarTutoria()
+    public function loadAgregarCargoAdministrativo()
     {
-        $idtipoactividad = Tipoactividad::where('nombre', 'Tutoría')->get()[0]->id;
-        return view('panel.agregar.agregarTutoria', ['idtipoactividad' => $idtipoactividad]);
+        $tipoactividad = Tipoactividad::all(['id', 'nombre']);
+        return view('panel.agregar.agregarCargoAdministrativo', ['tipoactividad' => $tipoactividad]);
     }
 
-    public function loadModificarTutoria()
+    public function loadModificarCargoAdministrativo()
     {
-        return view('panel.modificar.modificarTutoria');
+        $modelo = "CargoAdministrativo";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
-    public function loadModificarTutoriaForm($id)
-    {
-        $tutoria = Tutoria::find($id);
-        $actividad = Actividad::find($tutoria->idactividad);
-        return view('panel.modificar.modificarTutoriaForm', ['tutoria' => $tutoria, 'actividad' => $actividad]);
-    }
-
-//--------------------------------------------------
+//--Curso
 
     public function loadAgregarCurso()
     {
@@ -815,7 +890,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarCurso()
     {
-        return view('panel.modificar.modificarCurso');
+        $modelo = "Curso";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarCursoForm($id)
@@ -826,185 +902,7 @@ class PanelAdministracion extends Controller
         return view('panel.modificar.modificarCursoForm', ['curso'=>$curso, 'asignatura'=>$asignatura, 'actividad'=>$actividad]);
     }
 
-//--------------------------------------------------
-
-    public function loadAgregarArea()
-    {
-        return view('panel.agregar.agregarArea');
-    }
-
-    public function loadModificarArea()
-    {
-        return view('panel.modificar.modificarArea');
-    }
-
-    public function loadModificarAreaForm($id)
-    {
-        $area = Area::find($id);
-        return view('panel.modificar.modificarAreaForm', ['area'=>$area]);
-    }
-
-//--------------------------------------------------
-
-    public function loadAgregarSubarea()
-    {
-        $areas = Area::all(['id', 'nombre']);
-        return view('panel.agregar.agregarSubarea', compact('areas', $areas));
-    }
-
-    public function loadModificarSubarea()
-    {
-        return view('panel.modificar.modificarSubarea');
-    }
-
-    public function loadModificarSubareaForm($id)
-    {
-        $subarea = Subarea::find($id);
-        $areas = Area::all(['id', 'nombre']);
-        return view('panel.modificar.modificarSubareaForm', ['subarea'=>$subarea, 'areas'=>$areas]);
-    }
-
-//--------------------------------------------------
-
-    public function loadAgregarCargoAdministrativo()
-    {
-        $tipoactividad = Tipoactividad::all(['id', 'nombre']);
-        return view('panel.agregar.agregarCargoAdministrativo', ['tipoactividad' => $tipoactividad]);
-    }
-
-    public function loadModificarCargoAdministrativo()
-    {
-        return view('panel.modificar.modificarCargoAdministrativo');
-    }
-
-//--------------------------------------------------
-
-    public function loadAgregarVinculacion()
-    {
-        $areas = Area::all(['id', 'nombre']);
-        $idtipoactividad = Tipoactividad::where('nombre', 'Vinculación')->get()[0]->id;
-        return view('panel.agregar.agregarVinculacion', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
-    }
-
-    public function loadModificarVinculacion()
-    {
-        return view('panel.modificar.modificarVinculacion');
-    }
-
-    public function loadModificarVinculacionForm($id)
-    {
-        $vinculacion = Vinculacion::find($id);
-        $actividad = Actividad::find($vinculacion->idactividad);
-        return view('panel.modificar.modificarVinculacionForm', ['vinculacion' => $vinculacion, 'actividad' => $actividad]);
-    }
-
-//--------------------------------------------------
-
-    public function loadAgregarTransferenciaTecnologica()
-    {
-        $areas = Area::all(['id', 'nombre']);
-        $idtipoactividad = Tipoactividad::where('nombre', 'Transferencia tecnológica')->get()[0]->id;
-        return view('panel.agregar.agregarTransferenciaTecnologica', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
-    }
-
-    public function loadModificarTransferenciaTecnologica()
-    {
-        return view('panel.modificar.modificarTransferenciaTecnologica');
-    }
-
-    public function loadModificarTransferenciaTecnologicaForm($id)
-    {
-        $transferencia = TransferenciaTecnologica::find($id);
-        $actividad = Actividad::find($transferencia->idactividad);
-        return view('panel.modificar.modificarTransferenciaTecnologicaForm', ['transferenciatecnologica' => $transferencia, 'actividad' => $actividad]);
-    }
-
-//--------------------------------------------------
-
-    public function loadAgregarSpinoff()
-    {
-        $areas = Area::all(['id', 'nombre']);
-        $idtipoactividad = Tipoactividad::where('nombre', 'Spinoff')->get()[0]->id;
-        return view('panel.agregar.agregarSpinoff', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
-    }
-
-    public function loadModificarSpinoff()
-    {
-        return view('panel.modificar.modificarSpinoff');
-    }
-
-    public function loadModificarSpinoffForm($id)
-    {
-        $spinoff = Spinoff::find($id);
-        $actividad = Actividad::find($spinoff->idactividad);
-        return view('panel.modificar.modificarSpinoffForm', ['spinoff' => $spinoff, 'actividad' => $actividad]);
-    }
-
-
-//--------------------------------------------------
-
-    public function loadAgregarProyectoConcursable()
-    {
-        $areas = Area::all(['id', 'nombre']);
-        $idtipoactividad = Tipoactividad::where('nombre', 'Proyecto concursable')->get()[0]->id;
-        return view('panel.agregar.agregarProyectoConcursable', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
-    }
-
-    public function loadModificarProyectoConcursable()
-    {
-        return view('panel.modificar.modificarProyectoConcursable');
-    }
-
-    public function loadModificarProyectoConcursableForm($id)
-    {
-        $proyecto = ProyectoConcursable::find($id);
-        $actividad = Actividad::find($proyecto->idactividad);
-        return view('panel.modificar.modificarProyectoConcursableForm', ['proyectoconcursable' => $proyecto, 'actividad' => $actividad]);
-    }
-
-//--------------------------------------------------
-
-    public function loadAgregarPerfeccionamientoDocente()
-    {
-        $areas = Area::all(['id', 'nombre']);
-        $idtipoactividad = Tipoactividad::where('nombre', 'Perfeccionamiento docente')->get()[0]->id;
-        return view('panel.agregar.agregarPerfeccionamientoDocente', ['areas' =>$areas, 'idtipoactividad' => $idtipoactividad]);
-    }
-
-    public function loadModificarPerfeccionamientoDocente()
-    {
-        return view('panel.modificar.modificarPerfeccionamientoDocente');
-    }
-
-    public function loadModificarPerfeccionamientoDocenteForm($id)
-    {
-        $perfeccionamiento = PerfeccionamientoDocente::find($id);
-        $actividad = Actividad::find($perfeccionamiento->idactividad);
-        return view('panel.modificar.modificarPerfeccionamientoDocenteForm', ['perfeccionamientodocente' => $perfeccionamiento, 'actividad' => $actividad]);
-    }
-
-//--------------------------------------------------
-
-    public function loadAgregarLicencia()
-    {
-        $areas = Area::all(['id', 'nombre']);
-        $idtipoactividad = Tipoactividad::where('nombre', 'Licencia')->get()[0]->id;
-        return view('panel.agregar.agregarLicencia', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
-    }
-
-    public function loadModificarLicencia()
-    {
-        return view('panel.modificar.modificarLicencia');
-    }
-
-    public function loadModificarLicenciaForm($id)
-    {
-        $licencia = Licencia::find($id);
-        $actividad = Actividad::find($licencia->idactividad);
-        return view('panel.modificar.modificarLicenciaForm', ['licencia' => $licencia, 'actividad' => $actividad]);
-    }
-
-//--------------------------------------------------
+//--Libro
 
     public function loadAgregarLibro()
     {
@@ -1015,7 +913,8 @@ class PanelAdministracion extends Controller
 
     public function loadModificarLibro()
     {
-        return view('panel.modificar.modificarLibro');
+        $modelo = "Libro";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
     }
 
     public function loadModificarLibroForm($id)
@@ -1023,5 +922,201 @@ class PanelAdministracion extends Controller
         $libro = Libro::find($id);
         $actividad = Actividad::find($libro->idactividad);
         return view('panel.modificar.modificarLibroForm', ['libro' => $libro, 'actividad' => $actividad]);
+    }
+
+//--Licencia
+
+    public function loadAgregarLicencia()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Licencia')->get()[0]->id;
+        return view('panel.agregar.agregarLicencia', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
+    }
+
+    public function loadModificarLicencia()
+    {
+        $modelo = "Licencia";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+    }
+
+    public function loadModificarLicenciaForm($id)
+    {
+        $licencia = Licencia::find($id);
+        $actividad = Actividad::find($licencia->idactividad);
+        return view('panel.modificar.modificarLicenciaForm', ['licencia' => $licencia, 'actividad' => $actividad]);
+    }
+
+//--Perfeccionamiento Docente
+
+    public function loadAgregarPerfeccionamientoDocente()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Perfeccionamiento docente')->get()[0]->id;
+        return view('panel.agregar.agregarPerfeccionamientoDocente', ['areas' =>$areas, 'idtipoactividad' => $idtipoactividad]);
+    }
+
+    public function loadModificarPerfeccionamientoDocente()
+    {
+        $modelo = "PerfeccionamientoDocente";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+    }
+
+    public function loadModificarPerfeccionamientoDocenteForm($id)
+    {
+        $perfeccionamiento = PerfeccionamientoDocente::find($id);
+        $actividad = Actividad::find($perfeccionamiento->idactividad);
+        return view('panel.modificar.modificarPerfeccionamientoDocenteForm', ['perfeccionamientodocente' => $perfeccionamiento, 'actividad' => $actividad]);
+    }
+
+//--Proyecto Concursable
+
+    public function loadAgregarProyectoConcursable()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Proyecto concursable')->get()[0]->id;
+        return view('panel.agregar.agregarProyectoConcursable', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
+    }
+
+    public function loadModificarProyectoConcursable()
+    {
+        $modelo = "ProyectoConcursable";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+    }
+
+    public function loadModificarProyectoConcursableForm($id)
+    {
+        $proyecto = ProyectoConcursable::find($id);
+        $actividad = Actividad::find($proyecto->idactividad);
+        return view('panel.modificar.modificarProyectoConcursableForm', ['proyectoconcursable' => $proyecto, 'actividad' => $actividad]);
+    }
+
+//--Publicación
+
+    public function loadAgregarPublicacion()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Publicación')->get()[0]->id;
+        return view('panel.agregar.agregarPublicacion', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
+    }
+
+    public function loadModificarPublicacion()
+    {
+        $modelo = "Publicacion";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+    }
+
+    public function loadModificarPublicacionForm($id)
+    {
+        $publicacion = Publicacion::find($id);
+        $actividad = Actividad::find($publicacion->idactividad);
+        return view('panel.modificar.modificarPublicacionForm', ['publicacion' => $publicacion, 'actividad' => $actividad]);
+    }
+
+//--Spinoff
+
+    public function loadAgregarSpinoff()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Spinoff')->get()[0]->id;
+        return view('panel.agregar.agregarSpinoff', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
+    }
+
+    public function loadModificarSpinoff()
+    {
+        $modelo = "Spinoff";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+    }
+
+    public function loadModificarSpinoffForm($id)
+    {
+        $spinoff = Spinoff::find($id);
+        $actividad = Actividad::find($spinoff->idactividad);
+        return view('panel.modificar.modificarSpinoffForm', ['spinoff' => $spinoff, 'actividad' => $actividad]);
+    }
+
+//--Subarea
+
+    public function loadAgregarSubarea()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.agregar.agregarSubarea', compact('areas', $areas));
+    }
+
+    public function loadModificarSubarea()
+    {
+        $modelo = "Subarea";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+    }
+
+    public function loadModificarSubareaForm($id)
+    {
+        $subarea = Subarea::find($id);
+        $areas = Area::all(['id', 'nombre']);
+        return view('panel.modificar.modificarSubareaForm', ['subarea'=>$subarea, 'areas'=>$areas]);
+    }
+
+    //--Transferencia Tecnologica
+
+    public function loadAgregarTransferenciaTecnologica()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Transferencia tecnológica')->get()[0]->id;
+        return view('panel.agregar.agregarTransferenciaTecnologica', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
+    }
+
+    public function loadModificarTransferenciaTecnologica()
+    {
+        $modelo = "TransferenciaTecnologica";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+    }
+
+    public function loadModificarTransferenciaTecnologicaForm($id)
+    {
+        $transferencia = TransferenciaTecnologica::find($id);
+        $actividad = Actividad::find($transferencia->idactividad);
+        return view('panel.modificar.modificarTransferenciaTecnologicaForm', ['transferenciatecnologica' => $transferencia, 'actividad' => $actividad]);
+    }
+
+//--Tutoría
+
+    public function loadAgregarTutoria()
+    {
+        $idtipoactividad = Tipoactividad::where('nombre', 'Tutoría')->get()[0]->id;
+        return view('panel.agregar.agregarTutoria', ['idtipoactividad' => $idtipoactividad]);
+    }
+
+    public function loadModificarTutoria()
+    {
+        $modelo = "Tutoria";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+    }
+
+    public function loadModificarTutoriaForm($id)
+    {
+        $tutoria = Tutoria::find($id);
+        $actividad = Actividad::find($tutoria->idactividad);
+        return view('panel.modificar.modificarTutoriaForm', ['tutoria' => $tutoria, 'actividad' => $actividad]);
+    }
+
+//--Vinculación
+
+    public function loadAgregarVinculacion()
+    {
+        $areas = Area::all(['id', 'nombre']);
+        $idtipoactividad = Tipoactividad::where('nombre', 'Vinculación')->get()[0]->id;
+        return view('panel.agregar.agregarVinculacion', ['areas' => $areas, 'idtipoactividad' => $idtipoactividad]);
+    }
+
+    public function loadModificarVinculacion()
+    {
+        $modelo = "Vinculacion";
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+    }
+
+    public function loadModificarVinculacionForm($id)
+    {
+        $vinculacion = Vinculacion::find($id);
+        $actividad = Actividad::find($vinculacion->idactividad);
+        return view('panel.modificar.modificarVinculacionForm', ['vinculacion' => $vinculacion, 'actividad' => $actividad]);
     }
 }
