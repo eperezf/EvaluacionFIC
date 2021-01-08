@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
       $this->call([
         TipoActividadSeeder::class,
         AdminUserSeeder::class,
-        AdminCargoSeeder::class,
         AdminActividadSeeder::class,
-        AdminUserActividadSeeder::class
+        AdminUserActividadSeeder::class,
+        CargoSeeder::class
       ]);
     }
 }
