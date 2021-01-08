@@ -18,7 +18,9 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
     Route::post('/doLogin', 'Login@authenticate')->name('doLogin');
     Route::get('logout', 'Login@logout')->name('logout');
 
-    Route::get('searchUser/{letra}', 'Index@search')->name('searchUser');
+// Rutas asociadas al index
+Route::get('searchUser/{letra}', 'Index@search')->name('searchUser');
+Route::get('perfilDocente', 'Index@loadDocente')->middleware('auth')->name('loadDocente');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 

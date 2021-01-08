@@ -21,6 +21,13 @@ class Index extends Controller
         }
     }
 
+    /* Función temporal para la carga del HDU docente */
+    public function loadDocente()
+    {
+        $nombre = Auth::user()->nombres;
+        return view('menu\docente', ['nombre' => $nombre]);
+    }
+
     public function search($letra)
     {
         $nombre = Auth::user()->nombres;
