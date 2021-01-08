@@ -21,4 +21,17 @@ class Index extends Controller
         }
     }
 
+    public function search($letra)
+    {
+        $nombre = Auth::user()->nombres;
+        $usuarios = User::where('apellidoPaterno', 'LIKE', $letra.'%')
+            ->get([
+                'id',
+                'nombres',
+                'apellidoPaterno',
+                'apellidoMaterno'
+            ]);
+        return view('index', ['nombre' => $nombre, 'usuarios' => $usuarios]);
+    }
+
 }
