@@ -26,24 +26,13 @@
           </li>
 
           {{-- estamos trabajando para usted --}}
-          @if ($opciones[0])
-            <li class="nav-item {{ Route::currentRouteNamed('panelAdministracion') ? 'active' : '' }}">
-              <a class="nav-link" href="{{ route('panelAdministracion') }}"><i class="fas fa-columns mr-1"></i>Panel Administración</a>
-            </li>
-            <input type="hidden" value="1" class="form-control">
-          @endif
-          @if ($opciones[1])
-            <li class="nav-item {{ Route::currentRouteNamed('loadDocente') ? 'active' : '' }}">
-              <a class="nav-link" href="{{ route('loadDocente') }}"><i class="far fa-user mr-1"></i>Panel Docente</a>
-            </li>
-            <input type="hidden" value="2" class="form-control">
-          @endif
-          @if ($opciones[2])
-            <li class="nav-item {{ Route::currentRouteNamed('loadDocente') ? 'active' : '' }}">
-              <a class="nav-link" href="{{ route('loadDocente') }}"><i class="far fa-user mr-1"></i>Panel Docente</a>
-            </li>
-            <input type="hidden" value="3" class="form-control">
-          @endif
+          @foreach ($menus as $menu)
+              @if ($menu[0])
+                  <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route($menu[1]) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
+                  </li>
+              @endif
+          @endforeach
           {{-- hasta aquí --}}
 
         </ul>

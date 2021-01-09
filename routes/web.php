@@ -20,7 +20,8 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
 
 // Rutas asociadas al index
 Route::get('searchUser/{letra}', 'Index@search')->name('searchUser');
-Route::get('perfilDocente', 'Index@loadDocente')->middleware('auth')->name('loadDocente');
+Route::get('panelDocente', 'Index@loadDocente')->middleware('auth')->name('panelDocente');
+Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 

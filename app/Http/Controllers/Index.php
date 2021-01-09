@@ -23,21 +23,32 @@ class Index extends Controller
         (in_array(1, $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo administración
         (in_array(2, $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo docente
         (in_array(3, $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo profesor
+        /* dd($opciones); */
+
+        /* Datos para la vista */
+
+        $rutas = ['panelAdministracion', 'panelDocente', 'panelProfesor'];
+        $iconos = ["fas fa-columns mr-1", "far fa-user mr-1", "far fa-user mr-1"];
+        $texto = ["Panel Administración", "Panel Docente", "Panel Profesor"];
+
+        $menus = array_map(NULL, $opciones, $rutas, $iconos, $texto);
+
+        /* dd($menus); */
         
-        return $opciones;
+        return array($cargos, $menus);
     }
 
     public function loadIndex()
     {
         $nombre = Auth::user()->nombres;
-        $opciones = $this->getMenuOptions(Auth::user()->id);
+        list($cargosId, $menus) = $this->getMenuOptions(Auth::user()->id); 
         if(!Auth::user())
         {
             return redirect('\login');
         }
         else
         {
-            return view('index', ['nombre' => $nombre, 'opciones' => $opciones]);
+            return view('index', ['nombre' => $nombre, 'menus' => $menus, 'cargos' => $cargosId]);
         }
     }
 
