@@ -5,40 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\User_actividad;
+use App\Cargo;
+
+use App\Helper\Helper;
 
 class Index extends Controller
 {
     public function loadIndex()
     {
         $nombre = Auth::user()->nombres;
+        list($cargosId, $menus) = Helper::getMenuOptions(Auth::user()->id); 
         if(!Auth::user())
         {
             return redirect('\login');
         }
         else
         {
-            return view('index', ['nombre' => $nombre]);
+            return view('index', ['nombre' => $nombre, 'menus' => $menus, 'cargos' => $cargosId]);
         }
     }
-
-    /* Función temporal para la carga del HDU docente */
-    public function loadDocente()
-    {
-        $nombre = Auth::user()->nombres;
-        return view('menu\docente', ['nombre' => $nombre]);
-    }
-
-    public function search($letra)
-    {
-        $nombre = Auth::user()->nombres;
-        $usuarios = User::where('apellidoPaterno', 'LIKE', $letra.'%')
-            ->get([
-                'id',
-                'nombres',
-                'apellidoPaterno',
-                'apellidoMaterno'
-            ]);
-        return view('index', ['nombre' => $nombre, 'usuarios' => $usuarios]);
-    }
-
 }
