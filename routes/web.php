@@ -18,6 +18,11 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
     Route::post('/doLogin', 'Login@authenticate')->name('doLogin');
     Route::get('logout', 'Login@logout')->name('logout');
 
+// Rutas asociadas al index
+Route::get('searchUser/{letra}', 'Index@search')->name('searchUser');
+Route::get('panelDocente', 'Index@loadDocente')->middleware('auth')->name('panelDocente');
+Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
+
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
 Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')->middleware('auth')->name('panelAdministracion');
