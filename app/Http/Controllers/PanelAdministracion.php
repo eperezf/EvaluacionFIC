@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\html;
+use Illuminate\Support\Facades\Auth;
 
 use App\Asignatura;
 use App\Tipoactividad;
@@ -24,6 +25,8 @@ use App\Tutoria;
 use App\Publicacion;
 use App\User_actividad;
 use App\Cargo;
+
+use  App\Helper\Helper;
 
 use App\Http\Requests\StoreArea;
 use App\Http\Requests\StoreSubarea;
@@ -146,7 +149,8 @@ class PanelAdministracion extends Controller
 
     public function loadPanelAdministracion()
     {
-        return view('panel.panelAdministracion');
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+        return view('panel.panelAdministracion', ['menus' => $menus]);
     }
 
 //--Post Modificación

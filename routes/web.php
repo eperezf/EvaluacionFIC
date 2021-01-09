@@ -18,8 +18,12 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
     Route::post('/doLogin', 'Login@authenticate')->name('doLogin');
     Route::get('logout', 'Login@logout')->name('logout');
 
-// Rutas asociadas al index
-Route::get('searchUser/{letra}', 'Index@search')->name('searchUser');
+//// Rutas asociadas al index
+// Rutas del menu de Administrador
+Route::get('menuAdministrador', 'MenuAdministrador@load')->name('menuAdministrador');
+Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('searchLetter');
+Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput');
+
 Route::get('panelDocente', 'Index@loadDocente')->middleware('auth')->name('panelDocente');
 Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
 

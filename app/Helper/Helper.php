@@ -23,14 +23,14 @@ class Helper
 
         /* Datos para la vista */
 
-        $rutas = ['panelAdministracion', 'panelDocente', 'panelProfesor'];
+        $rutas = ['menuAdministrador', 'panelDocente', 'panelProfesor'];
         $iconos = ["fas fa-columns mr-1", "far fa-user mr-1", "far fa-user mr-1"];
-        $texto = ["Panel Administración", "Panel Docente", "Panel Profesor"];
+        $texto = ["Menú Administrador", "Panel Docente", "Panel Profesor"];
 
         $menus = array_map(NULL, $opciones, $rutas, $iconos, $texto);
 
         /* dd($menus); */
         
-        return array($cargos, $menus);
+        return $menus;
     }
 }
