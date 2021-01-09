@@ -24,9 +24,28 @@
           <li class="nav-item {{ Route::currentRouteNamed('noticiasAgenda') ?  'active' : '' }}">
             <a class="nav-link" href="{{ route('noticiasAgenda') }}"><i class="far fa-calendar-alt mr-1"></i>Noticias y Agenda</a>
           </li>
-        <li class="nav-item {{ Route::currentRouteNamed('panelAdministracion') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('panelAdministracion') }}"><i class="fas fa-columns mr-1"></i>Panel Administración</a>
-          </li>
+
+          {{-- estamos trabajando para usted --}}
+          @if ($opciones[0])
+            <li class="nav-item {{ Route::currentRouteNamed('panelAdministracion') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('panelAdministracion') }}"><i class="fas fa-columns mr-1"></i>Panel Administración</a>
+            </li>
+            <input type="hidden" value="1" class="form-control">
+          @endif
+          @if ($opciones[1])
+            <li class="nav-item {{ Route::currentRouteNamed('loadDocente') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('loadDocente') }}"><i class="far fa-user mr-1"></i>Panel Docente</a>
+            </li>
+            <input type="hidden" value="2" class="form-control">
+          @endif
+          @if ($opciones[2])
+            <li class="nav-item {{ Route::currentRouteNamed('loadDocente') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('loadDocente') }}"><i class="far fa-user mr-1"></i>Panel Docente</a>
+            </li>
+            <input type="hidden" value="3" class="form-control">
+          @endif
+          {{-- hasta aquí --}}
+
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
