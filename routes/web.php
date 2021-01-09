@@ -25,7 +25,9 @@ Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('se
 Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput');
 
 Route::get('panelDocente', 'Index@loadDocente')->middleware('auth')->name('panelDocente');
-Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
+
+// Rutas del Menú del Profesor
+Route::get('menuProfesor', 'MenuProfesor@load')->name('menuProfesor');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 

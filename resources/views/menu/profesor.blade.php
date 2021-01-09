@@ -2,7 +2,8 @@
 
 @section('title', 'Inicio')
 @section('contenido')
-  <h1>Mi información</h1><br>
+  <h1>Bienvenido/a {{ $nombre }}.</h1><br>
+  
   <div id="información">
     <section id="docencia">
       <h3>Docencia</h3><hr>

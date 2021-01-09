@@ -23,9 +23,9 @@ class Helper
 
         /* Datos para la vista */
 
-        $rutas = ['menuAdministrador', 'panelDocente', 'panelProfesor'];
+        $rutas = ['menuAdministrador', 'panelDocente', 'menuProfesor'];
         $iconos = ["fas fa-columns mr-1", "far fa-user mr-1", "far fa-user mr-1"];
-        $texto = ["Menú Administrador", "Panel Docente", "Panel Profesor"];
+        $texto = ["Menú Administrador", "Panel Docente", "Menú Profesor"];
 
         $menus = array_map(NULL, $opciones, $rutas, $iconos, $texto);
 
