@@ -4,8 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0c0458cd7bf0aa562d0e4f09f6d9d59",
+    "content-hash": "f27c01ec1d2f931918982061b42b6d37",
     "packages": [
+        {
+            "name": "acaronlex/laravel-calendar",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/acaronlex/laravel-calendar.git",
+                "reference": "779ac81d9ad10d78c97824b9eddf71bb88a53db4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/acaronlex/laravel-calendar/zipball/779ac81d9ad10d78c97824b9eddf71bb88a53db4",
+                "reference": "779ac81d9ad10d78c97824b9eddf71bb88a53db4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~7.0",
+                "php": ">=7.2.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Acaronlex\\LaravelCalendar\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Calendar": "Acaronlex\\LaravelCalendar\\Facades\\Calendar"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Acaronlex\\LaravelCalendar": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "acaronlex",
+                    "email": "acaronlex@outlook.com"
+                }
+            ],
+            "description": "Laravel helper for FullCalendar.io",
+            "time": "2020-05-12T01:08:01+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.0.1",
