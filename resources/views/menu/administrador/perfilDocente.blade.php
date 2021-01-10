@@ -6,8 +6,9 @@
 <div id="perfil">
     <h3>Perfil de {{ $nombresPerfil }} {{ $apellidoPaternoPerfil }} {{ $apellidoMaternoPerfil }}</h3>
     <div id="informacion" class="container">
+
         <div id="cargos" class="row">
-            <h6>Cargos actuales: 
+            <h6>Cargos actuales:
                 @for ($i = 0; $i < sizeof($cargos); $i++)
                     @if (!($i == sizeof($cargos) - 1))
                         {{ $cargos[$i] }},
@@ -17,7 +18,7 @@
                 @endfor
             </h6>
         </div><hr>
-    
+
         <div id="actividades">
             <section id="docencia">
                 <div class="container">
