@@ -22,10 +22,10 @@
   </form>
   <div class="p-4 mt-5" name="sugerencias" id="sugerencias"><hr>
     @foreach ($usuarios as $usuario)
-    <div class="row">
-      <h5 class="col-8 pl-4">{{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h5>
-      <a href="" class="btn btn-secondary col-2 mr-2">Ver Actividades</a>
-    </div><hr>
+      <div class="row">
+        <h5 class="col-8 pl-4">{{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h5>
+        <a href="{{ route('perfilDocente', ['userId' => $usuario->id]) }}" class="btn btn-secondary col-2 mr-2">Ver Actividades</a>
+      </div><hr>
     @endforeach
   </div> 
 @endsection
