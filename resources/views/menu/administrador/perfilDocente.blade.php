@@ -8,14 +8,15 @@
     <div id="informacion" class="container">
 
         <div id="cargos" class="row">
-            <h6>Cargos actuales:</h6>
-            @for ($i = 0; $i < sizeof($cargos); $i++)
-                @if (!($i == sizeof($cargos) - 1))
-                    <h6>{{ $cargos[$i] }},</h6>
-                @else
-                    <h6> {{ $cargos[$i] }} </h6>
-                @endif
-            @endfor
+            <h6>Cargos actuales:
+                @for ($i = 0; $i < sizeof($cargos); $i++)
+                    @if (!($i == sizeof($cargos) - 1))
+                        {{ $cargos[$i] }},
+                    @else
+                        {{ $cargos[$i] }}
+                    @endif
+                @endfor
+            </h6>
         </div><hr>
 
         <div id="actividades">
