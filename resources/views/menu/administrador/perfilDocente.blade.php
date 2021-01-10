@@ -18,21 +18,88 @@
             @endfor
         </div><hr>
 
-        <section id="docencia">
-            <h5>Docencia</h5>
-        </section><hr>
-        <section id="administracion">
-            <h5>Administración</h5>
-        </section><hr>
-        <section id="vinculacion">
-            <h5>Vinculación con el medio</h5>
-        </section><hr>
-        <section id="investigacion">
-            <h5>Investigación</h5>
-        </section><hr>
-        <section id="otros">
-            <h5>Otros</h5>
-        </section>
+        <div id="actividades">
+            <section id="docencia">
+                <div class="container">
+                    <div class="row">
+                        <a class="col-12" data-toggle="collapse" href="#collapseDocencia" role="button" aria-expanded="false" aria-controls="collapseDocencia" style="color: black;">
+                            <h5>Docencia</h5>
+                        </a>
+                        {{-- Falta colocar icono flecha abajo --}}
+                    </div>
+                    <div class="collapse" id="collapseDocencia">
+                        <div class="card card-body">
+                          AQUI VAN LAS ACTIVIDADES DE DOCENCIA
+                        </div>
+                      </div>
+                </div>
+            </section><hr>
+
+            <section id="administracion">
+                <div class="container">
+                    <div class="row">
+                        <a class="col-12" data-toggle="collapse" href="#collapseAdministracion" role="button" aria-expanded="false" aria-controls="collapseAdministracion" style="color: black;">
+                            <h5>Administración</h5>
+                        </a>
+                        {{-- Falta colocar icono flecha abajo --}}
+                    </div>
+                    <div class="collapse" id="collapseAdministracion">
+                        <div class="card card-body">
+                          AQUI VAN LAS ACTIVIDADES DE ADMINISTRACIÓN
+                        </div>
+                      </div>
+                </div>
+            </section><hr>
+
+            <section id="vinculacion">
+                <div class="container">
+                    <div class="row">
+                        <a class="col-12" data-toggle="collapse" href="#collapseVinculacion" role="button" aria-expanded="false" aria-controls="collapseVinculacion" style="color: black;">
+                            <h5>Vinculación con el medio</h5>
+                        </a>
+                        {{-- Falta colocar icono flecha abajo --}}
+                    </div>
+                    <div class="collapse" id="collapseVinculacion">
+                        <div class="card card-body">
+                          AQUI VAN LAS ACTIVIDADES DE VINCULACIÓN CON EL MEDIO
+                        </div>
+                      </div>
+                </div>
+            </section><hr>
+
+            <section id="investigacion">
+                <div class="container">
+                    <div class="row">
+                        <a class="col-12" data-toggle="collapse" href="#collapseInvestigacion" role="button" aria-expanded="false" aria-controls="collapseInvestigacion" style="color: black;">
+                            <h5>Investigación</h5>
+                        </a>
+                        {{-- Falta colocar icono flecha abajo --}}
+                    </div>
+                    <div class="collapse" id="collapseInvestigacion">
+                        <div class="card card-body">
+                          AQUI VAN LAS ACTIVIDADES DE INVESTIGACIÓN
+                        </div>
+                      </div>
+                </div>
+            </section><hr>
+
+            <section id="otros">
+                <div class="container">
+                    <div class="row">
+                        <a class="col-12"data-toggle="collapse" href="#collapseOtros" role="button" aria-expanded="false" aria-controls="collapseOtros" style="color: black;">
+                            <h5>Otros</h5>
+                        </a>
+                        {{-- Falta colocar icono flecha abajo --}}
+                    </div>
+                    <div class="collapse" id="collapseOtros">
+                        <div class="card card-body">
+                          AQUI VAN OTRAS ACTIVIDADES
+                        </div>
+                      </div>
+                </div>
+            </section><hr>
+        </div>
+        
     </div>
 </div>
 @endsection
