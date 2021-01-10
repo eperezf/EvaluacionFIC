@@ -7,7 +7,7 @@
   <div id="información">
     <section id="docencia">
       <h3>Docencia</h3><hr>
-      <a class="btn btn-secondary mr-2 my-1" href="{{ "" }}">Ver mis cursos</a>
+      <a class="btn btn-secondary mr-2 my-1" href="{{ route('verCursos')}}">Ver mis cursos</a>
       <a class="btn btn-secondary mr-2 my-1" href="{{ "" }}">Ver mis tutorías</a>
       <a class="btn btn-secondary mr-2 my-1" href="{{ "" }}">Ver mis perfeccionamientos docentes</a>
     </section><br>
