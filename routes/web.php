@@ -18,9 +18,14 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
     Route::post('/doLogin', 'Login@authenticate')->name('doLogin');
     Route::get('logout', 'Login@logout')->name('logout');
 
-// Rutas asociadas al index
-Route::get('searchUser/{letra}', 'Index@search')->name('searchUser');
-Route::get('panelDocente', 'Index@loadDocente')->middleware('auth')->name('panelDocente');
+//// Rutas asociadas al index
+// Rutas del menu de Administrador
+Route::get('menuAdministrador', 'MenuAdministrador@load')->name('menuAdministrador');
+Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('searchLetter');
+Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput');
+
+Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
+
 Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
