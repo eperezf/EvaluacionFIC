@@ -10,9 +10,9 @@ use App\User_actividad;
 use App\Cargo;
 use App\Helper\Helper;
 
-class PerfilDocente extends Controller
+class PanelDocente extends Controller
 {
-    public function loadPerfil($userId)
+    public function loadPanel($userId)
     {
         /* Datos para el usuario administrador */
         $menus = Helper::getMenuOptions(Auth::user()->id);
