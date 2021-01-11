@@ -24,7 +24,7 @@ Route::get('menuAdministrador', 'MenuAdministrador@load')->name('menuAdministrad
 Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('searchLetter');
 Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput');
 
-Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
+Route::get('panelDocente/{userId}', 'PanelDocente@loadPanel')->middleware('auth')->name('panelDocente');
 
 Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
 
