@@ -19,6 +19,10 @@ class Actividad extends Model {
         return $this->hasMany('App\Publicacion');
     }
 
+    public function investigacion() {
+        return $this->hasMany('App\Investigacion');
+    }
+
     public function libro() {
         return $this->hasMany('App\Libro');
     }
