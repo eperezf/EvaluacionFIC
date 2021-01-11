@@ -16,12 +16,14 @@
     </section><br>
     <section id="vinculacion">
       <h3>Vinculación con el medio</h3><hr>
+      <a class="btn btn-secondary mr-2 my-1" href="{{ "" }}">Agregar actividad</a>
     </section><br>
     <section id="investigacion">
       <h3>Investigación</h3><hr>
     </section><br>
     <section id="otros">
       <h3>Otros</h3><hr>
+      <a class="btn btn-secondary mr-2 my-1" href="{{ "" }}">Agregar actividad</a>
     </section><br>
   </div>
 @endsection
