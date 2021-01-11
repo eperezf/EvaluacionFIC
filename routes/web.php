@@ -28,6 +28,10 @@ Route::get('panelDocente/{userId}', 'PanelDocente@loadPanel')->middleware('auth'
 
 Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
 
+// Rutas del Menú del Profesor
+Route::get('menuProfesor', 'MenuProfesor@load')->name('menuProfesor');
+Route::get('menuProfesor/misCursos', 'MenuProfesor@loadCursos')->name('verCursos');
+
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
 Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')->middleware('auth')->name('panelAdministracion');
