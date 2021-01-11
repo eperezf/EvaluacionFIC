@@ -15,13 +15,13 @@ class MenuProfesor extends Controller
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        return view('menu.profesor', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
+        return view('menu.profesor.profesor', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
     } 
     
     public function loadCursos()
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        return view('menu.vercursos', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
+        return view('menu.profesor.vercursos', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
     }     
 }
