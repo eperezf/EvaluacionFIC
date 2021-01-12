@@ -24,7 +24,7 @@
                 <div class="container">
                     <div class="row col-12" data-toggle="collapse" href="#collapseDocencia" role="button" aria-expanded="false" aria-controls="collapseDocencia" style="color: black;">
                             <h5 class="col-11">Docencia</h5>
-                            <i class="fas fa-chevron-down pt-1"></i>
+                            <i class="fas fa-chevron-down pt-1 ml-5"></i>
                     </div>
                     <div class="collapse" id="collapseDocencia">
                         <div class="card card-body">
@@ -34,39 +34,11 @@
                 </div>
             </section><hr>
 
-            <section id="administracion">
-                <div class="container">
-                    <div class="row col-12" data-toggle="collapse" href="#collapseAdministracion" role="button" aria-expanded="false" aria-controls="collapseAdministracion" style="color: black;">
-                        <h5 class="col-11">Administración</h5>
-                        <i class="fas fa-chevron-down pt-1"></i>
-                    </div>
-                    <div class="collapse" id="collapseAdministracion">
-                        <div class="card card-body">
-                          AQUI VAN LAS ACTIVIDADES DE ADMINISTRACIÓN
-                        </div>
-                      </div>
-                </div>
-            </section><hr>
-
-            <section id="vinculacion">
-                <div class="container">
-                    <div class="row col-12" data-toggle="collapse" href="#collapseVinculacion" role="button" aria-expanded="false" aria-controls="collapseVinculacion" style="color: black;">
-                        <h5 class="col-11">Vinculación con el medio</h5>
-                        <i class="fas fa-chevron-down pt-1"></i>
-                    </div>
-                    <div class="collapse" id="collapseVinculacion">
-                        <div class="card card-body">
-                          AQUI VAN LAS ACTIVIDADES DE VINCULACIÓN CON EL MEDIO
-                        </div>
-                      </div>
-                </div>
-            </section><hr>
-
             <section id="investigacion">
                 <div class="container">
                     <div class="row col-12" data-toggle="collapse" href="#collapseInvestigacion" role="button" aria-expanded="false" aria-controls="collapseInvestigacion">
                         <h5 class="col-11">Investigación</h5>
-                        <i class="fas fa-chevron-down pt-1"></i>
+                        <i class="fas fa-chevron-down pt-1 ml-5"></i>
                     </div>
                     <div class="collapse" id="collapseInvestigacion">
                         <div class="card card-body">
@@ -76,11 +48,39 @@
                 </div>
             </section><hr>
 
+            <section id="administracion">
+                <div class="container">
+                    <div class="row col-12" data-toggle="collapse" href="#collapseAdministracion" role="button" aria-expanded="false" aria-controls="collapseAdministracion" style="color: black;">
+                        <h5 class="col-11">Administración académica</h5>
+                        <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                    </div>
+                    <div class="collapse" id="collapseAdministracion">
+                        <div class="card card-body">
+                          AQUI VAN LAS ACTIVIDADES DE ADMINISTRACIÓN ACADÉMICA
+                        </div>
+                      </div>
+                </div>
+            </section><hr>
+
+            <section id="vinculacion">
+                <div class="container">
+                    <div class="row col-12" data-toggle="collapse" href="#collapseVinculacion" role="button" aria-expanded="false" aria-controls="collapseVinculacion" style="color: black;">
+                        <h5 class="col-11">Vinculación con el medio</h5>
+                        <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                    </div>
+                    <div class="collapse" id="collapseVinculacion">
+                        <div class="card card-body">
+                          AQUI VAN LAS ACTIVIDADES DE VINCULACIÓN CON EL MEDIO
+                        </div>
+                      </div>
+                </div>
+            </section><hr>
+
             <section id="otros">
                 <div class="container">
                     <div class="row col-12" data-toggle="collapse" href="#collapseOtros" role="button" aria-expanded="false" aria-controls="collapseOtros" style="color: black;">
                         <h5 class="col-11">Otros</h5>
-                        <i class="fas fa-chevron-down pt-1"></i>
+                        <i class="fas fa-chevron-down pt-1 ml-5"></i>
                     </div>
                     <div class="collapse" id="collapseOtros">
                         <div class="card card-body">
