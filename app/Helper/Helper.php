@@ -17,15 +17,14 @@ class Helper
 
         $opciones = [];
         (in_array(1, $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo administración
-        (in_array(2, $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo docente
         (in_array(3, $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo profesor
         /* dd($opciones); */
 
         /* Datos para la vista */
 
-        $rutas = ['menuAdministrador', 'panelDocente', 'panelProfesor'];
-        $iconos = ["fas fa-columns mr-1", "far fa-user mr-1", "far fa-user mr-1"];
-        $texto = ["Menú Administrador", "Panel Docente", "Panel Profesor"];
+        $rutas = ['menuAdministrador', 'menuProfesor'];
+        $iconos = ["fas fa-columns mr-1", "far fa-user mr-1"];
+        $texto = ["Menú Administrador", "Menú Profesor"];
 
         $menus = array_map(NULL, $opciones, $rutas, $iconos, $texto);
 
