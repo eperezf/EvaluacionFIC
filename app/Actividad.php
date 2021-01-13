@@ -10,8 +10,7 @@ class Actividad extends Model {
     protected $fillable = [
         'inicio',
         'termino',
-        'idtipoactividad',
-        'comentario'
+        'idtipoactividad'
     ];
 
     //Relations
