@@ -28,9 +28,11 @@ Route::get('panelDocente/{userId}', 'PanelDocente@loadPanel')->middleware('auth'
 
 Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
 
-// Rutas del Menú del Profesor
+//--Rutas del Menú del Profesor
 Route::get('menuProfesor', 'MenuProfesor@load')->name('menuProfesor');
-Route::get('menuProfesor/misCursos', 'MenuProfesor@loadCursos')->name('verCursos');
+    Route::get('menuProfesor/misCursos', 'MenuProfesor@loadCursos')->name('verCursos');
+    Route::get('menuProfesor/agregarVinculaciones', 'MenuProfesor@agregarVinculaciones')->name('agregarVinculaciones');
+    Route::post('menuProfesor/postAgregar', 'MenuProfesor@postAgregar')->name('postAgregarProfesor');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
