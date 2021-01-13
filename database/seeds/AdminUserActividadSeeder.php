@@ -25,6 +25,7 @@ class AdminUserActividadSeeder extends Seeder
                     'iduser' => App\User::where('email', $email)->get()[0]->id,
                     'idactividad' => App\Actividad::first()->id,
                     'idcargo' => App\Cargo::first()->id,
+                    'comentario' => NULL,
                     'bonificacion' => NULL,
                     'calificacion' => NULL,
                     'created_at' => Carbon::now(),

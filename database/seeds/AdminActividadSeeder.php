@@ -15,7 +15,6 @@ class AdminActividadSeeder extends Seeder
         DB::table('actividad')->insert([
             [
                 'idtipoactividad' => App\Tipoactividad::where('nombre', 'Administración')->get('id')[0]->id,
-                'comentario' => NULL,
                 'inicio' => Carbon::now(),
                 'termino' => Carbon::parse('2100-01-01'),
                 'created_at' => Carbon::now(),
