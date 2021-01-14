@@ -5,7 +5,14 @@
 <section id="ver" name="Ver Cursos">
   <h1>Mis Cursos</h1><hr>
 
-  <section id="pregrado">
+  @foreach ($cursos as $curso)
+    <div class="row">
+        <h5 class="col-9 ml-2">{{ $curso }}</h5>
+        <a class="btn btn-primary col-2 mr-2" href="{{ "" }}">Ver en detalle</a>
+    </div><br>
+  @endforeach
+
+  <!--<section id="pregrado">
     <div class="container">
       <h4>Pregrado</h4>
       <div class="card card-body">
@@ -30,10 +37,10 @@
       <h5>Aquí van los cursos de educación ejecutiva</h5>
       </div>
     </div><br>
-  </section>
+  </section>-->
 
   <div class="container">
-    <a class="btn btn-danger" href="{{ route('menuProfesor') }}" role="button">Volver</a>
+    <a class="btn btn-danger mr-2" href="{{ route('menuProfesor') }}" role="button">Volver</a>
   </div><br>
 </section>
 @endsection
