@@ -9,6 +9,9 @@ use App\User;
 use App\User_actividad;
 use App\Cargo;
 use App\Tipoactividad;
+use App\Actividad;
+
+use App\Http\Requests\StoreCargoUser;
 
 use App\Helper\Helper;
 
@@ -60,10 +63,23 @@ class PanelDocente extends Controller
         ]);
     }
 
-    public function saveCargo(Request $request)
+    public function saveCargo(StoreCargoUser $request)
     {
-        dd($request->tipoActividad);
-        return redirect('/panelDocente/'.$request->userId);
+        $validated = $request->validated();
+
+        $actividad = new Actividad;
+        $actividad->idtipoactividad = $request->tipoActividad;
+        $actividad->inicio = $request->inicio;
+        $actividad->termino = $request->termino;
+        $actividad->save();
+
+        $user_actividad = new User_actividad;
+        $user_actividad->iduser = $request->userId;
+        $user_actividad->idactividad = $actividad->id;
+        $user_actividad->idcargo = $request->cargo;
+        $user_actividad->save();
+
+        return redirect('/panelDocente/'.$request->userId)->with('success', 'Cargo '.Cargo::find($request->cargo)->nombre.' asignado con exito');
     }
 
 }
