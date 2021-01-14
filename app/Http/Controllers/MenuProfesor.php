@@ -8,6 +8,7 @@ use App\User;
 use App\Curso;
 use App\Area;
 use App\Actividad;
+use App\Asignatura;
 use App\Vinculacion;
 use App\Tipoactividad;
 use App\User_actividad;
@@ -133,10 +134,29 @@ class MenuProfesor extends Controller
 //--Cargar información de Docencia  
     public function loadCursos()
     {
-        $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        return view('menu.profesor.vercursos', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
+        $actividades = Auth::user()->actividad()->get();
+
+        $nombreCursos = [];
+        foreach($actividades as $actividad) {
+            $tipoActividad = $actividad->idtipoactividad;
+            $actividadUser = User_actividad::where('idactividad', $actividad->id)->get()[0];
+            if ($tipoActividad == 6) { //Curso: Cálculo TICS101-2
+                $curso = Curso::where('idactividad', $actividadUser->idactividad)->get()[0];
+                $seccion = $curso->seccion;
+                $codigo = Asignatura::where('id', $curso->idasignatura)->get('codigo')[0]->codigo;
+                $nombre = Asignatura::where('id', $curso->idasignatura)->get('nombre')[0]->nombre;
+                $nombreActividad = $nombre." ".$codigo."-".$seccion;
+                array_push($nombreCursos, $nombreActividad);
+            }
+        }
+
+        return view('menu.profesor.vercursos', [
+            'menus' => $menus,
+            'cursos' => $nombreCursos,
+        ]);
     }
+
 
 //--Cargar información de Investigación
 //--Cargar información de Administración Académica
