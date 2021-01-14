@@ -25,7 +25,6 @@
             <a class="nav-link" href="{{ route('noticiasAgenda') }}"><i class="far fa-calendar-alt mr-1"></i>Noticias y Agenda</a>
           </li>
 
-          {{-- estamos trabajando para usted --}}
           @foreach ($menus as $menu)
               @if ($menu[0])
                   <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
@@ -33,7 +32,6 @@
                   </li>
               @endif
           @endforeach
-          {{-- hasta aquí --}}
 
         </ul>
         <ul class="navbar-nav">

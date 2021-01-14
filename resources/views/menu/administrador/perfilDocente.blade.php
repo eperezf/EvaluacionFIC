@@ -1,30 +1,28 @@
 @extends('includes/template')
 
-@section('title', 'Inicio')
+@section('title', 'Perfil '.$usuario->nombres.' '.$usuario->apellidoPaterno)
 @section('contenido')
-
 <div id="perfil">
-    <h3>Perfil de {{ $nombresPerfil }} {{ $apellidoPaternoPerfil }} {{ $apellidoMaternoPerfil }}</h3>
+    <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
     <div id="informacion" class="container">
-
         <div id="cargos" class="row">
             <h6>Cargos actuales:
                 @for ($i = 0; $i < sizeof($cargos); $i++)
                     @if (!($i == sizeof($cargos) - 1))
                         {{ $cargos[$i] }},
                     @else
-                        {{ $cargos[$i] }}
+                        {{ $cargos[$i] }},
                     @endif
                 @endfor
+                <a href="{{ route('panelDocenteCargo', ['userId' => $usuario->id]) }}" style="color: #0067C0;">Agregar cargo</a>
             </h6>
         </div><hr>
-
         <div id="actividades">
             <section id="docencia">
                 <div class="container">
                     <div class="row col-12" data-toggle="collapse" href="#collapseDocencia" role="button" aria-expanded="false" aria-controls="collapseDocencia" style="color: black;">
-                            <h5 class="col-11">Docencia</h5>
-                            <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                        <h5 class="col-11">Docencia</h5>
+                        <i class="fas fa-chevron-down pt-1 ml-5"></i>
                     </div>
                     <div class="collapse" id="collapseDocencia">
                         <div class="card card-body">
@@ -33,7 +31,6 @@
                       </div>
                 </div>
             </section><hr>
-
             <section id="investigacion">
                 <div class="container">
                     <div class="row col-12" data-toggle="collapse" href="#collapseInvestigacion" role="button" aria-expanded="false" aria-controls="collapseInvestigacion">
@@ -47,7 +44,6 @@
                       </div>
                 </div>
             </section><hr>
-
             <section id="administracion">
                 <div class="container">
                     <div class="row col-12" data-toggle="collapse" href="#collapseAdministracion" role="button" aria-expanded="false" aria-controls="collapseAdministracion" style="color: black;">
@@ -61,7 +57,6 @@
                       </div>
                 </div>
             </section><hr>
-
             <section id="vinculacion">
                 <div class="container">
                     <div class="row col-12" data-toggle="collapse" href="#collapseVinculacion" role="button" aria-expanded="false" aria-controls="collapseVinculacion" style="color: black;">
@@ -75,7 +70,6 @@
                       </div>
                 </div>
             </section><hr>
-
             <section id="otros">
                 <div class="container">
                     <div class="row col-12" data-toggle="collapse" href="#collapseOtros" role="button" aria-expanded="false" aria-controls="collapseOtros" style="color: black;">
@@ -90,7 +84,6 @@
                 </div>
             </section><hr>
         </div>
-        
     </div>
 </div>
 @endsection
