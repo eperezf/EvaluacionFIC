@@ -13,6 +13,7 @@ use App\Vinculacion;
 use App\Tipoactividad;
 use App\User_actividad;
 use App\Http\Requests\StoreVinculacion;
+use App\Http\Requests\UpdateCurso;
 use App\Helper\Helper;
 use DB;
 
@@ -167,21 +168,27 @@ class MenuProfesor extends Controller
         $curso = Curso::find($id);
         $asignatura = Asignatura::find($curso->idasignatura);
         $actividad = Actividad::find($curso->idactividad);
-        $user_actividad = User_actividad::find($curso->idactividad);
+        $actividadUser = User_actividad::where('idactividad', $actividad->id)->get()[0];
         return view('menu.profesor.infoCursoForm', [
             'menus' => $menus,
             'curso'=>$curso, 
             'asignatura'=>$asignatura,
             'actividad'=>$actividad,
-            'userActividad' =>$user_actividad
+            'userActividad' =>$actividadUser
         ]);
     }
 
     public function postModificarCurso(Request $new_request)
     {
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        $nombre = Auth::user()->nombres;
-        return redirect('/menuProfesor');
+        $request = new UpdateCurso;
+        $userActividad = User_actividad::find($new_request->id);
+        $userActividad->comentario = $new_request->comentario;
+        $userActividad->save();
+
+        $success = "Comentario agregado"; 
+
+        return redirect('/verCursos')->with('success', $success.' con éxito.');
     }
 
 
