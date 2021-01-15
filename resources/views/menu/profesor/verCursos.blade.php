@@ -10,13 +10,12 @@
     </div>
   @endif
   <div class="container">
-    <div class="row">
-    @foreach ($cursos as $curso)
-      <h5 class="col-9 ml-2">{{ $curso }}</h5>
-    @endforeach
-    @foreach ($id as $id))
-      <a class="btn btn-primary col-2 mr-2" href="{{ route('infoCurso', ['id' => $id]) }}">Ver en detalle</a>
-    @endforeach
+    @for ($i = 0; $i < sizeof($cursos); $i++)
+      <div class="row">
+        <h5 class="col-9 ml-2">{{ $cursos[$i] }}</h5>
+        <a class="btn btn-primary col-2 mr-2" href="{{ route('infoCurso', ['id' => $id[$i]]) }}">Ver en detalle</a>
+      </div><br>
+    @endfor
     </div>
   </div>
 
@@ -48,7 +47,7 @@
   </section>-->
 
   <div class="container">
-    <a class="btn btn-danger mr-2" href="{{ route('menuProfesor') }}" role="button">Volver</a>
+    <a class="btn btn-danger ml-3" href="{{ route('menuProfesor') }}" role="button">Volver</a>
   </div><br>
 </section>
 @endsection
