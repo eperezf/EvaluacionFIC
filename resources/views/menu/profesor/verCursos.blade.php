@@ -4,7 +4,11 @@
 @section('contenido')
 <section id="ver" name="Ver Cursos">
   <h1>Mis Cursos</h1><hr>
-
+  @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{session()->get('success') }}
+    </div>
+  @endif
   <div class="container">
     <div class="row">
     @foreach ($cursos as $curso)

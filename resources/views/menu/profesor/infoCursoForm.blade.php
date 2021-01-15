@@ -27,12 +27,12 @@
         </div>
       </div>
     </fieldset>
-      <label for="descripcion-input" class="col-form-label">Descripción</label>
-      <textarea class="form-control" name="descripcion" autocomplete="off" cols="150" rows="2" id="descripcion-input" cols="30" rows="10" placeholder="Insertar descripción aquí...">{{ $userActividad->comentario }}</textarea><br>
+      <label for="comentario-input" class="col-form-label">Agregar comentario</label>
+      <textarea class="form-control" name="comentario" autocomplete="off" cols="150" rows="2" id="descripcion-input" cols="30" rows="10" placeholder="Insertar comentario aquí...">{{ $userActividad->comentario }}</textarea><br>
       <button type="submit" form="modificar-curso" class="btn btn-primary">Guardar</button>
       <a class="btn btn-danger" href="{{ route('verCursos') }}" role="button">Cancelar</a>
       <input type="hidden" name="modelo" value="curso">
-      <input type="hidden" name="id" value="{{ $curso->id }}">
+      <input type="hidden" name="id" value="{{ $userActividad->id }}">
     </form>
   </section>
 
