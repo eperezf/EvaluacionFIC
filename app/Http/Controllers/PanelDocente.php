@@ -74,16 +74,19 @@ class PanelDocente extends Controller
         $actividad->termino = $request->termino;
         $actividad->save();
 
-        $actividad_area = new Actividad_area;
-        $actividad_area->idactividad = $actividad->id;
-        $actividad_area->idarea = $request->area;
-        $actividad_area->save();
-
         $user_actividad = new User_actividad;
         $user_actividad->iduser = $request->userId;
         $user_actividad->idactividad = $actividad->id;
         $user_actividad->idcargo = $request->cargo;
         $user_actividad->save();
+
+        if($request->cargo == Cargo::where('nombre', 'Director de área')->get()[0]->id)
+        {
+            $actividad_area = new Actividad_area;
+            $actividad_area->idactividad = $actividad->id;
+            $actividad_area->idarea = $request->area;
+            $actividad_area->save();
+        }
 
         return redirect('/panelDocente/'.$request->userId)->with('success', 'Cargo '.Cargo::find($request->cargo)->nombre.' asignado con exito');
     }
