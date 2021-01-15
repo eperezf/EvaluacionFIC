@@ -26,22 +26,23 @@
       <label for="tipoActividad" class="col-sm-3">Seleccione un tipo de actividad</label>
       <div class="col-sm-5">
         <select name="tipoActividad" id="tipoActividad" class="form-control">
-          <option disabled selected value="null">Seleccione un tipo de actividad</option>
+          <option disabled selected>Seleccione un tipo de actividad</option>
           @foreach ($tipoActividades as $tipo)
             <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
           @endforeach
         </select>
       </div>
     </div>
-    <div>
-      <div class="form-group row col-12">
-        <label for="tipoActividad" class="col-sm-3">Seleccione un cargo</label>
-        <div class="col-sm-5">
-          <select name="cargo" id="cargo" class="form-control" disabled>
-            <option disabled selected>Seleccione un cargo</option>
-          </select>
-        </div>
+    <div class="form-group row col-12">
+      <label for="tipoActividad" class="col-sm-3">Seleccione un cargo</label>
+      <div class="col-sm-5">
+        <select name="cargo" id="cargo" class="form-control" disabled>
+          <option disabled selected>Seleccione un cargo</option>
+        </select>
       </div>
+    </div>
+    <div class="form-group row col-12" id="response" name="response">
+      {{-- RESPUESTAS DE JQUERY SEGUN CARGO A ASIGNAR Y TIPO DE ACTIVIDAD --}}
     </div>
   </div>
   <input type="hidden" value="{{ $usuario->id }}" name="userId">

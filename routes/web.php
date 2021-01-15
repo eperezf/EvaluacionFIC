@@ -30,13 +30,12 @@ Route::get('evaluacionDocenteExport', 'EvaluacionDocenteExport@export')->name('e
 Route::get('panelDocente/{userId}/agregarCargo', 'PanelDocente@loadNewCargo')->middleware('auth')->name('panelDocenteCargo');
 Route::post('panelDocente/guardarCargo', 'PanelDocente@saveCargo')->middleware('auth')->name('saveCargo');
 
-Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
-
 //--Rutas del Menú del Profesor
 Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuProfesor');
     Route::get('menuProfesor/misCursos', 'MenuProfesor@loadCursos')->middleware('auth')->name('verCursos');
-    Route::get('menuProfesor/misCursos/guardar', 'MenuProfesor@loadInfoCurso')->middleware('auth')->name('infoCurso');
+    Route::get('menuProfesor/misCursos/{id}', 'MenuProfesor@loadInfoCurso')->middleware('auth')->name('infoCurso');
     Route::get('menuProfesor/agregarVinculaciones', 'MenuProfesor@agregarVinculaciones')->middleware('auth')->name('agregarVinculaciones');
+    Route::post('menuProfesor/postAgregar', 'MenuProfesor@postAgregar')->middleware('auth')->name('postAgregarProfesor');
     Route::post('menuProfesor/postModificar', 'MenuProfesor@postModificarCurso')->middleware('auth')->name('postModificarCurso');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
