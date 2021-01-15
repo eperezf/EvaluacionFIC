@@ -138,30 +138,43 @@ class MenuProfesor extends Controller
         $actividades = Auth::user()->actividad()->get();
 
         $nombreCursos = [];
+        $idCursos = [];
         foreach($actividades as $actividad) {
             $tipoActividad = $actividad->idtipoactividad;
             $actividadUser = User_actividad::where('idactividad', $actividad->id)->get()[0];
             if ($tipoActividad == 6) { //Curso: Cálculo TICS101-2
                 $curso = Curso::where('idactividad', $actividadUser->idactividad)->get()[0];
+                $id = $curso->id;
                 $seccion = $curso->seccion;
                 $codigo = Asignatura::where('id', $curso->idasignatura)->get('codigo')[0]->codigo;
                 $nombre = Asignatura::where('id', $curso->idasignatura)->get('nombre')[0]->nombre;
                 $nombreActividad = $nombre." ".$codigo."-".$seccion;
                 array_push($nombreCursos, $nombreActividad);
+                array_push($idCursos, $id);
             }
         }
 
         return view('menu.profesor.vercursos', [
             'menus' => $menus,
             'cursos' => $nombreCursos,
+            'id' => $idCursos
         ]);
     }
 
-    public function loadInfoCurso()
+    public function loadInfoCurso($id)
     {
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        $nombre = Auth::user()->nombres;
-        return view('menu.profesor.infoCursoForm', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
+        $curso = Curso::find($id);
+        $asignatura = Asignatura::find($curso->idasignatura);
+        $actividad = Actividad::find($curso->idactividad);
+        $user_actividad = User_actividad::find($curso->idactividad);
+        return view('menu.profesor.infoCursoForm', [
+            'menus' => $menus,
+            'curso'=>$curso, 
+            'asignatura'=>$asignatura,
+            'actividad'=>$actividad,
+            'userActividad' =>$user_actividad
+        ]);
     }
 
     public function postModificarCurso(Request $new_request)

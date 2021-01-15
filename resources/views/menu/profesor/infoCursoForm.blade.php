@@ -2,7 +2,7 @@
 
 @section('title', 'Inicio')
 @section('contenido')
-<h1>Curso - </h1><hr>
+<h1>{{ $asignatura->nombre }} {{ $asignatura->codigo }}-{{ $curso->seccion }} </h1><hr>
 <section id="informacion" name="Informacion Curso">
     <h3>Información</h3>
     <form action="{{route('postModificarCurso')}}" method="POST" id="modificar-curso">
@@ -11,7 +11,7 @@
       <div id="calificacion" class="form-group row">
         <label for="input-calificacion" class="col-sm-2 col-form-label">Calificación</label>
         <div class="col-sm-10">
-          <input class="form-control col-sm-5" autocomplete="off" name="calificacion" placeholder="Calificación" type="text" id="calificacion-input" value="{{ "" }}">
+          <input class="form-control col-sm-5" autocomplete="off" name="calificacion" placeholder="Calificación" type="text" id="calificacion-input" value="{{ $curso->calificacion }}">
         </div>
       </div>
       <div id="nota" class="form-group row">
