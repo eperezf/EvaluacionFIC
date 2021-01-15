@@ -8,7 +8,7 @@
   @foreach ($cursos as $curso)
     <div class="row">
         <h5 class="col-9 ml-2">{{ $curso }}</h5>
-        <a class="btn btn-primary col-2 mr-2" href="{{ "" }}">Ver en detalle</a>
+        <a class="btn btn-primary col-2 mr-2" href="{{ route('infoCurso') }}">Ver en detalle</a>
     </div><br>
   @endforeach
 

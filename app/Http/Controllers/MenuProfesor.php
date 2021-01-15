@@ -157,6 +157,20 @@ class MenuProfesor extends Controller
         ]);
     }
 
+    public function loadInfoCurso()
+    {
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+        $nombre = Auth::user()->nombres;
+        return view('menu.profesor.infoCursoForm', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
+    }
+
+    public function postModificarCurso(Request $new_request)
+    {
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+        $nombre = Auth::user()->nombres;
+        return redirect('/menuProfesor');
+    }
+
 
 //--Cargar información de Investigación
 //--Cargar información de Administración Académica
