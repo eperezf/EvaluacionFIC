@@ -10,6 +10,7 @@ use App\User_actividad;
 use App\Cargo;
 use App\Tipoactividad;
 use App\Actividad;
+use App\Actividad_area;
 
 use App\Http\Requests\StoreCargoUser;
 
@@ -78,6 +79,14 @@ class PanelDocente extends Controller
         $user_actividad->idactividad = $actividad->id;
         $user_actividad->idcargo = $request->cargo;
         $user_actividad->save();
+
+        if($request->cargo == Cargo::where('nombre', 'Director de área')->get()[0]->id)
+        {
+            $actividad_area = new Actividad_area;
+            $actividad_area->idactividad = $actividad->id;
+            $actividad_area->idarea = $request->area;
+            $actividad_area->save();
+        }
 
         return redirect('/panelDocente/'.$request->userId)->with('success', 'Cargo '.Cargo::find($request->cargo)->nombre.' asignado con exito');
     }
