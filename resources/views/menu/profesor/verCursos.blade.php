@@ -10,12 +10,12 @@
     </div>
   @endif
   <div class="container">
-    <div class="row">
-    @foreach ($cursos as $curso)
-      <h5 class="col-9 ml-2">{{ $curso }}</h5>
-    @endforeach
-    @foreach ($id as $id))
-      <a class="btn btn-primary col-2 mr-2" href="{{ route('infoCurso', ['id' => $id]) }}">Ver en detalle</a>
+    <div class="row row-cols-2">
+      @foreach ($cursos as $curso)
+        <h5 class="col-9 ml-2">{{ $curso }}</h5>
+      @endforeach
+      @foreach ($id as $id))
+        <a class="btn btn-primary col-2 mr-2" href="{{ route('infoCurso', ['id' => $id]) }}">Ver en detalle</a>
     @endforeach
     </div>
   </div>
