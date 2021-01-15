@@ -5,12 +5,16 @@
 <section id="ver" name="Ver Cursos">
   <h1>Mis Cursos</h1><hr>
 
-  @foreach ($cursos as $curso)
+  <div class="container">
     <div class="row">
-        <h5 class="col-9 ml-2">{{ $curso }}</h5>
-        <a class="btn btn-primary col-2 mr-2" href="{{ "" }}">Ver en detalle</a>
-    </div><br>
-  @endforeach
+    @foreach ($cursos as $curso)
+      <h5 class="col-9 ml-2">{{ $curso }}</h5>
+    @endforeach
+    @foreach ($id as $id))
+      <a class="btn btn-primary col-2 mr-2" href="{{ route('infoCurso', ['id' => $id]) }}">Ver en detalle</a>
+    @endforeach
+    </div>
+  </div>
 
   <!--<section id="pregrado">
     <div class="container">
