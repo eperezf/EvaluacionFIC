@@ -10,6 +10,7 @@ use App\User_actividad;
 use App\Cargo;
 use App\Tipoactividad;
 use App\Actividad;
+use App\Actividad_area;
 
 use App\Http\Requests\StoreCargoUser;
 
@@ -72,6 +73,11 @@ class PanelDocente extends Controller
         $actividad->inicio = $request->inicio;
         $actividad->termino = $request->termino;
         $actividad->save();
+
+        $actividad_area = new Actividad_area;
+        $actividad_area->idactividad = $actividad->id;
+        $actividad_area->idarea = $request->area;
+        $actividad_area->save();
 
         $user_actividad = new User_actividad;
         $user_actividad->iduser = $request->userId;
