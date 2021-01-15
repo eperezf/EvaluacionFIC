@@ -16,19 +16,25 @@ class AdminUserSeeder extends Seeder
             'Nicolás',
             'Eduardo',
             'Dayhan',
-            'José Ignacio'
+            'José Ignacio',
+            'Daniela',
+            'Rafael'
         ];
         $apellidos = [
             'Selman',
             'Pérez',
             'Vásquez',
-            'Miquel'
+            'Miquel',
+            'Gómez',
+            'Cereceda'
         ];
         $emails = [
             'niselman@alumnos.uai.cl',
             'eduperez@alumnos.uai.cl',
             'dvasquez@alumnos.uai.cl',
-            'jomiquel@alumnos.uai.cl'
+            'jomiquel@alumnos.uai.cl',
+            'danigomez@alumnos.uai.cl',
+            'rafael.cereceda@uai.cl'
         ];
         $users = array_map(null, $nombres, $apellidos, $emails);
         foreach($users as $user)
