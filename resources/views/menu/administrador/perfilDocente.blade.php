@@ -28,9 +28,13 @@
                     </div>
                     <div class="collapse" id="collapseDocencia">
                         <div class="card card-body">
-                          AQUI VAN LAS ACTIVIDADES DE DOCENCIA
+                        AQUI VAN LAS ACTIVIDADES DE DOCENCIA
+                        <section>
+                            <h3>Docencia para Director de Area</h3>
+                            <a class="btn btn-primary" href="{{ route('evaluacionDocenteExport') }}">Descargar Excel</a>
+                          </section>
                         </div>
-                      </div>
+                    </div>
                 </div>
             </section><hr>
 
@@ -42,9 +46,9 @@
                     </div>
                     <div class="collapse" id="collapseInvestigacion">
                         <div class="card card-body">
-                          AQUI VAN LAS ACTIVIDADES DE INVESTIGACIÓN
+                        AQUI VAN LAS ACTIVIDADES DE INVESTIGACIÓN
                         </div>
-                      </div>
+                    </div>
                 </div>
             </section><hr>
 
@@ -56,9 +60,9 @@
                     </div>
                     <div class="collapse" id="collapseAdministracion">
                         <div class="card card-body">
-                          AQUI VAN LAS ACTIVIDADES DE ADMINISTRACIÓN ACADÉMICA
+                        AQUI VAN LAS ACTIVIDADES DE ADMINISTRACIÓN ACADÉMICA
                         </div>
-                      </div>
+                    </div>
                 </div>
             </section><hr>
 
@@ -70,9 +74,9 @@
                     </div>
                     <div class="collapse" id="collapseVinculacion">
                         <div class="card card-body">
-                          AQUI VAN LAS ACTIVIDADES DE VINCULACIÓN CON EL MEDIO
+                        AQUI VAN LAS ACTIVIDADES DE VINCULACIÓN CON EL MEDIO
                         </div>
-                      </div>
+                    </div>
                 </div>
             </section><hr>
 
@@ -84,9 +88,9 @@
                     </div>
                     <div class="collapse" id="collapseOtros">
                         <div class="card card-body">
-                          AQUI VAN OTRAS ACTIVIDADES
+                        AQUI VAN OTRAS ACTIVIDADES
                         </div>
-                      </div>
+                    </div>
                 </div>
             </section><hr>
         </div>

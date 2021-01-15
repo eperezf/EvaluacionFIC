@@ -25,6 +25,7 @@ Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('se
 Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput');
 
 Route::get('panelDocente/{userId}', 'PanelDocente@loadPanel')->middleware('auth')->name('panelDocente');
+Route::get('evaluacionDocenteExport', 'EvaluacionDocenteExport@export')->name('evaluacionDocenteExport');
 
 Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
 
