@@ -24,16 +24,19 @@ Route::get('menuAdministrador', 'MenuAdministrador@load')->name('menuAdministrad
 Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('searchLetter');
 Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput');
 
+/* Rutas para el perfil docente como usuario administrador */
 Route::get('panelDocente/{userId}', 'PanelDocente@loadPanel')->middleware('auth')->name('panelDocente');
 Route::get('evaluacionDocenteExport', 'EvaluacionDocenteExport@export')->name('evaluacionDocenteExport');
-
-Route::get('panelProfesor', 'Index@loadProfesor')->middleware('auth')->name('panelProfesor');
+Route::get('panelDocente/{userId}/agregarCargo', 'PanelDocente@loadNewCargo')->middleware('auth')->name('panelDocenteCargo');
+Route::post('panelDocente/guardarCargo', 'PanelDocente@saveCargo')->middleware('auth')->name('saveCargo');
 
 //--Rutas del Menú del Profesor
-Route::get('menuProfesor', 'MenuProfesor@load')->name('menuProfesor');
-    Route::get('menuProfesor/misCursos', 'MenuProfesor@loadCursos')->name('verCursos');
-    Route::get('menuProfesor/agregarVinculaciones', 'MenuProfesor@agregarVinculaciones')->name('agregarVinculaciones');
-    Route::post('menuProfesor/postAgregar', 'MenuProfesor@postAgregar')->name('postAgregarProfesor');
+Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuProfesor');
+    Route::get('menuProfesor/misCursos', 'MenuProfesor@loadCursos')->middleware('auth')->name('verCursos');
+    Route::get('menuProfesor/misCursos/{id}', 'MenuProfesor@loadInfoCurso')->middleware('auth')->name('infoCurso');
+    Route::get('menuProfesor/agregarVinculaciones', 'MenuProfesor@agregarVinculaciones')->middleware('auth')->name('agregarVinculaciones');
+    Route::post('menuProfesor/postAgregar', 'MenuProfesor@postAgregar')->middleware('auth')->name('postAgregarProfesor');
+    Route::post('menuProfesor/postModificar', 'MenuProfesor@postModificarCurso')->middleware('auth')->name('postModificarCurso');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
