@@ -13,7 +13,6 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-
 class EvaluacionDocente implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles
 {
     //Agregamos los encabezados de las columnas
@@ -48,22 +47,25 @@ class EvaluacionDocente implements FromArray, WithHeadings, ShouldAutoSize, With
         ->join('actividad_asignatura', 'actividad.id', '=', 'actividad_asignatura.idactividad')
         ->join('asignatura', 'actividad_asignatura.idasignatura', '=', 'asignatura.id')
         ->select('asignatura.codigo', 'curso.seccion', 'user.nombres', 'user.apellidoPaterno', 'user.apellidoMaterno')
-        ->orderBy('user.nombres')->get()->toArray();
+        ->where('area.id', 'LIKE', '1' /* <- id del area de la cual Auth::user() es director */)
+        ->orderBy('user.nombres')
+        ->get()->toArray();
         return $data;
     }
 
     //formateamos la columna de curso
-
-/* Código sacado de la documentación de laravel-excel
-    public function prepareRows(): array
+    public function prepareRows($rows): array
     {
-        return array_map(function ($user) {
-            $user->name .= ' (prepared)';
+        return array_map(
+            function ($data)
+            {
+                $data->codigo = $data->codigo.'-Sec. '.$data->seccion;      //Formato del curso por confirmar
 
-            return $user;
-        }, $rows);
+                return $data;
+            }, $rows
+        );
     }
- */
+
 
 
     //ponemos los datos obtenidos en columnas
