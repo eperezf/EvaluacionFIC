@@ -4,6 +4,10 @@ namespace App\Exports;
 
 use App\User;
 use App\Curso;
+use Auth;
+use App\Actividad;
+use App\User_actividad;
+use App\Actividad_area;
 use DB;
 
 use Maatwebsite\Excel\Concerns\FromArray;
@@ -38,19 +42,26 @@ class EvaluacionDocente implements FromArray, WithHeadings, ShouldAutoSize, With
     //obtenemos los datos que queremos
     public function array(): array
     {
-        $data = DB::table('curso')
+        //Obtenemos el id del area del Director de area que quiere descargar el excel
+        $idactividad = Auth::user()->actividad()
+        ->where('idtipoactividad', '=', '4')
+        ->where('idcargo', '=', '6')
+        ->get(['actividad.id']);
+        $idarea = Actividad_area::select('idarea')
+        ->where('idactividad', '=', $idactividad[0]->id)
+        ->get()[0]
+        ->idarea;
+
+        //Obtenemos todos los cursos asociados al area de dicho director
+        $cursos = DB::table('curso')
+        ->join('asignatura', 'curso.idasignatura', '=', 'asignatura.id')
+        ->join('subarea', 'asignatura.idsubarea', '=', 'subarea.id')
         ->join('actividad', 'curso.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
-        ->join('actividad_area', 'actividad.id', '=', 'actividad_area.idactividad')
-        ->join('area', 'actividad_area.idarea', '=', 'area.id')
-        ->join('actividad_asignatura', 'actividad.id', '=', 'actividad_asignatura.idactividad')
-        ->join('asignatura', 'actividad_asignatura.idasignatura', '=', 'asignatura.id')
         ->select('asignatura.codigo', 'curso.seccion', 'user.nombres', 'user.apellidoPaterno', 'user.apellidoMaterno')
-        ->where('area.id', 'LIKE', '1' /* <- id del area de la cual Auth::user() es director */)
-        ->orderBy('user.nombres')
-        ->get()->toArray();
-        return $data;
+        ->where('subarea.idarea', 'LIKE', $idarea)->get()->toArray();
+        return $cursos;
     }
 
     //formateamos la columna de curso
