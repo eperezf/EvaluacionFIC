@@ -26,7 +26,8 @@ Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput
 
 /* Rutas para el perfil docente como usuario administrador */
 Route::get('panelDocente/{userId}', 'PanelDocente@loadPanel')->middleware('auth')->name('panelDocente');
-Route::get('evaluacionDocenteExport', 'EvaluacionDocenteExport@export')->name('evaluacionDocenteExport');
+Route::get('evaluacionDocenteExport', 'EvaluacionDocente@export');
+Route::get('evaluacionDocenteImport', 'EvaluacionDocente@import');
 Route::get('panelDocente/{userId}/agregarCargo', 'PanelDocente@loadNewCargo')->middleware('auth')->name('panelDocenteCargo');
 Route::post('panelDocente/guardarCargo', 'PanelDocente@saveCargo')->middleware('auth')->name('saveCargo');
 
