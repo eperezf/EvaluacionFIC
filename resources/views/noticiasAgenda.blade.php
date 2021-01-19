@@ -30,8 +30,6 @@
         <p>Cargo: {{$actividad->pivot->cargo->nombre}}</p>
         <p>Fecha de inicio: {{Carbon\Carbon::parse($actividad->inicio)->locale('es_ES')->isoFormat('LL')}}</p>
         <p>Fecha de término: {{Carbon\Carbon::parse($actividad->termino)->locale('es_ES')->isoFormat('LL')}}</p>
-        <p>Calificación: {{$actividad->pivot->calificacion}}</p>
-        <p>Bonificación: {{$actividad->pivot->bonificacion}}</p>
         <a href="#" class="btn btn-primary">Ver actividad</a>
       </div>
     </div>
