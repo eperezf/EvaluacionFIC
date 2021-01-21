@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "EvalFIC",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Plataforma de evaluación académica FIC UAI",
     "keywords": [
         "framework",
         "laravel"

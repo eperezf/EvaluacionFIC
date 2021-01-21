@@ -15,8 +15,8 @@ class CreateCursoTable extends Migration
     {
         Schema::create('curso', function (Blueprint $table) {
             $table->id();
-            $table->float('calificacion');
-            $table->unsignedInteger('respuestas');
+            $table->float('calificacion')->nullable();
+            $table->unsignedInteger('respuestas')->nullable();
             $table->boolean('material');
             $table->unsignedInteger('seccion');
             $table->foreignId('idactividad')->references('id')->on('actividad');
