@@ -17,17 +17,21 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class EvaluacionDocente implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles
+class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles
 {
     //Agregamos los encabezados de las columnas
     public function headings(): array
     {
         return [
+            'Id Curso',
+            'Id Profesor',
+            'Area',
+            'Programa',
             'Curso',
-            'Nombres',
-            'Apellido Paterno',
-            'Apellido Materno',
-            'Nota'
+            'Sección',
+            'Profesor',
+            'Nota',
+            'Comentario al comité evaluador'
         ];
     }
 
@@ -47,6 +51,7 @@ class EvaluacionDocente implements FromArray, WithHeadings, ShouldAutoSize, With
         ->where('idtipoactividad', '=', '4')
         ->where('idcargo', '=', '6')
         ->get(['actividad.id']);
+        
         $idarea = Actividad_area::select('idarea')
         ->where('idactividad', '=', $idactividad[0]->id)
         ->get()[0]
@@ -59,20 +64,34 @@ class EvaluacionDocente implements FromArray, WithHeadings, ShouldAutoSize, With
         ->join('actividad', 'curso.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
-        ->select('asignatura.codigo', 'curso.seccion', 'user.nombres', 'user.apellidoPaterno', 'user.apellidoMaterno')
-        ->where('subarea.idarea', 'LIKE', $idarea)->get()->toArray();
+        ->join('area', 'subarea.idarea', '=', 'area.id')
+        ->select(
+            'curso.id as idCurso',
+            'user.id as idProfesor',
+            'area.nombre as nombreArea',
+            'subarea.nombre as nombreSubarea',
+            'asignatura.nombre as nombreAsignatura',
+            'curso.seccion',
+            'user.nombres',
+            'user.apellidoPaterno',
+            'user.apellidoMaterno',
+            'user.rut')
+        ->where('subarea.idarea', 'LIKE', $idarea)
+        ->get()->
+        toArray();
+
         return $cursos;
     }
 
-    //formateamos la columna de curso
+    //formateamos la columna Profesor
     public function prepareRows($rows): array
     {
         return array_map(
-            function ($data)
+            function ($cursos)
             {
-                $data->codigo = $data->codigo.'-Sec. '.$data->seccion;      //Formato del curso por confirmar
+                $cursos->nombres = $cursos->nombres.' '.$cursos->apellidoPaterno.' '.$cursos->apellidoMaterno;
 
-                return $data;
+                return $cursos;
             }, $rows
         );
     }
@@ -80,13 +99,16 @@ class EvaluacionDocente implements FromArray, WithHeadings, ShouldAutoSize, With
 
 
     //ponemos los datos obtenidos en columnas
-    public function map($data): array
+    public function map($cursos): array
     {
         return [
-            $data->codigo,
-            $data->nombres,
-            $data->apellidoPaterno,
-            $data->apellidoMaterno,
+            $cursos->idCurso,
+            $cursos->idProfesor,
+            $cursos->nombreArea,
+            $cursos->nombreSubarea,
+            $cursos->nombreAsignatura,
+            $cursos->seccion,
+            $cursos->nombres
         ];
     }
 }
