@@ -38,6 +38,11 @@ Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuP
     Route::post('menuProfesor/postAgregar', 'MenuProfesor@postAgregar')->middleware('auth')->name('postAgregarProfesor');
     Route::post('menuProfesor/postModificar', 'MenuProfesor@postModificarCurso')->middleware('auth')->name('postModificarCurso');
 
+//--Rutas del Menú del Director de docencia
+Route::get('menuDirectorDocencia', 'MenuDirectorDocencia@load')->middleware('auth')->name('menuDirectorDocencia');
+    Route::get('menuDirectorDocencia/searchByLetter/{letra}', 'MenuDirectorDocencia@searchLetter')->name('searchLetterDirector');
+    Route::post('menuDirectorDocencia/searchByInput', 'MenuDirectorDocencia@searchInput')->name('searchInputDirector');
+
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
 Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')->middleware('auth')->name('panelAdministracion');
