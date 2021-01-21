@@ -13,11 +13,16 @@ class AreaSeeder extends Seeder
     public function run()
     {
         $areas = [
+            'Industrial',
+            'Informática',
+            'Civil',
+            'Mecánica',
+            'Bioingeniería',
+            'Enerigía y Medio Ambiente',
+            'Minería',
             'Física',
             'Matemática',
-            'Taller',
-            'Informática',
-            'Industrial'
+            'Taller'
         ];
 
         foreach($areas as $area)
