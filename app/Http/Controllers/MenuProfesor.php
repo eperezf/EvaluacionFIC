@@ -180,15 +180,13 @@ class MenuProfesor extends Controller
 
     public function postModificarCurso(Request $new_request)
     {
-        $menus = Helper::getMenuOptions(Auth::user()->id);
-        $request = new UpdateCurso;
         $userActividad = User_actividad::find($new_request->id);
         $userActividad->comentario = $new_request->comentario;
         $userActividad->save();
 
         $success = "Comentario agregado"; 
 
-        return redirect('/verCursos')->with('success', $success.' con éxito.');
+        return redirect('/menuProfesor/misCursos')->with('success', $success.' con éxito.');
     }
 
 
