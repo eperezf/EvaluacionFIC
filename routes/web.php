@@ -28,6 +28,7 @@ Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput
     Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
     Route::get('evaluacionDocenteExport', 'EvaluacionDocenteExport@export')->name('evaluacionDocenteExport');
     Route::get('perfilDocente/{userId}/verCargos', 'PerfilDocente@loadCargos')->middleware('auth')->name('verCargos');
+    Route::get('perfilDocente/{userId}/searchActivities/{cargoId}', 'PerfilDocente@searchActivities')->middleware('auth')->name('searchActivities');
     Route::get('perfilDocente/{userId}/agregarCargo', 'PerfilDocente@loadNewCargo')->middleware('auth')->name('agregarCargo');
     Route::post('perfilDocente/guardarCargo', 'PerfilDocente@saveCargo')->middleware('auth')->name('saveCargo');
 

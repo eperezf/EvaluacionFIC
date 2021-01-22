@@ -14,9 +14,9 @@
       <h6>Cargos actuales:
         @for ($i = 0; $i < sizeof($cargos); $i++)
           @if (!($i == sizeof($cargos) - 1))
-            {{ $cargos[$i] }},
+            {{ $cargos[$i]->nombre }},
           @else
-            {{ $cargos[$i] }},
+            {{ $cargos[$i]->nombre }},
           @endif
         @endfor
         <a href="{{ route('verCargos', ['userId' => $usuario->id]) }}" style="color: #0067C0;">Ver más...</a>

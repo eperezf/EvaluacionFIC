@@ -30,7 +30,7 @@ class PerfilDocente extends Controller
 
         $cargos = [];
         foreach($cargosId as $id)
-            array_push($cargos, Cargo::where('id', $id)->get()[0]->nombre);
+            array_push($cargos, Cargo::where('id', $id)->get(['id','nombre'])[0]);
 
         return $cargos;
     }
@@ -55,10 +55,8 @@ class PerfilDocente extends Controller
 
     public function loadCargos($userId)
     {
-        /* Datos administrador para display de menú correspondiente */
         $menus = Helper::getMenuOptions(Auth::user()->id);
         
-        /* Datos del perfil docente al que se esta accediendo */
         $usuario = User::find($userId);
 
         /* Cargos que posee el docente actualmente */
@@ -67,16 +65,36 @@ class PerfilDocente extends Controller
         return view('menu.administrador.perfilDocenteCargo', [
             'menus' => $menus,
             'usuario' => $usuario,
-            'cargos' => $cargos
+            'cargos' => $cargos,
+            'selectedCargo' => NULL,
+            'actividades' => NULL
+        ]);
+    }
+
+    public function searchActivities($userId, $cargoId)
+    {
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+
+        /* Datos del perfil docente al que se esta accediendo y cargos */
+        $usuario = User::find($userId);
+        $cargos = $this->getCargos($userId);
+
+        /* Obtenemos las actividades relacionadas con el cargo seleccionado y el usuario */
+        $actividades = User_actividad::where('iduser', $userId)->where('idcargo', $cargoId)->get();
+
+        return view('menu.administrador.perfilDocenteCargo', [
+            'menus' => $menus,
+            'usuario' => $usuario,
+            'cargos' => $cargos,
+            'selectedCargo' => $cargoId,
+            'actividades' => $actividades
         ]);
     }
 
     public function loadNewCargo($userId)
     {
-        /* Datos administrador para display de menú correspondiente */
         $menus = Helper::getMenuOptions(Auth::user()->id);
 
-        /* Datos del usuario al que se asignara un nuevo cargo */
         $usuario = User::find($userId);
 
         /* Obtenemos los tipos de actividad disponibles en la BBDD */

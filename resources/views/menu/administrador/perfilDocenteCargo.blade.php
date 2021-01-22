@@ -4,28 +4,52 @@
 
 @section('contenido')
   <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3><hr>
-
   <div id="container" class="row">
     <div id="cargosSideBar" class="col-3">
-    <div id="sidebarHeader" class="row">
-      <h3 class="col-6">Cargos</h3>
-      <a href="{{ route('agregarCargo', ['userId' => $usuario->id]) }}" class="pt-2 ml-2">Agregar cargo</a>
-    </div>
-      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
-        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+      <div id="sidebarHeader" class="row">
+        <h3 class="col-6">Cargos</h3>
+        <a href="{{ route('agregarCargo', ['userId' => $usuario->id]) }}" class="pt-2 ml-2">Agregar cargo</a>
+      </div>
+      <div class="nav flex-column nav-pills" id="cargos" role="tablist" aria-orientation="vertical">
+        @foreach ($cargos as $cargo)
+          <a href="{{ route('searchActivities', ['userId' => $usuario->id, 'cargoId' => $cargo->id]) }}" class="nav-link {{ $selectedCargo == $cargo->id ? 'active': '' }}">{{ $cargo->nombre }}</a>
+        @endforeach
       </div>
     </div>
-    <div id="actividades">
-      <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-      </div>
+    <div id="actividades" class="col-9">
+      <h3>Actividades</h3>
+      @if ($actividades != NULL)
+        @foreach ($actividades as $actividad)
+          <div class="card">
+            <div class="card-body">
+              @switch($actividad->idcargo)
+                @case(1) {{-- Administrador --}}
+                    Administrador
+                  @break
+                @case(2) {{-- Director de investigacion --}}
+                    Director de Investigación
+                  @break
+                @case(3) {{-- Director ejecutivo de investigacion --}}
+                    Director Ejecutivo de Investigación
+                  @break
+                @case(4) {{-- Director de docencia --}}
+                    Director de Docencia
+                  @break
+                @case(5) {{-- Subdirector de docencia --}}
+                    Subdirector de Docencia
+                  @break
+                @case(6) {{-- Director de area --}}
+                    Director de Área
+                  @break
+                @case(7) {{-- Profesor --}}
+                    Profesor
+                  @break
+                @default
+              @endswitch
+            </div>
+          </div>
+        @endforeach
+      @endif
     </div>
   </div>
-
 @endsection
