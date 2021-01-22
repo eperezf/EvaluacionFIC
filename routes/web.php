@@ -24,11 +24,12 @@ Route::get('menuAdministrador', 'MenuAdministrador@load')->name('menuAdministrad
 Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('searchLetter');
 Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput');
 
-/* Rutas para el perfil docente como usuario administrador */
-Route::get('panelDocente/{userId}', 'PanelDocente@loadPanel')->middleware('auth')->name('panelDocente');
-Route::get('evaluacionDocenteExport', 'EvaluacionDocenteExport@export')->name('evaluacionDocenteExport');
-Route::get('panelDocente/{userId}/agregarCargo', 'PanelDocente@loadNewCargo')->middleware('auth')->name('panelDocenteCargo');
-Route::post('panelDocente/guardarCargo', 'PanelDocente@saveCargo')->middleware('auth')->name('saveCargo');
+//--Rutas para el perfil docente como usuario administrador
+    Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
+    Route::get('evaluacionDocenteExport', 'EvaluacionDocenteExport@export')->name('evaluacionDocenteExport');
+    Route::get('perfilDocente/{userId}/verCargos', 'PerfilDocente@loadCargos')->middleware('auth')->name('verCargos');
+    Route::get('perfilDocente/{userId}/agregarCargo', 'PerfilDocente@loadNewCargo')->middleware('auth')->name('agregarCargo');
+    Route::post('perfilDocente/guardarCargo', 'PerfilDocente@saveCargo')->middleware('auth')->name('saveCargo');
 
 //--Rutas del Menú del Profesor
 Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuProfesor');
@@ -44,7 +45,7 @@ Route::get('menuDirectorDocencia/searchByLetter/{letra}', 'MenuDirectorDocencia@
 Route::post('menuDirectorDocencia/searchByInput', 'MenuDirectorDocencia@searchInput')->name('searchInputDirector');
 
 //--Rutas del perfil docente con solo información de docencia como director de docencia
-Route::get('perfilDocente/{userId}', 'MenuDirectorDocencia@loadPerfil')->middleware('auth')->name('perfilDocencia');
+Route::get('perfilDocencia/{userId}', 'MenuDirectorDocencia@loadPerfil')->middleware('auth')->name('perfilDocencia');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
@@ -53,7 +54,7 @@ Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')
     Route::get('panelAdministracion/agregarActividadAsignatura', 'PanelAdministracion@loadAgregarActividadAsignatura')->middleware('auth')->name('agregarActividadAsignatura');
     Route::get('panelAdministracion/agregarArea', 'PanelAdministracion@loadAgregarArea')->middleware('auth')->name('agregarArea');
     Route::get('panelAdministracion/agregarCurso', 'PanelAdministracion@loadAgregarCurso')->middleware('auth')->name('agregarCurso');
-    Route::get('panelAdministracion/agregarCargoAdministrativo', 'PanelAdministracion@loadAgregarCargoAdministrativo')->middleware('auth')->name('agregarCargo');
+    Route::get('panelAdministracion/agregarCargoAdministrativo', 'PanelAdministracion@loadAgregarCargoAdministrativo')->middleware('auth')->name('agregarCargoAdministrativo');
     Route::get('panelAdministracion/agregarPublicacion', 'PanelAdministracion@loadAgregarPublicacion')->middleware('auth')->name('agregarPublicacion');
     Route::get('panelAdministracion/agregarAsignatura', 'PanelAdministracion@loadAgregarAsignatura')->middleware('auth')->name('agregarAsignatura');
     Route::get('panelAdministracion/agregarTutoria', 'PanelAdministracion@loadAgregarTutoria')->middleware('auth')->name('agregarTutoria');

@@ -16,17 +16,10 @@ use App\Http\Requests\StoreCargoUser;
 
 use App\Helper\Helper;
 
-class PanelDocente extends Controller
+class PerfilDocente extends Controller
 {
-    public function loadPanel($userId)
+    private function getCargos($userId)
     {
-        /* Datos administrador para display de menú correspondiente */
-        $menus = Helper::getMenuOptions(Auth::user()->id);
-
-        /* Datos del perfil docente al que se esta accediendo */
-        $usuario = User::find($userId);
-
-        /* Cargos que posee el docente actualmente */
         $actividadesCargo = User_actividad::where('iduser', $userId)->get('idcargo');
         $cargosId = [];
         
@@ -38,8 +31,40 @@ class PanelDocente extends Controller
         $cargos = [];
         foreach($cargosId as $id)
             array_push($cargos, Cargo::where('id', $id)->get()[0]->nombre);
+
+        return $cargos;
+    }
+
+    public function loadPerfil($userId)
+    {
+        /* Datos administrador para display de menú correspondiente */
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+
+        /* Datos del perfil docente al que se esta accediendo */
+        $usuario = User::find($userId);
+
+        /* Cargos que posee el docente actualmente */
+        $cargos = $this->getCargos($userId);
         
         return view('menu.administrador.perfilDocente', [
+            'menus' => $menus,
+            'usuario' => $usuario,
+            'cargos' => $cargos
+        ]);
+    }
+
+    public function loadCargos($userId)
+    {
+        /* Datos administrador para display de menú correspondiente */
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+        
+        /* Datos del perfil docente al que se esta accediendo */
+        $usuario = User::find($userId);
+
+        /* Cargos que posee el docente actualmente */
+        $cargos = $this->getCargos($userId);
+        
+        return view('menu.administrador.perfilDocenteCargo', [
             'menus' => $menus,
             'usuario' => $usuario,
             'cargos' => $cargos
@@ -57,7 +82,7 @@ class PanelDocente extends Controller
         /* Obtenemos los tipos de actividad disponibles en la BBDD */
         $tipoActividades = Tipoactividad::select(['id', 'nombre'])->get();
 
-        return view('menu.administrador.perfilDocenteCargo', [
+        return view('menu.administrador.perfilDocenteAddCargo', [
             'menus' => $menus,
             'usuario' => $usuario,
             'tipoActividades' => $tipoActividades
@@ -88,7 +113,7 @@ class PanelDocente extends Controller
             $actividad_area->save();
         }
 
-        return redirect('/panelDocente/'.$request->userId)->with('success', 'Cargo '.Cargo::find($request->cargo)->nombre.' asignado con exito');
+        return redirect('/perfilDocente/'.$request->userId)->with('success', 'Cargo '.Cargo::find($request->cargo)->nombre.' asignado con exito');
     }
 
 }
