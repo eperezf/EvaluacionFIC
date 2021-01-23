@@ -15,14 +15,14 @@ class Index extends Controller
     public function loadIndex()
     {
         $nombre = Auth::user()->nombres;
-        list($cargosId, $menus) = Helper::getMenuOptions(Auth::user()->id); 
+        $menus = Helper::getMenuOptions(Auth::user()->id); 
         if(!Auth::user())
         {
             return redirect('\login');
         }
         else
         {
-            return view('index', ['nombre' => $nombre, 'menus' => $menus, 'cargos' => $cargosId]);
+            return view('index', ['nombre' => $nombre, 'menus' => $menus]);
         }
     }
 }

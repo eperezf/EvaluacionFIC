@@ -16,7 +16,9 @@ class AdminUserActividadSeeder extends Seeder
             'niselman@alumnos.uai.cl',
             'eduperez@alumnos.uai.cl',
             'dvasquez@alumnos.uai.cl',
-            'jomiquel@alumnos.uai.cl'
+            'jomiquel@alumnos.uai.cl',
+            'danigomez@alumnos.uai.cl',
+            'rafael.cereceda@uai.cl'
         ];
         foreach($emails as $email)
         {
@@ -25,6 +27,7 @@ class AdminUserActividadSeeder extends Seeder
                     'iduser' => App\User::where('email', $email)->get()[0]->id,
                     'idactividad' => App\Actividad::first()->id,
                     'idcargo' => App\Cargo::first()->id,
+                    'comentario' => NULL,
                     'bonificacion' => NULL,
                     'calificacion' => NULL,
                     'created_at' => Carbon::now(),
