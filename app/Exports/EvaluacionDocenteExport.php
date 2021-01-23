@@ -30,6 +30,9 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
             'Curso',
             'Sección',
             'Profesor',
+            'Alumnos Inscritos',
+            'Respuestas Encuesta Docente',
+            'Calificación Encuesta Docente',
             'Nota',
             'Comentario al comité evaluador'
         ];
@@ -72,10 +75,13 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
             'subarea.nombre as nombreSubarea',
             'asignatura.nombre as nombreAsignatura',
             'curso.seccion',
-            'user.nombres',
+            'user.nombres as nombresProfesor',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
-            'user.rut')
+            'user.rut',
+            'curso.inscritos',
+            'curso.respuestas',
+            'curso.calificacion')
         ->where('subarea.idarea', 'LIKE', $idarea)
         ->get()->
         toArray();
@@ -89,8 +95,7 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
         return array_map(
             function ($cursos)
             {
-                $cursos->nombres = $cursos->nombres.' '.$cursos->apellidoPaterno.' '.$cursos->apellidoMaterno;
-
+                $cursos->nombresProfesor = $cursos->nombresProfesor.' '.$cursos->apellidoPaterno.' '.$cursos->apellidoMaterno;
                 return $cursos;
             }, $rows
         );
@@ -108,7 +113,10 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
             $cursos->nombreSubarea,
             $cursos->nombreAsignatura,
             $cursos->seccion,
-            $cursos->nombres
+            $cursos->nombresProfesor,
+            $cursos->inscritos,
+            $cursos->respuestas,
+            $cursos->calificacion
         ];
     }
 }
