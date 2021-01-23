@@ -12,6 +12,7 @@ class Curso extends Model{
         'respuestas',
         'material',
         'seccion',
+        'inscritos',
         'idasignatura'
     ];
 
