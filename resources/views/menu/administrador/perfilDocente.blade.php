@@ -19,7 +19,7 @@
             {{ $cargos[$i]->nombre }},
           @endif
         @endfor
-        <a href="{{ route('verCargos', ['userId' => $usuario->id]) }}" style="color: #0067C0;">Ver más...</a>
+        <a href="{{ route('verCargos', ['userId' => $usuario->id, 'cargoId' => "all"]) }}" style="color: #0067C0;">Ver más...</a>
       </h6>
     </div><hr>
     <div id="actividades">

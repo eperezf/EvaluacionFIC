@@ -35,6 +35,11 @@ class PerfilDocente extends Controller
         return $cargos;
     }
 
+    private function getActivityInfo($actividadesUser)
+    {
+        return;
+    }
+
     public function loadPerfil($userId)
     {
         /* Datos administrador para display de menú correspondiente */
@@ -53,40 +58,22 @@ class PerfilDocente extends Controller
         ]);
     }
 
-    public function loadCargos($userId)
+    public function loadCargos($userId, $cargoId)
     {
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        
-        $usuario = User::find($userId);
 
         /* Cargos que posee el docente actualmente */
-        $cargos = $this->getCargos($userId);
-        
-        return view('menu.administrador.perfilDocenteCargo', [
-            'menus' => $menus,
-            'usuario' => $usuario,
-            'cargos' => $cargos,
-            'selectedCargo' => NULL,
-            'actividades' => NULL
-        ]);
-    }
-
-    public function searchActivities($userId, $cargoId)
-    {
-        $menus = Helper::getMenuOptions(Auth::user()->id);
-
-        /* Datos del perfil docente al que se esta accediendo y cargos */
         $usuario = User::find($userId);
         $cargos = $this->getCargos($userId);
 
-        /* Obtenemos las actividades relacionadas con el cargo seleccionado y el usuario */
-        $actividades = User_actividad::where('iduser', $userId)->where('idcargo', $cargoId)->get();
+        strcmp($cargoId, "all") == 0 ? $actividades = User_actividad::where('iduser', $userId)->get()
+            : $actividades = User_actividad::where('iduser', $userId)->where('idcargo', $cargoId)->get();
 
         return view('menu.administrador.perfilDocenteCargo', [
             'menus' => $menus,
             'usuario' => $usuario,
             'cargos' => $cargos,
-            'selectedCargo' => $cargoId,
+            'selectedCargoId' => strcmp($cargoId, "all") == 0 ? "all" : $cargoId,
             'actividades' => $actividades
         ]);
     }
