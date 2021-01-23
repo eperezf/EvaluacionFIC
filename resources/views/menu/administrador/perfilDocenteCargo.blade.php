@@ -3,7 +3,13 @@
 @section('title', 'Ver Cargos')
 
 @section('contenido')
-  <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3><hr>
+  <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
+  @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{ session()->get('success') }}
+    </div>
+  @endif
+  <hr>
   <div id="container" class="row">
     <div id="cargosSideBar" class="col-3">
       <div id="sidebarHeader" class="row">
@@ -23,38 +29,41 @@
         @foreach ($actividades as $actividad)
           <div class="card mb-2">
             <div class="card-body">
-              <h5>
-                @switch($actividad->idcargo)
-                  @case(1) {{-- Administrador --}}
-                    Administrador</h5>
-                    
-                    @break
-                  @case(2) {{-- Director de investigacion --}}
-                    Director de investigacion</h5>
-                    
-                    @break
-                  @case(3) {{-- Director ejecutivo de investigacion --}}
-                    Director ejecutivo de investigacion</h5>
-                    
-                    @break
-                  @case(4) {{-- Director de docencia --}}
-                    Director de docencia</h5>
-                    
-                    @break
-                  @case(5) {{-- Subdirector de docencia --}}
-                    Subdirector de docencia</h5>
-
-                    @break
-                  @case(6) {{-- Director de area --}}
-                    Director de area</h5>
+              <div class="row">
+                <h5>
+                  @switch($actividad->idcargo)
+                    @case(1) {{-- Administrador --}}
+                      Administrador</h5>
                       
-                    @break
-                  @case(7) {{-- Profesor --}}
-                    Profesor</h5>
+                      @break
+                    @case(2) {{-- Director de investigacion --}}
+                      Director de investigacion</h5>
+                      
+                      @break
+                    @case(3) {{-- Director ejecutivo de investigacion --}}
+                      Director ejecutivo de investigacion</h5>
+                      
+                      @break
+                    @case(4) {{-- Director de docencia --}}
+                      Director de docencia</h5>
+                      
+                      @break
+                    @case(5) {{-- Subdirector de docencia --}}
+                      Subdirector de docencia</h5>
 
-                    @break
-                  @default
-                @endswitch
+                      @break
+                    @case(6) {{-- Director de area --}}
+                      Director de area</h5>
+                        
+                      @break
+                    @case(7) {{-- Profesor --}}
+                      Profesor</h5>
+
+                      @break
+                    @default
+                  @endswitch
+                <a href="{{ route('deleteCargo', ['userActivityId' => $actividad->id]) }}" class="btn btn-danger">Eliminar</a>
+              </div>
             </div>
           </div>
         @endforeach

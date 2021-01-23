@@ -94,6 +94,14 @@ class PerfilDocente extends Controller
         ]);
     }
 
+    public function deleteCargo($userActividadId)
+    {
+        $userActividad = User_actividad::find($userActividadId);
+        $usuarioId = $userActividad->iduser;
+        $userActividad->delete();
+        return redirect('/perfilDocente/'.$usuarioId.'/cargos/all/');
+    }
+
     public function saveCargo(StoreCargoUser $request)
     {
         $validated = $request->validated();
@@ -118,7 +126,7 @@ class PerfilDocente extends Controller
             $actividad_area->save();
         }
 
-        return redirect('/perfilDocente/'.$request->userId)->with('success', 'Cargo '.Cargo::find($request->cargo)->nombre.' asignado con exito');
+        return redirect('/perfilDocente/'.$request->userId.'/cargos/all/')->with('success', 'Cargo '.Cargo::find($request->cargo)->nombre.' asignado con exito');
     }
 
 }
