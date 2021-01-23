@@ -14,12 +14,12 @@
       <h6>Cargos actuales:
         @for ($i = 0; $i < sizeof($cargos); $i++)
           @if (!($i == sizeof($cargos) - 1))
-            {{ $cargos[$i] }},
+            {{ $cargos[$i]->nombre }},
           @else
-            {{ $cargos[$i] }},
+            {{ $cargos[$i]->nombre }},
           @endif
         @endfor
-        <a href="{{ route('panelDocenteCargo', ['userId' => $usuario->id]) }}" style="color: #0067C0;">Agregar cargo</a>
+        <a href="{{ route('verCargos', ['userId' => $usuario->id]) }}" style="color: #0067C0;">Ver más...</a>
       </h6>
     </div><hr>
     <div id="actividades">

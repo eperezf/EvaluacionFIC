@@ -26,7 +26,7 @@
     @foreach ($usuarios as $usuario)
       <div class="row">
         <h5 class="col-8 pl-4">{{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h5>
-        <a href="{{ route('panelDocente', ['userId' => $usuario->id]) }}" class="btn btn-secondary col-2 mr-2">Ver Actividades</a>
+        <a href="{{ route('perfilDocente', ['userId' => $usuario->id]) }}" class="btn btn-secondary col-2 mr-2">Ver Actividades</a>
       </div><hr>
     @endforeach
   </div> 
