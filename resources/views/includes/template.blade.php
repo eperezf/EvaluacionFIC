@@ -20,7 +20,7 @@
         <ul class="navbar-nav mr-auto">
           @if ($menus==NULL)
             <li class="nav-item {{ Route::currentRouteNamed( 'menuVisitante' ) ?  'active' : '' }}">
-              <a class="nav-link" href="{{ route('menuVisitante') }}"><i class="fas fa-home mr-1"></i>Inicioooo</a>
+              <a class="nav-link" href="{{ route('menuVisitante') }}"><i class="fas fa-home mr-1"></i>Inicio</a>
           @else
             <li class="nav-item {{ Route::currentRouteNamed( 'index' ) ?  'active' : '' }}">
               <a class="nav-link" href="{{ route('index') }}"><i class="fas fa-home mr-1"></i>Inicio</a>
