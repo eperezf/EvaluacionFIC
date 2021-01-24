@@ -29,6 +29,7 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
             'Programa',
             'Curso',
             'Sección',
+            'Periodo',
             'Profesor',
             'Alumnos Inscritos',
             'Respuestas Encuesta Docente',
@@ -75,6 +76,8 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
             'subarea.nombre as nombreSubarea',
             'asignatura.nombre as nombreAsignatura',
             'curso.seccion',
+            'actividad.inicio as inicio',
+            'actividad.termino as termino',
             'user.nombres as nombresProfesor',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
@@ -95,7 +98,23 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
         return array_map(
             function ($cursos)
             {
+                $meses = [
+                    'Enero',
+                    'Febrero',
+                    'Marzo',
+                    'Abril',
+                    'Mayo',
+                    'Junio',
+                    'Julio',
+                    'Agosto',
+                    'Septiembre',
+                    'Octubre',
+                    'Noviembre',
+                    'Diciembre'];
+                    
                 $cursos->nombresProfesor = $cursos->nombresProfesor.' '.$cursos->apellidoPaterno.' '.$cursos->apellidoMaterno;
+                $cursos->inicio = $meses[intval(preg_split("/[-,]+/", $cursos->inicio)[1])].'-'.$meses[intval(preg_split("/[-,]+/", $cursos->termino)[1])];
+
                 return $cursos;
             }, $rows
         );
@@ -113,6 +132,7 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
             $cursos->nombreSubarea,
             $cursos->nombreAsignatura,
             $cursos->seccion,
+            $cursos->inicio,
             $cursos->nombresProfesor,
             $cursos->inscritos,
             $cursos->respuestas,
