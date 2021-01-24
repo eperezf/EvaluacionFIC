@@ -2,9 +2,9 @@
 
 @section('title', 'Inicio')
 @section('contenido')
-  <h1>Bienvenido/a {{ $nombre }}.</h1>
+  <h1 class="mb-4">Bienvenido/a {{ $nombre }}.</h1>
 
-  <div class="container col-10">
+  <div class="container col-10 mb-3">
     <div class="row justify-content-md-center">
       {{-- Ponemos el alfabeto con un for usando codigo ascii --}}
       @for ($i = 65; $i < 91; $i++)
@@ -22,11 +22,11 @@
       <button type="submit" class="btn btn-primary col-2 ml-3" style="background-color:  #0067C0;">Buscar</button>
     </div>
   </form>
-  <div class="p-4 mt-5" name="sugerencias" id="sugerencias"><hr>
+  <div class="p-4 mt-4" name="sugerencias" id="sugerencias"><hr>
     @foreach ($usuarios as $usuario)
       <div class="row">
         <h5 class="col-8 pl-4">{{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h5>
-        <a href="{{ route('panelDocente', ['userId' => $usuario->id]) }}" class="btn btn-secondary col-2 mr-2">Ver Actividades</a>
+        <a href="{{ route('perfilDocente', ['userId' => $usuario->id]) }}" class="btn btn-secondary col-2 mr-2">Ver Actividades</a>
       </div><hr>
     @endforeach
   </div> 

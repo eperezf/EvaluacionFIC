@@ -17,6 +17,7 @@ class CreateCursoTable extends Migration
             $table->id();
             $table->float('calificacion')->nullable();
             $table->unsignedInteger('respuestas')->nullable();
+            $table->unsignedInteger('inscritos')->nullable();
             $table->boolean('material');
             $table->unsignedInteger('seccion');
             $table->foreignId('idactividad')->references('id')->on('actividad');
