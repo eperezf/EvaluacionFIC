@@ -19,6 +19,9 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
     Route::get('logout', 'Login@logout')->name('logout');
 
 //// Rutas asociadas al index
+//--Rutas del visitante
+Route::get('visitante', 'MenuVisitante@load')->middleware('auth')->name('menuVisitante');
+
 // Rutas del menu de Administrador
 Route::get('menuAdministrador', 'MenuAdministrador@load')->name('menuAdministrador');
 Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('searchLetter');

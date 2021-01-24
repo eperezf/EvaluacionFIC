@@ -18,21 +18,24 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item {{ Route::currentRouteNamed( 'index' ) ?  'active' : '' }}">
-            <a class="nav-link" href="{{ route('index') }}"><i class="fas fa-home mr-1"></i>Inicio</a>
-          </li>
-          <li class="nav-item {{ Route::currentRouteNamed('noticiasAgenda') ?  'active' : '' }}">
-            <a class="nav-link" href="{{ route('noticiasAgenda') }}"><i class="far fa-calendar-alt mr-1"></i>Noticias y Agenda</a>
-          </li>
-
-          @foreach ($menus as $menu)
-              @if ($menu[0])
-                  <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route($menu[1]) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
-                  </li>
-              @endif
-          @endforeach
-
+          @if ($menus==NULL)
+            <li class="nav-item {{ Route::currentRouteNamed( 'menuVisitante' ) ?  'active' : '' }}">
+              <a class="nav-link" href="{{ route('menuVisitante') }}"><i class="fas fa-home mr-1"></i>Inicioooo</a>
+          @else
+            <li class="nav-item {{ Route::currentRouteNamed( 'index' ) ?  'active' : '' }}">
+              <a class="nav-link" href="{{ route('index') }}"><i class="fas fa-home mr-1"></i>Inicio</a>
+            </li>
+            <li class="nav-item {{ Route::currentRouteNamed('noticiasAgenda') ?  'active' : '' }}">
+              <a class="nav-link" href="{{ route('noticiasAgenda') }}"><i class="far fa-calendar-alt mr-1"></i>Noticias y Agenda</a>
+            </li>
+            @foreach ($menus as $menu)
+                @if ($menu[0])
+                    <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
+                      <a class="nav-link" href="{{ route($menu[1]) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
+                    </li>
+                @endif
+            @endforeach
+          @endif
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
