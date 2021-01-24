@@ -43,11 +43,12 @@ Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuP
 
 //--Rutas del Menú del Director de docencia
 Route::get('menuDirectorDocencia', 'MenuDirectorDocencia@load')->middleware('auth')->name('menuDirectorDocencia');
-Route::get('menuDirectorDocencia/searchByLetter/{letra}', 'MenuDirectorDocencia@searchLetter')->name('searchLetterDirector');
-Route::post('menuDirectorDocencia/searchByInput', 'MenuDirectorDocencia@searchInput')->name('searchInputDirector');
+    Route::get('menuDirectorDocencia/buscador', 'MenuDirectorDocencia@loadBuscador')->middleware('auth')->name('loadBuscador');
+    Route::get('menuDirectorDocencia/buscador/searchByLetter/{letra}', 'MenuDirectorDocencia@searchLetter')->name('searchLetterDirector');
+    Route::post('menuDirectorDocencia/buscador/searchByInput', 'MenuDirectorDocencia@searchInput')->name('searchInputDirector');
 
 //--Rutas del perfil docente con solo información de docencia como director de docencia
-Route::get('perfilDocencia/{userId}', 'MenuDirectorDocencia@loadPerfil')->middleware('auth')->name('perfilDocencia');
+Route::get('menuDirectorDocencia/buscador/perfilDocencia/{userId}', 'MenuDirectorDocencia@loadPerfil')->middleware('auth')->name('perfilDocencia');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 

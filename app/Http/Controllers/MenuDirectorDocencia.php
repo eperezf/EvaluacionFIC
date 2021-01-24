@@ -21,6 +21,13 @@ class MenuDirectorDocencia extends Controller
         return view('menu.directorDocencia.index', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
     }
 
+    public function loadBuscador()
+    {
+        $nombre = Auth::user()->nombres;
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+        return view('menu.directorDocencia.buscador', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
+    }
+
     public function searchLetter($letra)
     {
         $nombre = Auth::user()->nombres;
@@ -32,7 +39,7 @@ class MenuDirectorDocencia extends Controller
             'apellidoPaterno',
             'apellidoMaterno'
         ]);
-        return view('menu.directorDocencia.index', ['nombre' => $nombre, 'usuarios' => $usuarios, 'menus' => $menus]);
+        return view('menu.directorDocencia.buscador', ['nombre' => $nombre, 'usuarios' => $usuarios, 'menus' => $menus]);
     }
 
     public function searchInput(Request $request)
@@ -48,7 +55,7 @@ class MenuDirectorDocencia extends Controller
             'apellidoPaterno',
             'apellidoMaterno'
         ]);
-        return view('menu.directorDocencia.index', ['nombre' => $nombre, 'usuarios' => $usuarios, 'menus' => $menus]);
+        return view('menu.directorDocencia.buscador', ['nombre' => $nombre, 'usuarios' => $usuarios, 'menus' => $menus]);
     }
 
     public function loadPerfil($userId)
