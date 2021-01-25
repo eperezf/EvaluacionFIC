@@ -47,14 +47,15 @@ Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuP
     Route::post('menuProfesor/postAgregar', 'MenuProfesor@postAgregar')->middleware('auth')->name('postAgregarProfesor');
     Route::post('menuProfesor/postModificar', 'MenuProfesor@postModificarCurso')->middleware('auth')->name('postModificarCurso');
 
-//--Rutas del Menú del Director de docencia
-Route::get('menuDirectorDocencia', 'MenuDirectorDocencia@load')->middleware('auth')->name('menuDirectorDocencia');
-    Route::get('menuDirectorDocencia/buscador', 'MenuDirectorDocencia@loadBuscador')->middleware('auth')->name('loadBuscador');
-    Route::get('menuDirectorDocencia/buscador/searchByLetter/{letra}', 'MenuDirectorDocencia@searchLetter')->name('searchLetterDirector');
-    Route::post('menuDirectorDocencia/buscador/searchByInput', 'MenuDirectorDocencia@searchInput')->name('searchInputDirector');
+//--Rutas del Menú del Director de docencia y Subdirector de docencia
+Route::get('menuDocencia', 'MenuDirectorDocencia@load')->middleware('auth')->name('menuDirectorDocencia');
+    Route::get('menuDocencia/buscador', 'MenuDirectorDocencia@loadBuscador')->middleware('auth')->name('loadBuscador');
+    Route::get('menuDocencia/buscador/searchByLetter/{letra}', 'MenuDirectorDocencia@searchLetter')->name('searchLetterDirector');
+    Route::post('menuDocencia/buscador/searchByInput', 'MenuDirectorDocencia@searchInput')->name('searchInputDirector');
 
 //--Rutas del perfil docente con solo información de docencia como director de docencia
-Route::get('menuDirectorDocencia/buscador/perfilDocencia/{userId}', 'MenuDirectorDocencia@loadPerfil')->middleware('auth')->name('perfilDocencia');
+Route::get('menuDocencia/buscador/perfilDocencia/{userId}', 'MenuDirectorDocencia@loadPerfil')->middleware('auth')->name('perfilDocencia');
+Route::get('menuDocencia/buscador/perfilDocencia/{userId}/{idCurso}', 'MenuDirectorDocencia@loadCurso')->middleware('auth')->name('infoCursoDocencia');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
