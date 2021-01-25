@@ -92,28 +92,30 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
         return $cursos;
     }
 
-    //formateamos la columna Profesor
+    //formateamos las columnas
     public function prepareRows($rows): array
     {
         return array_map(
             function ($cursos)
             {
+                //formateo de columna Periodo
                 $meses = [
-                    'Enero',
-                    'Febrero',
-                    'Marzo',
-                    'Abril',
-                    'Mayo',
-                    'Junio',
-                    'Julio',
-                    'Agosto',
-                    'Septiembre',
-                    'Octubre',
-                    'Noviembre',
-                    'Diciembre'];
-                    
-                $cursos->nombresProfesor = $cursos->nombresProfesor.' '.$cursos->apellidoPaterno.' '.$cursos->apellidoMaterno;
+                    'Ene',
+                    'Feb',
+                    'Mar',
+                    'Abr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Ago',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dic'];
                 $cursos->inicio = $meses[intval(preg_split("/[-,]+/", $cursos->inicio)[1])].'-'.$meses[intval(preg_split("/[-,]+/", $cursos->termino)[1])];
+                
+                //formateo de columna Profesor
+                $cursos->nombresProfesor = $cursos->nombresProfesor.' '.$cursos->apellidoPaterno.' '.$cursos->apellidoMaterno;
 
                 return $cursos;
             }, $rows
