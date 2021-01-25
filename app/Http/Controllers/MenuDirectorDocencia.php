@@ -71,6 +71,7 @@ class MenuDirectorDocencia extends Controller
             array_push($idActividades, $actividad->idactividad);
         
         /* solo los nombres de los cursos que posee el docente */
+        $idCursos = [];
         $nombreCursos = [];
         foreach($idActividades as $id) {
             $tipoActividad = Actividad::where('id', $id)->get('idtipoactividad')[0]->idtipoactividad;
@@ -81,6 +82,7 @@ class MenuDirectorDocencia extends Controller
                 $nombreC = Asignatura::where('id', $curso->idasignatura)->get('nombre')[0]->nombre;
                 $nombreActividad = $nombreC." ".$codigo."-".$seccion;
                 array_push($nombreCursos, $nombreActividad);
+                array_push($idCursos, $curso->id);
             }
         }
         
@@ -88,7 +90,29 @@ class MenuDirectorDocencia extends Controller
             'nombre'=> $nombre,
             'menus' => $menus,
             'usuario' => $usuario,
-            'cursos' => $nombreCursos
+            'cursos' => $nombreCursos,
+            'idCurso' => $idCursos
+        ]);
+    }
+
+    public function loadCurso($userId, $idCurso)
+    {
+        $nombre = Auth::user()->nombres;
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+
+        $curso = Curso::find($idCurso);
+        $asignatura = Asignatura::find($curso->idasignatura);
+        $actividad = Actividad::find($curso->idactividad);
+        $actividadUser = User_actividad::where('idactividad', $actividad->id)->get()[0];
+        
+        return view('menu.directorDocencia.cursoForm', [
+            'menus' => $menus,
+            'usuario' => $userId,
+            'id' => $idCurso,
+            'curso'=>$curso, 
+            'asignatura'=>$asignatura,
+            'actividad'=>$actividad,
+            'userActividad' =>$actividadUser
         ]);
     }
 }

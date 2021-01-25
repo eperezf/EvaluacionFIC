@@ -49,6 +49,7 @@ Route::get('menuDocencia', 'MenuDirectorDocencia@load')->middleware('auth')->nam
 
 //--Rutas del perfil docente con solo información de docencia como director de docencia
 Route::get('menuDocencia/buscador/perfilDocencia/{userId}', 'MenuDirectorDocencia@loadPerfil')->middleware('auth')->name('perfilDocencia');
+Route::get('menuDocencia/buscador/perfilDocencia/{userId}/{idCurso}', 'MenuDirectorDocencia@loadCurso')->middleware('auth')->name('infoCursoDocencia');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
