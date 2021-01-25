@@ -26,48 +26,44 @@
     <div id="actividades" class="col-9">
       <h3>Actividades</h3>
       @if ($actividades != NULL)
-        @foreach ($actividades as $actividad)
-          <div class="card mb-2">
-            <div class="card-body">
-              <div class="row">
-                <h5>
-                  @switch($actividad->idcargo)
-                    @case(1) {{-- Administrador --}}
-                      Administrador</h5>
-                      
-                      @break
-                    @case(2) {{-- Director de investigacion --}}
-                      Director de investigacion</h5>
-                      
-                      @break
-                    @case(3) {{-- Director ejecutivo de investigacion --}}
-                      Director ejecutivo de investigacion</h5>
-                      
-                      @break
-                    @case(4) {{-- Director de docencia --}}
-                      Director de docencia</h5>
-                      
-                      @break
-                    @case(5) {{-- Subdirector de docencia --}}
-                      Subdirector de docencia</h5>
-
-                      @break
-                    @case(6) {{-- Director de area --}}
-                      Director de area</h5>
-                        
-                      @break
-                    @case(7) {{-- Profesor --}}
-                      Profesor</h5>
-
-                      @break
-                    @default
-                  @endswitch
-                <a href="{{ route('deleteCargo', ['userActivityId' => $actividad->id]) }}" class="btn btn-danger">Eliminar</a>
+        <form action="{{ route('deleteCargo') }}" method="POST" id="actividadesForm" name="actividadesForm">
+          @csrf
+          @foreach ($actividades as $actividad)
+            <div class="card mb-2">
+              <div class="card-body">
+                <h5>{{ $actividad[1] }}</h5>
+                <h6>{{ $actividad[2] }}</h6>
+                <button value="{{ $actividad[0] }}" name="deleteCargo{{ $actividad[0] }}" id="deleteCargo{{ $actividad[0] }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                  Eliminar cargo
+                </button>
               </div>
             </div>
-          </div>
-        @endforeach
+          @endforeach
+          <input type="hidden" value="" name="actividadId" id="actividadId">
+          <input type="hidden" value="{{ $usuario->id }}" name="userId" id="userId">
+        </form>
       @endif
     </div>
   </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Eliminar cargo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ¿Esta seguro que quiere eliminar el cargo otorgado a {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" form="actividadesForm" value="submit" class="btn btn-primary">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="{{asset('js/deleteCargo.js')}}"></script>
 @endsection

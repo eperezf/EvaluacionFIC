@@ -30,7 +30,7 @@ Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput
     Route::get('perfilDocente/{userId}/cargos/{cargoId}', 'PerfilDocente@loadCargos')->middleware('auth')->name('verCargos');
     Route::get('perfilDocente/{userId}/agregarCargo', 'PerfilDocente@loadNewCargo')->middleware('auth')->name('agregarCargo');
     Route::post('perfilDocente/guardarCargo', 'PerfilDocente@saveCargo')->middleware('auth')->name('saveCargo');
-    Route::get('perfilDocente/deleteCargo/{userActivityId}', 'PerfilDocente@deleteCargo')->middleware('auth')->name('deleteCargo');
+    Route::post('perfilDocente/deleteCargo', 'PerfilDocente@deleteCargo')->middleware('auth')->name('deleteCargo');
 
 //--Rutas del Menú del Profesor
 Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuProfesor');

@@ -11,6 +11,9 @@ use App\Cargo;
 use App\Tipoactividad;
 use App\Actividad;
 use App\Actividad_area;
+use App\Actividad_asignatura;
+use App\Area;
+use App\Asignatura;
 
 use App\Http\Requests\StoreCargoUser;
 
@@ -37,7 +40,68 @@ class PerfilDocente extends Controller
 
     private function getActivityInfo($actividadesUser)
     {
-        return;
+        $infoActividades = [];
+        $titulos = [];
+        $subtitulos = [];
+        $actividadesId = [];
+        foreach($actividadesUser as $actividadUser)
+        {
+            $cargo = Cargo::find($actividadUser->idcargo);
+            $actividad = Actividad::find($actividadUser->idactividad);
+            switch($cargo->nombre)
+            {
+                case "Administrador":
+                    $titulo = $cargo->nombre;
+                    $subtitulo = "Administrador de plataforma";
+                break;
+
+                case "Director de área":
+                    $actividad_area = Actividad_area::where('idactividad', $actividad->id)->get()[0];
+                    $area = Area::find($actividad_area->idarea)->nombre;
+                    $titulo = $cargo->nombre;
+                    $subtitulo = 'Area: '.$area;
+                break;
+
+                case "Director de docencia":
+                    $actividad_asignatura = Actividad_asignatura::where('idactividad', $actividad->id)->get()[0];
+                    $asignatura = Asignatura::find($actividad_asignatura->idasignatura)->codigo;
+                    $titulo = $cargo->nombre;
+                    $subtitulo = 'Asignatura: '.$asignatura;
+                break;
+
+                case "Subdirector de docencia":
+                    $actividad_asignatura = Actividad_asignatura::where('idactividad', $actividad->id)->get()[0];
+                    $asignatura = Asignatura::find($actividad_asignatura->idasignatura)->codigo;
+                    $titulo = $cargo->nombre;
+                    $subtitulo = 'Asignatura: '.$asignatura;
+                break;
+
+                case "Director de investigación":
+                    $titulo = $cargo->nombre;
+                    $subtitulo = "Titulo de la investigación";
+                break;
+
+                case "Director ejecutivo de investigación":
+                    $titulo = $cargo->nombre;
+                    $subtitulo = "Titulo de la investigación";
+                break;
+
+                case "Profesor":
+                    $titulo = "Profesor";
+                    $subtitulo = "Curso: -----";
+                break;
+                
+                default:
+                    /* Caso default en caso de error */
+                break;
+            }
+            array_push($actividadesId, $actividad->id);
+            array_push($titulos, $titulo);
+            array_push($subtitulos, $subtitulo);
+        }
+        $infoActividades = array_map(NULL, $actividadesId, $titulos, $subtitulos);
+
+        return $infoActividades;
     }
 
     public function loadPerfil($userId)
@@ -69,6 +133,8 @@ class PerfilDocente extends Controller
         strcmp($cargoId, "all") == 0 ? $actividades = User_actividad::where('iduser', $userId)->get()
             : $actividades = User_actividad::where('iduser', $userId)->where('idcargo', $cargoId)->get();
 
+        $actividades = $this->getActivityInfo($actividades);
+
         return view('menu.administrador.perfilDocenteCargo', [
             'menus' => $menus,
             'usuario' => $usuario,
@@ -94,17 +160,11 @@ class PerfilDocente extends Controller
         ]);
     }
 
-    public function deleteCargo($userActividadId)
-    {
-        $userActividad = User_actividad::find($userActividadId);
-        $usuarioId = $userActividad->iduser;
-        $userActividad->delete();
-        return redirect('/perfilDocente/'.$usuarioId.'/cargos/all/');
-    }
-
     public function saveCargo(StoreCargoUser $request)
     {
         $validated = $request->validated();
+
+        //dd($request->cargo);
 
         $actividad = new Actividad;
         $actividad->idtipoactividad = $request->tipoActividad;
@@ -126,7 +186,22 @@ class PerfilDocente extends Controller
             $actividad_area->save();
         }
 
+        if($request->cargo == Cargo::where('nombre', 'Director de docencia')->get()[0]->id || $request->cargo == Cargo::where('nombre', 'Subdirector de docencia')->get()[0]->id)
+        {
+            $actividad_asignatura = new Actividad_asignatura;
+            $actividad_asignatura->idactividad = $actividad->id;
+            $actividad_asignatura->idasignatura = $request->asignatura;
+            $actividad_asignatura->save();
+        }
+
         return redirect('/perfilDocente/'.$request->userId.'/cargos/all/')->with('success', 'Cargo '.Cargo::find($request->cargo)->nombre.' asignado con exito');
+    }
+
+    public function deleteCargo(Request $request)
+    {
+        $user_actividad = User_actividad::where('idactividad', $request->actividadId)->get()[0];
+        $user_actividad->delete();
+        return redirect('/perfilDocente/'.$request->userId.'/cargos/all/')->with('success', 'Cargo eliminado con exito');
     }
 
 }
