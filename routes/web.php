@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('test', 'EvaluacionDocente@test');
+
 Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
     Route::get('/login', 'Login@loadLogin')->name('login');
     Route::post('/doLogin', 'Login@authenticate')->name('doLogin');
