@@ -16,7 +16,16 @@ class MenuVisitante extends Controller
         $menus = Helper::getMenuOptions(Auth::user()->id);
         return view('menu.visitante.index', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
     }
-    
+
+    public function postSolicitarAcceso(Request $new_request)
+    {
+        $nombre = Auth::user()->nombres;
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+
+        $success = 'Usted ha solicitado acceso exitosamente, por favor espere un momento.';
+        return redirect('/visitante')->with('success', $success);
+    }
+
     public function loadBuscador()
     {
         $nombre = Auth::user()->nombres;
