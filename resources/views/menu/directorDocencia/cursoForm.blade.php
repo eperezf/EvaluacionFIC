@@ -19,21 +19,21 @@
     <form action="{{route('postModificarDocencia')}}" method="POST" id="modificar-curso">
       @csrf
       <div id="calificacion" class="form-group row">
-        <label for="input-calificacion" class="col-sm-2 col-form-label">Calificación</label>
-        <div class="col-sm-10">
-          <input class="form-control col-sm-5" autocomplete="off" name="calificacion" placeholder="Calificación vacia" type="text" id="calificacion-input" value="{{ $curso->calificacion }}">
+        <label for="input-calificacion" class="col-sm-4 col-form-label">Calificación</label>
+        <div class="col-sm-8">
+          <input class="form-control col-sm-6" autocomplete="off" name="calificacion" placeholder="Calificación de la encuesta docente" type="text" id="calificacion-input" value="{{ $curso->calificacion }}">
         </div>
       </div>
       <div id="nota" class="form-group row">
-        <label for="input-nota" class="col-sm-2 col-form-label">Nota del superior</label>
-        <div class="col-sm-10">
-          <input class="form-control col-sm-5" autocomplete="off" name="nota" placeholder="Nota por parte del superior vacia" type="text" id="nota-input" value="{{ $userActividad->calificacion }}">
+        <label for="input-nota" class="col-sm-4 col-form-label">Evaluación del director de área</label>
+        <div class="col-sm-8">
+          <input class="form-control col-sm-6" autocomplete="off" name="nota" placeholder="Nota por parte del director de área" type="text" id="nota-input" value="{{ $userActividad->calificacion }}">
         </div>
       </div>
       <div id="bonificacion" class="form-group row">
-        <label for="input-bonificacion" class="col-sm-2 col-form-label">Bonificacion</label>
-        <div class="col-sm-10">
-          <input class="form-control col-sm-5" autocomplete="off" name="bonificacion" placeholder="Bonificación vacia" type="text" id="bonificacion-input" value="{{ $userActividad->bonificacion }}">
+        <label for="input-bonificacion" class="col-sm-4 col-form-label">Bonificacion</label>
+        <div class="col-sm-8">
+          <input class="form-control col-sm-6" autocomplete="off" name="bonificacion" placeholder="Bonificación" type="text" id="bonificacion-input" value="{{ $userActividad->bonificacion }}">
         </div>
       </div>
       <fieldset disabled>
