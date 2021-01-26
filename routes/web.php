@@ -21,6 +21,7 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
 //// Rutas asociadas al index
 //--Rutas del visitante
 Route::get('visitante', 'MenuVisitante@load')->middleware('auth')->name('menuVisitante');
+Route::post('visitante/postSolicitarAcceso', 'MenuVisitante@postSolicitarAcceso')->middleware('auth')->name('postSolicitarAcceso');
 Route::get('visitante/buscador', 'MenuVisitante@loadBuscador')->middleware('auth')->name('loadBuscadorVisitante');
 Route::get('visitante/buscador/searchByLetter/{letra}', 'MenuVisitante@searchLetter')->name('searchLetterVisitante');
 Route::post('visitante/buscador/searchByInput', 'MenuVisitante@searchInput')->name('searchInputVisitante');
