@@ -32,12 +32,13 @@ Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput
 
 //--Rutas para el perfil docente como usuario administrador
     Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
-    Route::get('perfilDocente/{userId}/verCargos', 'PerfilDocente@loadCargos')->middleware('auth')->name('verCargos');
-    Route::get('perfilDocente/{userId}/searchActivities/{cargoId}', 'PerfilDocente@searchActivities')->middleware('auth')->name('searchActivities');
+    Route::get('perfilDocente/{userId}/cargos/{cargoId}', 'PerfilDocente@loadCargos')->middleware('auth')->name('verCargos');
     Route::get('perfilDocente/{userId}/agregarCargo', 'PerfilDocente@loadNewCargo')->middleware('auth')->name('agregarCargo');
     Route::post('perfilDocente/guardarCargo', 'PerfilDocente@saveCargo')->middleware('auth')->name('saveCargo');
+    Route::post('perfilDocente/deleteCargo', 'PerfilDocente@deleteCargo')->middleware('auth')->name('deleteCargo');
     Route::get('evaluacionDocenteExport', 'EvaluacionDocente@export');
     Route::get('evaluacionDocenteImport', 'EvaluacionDocente@import');
+
 
 //--Rutas del Menú del Profesor
 Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuProfesor');
