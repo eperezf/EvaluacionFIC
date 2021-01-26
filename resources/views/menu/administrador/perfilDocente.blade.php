@@ -8,9 +8,7 @@
     <div id="cargos" class="row">
       <h6>Cargos actuales:
         @for ($i = 0; $i < sizeof($cargos); $i++)
-          @if (!($i == sizeof($cargos) - 1))
-            {{ $cargos[$i]->nombre }},
-          @else
+          @if ($i < 5)
             {{ $cargos[$i]->nombre }},
           @endif
         @endfor
