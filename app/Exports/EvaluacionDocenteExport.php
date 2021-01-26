@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+//Importamos los modelos que utilizaremos
 use App\User;
 use App\Curso;
 use Auth;
@@ -10,32 +11,55 @@ use App\User_actividad;
 use App\Actividad_area;
 use DB;
 
+//Importamos los Concerns
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
+
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles
+
+class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
     //Agregamos los encabezados de las columnas
     public function headings(): array
     {
         return [
-            'Id Curso',
-            'Id Profesor',
-            'Area',
-            'Programa',
-            'Curso',
-            'Sección',
-            'Periodo',
-            'Profesor',
-            'Alumnos Inscritos',
-            'Respuestas Encuesta Docente',
-            'Calificación Encuesta Docente',
-            'Nota',
-            'Comentario al comité evaluador'
+            [
+                'Evaluación Docente'
+            ],
+            [
+                'A continuación debe calificar, con una nota del 1.0 al 7.0, a cada uno de los profesores según el desempeño realizado en sus respectivos cursos.'
+            ],
+            [
+                'Cursos dictados durante el año académico'
+            ],
+            [],
+            [
+                'Id Curso',
+                'Id Profesor',
+                'Area',
+                'Programa',
+                'Curso',
+                'Sección',
+                'Periodo',
+                'Profesor',
+                'Alumnos Inscritos',
+                'Respuestas Encuesta Docente',
+                'Calificación Encuesta Docente',
+                'Nota',
+                'Comentario al comité evaluador'
+            ]
+        ];
+    }
+
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 8,            
         ];
     }
 
@@ -43,7 +67,10 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
     public function styles(Worksheet $sheet)
     {
         return [
-            1 => ['font' => ['bold' => true]]
+            1 => ['font' => ['bold' => true],
+                  'font' => ['size' => 20]],
+
+            5 => ['font' => ['bold' => true]]
         ];
     }
 
