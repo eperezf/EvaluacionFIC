@@ -21,6 +21,13 @@ Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
     Route::get('logout', 'Login@logout')->name('logout');
 
 //// Rutas asociadas al index
+//--Rutas del visitante
+Route::get('visitante', 'MenuVisitante@load')->middleware('auth')->name('menuVisitante');
+Route::post('visitante/postSolicitarAcceso', 'MenuVisitante@postSolicitarAcceso')->middleware('auth')->name('postSolicitarAcceso');
+Route::get('visitante/buscador', 'MenuVisitante@loadBuscador')->middleware('auth')->name('loadBuscadorVisitante');
+Route::get('visitante/buscador/searchByLetter/{letra}', 'MenuVisitante@searchLetter')->name('searchLetterVisitante');
+Route::post('visitante/buscador/searchByInput', 'MenuVisitante@searchInput')->name('searchInputVisitante');
+
 // Rutas del menu de Administrador
 Route::get('menuAdministrador', 'MenuAdministrador@load')->name('menuAdministrador');
 Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('searchLetter');
@@ -28,12 +35,13 @@ Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput
 
 //--Rutas para el perfil docente como usuario administrador
     Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
-    Route::get('perfilDocente/{userId}/verCargos', 'PerfilDocente@loadCargos')->middleware('auth')->name('verCargos');
-    Route::get('perfilDocente/{userId}/searchActivities/{cargoId}', 'PerfilDocente@searchActivities')->middleware('auth')->name('searchActivities');
+    Route::get('perfilDocente/{userId}/cargos/{cargoId}', 'PerfilDocente@loadCargos')->middleware('auth')->name('verCargos');
     Route::get('perfilDocente/{userId}/agregarCargo', 'PerfilDocente@loadNewCargo')->middleware('auth')->name('agregarCargo');
     Route::post('perfilDocente/guardarCargo', 'PerfilDocente@saveCargo')->middleware('auth')->name('saveCargo');
+    Route::post('perfilDocente/deleteCargo', 'PerfilDocente@deleteCargo')->middleware('auth')->name('deleteCargo');
     Route::get('evaluacionDocenteExport', 'EvaluacionDocente@export');
     Route::get('evaluacionDocenteImport', 'EvaluacionDocente@import');
+
 
 //--Rutas del Menú del Profesor
 Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuProfesor');
@@ -43,13 +51,16 @@ Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuP
     Route::post('menuProfesor/postAgregar', 'MenuProfesor@postAgregar')->middleware('auth')->name('postAgregarProfesor');
     Route::post('menuProfesor/postModificar', 'MenuProfesor@postModificarCurso')->middleware('auth')->name('postModificarCurso');
 
-//--Rutas del Menú del Director de docencia
-Route::get('menuDirectorDocencia', 'MenuDirectorDocencia@load')->middleware('auth')->name('menuDirectorDocencia');
-Route::get('menuDirectorDocencia/searchByLetter/{letra}', 'MenuDirectorDocencia@searchLetter')->name('searchLetterDirector');
-Route::post('menuDirectorDocencia/searchByInput', 'MenuDirectorDocencia@searchInput')->name('searchInputDirector');
+//--Rutas del Menú del Director de docencia y Subdirector de docencia
+Route::get('menuDocencia', 'MenuDirectorDocencia@load')->middleware('auth')->name('menuDirectorDocencia');
+    Route::get('menuDocencia/buscador', 'MenuDirectorDocencia@loadBuscador')->middleware('auth')->name('loadBuscador');
+    Route::get('menuDocencia/buscador/searchByLetter/{letra}', 'MenuDirectorDocencia@searchLetter')->name('searchLetterDirector');
+    Route::post('menuDocencia/buscador/searchByInput', 'MenuDirectorDocencia@searchInput')->name('searchInputDirector');
 
 //--Rutas del perfil docente con solo información de docencia como director de docencia
-Route::get('perfilDocencia/{userId}', 'MenuDirectorDocencia@loadPerfil')->middleware('auth')->name('perfilDocencia');
+Route::get('menuDocencia/buscador/perfilDocencia/{userId}', 'MenuDirectorDocencia@loadPerfil')->middleware('auth')->name('perfilDocencia');
+Route::get('menuDocencia/buscador/perfilDocencia/{userId}/{idCurso}', 'MenuDirectorDocencia@loadCurso')->middleware('auth')->name('infoCursoDocencia');
+Route::post('menuDocencia/postModificar', 'MenuDirectorDocencia@postModificarCurso')->middleware('auth')->name('postModificarDocencia');
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
