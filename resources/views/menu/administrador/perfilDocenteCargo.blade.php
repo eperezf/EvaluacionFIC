@@ -59,8 +59,8 @@
           ¿Esta seguro que quiere eliminar el cargo otorgado a {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }}?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" form="actividadesForm" value="submit" class="btn btn-primary">Confirmar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+          <button type="submit" form="actividadesForm" value="submit" class="btn btn-danger">Eliminar</button>
         </div>
       </div>
     </div>
