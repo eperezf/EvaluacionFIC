@@ -50,8 +50,7 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
                 'Alumnos Inscritos',
                 'Respuestas Encuesta Docente',
                 'Calificación Encuesta Docente',
-                'Nota',
-                'Comentario al comité evaluador'
+                'Nota'
             ]
         ];
     }
