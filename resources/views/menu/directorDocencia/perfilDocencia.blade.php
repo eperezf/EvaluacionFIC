@@ -2,9 +2,15 @@
 
 @section('title', 'Perfil '.$usuario->nombres.' '.$usuario->apellidoPaterno)
 @section('contenido')
-<h1>Bienvenido/a {{ $nombre }}.</h1><br>
+<h1>Bienvenido/a {{ $nombre }}.</h1>
 
-<div id="perfil">
+@if(session()->get('success'))
+<div class="alert alert-success">
+  {{session()->get('success') }}
+</div>
+@endif
+
+<div id="perfil"><br>
   <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }} - Docencia</h3><hr>
   <div class="container">
     @if ($cursos == NULL)

@@ -9,6 +9,7 @@ use App\User_actividad;
 use App\Actividad;
 use App\Asignatura;
 use App\Curso;
+use App\Http\Requests\UpdateCursoDocencia;
 use App\Helper\Helper;
 use DB;
 
@@ -99,7 +100,8 @@ class MenuDirectorDocencia extends Controller
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-
+        
+        $usuario = User::find($userId);
         $curso = Curso::find($idCurso);
         $asignatura = Asignatura::find($curso->idasignatura);
         $actividad = Actividad::find($curso->idactividad);
@@ -107,7 +109,7 @@ class MenuDirectorDocencia extends Controller
         
         return view('menu.directorDocencia.cursoForm', [
             'menus' => $menus,
-            'usuario' => $userId,
+            'usuario' => $usuario,
             'id' => $idCurso,
             'curso'=>$curso, 
             'asignatura'=>$asignatura,
@@ -115,4 +117,21 @@ class MenuDirectorDocencia extends Controller
             'userActividad' =>$actividadUser
         ]);
     }
+
+    public function postModificarCurso(UpdateCursoDocencia $request)
+    {
+        $userActividad = User_actividad::find($request->id);
+        $userActividad->bonificacion = $request->bonificacion;
+        $userActividad->calificacion = $request->nota;
+        $userActividad->save();
+
+        $curso = Curso::find($request->idCurso);
+        $curso->calificacion = $request->calificacion;
+        $curso->save();
+
+        $success = "Curso modificado con éxito"; 
+
+        return redirect('/menuDocencia/buscador/perfilDocencia/'.$request->userId)->with('success', $success);
+    }
+
 }
