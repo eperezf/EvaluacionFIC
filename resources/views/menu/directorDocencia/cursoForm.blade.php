@@ -3,6 +3,17 @@
 @section('title', 'Inicio')
 @section('contenido')
 <h1>{{ $asignatura->nombre }} {{ $asignatura->codigo }}-{{ $curso->seccion }}</h1><hr>
+<div id="errors">
+  @if ($errors->any())
+    <div class="alert alert-danger pb-1 pt-1">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+</div>
 <section id="informacion" name="Informacion Curso">
     <h3>Información</h3>
     <form action="{{route('postModificarDocencia')}}" method="POST" id="modificar-curso">

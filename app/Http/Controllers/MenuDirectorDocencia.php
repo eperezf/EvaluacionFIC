@@ -9,6 +9,7 @@ use App\User_actividad;
 use App\Actividad;
 use App\Asignatura;
 use App\Curso;
+use App\Http\Requests\UpdateCursoDocencia;
 use App\Helper\Helper;
 use DB;
 
@@ -117,7 +118,7 @@ class MenuDirectorDocencia extends Controller
         ]);
     }
 
-    public function postModificarCurso(Request $request)
+    public function postModificarCurso(UpdateCursoDocencia $request)
     {
         $userActividad = User_actividad::find($request->id);
         $userActividad->bonificacion = $request->bonificacion;
