@@ -18,21 +18,29 @@ class Helper
         /* Se eliminan las repeticiones */
         $cargos = array_unique($cargos, SORT_STRING);
 
-        $opciones = [];
-        (in_array("Administrador", $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo administración
-        (in_array("Profesor", $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo profesor
-        (in_array("Director de docencia", $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo director de docencia
-        (in_array("Subdirector de docencia", $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo subdirector de docencia
-
-        /* Datos para la vista */
-        $rutas = ['menuAdministrador', 'menuProfesor', 'menuDirectorDocencia', 'menuDirectorDocencia'];
-        $iconos = ["fas fa-columns mr-1", "far fa-user mr-1", "far fa-user mr-1", "far fa-user mr-1"];
-        $texto = ["Menú Administrador", "Menú Profesor", "Menú Director Docencia", "Menú Subdirector Docencia" ];
-
-        $menus = array_map(NULL, $opciones, $rutas, $iconos, $texto);
-
-        /* dd($menus); */
-        
-        return $menus;
+        /* Si el usuario no tiene ningún cargo, es visitante y no debe tener ningún otro menú */
+        if ($cargos==NULL)
+        {
+            $menus=NULL;
+            return $menus;
+        }
+        else
+        {
+            $opciones = [];
+            (in_array("Administrador", $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo administración
+            (in_array("Profesor", $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo profesor
+            (in_array("Director de docencia", $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo director de docencia
+            (in_array("Subdirector de docencia", $cargos)) ? array_push($opciones, TRUE) : array_push($opciones, FALSE); //Cargo subdirector de docencia
+    
+            /* Datos para la vista */
+            $rutas = ['menuAdministrador', 'menuProfesor', 'menuDirectorDocencia', 'menuDirectorDocencia'];
+            $iconos = ["fas fa-columns mr-1", "far fa-user mr-1", "far fa-user mr-1", "far fa-user mr-1"];
+            $texto = ["Menú Administrador", "Menú Profesor", "Menú Director Docencia", "Menú Subdirector Docencia" ];
+    
+            $menus = array_map(NULL, $opciones, $rutas, $iconos, $texto);
+    
+            /* dd($menus); */
+            return $menus;
+        }
     }
 }
