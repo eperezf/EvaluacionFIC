@@ -63,7 +63,12 @@ class MenuVisitante extends Controller
         ->join('user_actividad', 'user.id', '=', 'user_actividad.iduser')
         ->where('user_actividad.idcargo', '=', Cargo::where('nombre', 'Profesor')->get()[0]->id)
         ->where(DB::raw("CONCAT_WS(' ', user.nombres, user.apellidoPaterno, user.apellidoMaterno)"), 'LIKE', '%'.$request->search.'%')
-        ->get();
+        ->get([
+            'user.id',
+            'user.nombres',
+            'user.apellidoPaterno',
+            'user.apellidoMaterno'
+        ]);
         return view('menu.visitante.buscador', ['nombre' => $nombre, 'usuarios' => $usuarios, 'menus' => $menus]);
     }
 }
