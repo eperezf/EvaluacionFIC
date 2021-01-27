@@ -113,6 +113,12 @@ class Helper
                 $opciones[5] = True;
             }
 
+            //Subdirector de Docencia
+            if(in_array('Subdirector de docencia', $cargos))
+            {
+                $opciones[6] = True;
+            }
+
             $menus = [];
             foreach(array_map(NULL, $opciones, $rutas, $iconos, $texto) as $menu)
             {
