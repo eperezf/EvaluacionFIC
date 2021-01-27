@@ -21,7 +21,7 @@
       <button type="submit" class="btn btn-primary col-2 ml-3" style="background-color:  #0067C0;">Buscar</button>
     </div>
   </form>
-  <div class="p-4 mt-5" name="sugerencias" id="sugerencias"><hr>
+  <div class="p-4 mt-4" name="sugerencias" id="sugerencias"><hr>
     @foreach ($usuarios as $usuario)
       <div class="row">
         <h5 class="col-8 pl-4">{{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h5>

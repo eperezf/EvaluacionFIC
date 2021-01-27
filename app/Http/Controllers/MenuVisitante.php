@@ -43,9 +43,10 @@ class MenuVisitante extends Controller
         $idProfesor = Cargo::where('nombre', 'Profesor')->get()[0]->id;
 
         /* Obtenemos el los usuarios que tengan el cargo de profesor y coincidan con la letra */
-        $usuarios = DB::table('user')->join('user_actividad', 'user.id', '=', 'user_actividad.iduser')
+        $usuarios = DB::table('user')
+        ->join('user_actividad', 'user.id', '=', 'user_actividad.iduser')
         ->where('user_actividad.idcargo', 'LIKE', $idProfesor)
-        ->where('user.nombres', 'LIKE', $letra.'%')
+        ->where('user.apellidoPaterno', 'LIKE', $letra.'%')
         ->select('user.id','user.nombres','user.apellidoPaterno', 'user.apellidoMaterno')
         ->get();
 
@@ -58,12 +59,15 @@ class MenuVisitante extends Controller
         $menus = Helper::getMenuOptions(Auth::user()->id);
         
         //Obenemos los usuarios que calcen con el valor del input ingresado
-        $usuarios = User::where(DB::raw("CONCAT_WS(' ', user.nombres, user.apellidoPaterno, user.apellidoMaterno)"), 'LIKE', '%'.$request->search.'%')
+        $usuarios = DB::table('user')
+        ->join('user_actividad', 'user.id', '=', 'user_actividad.iduser')
+        ->where('user_actividad.idcargo', '=', Cargo::where('nombre', 'Profesor')->get()[0]->id)
+        ->where(DB::raw("CONCAT_WS(' ', user.nombres, user.apellidoPaterno, user.apellidoMaterno)"), 'LIKE', '%'.$request->search.'%')
         ->get([
-            'id',
-            'nombres',
-            'apellidoPaterno',
-            'apellidoMaterno'
+            'user.id',
+            'user.nombres',
+            'user.apellidoPaterno',
+            'user.apellidoMaterno'
         ]);
         return view('menu.visitante.buscador', ['nombre' => $nombre, 'usuarios' => $usuarios, 'menus' => $menus]);
     }
