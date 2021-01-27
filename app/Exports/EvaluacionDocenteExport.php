@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+//Importamos los modelos que utilizaremos
 use App\User;
 use App\Curso;
 use Auth;
@@ -10,31 +11,54 @@ use App\User_actividad;
 use App\Actividad_area;
 use DB;
 
+//Importamos los Concerns
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
+
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles
+
+class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
     //Agregamos los encabezados de las columnas
     public function headings(): array
     {
         return [
-            'Id Curso',
-            'Id Profesor',
-            'Area',
-            'Programa',
-            'Curso',
-            'Sección',
-            'Profesor',
-            'Alumnos Inscritos',
-            'Respuestas Encuesta Docente',
-            'Calificación Encuesta Docente',
-            'Nota',
-            'Comentario al comité evaluador'
+            [
+                'Evaluación Docente'
+            ],
+            [
+                'A continuación debe calificar, con una nota del 1.0 al 7.0, a cada uno de los profesores según el desempeño realizado en sus respectivos cursos.'
+            ],
+            [
+                'Cursos dictados durante el año académico'
+            ],
+            [],
+            [
+                'Id Curso',
+                'Id Profesor',
+                'Area',
+                'Programa',
+                'Curso',
+                'Sección',
+                'Periodo',
+                'Profesor',
+                'Alumnos Inscritos',
+                'Respuestas Encuesta Docente',
+                'Calificación Encuesta Docente',
+                'Nota'
+            ]
+        ];
+    }
+
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 8,            
         ];
     }
 
@@ -42,7 +66,10 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
     public function styles(Worksheet $sheet)
     {
         return [
-            1 => ['font' => ['bold' => true]]
+            1 => ['font' => ['bold' => true],
+                  'font' => ['size' => 20]],
+
+            5 => ['font' => ['bold' => true]]
         ];
     }
 
@@ -75,6 +102,8 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
             'subarea.nombre as nombreSubarea',
             'asignatura.nombre as nombreAsignatura',
             'curso.seccion',
+            'actividad.inicio as inicio',
+            'actividad.termino as termino',
             'user.nombres as nombresProfesor',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
@@ -89,13 +118,31 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
         return $cursos;
     }
 
-    //formateamos la columna Profesor
+    //formateamos las columnas
     public function prepareRows($rows): array
     {
         return array_map(
             function ($cursos)
             {
+                //formateo de columna Periodo
+                $meses = [
+                    'Ene',
+                    'Feb',
+                    'Mar',
+                    'Abr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Ago',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dic'];
+                $cursos->inicio = $meses[intval(preg_split("/[-,]+/", $cursos->inicio)[1])].'-'.$meses[intval(preg_split("/[-,]+/", $cursos->termino)[1])];
+                
+                //formateo de columna Profesor
                 $cursos->nombresProfesor = $cursos->nombresProfesor.' '.$cursos->apellidoPaterno.' '.$cursos->apellidoMaterno;
+
                 return $cursos;
             }, $rows
         );
@@ -113,6 +160,7 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
             $cursos->nombreSubarea,
             $cursos->nombreAsignatura,
             $cursos->seccion,
+            $cursos->inicio,
             $cursos->nombresProfesor,
             $cursos->inscritos,
             $cursos->respuestas,

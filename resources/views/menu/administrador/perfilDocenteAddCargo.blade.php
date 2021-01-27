@@ -18,7 +18,7 @@
   @csrf
   <div class="row col-12" id="save">
     <h3 class="col-9">Añadir cargo para {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
-    <a href="{{ route('perfilDocente', ['userId' => $usuario->id]) }}" class="btn btn-secondary col-1 ml-5">Cancelar</a>
+    <a href="{{ route('verCargos', ['userId' => $usuario->id, 'cargoId' => "all"]) }}" class="btn btn-secondary col-1 ml-5">Cancelar</a>
     <button type="button" class="btn btn-primary col-1 ml-3 pt-1" data-toggle="modal" data-target="#confirmationModal">Guardar</button>
   </div><hr>
   <div id="formData">
