@@ -141,9 +141,9 @@ class MenuDirectorDocencia extends Controller
         $curso->calificacion = $request->calificacion;
         $curso->save();
 
-        $success = "Curso modificado con éxito"; 
+        $success = 'El curso '.Asignatura::find($curso->idasignatura)->nombre.' '.Asignatura::find($curso->idasignatura)->codigo.'-'.$curso->seccion;
 
-        return redirect('/menuDocencia/buscador/perfilDocencia/'.$request->userId)->with('success', $success);
+        return redirect('/menuDocencia/buscador/perfilDocencia/'.$request->userId)->with('success', $success.' ha sido modificado con éxito.');
     }
 
 }
