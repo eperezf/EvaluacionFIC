@@ -34,17 +34,19 @@ class MenuDirectorDocencia extends Controller
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        
-        /* Obtenemos el id de cargo profesor */
-        $idProfesor = Cargo::where('nombre', 'Profesor')->get()[0]->id;
 
         /* Obtenemos el los usuarios que tengan el cargo de profesor y coincidan con la letra */
         $usuarios = DB::table('user')
         ->join('user_actividad', 'user.id', '=', 'user_actividad.iduser')
-        ->where('user_actividad.idcargo', 'LIKE', $idProfesor)
+        ->where('user_actividad.idcargo', 'LIKE', Cargo::where('nombre', 'Profesor')->get()[0]->id)
         ->where('user.apellidoPaterno', 'LIKE', $letra.'%')
-        ->select('user.id','user.nombres','user.apellidoPaterno', 'user.apellidoMaterno')
-        ->get();
+        ->distinct()
+        ->get([
+            'user.id',
+            'user.nombres',
+            'user.apellidoPaterno', 
+            'user.apellidoMaterno'
+        ]);
 
         return view('menu.directorDocencia.buscador', ['nombre' => $nombre, 'usuarios' => $usuarios, 'menus' => $menus]);
     }
@@ -59,6 +61,7 @@ class MenuDirectorDocencia extends Controller
         ->join('user_actividad', 'user.id', '=', 'user_actividad.iduser')
         ->where('user_actividad.idcargo', '=', Cargo::where('nombre', 'Profesor')->get()[0]->id)
         ->where(DB::raw("CONCAT_WS(' ', user.nombres, user.apellidoPaterno, user.apellidoMaterno)"), 'LIKE', '%'.$request->search.'%')
+        ->distinct()
         ->get([
             'user.id',
             'user.nombres',
