@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Cargo;
 use App\Helper\Helper;
 use DB;
 
@@ -37,13 +38,17 @@ class MenuVisitante extends Controller
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        $usuarios = User::where('nombres', 'LIKE', $letra.'%')
-        ->get([
-            'id',
-            'nombres',
-            'apellidoPaterno',
-            'apellidoMaterno'
-        ]);
+        
+        /* Obtenemos el id de cargo profesor */
+        $idProfesor = Cargo::where('nombre', 'Profesor')->get()[0]->id;
+
+        /* Obtenemos el los usuarios que tengan el cargo de profesor y coincidan con la letra */
+        $usuarios = DB::table('user')->join('user_actividad', 'user.id', '=', 'user_actividad.iduser')
+        ->where('user_actividad.idcargo', 'LIKE', $idProfesor)
+        ->where('user.nombres', 'LIKE', $letra.'%')
+        ->select('user.id','user.nombres','user.apellidoPaterno', 'user.apellidoMaterno')
+        ->get();
+
         return view('menu.visitante.buscador', ['nombre' => $nombre, 'usuarios' => $usuarios, 'menus' => $menus]);
     }
 
