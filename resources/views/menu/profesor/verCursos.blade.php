@@ -3,13 +3,13 @@
 @section('title', 'Inicio')
 @section('contenido')
 <section id="ver" name="Ver Cursos">
-  <h1>Mis Cursos</h1><hr>
+  <h1>Mis Cursos</h1>
   @if(session()->get('success'))
     <div class="alert alert-success">
       {{session()->get('success') }}
     </div>
   @endif
-  <div class="container">
+  <div class="container"><hr>
     @for ($i = 0; $i < sizeof($cursos); $i++)
       <div class="row">
         <h5 class="col-9 ml-2">{{ $cursos[$i] }}</h5>

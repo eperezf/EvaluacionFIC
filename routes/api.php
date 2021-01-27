@@ -39,3 +39,4 @@ Route::get('getUser/{name}', 'ApiController@GetUser');
 Route::get('getCargoTipoActividad/{id}', 'ApiController@getCargoTipoActividad');
 Route::get('getCargo/{id}', 'ApiController@getCargo');
 Route::get('getAreasAll', 'ApiController@getAreasAll');
+Route::get('getAsignaturasAll', 'ApiController@getAsignaturasAll');
