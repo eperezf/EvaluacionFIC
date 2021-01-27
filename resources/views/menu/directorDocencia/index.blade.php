@@ -50,7 +50,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" title="importar datos">Importar</button>
+            <button type="button" class="btn btn-primary" title="importar datos" disabled>Importar</button>
           </div>
         </div>
       </div>
