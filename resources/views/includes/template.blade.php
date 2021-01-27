@@ -23,11 +23,9 @@
               <a class="nav-link" href="{{ route('menuVisitante') }}"><i class="fas fa-home mr-1"></i>Inicio</a>
           @else
             @foreach ($menus as $menu)
-                @if ($menu[0])
-                    <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
-                      <a class="nav-link" href="{{ route($menu[1]) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
-                    </li>
-                @endif
+              <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route($menu[1]) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
+              </li>
             @endforeach
           @endif
         </ul>

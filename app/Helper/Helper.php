@@ -112,8 +112,15 @@ class Helper
             {
                 $opciones[5] = True;
             }
-            
-            $menus = array_map(NULL, $opciones, $rutas, $iconos, $texto);
+
+            $menus = [];
+            foreach(array_map(NULL, $opciones, $rutas, $iconos, $texto) as $menu)
+            {
+                if($menu[0])
+                {
+                    array_push($menus, $menu);
+                }
+            }
     
             return $menus;
         }
