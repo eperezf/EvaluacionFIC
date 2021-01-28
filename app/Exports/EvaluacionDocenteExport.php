@@ -5,6 +5,7 @@ namespace App\Exports;
 //Importamos los modelos que utilizaremos
 use App\User;
 use App\Curso;
+use App\Cargo;
 use Auth;
 use App\Actividad;
 use App\User_actividad;
@@ -84,17 +85,8 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
     public function array(): array
     {
         //Obtenemos el id del area del Director de area que quiere descargar el excel
-        $idactividad = Auth::user()->actividad()
-        ->where('idtipoactividad', '=', '4')
-        ->where('idcargo', '=', '6')
-        ->get(['actividad.id']);
-
         $idarea = $this->idarea;
-        /* $idarea = Actividad_area::select('idarea')
-        ->where('idactividad', '=', $idactividad[0]->id)
-        ->get()[0]
-        ->idarea; */
-
+        
         //Obtenemos todos los cursos asociados al area de dicho director
         $cursos = DB::table('curso')
         ->join('asignatura', 'curso.idasignatura', '=', 'asignatura.id')
