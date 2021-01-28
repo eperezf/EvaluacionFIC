@@ -90,6 +90,10 @@ class PerfilDocente extends Controller
                     $titulo = "Profesor";
                     $subtitulo = "Curso: -----";
                 break;
+
+                case "Visitante":
+                    $titulo = "Visitante";
+                    $subtitulo = "Visitante de la plataforma";
                 
                 default:
                     /* Caso default en caso de error */
@@ -126,6 +130,8 @@ class PerfilDocente extends Controller
     {
         $menus = Helper::getMenuOptions(Auth::user()->id);
 
+        (in_array('Visitante', Helper::getCargos(Auth::user()->id))) ? $edit = True : $edit = False;
+        
         /* Cargos que posee el docente actualmente */
         $usuario = User::find($userId);
         $cargos = $this->getCargos($userId);
@@ -140,7 +146,8 @@ class PerfilDocente extends Controller
             'usuario' => $usuario,
             'cargos' => $cargos,
             'selectedCargoId' => strcmp($cargoId, "all") == 0 ? "all" : $cargoId,
-            'actividades' => $actividades
+            'actividades' => $actividades,
+            'modoEditar' => $edit
         ]);
     }
 

@@ -7,16 +7,24 @@ use App\Cargo;
 
 class Helper
 {
-    public static function getMenuOptions($userid)
+    public static function getCargos($userid)
     {
         /* Se obtienen los IDs de los cargos que tiene el usuario, para luego obtener los nombres de dichos cargos */
         $cargosId = User_actividad::where('iduser', $userid)->get('idcargo');
         $cargos = [];
         foreach($cargosId as $id)
             array_push($cargos, Cargo::where('id', $id->idcargo)->get()[0]->nombre);
-        
+
         /* Se eliminan las repeticiones */
         $cargos = array_unique($cargos, SORT_STRING);
+        return $cargos;
+    }
+
+
+    public static function getMenuOptions($userid)
+    {
+        //Se obtienen los cargos
+        $cargos = Helper::getCargos($userid);
 
         /* Si el usuario no tiene ningún cargo, es visitante y no debe tener ningún otro menú */
         if ($cargos==NULL)
