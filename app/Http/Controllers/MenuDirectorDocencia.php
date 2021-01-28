@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
 use App\User;
 use App\User_actividad;
 use App\Actividad;
@@ -14,6 +16,11 @@ use App\Http\Requests\UpdateCursoDocencia;
 use App\Helper\Helper;
 use DB;
 
+use App\Imports\EvaluacionDocenteImport;
+use App\Http\Requests\StoreEvalDocente;
+
+use Maatwebsite\Excel\Facades\Excel;
+
 class MenuDirectorDocencia extends Controller
 {
     public function load()
@@ -21,6 +28,15 @@ class MenuDirectorDocencia extends Controller
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
         return view('menu.directorDocencia.index', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
+    }
+    
+    public function importNotas(StoreEvalDocente $request)
+    {
+        /* Se valida el formulario y al retornar exito, se ejecuta Excel::import() */
+        $validated = $request->validated();
+        Excel::import(new EvaluacionDocenteImport, $request->file('file'));
+
+        return redirect('/menuDocencia/')->with('success', "Importación de datos exitosa.");
     }
 
     public function loadBuscador()
@@ -132,6 +148,7 @@ class MenuDirectorDocencia extends Controller
 
     public function postModificarCurso(UpdateCursoDocencia $request)
     {
+        $validated = $request->validated();
         $userActividad = User_actividad::find($request->id);
         $userActividad->bonificacion = $request->bonificacion;
         $userActividad->calificacion = $request->nota;
