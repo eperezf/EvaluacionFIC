@@ -14,7 +14,9 @@
     <div id="cargosSideBar" class="col-3">
       <div id="sidebarHeader" class="row">
         <h3 class="col-6">Cargos</h3>
-        <a href="{{ route('agregarCargo', ['userId' => $usuario->id]) }}" class="pt-2 ml-2">Agregar cargo</a>
+        @if(!$modoEditar)
+          <a href="{{ route('agregarCargo', ['userId' => $usuario->id]) }}" class="pt-2 ml-2">Agregar cargo</a>
+        @endif
       </div>
       <div class="nav flex-column nav-pills" id="cargos" role="tablist" aria-orientation="vertical">
         <a href="{{ route('verCargos', ['userId' => $usuario->id, 'cargoId' => 'all']) }}" class="nav-link {{ $selectedCargoId == 0 ? 'active': '' }}" aria-selected="true">Todos los cargos</a>
@@ -33,9 +35,11 @@
               <div class="card-body">
                 <h5>{{ $actividad[1] }}</h5>
                 <h6>{{ $actividad[2] }}</h6>
-                <button value="{{ $actividad[0] }}" name="deleteCargo{{ $actividad[0] }}" id="deleteCargo{{ $actividad[0] }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                  Eliminar cargo
-                </button>
+                @if(!$modoEditar)
+                  <button value="{{ $actividad[0] }}" name="deleteCargo{{ $actividad[0] }}" id="deleteCargo{{ $actividad[0] }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                    Eliminar cargo
+                  </button>
+                @endif
               </div>
             </div>
           @endforeach

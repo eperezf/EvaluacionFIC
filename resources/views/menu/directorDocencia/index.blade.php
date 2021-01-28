@@ -19,13 +19,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="row">
-              <div class="col-sm">
-                <label for="staticEmail" class="mr-3">Archivo de ejemplo</label>
-                <a href="{{ "" }}" class="btn btn-link">ejemplo.csv</a>
-              </div>
-            </div><br>
-            <label for="exampleFormControlFile1">Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
+            <label>Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
             <input type="file" class="form-control-file" id="exampleFormControlFile1">
           </div>
           <div class="modal-footer">
@@ -51,12 +45,12 @@
             </button>
           </div>
           <div class="modal-body">
-            <label for="exampleFormControlFile1">Seleccione el archivo de Encuesta Docente en formato CSV</label>
+            <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
             <input type="file" class="form-control-file" id="exampleFormControlFile1">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" title="importar datos">Importar</button>
+            <button type="button" class="btn btn-primary" title="importar datos" disabled>Importar</button>
           </div>
         </div>
       </div>
