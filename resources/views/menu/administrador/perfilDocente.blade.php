@@ -3,23 +3,16 @@
 @section('title', 'Perfil '.$usuario->nombres.' '.$usuario->apellidoPaterno)
 @section('contenido')
 <div id="perfil">
-  @if(session()->get('success'))
-    <div class="alert alert-success">
-      {{ session()->get('success') }}
-    </div>
-  @endif
   <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
   <div id="informacion" class="container">
     <div id="cargos" class="row">
       <h6>Cargos actuales:
         @for ($i = 0; $i < sizeof($cargos); $i++)
-          @if (!($i == sizeof($cargos) - 1))
-            {{ $cargos[$i] }},
-          @else
-            {{ $cargos[$i] }},
+          @if ($i < 5)
+            {{ $cargos[$i]->nombre }},
           @endif
         @endfor
-        <a href="{{ route('panelDocenteCargo', ['userId' => $usuario->id]) }}" style="color: #0067C0;">Agregar cargo</a>
+        <a href="{{ route('verCargos', ['userId' => $usuario->id, 'cargoId' => "all"]) }}" style="color: #0067C0;">Ver más...</a>
       </h6>
     </div><hr>
     <div id="actividades">
