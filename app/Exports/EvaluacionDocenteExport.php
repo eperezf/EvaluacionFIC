@@ -24,6 +24,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
+    protected $idarea;
+
+    function __construct($idarea)
+    {
+        $this->idarea = $idarea;
+    }
+
     //Agregamos los encabezados de las columnas
     public function headings(): array
     {
@@ -81,11 +88,12 @@ class EvaluacionDocenteExport implements FromArray, WithHeadings, ShouldAutoSize
         ->where('idtipoactividad', '=', '4')
         ->where('idcargo', '=', '6')
         ->get(['actividad.id']);
-        
-        $idarea = Actividad_area::select('idarea')
+
+        $idarea = $this->idarea;
+        /* $idarea = Actividad_area::select('idarea')
         ->where('idactividad', '=', $idactividad[0]->id)
         ->get()[0]
-        ->idarea;
+        ->idarea; */
 
         //Obtenemos todos los cursos asociados al area de dicho director
         $cursos = DB::table('curso')
