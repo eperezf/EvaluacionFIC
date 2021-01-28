@@ -66,13 +66,20 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-sm">
-              <label for="staticEmail" class="mr-3">Archivo de ejemplo</label>
-              <a href="{{ route('evaluacionDocenteExport') }}" class="btn btn-link">ejemplo.csv</a>
+          <div id="area" class="form-group row">
+            <label for="select-area" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
+            <div class="col-sm-4">
+              <select class="form-control" requiered="true" name="area" id="select-area">
+                <option disabled value="Seleccione una asignatura" selected>Seleccione una área</option>
+                @foreach ($areas as $area)
+                  <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                @endforeach
+              </select>
             </div>
+            <a href="" class="btn btn-link" id="descargar">Descargar</a>
           </div><br>
-          <form action="{{ route('importEvalDocente') }}" method="POST" id="csvImport" enctype="multipart/form-data">
+
+          <form action="{{ route('evaluacionDocenteImport') }}" method="POST" id="csvImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
             <input type="file" class="form-control-file" name="file">
@@ -85,4 +92,5 @@
       </div>
     </div>
   </div><br>
+  <script type="text/javascript" src="{{asset('js/evaluacionDocenteArea.js')}}"></script>
 @endsection
