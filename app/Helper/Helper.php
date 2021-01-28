@@ -65,7 +65,7 @@ class Helper
                 "fas fa-home mr-1",
                 "fas fa-home mr-1",
                 "far fa-user mr-1",
-                "fas fa-columns mr-1",
+                "far fa-user mr-1",
                 "far fa-calendar-alt mr-1",
                 "far fa-user mr-1",
                 "far fa-user mr-1"
