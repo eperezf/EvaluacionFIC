@@ -1,5 +1,3 @@
-var select
-
 $(document).ready(() => {
     $('#tipoActividad').on('change', function() {
         var idTipoActividad = $(this).val();
@@ -24,22 +22,49 @@ $(document).ready(() => {
         }).then((response) => {
             var cargo = response[0];
             $('#response').html("");
-            if(cargo.nombre == "Director de área") {
-                var areaRequest = new Request('/api/getAreasAll');
-                fetch(areaRequest).then((response) => {
-                    return response.json();
-                }).then((response) => {
-                    select = '<select name="area" id="area" class="form-control"><option disabled selected>Seleccione una area</option>';
-                    response.forEach((item, i) => {
-                        select = select + '<option value=' + item.id + '>' + item.nombre + '</option>';
-                    });
-                    select = select + '</select>';
-                    $('#response').append(
-                        '<label for="area" class="col-sm-3">Seleccione una área</label>' +
-                        '<div class="form-group col-sm-5">' + select + '</div>'
-                    );
-                });
+            var request;
+            var name;
+            var message;
+            console.log(cargo.nombre);
+            switch(cargo.nombre){
+                case "Director de área":
+                    var areaRequest = new Request('/api/getAreasAll');
+                    name = "area";
+                    message = "Selecciona una área";
+                    request = areaRequest; 
+                break;
+
+                case "Subdirector de docencia":
+                    var asignaturaRequest = new Request('/api/getAsignaturasAll');
+                    name = "asignatura";
+                    message = "Seleccione una asignatura";
+                    request = asignaturaRequest;
+                break;
+
+                case "Director de docencia":
+                    var asignaturaRequest = new Request('/api/getAsignaturasAll');
+                    name = "asignatura";
+                    message = "Seleccione una asignatura";
+                    request = asignaturaRequest;
+                break;
+
+                default:
+                    //
+                break;
             }
+            fetch(request).then((response) => {
+                return response.json();
+            }).then((response) => {
+                var select = '<select name="'+ name +'" id="' + name + '" class="form-control"><option disabled selected>' + message + '</option>';
+                response.forEach((item, i) => {
+                    select = select + '<option value=' + item.id + '>' + item.nombre + '</option>';
+                });
+                select = select + '</select>';
+                $('#response').append(
+                    '<label for="' + name + '" class="col-sm-3">' + message + '</label>' +
+                    '<div class="form-group col-sm-5">' + select + '</div>'
+                );
+            });
         });
     });
 });
