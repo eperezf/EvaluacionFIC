@@ -14,6 +14,7 @@ use App\Actividad_area;
 use App\Actividad_asignatura;
 use App\Area;
 use App\Asignatura;
+use App\Curso;
 
 use App\Http\Requests\StoreCargoUser;
 
@@ -88,7 +89,18 @@ class PerfilDocente extends Controller
 
                 case "Profesor":
                     $titulo = "Profesor";
-                    $subtitulo = "Curso: -----";
+                    $curso = Curso::where('idactividad', $actividad->id)->get();
+                    if(!($curso->isEmpty()))
+                    {
+                        $curso = $curso[0];
+                        $seccion = $curso->seccion;
+                        $codigoAsignatura = Asignatura::find($curso->idasignatura)->codigo;
+                        $subtitulo = "Curso: ".$codigoAsignatura."-".$seccion;
+                    }
+                    else
+                    {
+                        $subtitulo = "No hay curso asociado a este cargo de profesor";
+                    }
                 break;
 
                 case "Visitante":
