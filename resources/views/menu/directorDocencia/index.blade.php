@@ -2,31 +2,81 @@
 
 @section('title', 'Inicio')
 @section('contenido')
-  <h1>Bienvenido/a {{ $nombre }}.</h1><br>
-
-  <div class="container col-10">
-    <div class="row justify-content-md-center">
-      @for ($i = 65; $i < 91; $i++)
-          <a href="{{ route('searchLetterDirector', ['letra' => chr($i)]) }}">
-            <h4 style="color: #0067C0;"> {{chr($i)}} </h4> 
-          </a><hr>
-      @endfor
+  <h1>Bienvenido/a {{ $nombre }}.</h1><hr>
+  <div id="messages">
+    @if(session()->get('success'))
+      <div class="alert alert-success">
+        {{ session()->get('success') }}
+      </div>
+    @endif
+    @if ($errors->any())
+      <div class="alert alert-danger pb-1 pt-1">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+  </div>
+  <div class="container">
+    <div id="buzon superiores" class="row">
+      <h5>Buzón para subir evaluación de desempeño</h5>
+      <button type="button" class="btn btn-primary btn-sm col-2 ml-3" data-toggle="modal" data-target="#ModalExcelSuperior">Subir archivo</button>
+    </div>
+ <!-- Modal de Evaluación Docente "superiores" -->
+ <div class="modal fade" id="ModalExcelSuperior" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Subir archivo de evaluación de desempeño</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('importEvalDocenteDocencia') }}" method="POST" id="csvImport" enctype="multipart/form-data">
+          @csrf
+          <label>Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
+          <input type="file" class="form-control-file" name="file">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" value="submit" form="csvImport" class="btn btn-primary" title="importar datos">Importar</button>
+      </div>
     </div>
   </div>
+</div><br>
 
-  <form action="{{ route('searchInputDirector') }}" method="POST">
-    @csrf
-    <div class="row">
-      <input autofocus type="text" class="form-control col-9" id="search" name="search" autocomplete="off" placeholder="Buscar Usuario">
-      <button type="submit" class="btn btn-primary col-2 ml-3" style="background-color:  #0067C0;">Buscar</button>
+    <div id="buzon encuesta" class="row">
+      <h5>Buzón para subir encuesta docente</h5>
+      <button type="button" class="btn btn-primary btn-sm col-2 ml-3" data-toggle="modal" data-target="#encuenstaDocente">Subir archivo</button>
     </div>
-  </form>
-  <div class="p-4 mt-5" name="sugerencias" id="sugerencias"><hr>
-    @foreach ($usuarios as $usuario)
-      <div class="row">
-        <h5 class="col-8 pl-4">{{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h5>
-        <a href="{{ route('perfilDocencia', ['userId' => $usuario->id]) }}" class="btn btn-secondary col-2 mr-2">Ver Actividades</a>
-      </div><hr>
-    @endforeach
+    <!-- Modal de Encuesta Docente "alumnos" -->
+    <div class="modal fade" id="encuenstaDocente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Subir excel de Encuesta Docente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" title="importar datos" disabled>Importar</button>
+          </div>
+        </div>
+      </div>
+    </div><br>
+    <div id="buscador" class="row">
+      <h5>Buscador de profesores</h5>
+      <a href="{{ route('loadBuscador') }}" class="btn btn-primary btn-sm col-2 ml-3">Ir</a>
     </div>
+  </div>
 @endsection

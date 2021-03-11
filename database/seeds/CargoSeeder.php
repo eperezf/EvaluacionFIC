@@ -22,6 +22,13 @@ class CargoSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
+                'nombre' => 'Visitante',
+                'idtipoactividad' => App\Tipoactividad::where('nombre', 'Administración')->get('id')[0]->id,
+                'peso' => '1',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
                 'nombre' => 'Director de investigación',
                 'idtipoactividad' => App\Tipoactividad::where('nombre', 'Investigacion')->get('id')[0]->id,
                 'peso' => '5', //No se qué peso ponerle
