@@ -81,6 +81,46 @@
           </div>
         </div>
       </section><hr>
+      <section id="comite">
+        <div class="container">
+          <div class="row col-12" data-toggle="collapse" href="#collapseComite" role="button" aria-expanded="false" aria-controls="collapseComite" style="color: black;">
+            <h5 class="col-11">Evaluación del Comité</h5>
+            <i class="fas fa-chevron-down pt-1 ml-5"></i>
+          </div>
+          <div class="collapse" id="collapseComite">
+            <div class="card card-body">
+              <div id="evaluacion">
+                <label for="evaluacion-input">Evaluación general del Comité:</label>
+              </div>
+              <div id="comentario">
+                <label for="comentario-input" class="col-form-label">Comentario:</label>
+                <textarea class="form-control" name="comentario" cols="150" rows="2" id="comentario-input" cols="30" rows="10" placeholder="Insertar comentario para el comité aquí..." value="{{ old('comentario') }}"></textarea><br>
+                <button name="agregarComentario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section><hr>
+    </div>
+    <!-- Modal de Comentario para Comité-->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Agregar comentario al Comité</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ¿Está seguro que desea guardar este comentario?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+            <button type="submit" form="" value="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
