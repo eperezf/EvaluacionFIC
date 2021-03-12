@@ -10,8 +10,7 @@ class Actividad extends Model {
     protected $fillable = [
         'inicio',
         'termino',
-        'idtipoactividad',
-        'comentario'
+        'idtipoactividad'
     ];
 
     //Relations
@@ -71,7 +70,7 @@ class Actividad extends Model {
 
     public function area() {
         return $this
-            ->belongsToMany('App\Area', 'actividad_area', 'idarea', 'idactividad')
+            ->hasMany('App\Area', 'actividad_area', 'idarea', 'idactividad')
             ->using('App\Actividad_area')
             ->withPivot([
                 'created_at',

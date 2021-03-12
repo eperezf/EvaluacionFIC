@@ -30,8 +30,16 @@ class ApiController extends Controller
     return response(Area::where('nombre', 'LIKE', '%'.$name.'%')->get())->header('Content-Type', 'application/json');
   }
 
+  public function getAreasAll(){
+    return response(Area::all())->header('Content-Type', 'application/json');
+  }
+
   public function getAsignatura($name){
     return response(Asignatura::where('nombre', 'LIKE', '%'.$name.'%')->get())->header('Content-Type', 'application/json');
+  }
+
+  public function getAsignaturasAll(){
+    return response(Asignatura::all())->header('Content-Type', 'application/json');
   }
   
   public function getSubarea($name){
@@ -93,5 +101,9 @@ class ApiController extends Controller
 
   public function getCargoTipoActividad($id){
     return response(Cargo::where('idtipoactividad', $id)->get())->header('Content-Type', 'application/json');
+  }
+
+  public function getCargo($id){
+    return response(Cargo::where('id', $id)->get())->header('Content-Type', 'application/json');
   }
 }

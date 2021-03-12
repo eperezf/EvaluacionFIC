@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         CargoSeeder::class,
         AdminUserSeeder::class,
         AdminActividadSeeder::class,
-        AdminUserActividadSeeder::class
+        AdminUserActividadSeeder::class,
+        AreaSeeder::class
       ]);
     }
 }

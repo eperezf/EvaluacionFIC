@@ -27,6 +27,7 @@ use App\Tutoria;
 use App\Publicacion;
 use App\User_actividad;
 use App\Cargo;
+use App\Helper\Helper;
 
 class NoticiasAgenda extends Controller {
   public function loadNoticiasAgenda() {
@@ -124,6 +125,7 @@ class NoticiasAgenda extends Controller {
       'actividades' => $actividades,
       'cargos' => $cargos,
       'nombreActividades' => $nombreActividades,
+      'menus' => Helper::getMenuOptions(Auth::user()->id)
       ]);
   }
 }

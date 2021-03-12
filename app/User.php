@@ -23,7 +23,14 @@ class User extends Authenticatable {
   protected $casts = ['email_verified_at' => 'datetime'];
 
   public function cargo() {
-    return $this->belongsToMany('App\Cargo')->using('App\User_actividad');
+    return $this->belongsToMany('App\Cargo','user_actividad','idcargo','iduser')
+      ->using('App\User_actividad')
+      ->withPivot([
+        'bonificacion',
+        'calificacion',
+        'created_at',
+        'updated_at'
+    ]);
   }
 
   public function actividad() {
@@ -37,5 +44,10 @@ class User extends Authenticatable {
         'created_at',
         'updated_at'
       ]);
+  }
+
+  public function evaluacion()
+  {
+    return $this->hasMany('App\Evaluacion');
   }
 }
