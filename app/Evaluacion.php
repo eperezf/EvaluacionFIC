@@ -8,7 +8,7 @@ class Evaluacion extends Model
 {
     protected $table = 'evaluacion';
 
-    protected $fillable = ['fecha', 'comentario', 'nota'];
+    protected $fillable = ['periodo', 'comentario', 'nota'];
 
     public function user()
     {

@@ -48,6 +48,6 @@ class User extends Authenticatable {
 
   public function evaluacion()
   {
-    return $this->hasMany('App\Evaluacion');
+    return $this->hasMany('App\Evaluacion', 'iduser');
   }
 }
