@@ -161,6 +161,11 @@ class PerfilDocente extends Controller
         ]);
     }
 
+    public function saveEvaluacion (Request $request)
+    {
+        dd($request);
+    }
+
     public function loadCargos($userId, $cargoId)
     {
         $menus = Helper::getMenuOptions(Auth::user()->id);
