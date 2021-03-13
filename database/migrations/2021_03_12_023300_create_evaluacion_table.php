@@ -18,7 +18,7 @@ class CreateEvaluacionTable extends Migration
             $table->foreignId('iduser')->references('id')->on('user');
             $table->string('comentario', '512');
             $table->float('nota');
-            $table->date('año');
+            $table->integer('periodo');
             $table->timestamps();
 
         });

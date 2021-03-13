@@ -89,14 +89,22 @@
           </div>
           <div class="collapse" id="collapseComite">
             <div class="card card-body">
-              <div id="evaluacion">
-                <label for="evaluacion-input">Evaluación general del Comité:</label>
-              </div>
-              <div id="comentario">
-                <label for="comentario-input" class="col-form-label">Comentario:</label>
-                <textarea class="form-control" name="comentario" cols="150" rows="2" id="comentario-input" cols="30" rows="10" placeholder="Insertar comentario para el comité aquí..." value="{{ old('comentario') }}"></textarea><br>
-                <button name="agregarComentario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Guardar</button>
-              </div>
+              @if($vacio)
+                <form action="">
+                  
+                  <button name="agregarComentario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Guardar</button>
+                </form>
+              @else
+                <div id="evaluacion">
+                  <label for="evaluacion-input">Evaluación general del Comité:</label>
+                  {{ $nota }}
+                </div>
+                <div id="comentario">
+                  <label for="comentario-input" class="col-form-label">Comentario:</label>
+                  {{ $comentario }}<br>
+                  <button>Modificar</button>
+                </div>
+              @endif
             </div>
           </div>
         </div>
