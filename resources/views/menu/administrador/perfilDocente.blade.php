@@ -90,8 +90,15 @@
           <div class="collapse" id="collapseComite">
             <div class="card card-body">
               @if($vacio)
-                <form action="">
-                  
+                <form id="evaluacion" method="POST" action="{{ route('saveEvaluacion') }}">
+                  <div id="evaluacion">
+                    <label for="evaluacion-input">Evaluación general del Comité:</label>
+                    <input name="nota">
+                  </div>
+                  <div id="comentario">
+                    <label for="comentario-input" class="col-form-label">Comentario:</label><br>
+                    <textarea name="comentario" placeholder="Ingrese el comentario aquí..." id="" cols="60" rows="10"></textarea>
+                  </div>
                   <button name="agregarComentario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Guardar</button>
                 </form>
               @else
@@ -115,17 +122,17 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Agregar comentario al Comité</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Agregar Evaluación</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ¿Está seguro que desea guardar este comentario?
+            ¿Está seguro que desea guardar esta evaluación?
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
-            <button type="submit" form="" value="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" form="evaluacion" value="submit" class="btn btn-primary">Guardar</button>
           </div>
         </div>
       </div>
