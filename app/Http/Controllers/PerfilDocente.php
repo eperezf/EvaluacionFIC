@@ -130,11 +130,34 @@ class PerfilDocente extends Controller
 
         /* Cargos que posee el docente actualmente */
         $cargos = $this->getCargos($userId);
+
+        /* Evaluadción general actual del Comité */
+        $periodo = (int)date('Y')-1;
+        $evaluacion = $usuario->evaluacion()
+            ->where("periodo", "=", $periodo)
+            ->get();
+        $vacio = false;
+        if(isset($evaluacion[0]))
+        {
+            $nota = $evaluacion[0]->nota;
+            $comentario = $evaluacion[0]->comentario;
+        }
+        else
+        {
+            $nota = 0;
+            $comentario = '';
+            $vacio = true;
+        }
+
         
+
         return view('menu.administrador.perfilDocente', [
             'menus' => $menus,
             'usuario' => $usuario,
-            'cargos' => $cargos
+            'cargos' => $cargos,
+            'nota' => $nota,
+            'comentario' => $comentario,
+            'vacio' => $vacio
         ]);
     }
 
