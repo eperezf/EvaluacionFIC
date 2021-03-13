@@ -85,10 +85,13 @@
         </div>
         <div class="collapse" id="collapseHistorial">
           <div class="card card-body">
-            Evaluacion comité anual
-            
-            {{-- Implementar ciclo para mostrar las calificaciones del comite segun año --}}
-
+            @if(sizeof($evaluacion) == 0)
+              <h6>No hay evaluaciones</h6>
+            @else
+              @for ($i = 0; $i < sizeof($evaluacion); $i++)
+                <h6>Evaluación Comité {{ $evaluacion[$i]->periodo }}: {{ $evaluacion[$i]->nota }}</h6>
+              @endfor
+            @endif
           </div>
         </div>
       </div>
