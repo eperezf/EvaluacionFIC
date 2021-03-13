@@ -77,15 +77,18 @@
         </div>
       </div>
     </section><hr>
-    <section id="otros">
+    <section id="historial">
       <div class="container">
-        <div class="row col-12" data-toggle="collapse" href="#collapseOtros" role="button" aria-expanded="false" aria-controls="collapseOtros" style="color: black;">
-          <h5 class="col-11">Historial</h5>
+        <div class="row col-12" data-toggle="collapse" href="#collapseHistorial" role="button" aria-expanded="false" aria-controls="collapseHistorial" style="color: black;">
+          <h5 class="col-11">Historial Evaluación Comité</h5>
           <i class="fas fa-chevron-down pt-1 ml-5"></i>
         </div>
-        <div class="collapse" id="collapseOtros">
+        <div class="collapse" id="collapseHistorial">
           <div class="card card-body">
-            AQUI SE AGREGA OTRAS ACTIVIDADES
+            Evaluacion comité anual
+            
+            {{-- Implementar ciclo para mostrar las calificaciones del comite segun año --}}
+
           </div>
         </div>
       </div>
