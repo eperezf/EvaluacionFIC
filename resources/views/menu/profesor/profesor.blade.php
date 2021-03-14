@@ -77,15 +77,21 @@
         </div>
       </div>
     </section><hr>
-    <section id="otros">
+    <section id="historial">
       <div class="container">
-        <div class="row col-12" data-toggle="collapse" href="#collapseOtros" role="button" aria-expanded="false" aria-controls="collapseOtros" style="color: black;">
-          <h5 class="col-11">Historial</h5>
+        <div class="row col-12" data-toggle="collapse" href="#collapseHistorial" role="button" aria-expanded="false" aria-controls="collapseHistorial" style="color: black;">
+          <h5 class="col-11">Historial Evaluación Comité</h5>
           <i class="fas fa-chevron-down pt-1 ml-5"></i>
         </div>
-        <div class="collapse" id="collapseOtros">
+        <div class="collapse" id="collapseHistorial">
           <div class="card card-body">
-            AQUI SE AGREGA OTRAS ACTIVIDADES
+            @if(sizeof($evaluacion) == 0)
+              <h6>No hay evaluaciones</h6>
+            @else
+              @for ($i = 0; $i < sizeof($evaluacion); $i++)
+                <h6>Evaluación Comité {{ $evaluacion[$i]->periodo }}: {{ $evaluacion[$i]->nota }}</h6>
+              @endfor
+            @endif
           </div>
         </div>
       </div>

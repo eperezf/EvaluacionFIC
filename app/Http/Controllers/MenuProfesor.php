@@ -93,7 +93,14 @@ class MenuProfesor extends Controller
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        return view('menu.profesor.profesor', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
+        $evaluaciones = Auth::user()->evaluacion()->orderBy('periodo', 'desc')->get();
+    
+        return view('menu.profesor.profesor', [
+            'nombre' => $nombre, 
+            'usuarios' => [], 
+            'menus' => $menus, 
+            'evaluacion' => $evaluaciones
+        ]);
     }
 
 //--PostAgregar
