@@ -15,8 +15,10 @@ use App\Actividad_asignatura;
 use App\Area;
 use App\Asignatura;
 use App\Curso;
+use App\Evaluacion;
 
 use App\Http\Requests\StoreCargoUser;
+use App\Http\Requests\StoreEvaluacion;
 
 use App\Helper\Helper;
 
@@ -161,9 +163,20 @@ class PerfilDocente extends Controller
         ]);
     }
 
-    public function saveEvaluacion (Request $request)
+    public function saveEvaluacion(Request $request)
     {
-        dd($request);
+        $validation = new StoreEvaluacion;
+        $this->validate($request, $validation->rules(), $validation->messages());
+        
+        $evaluacion = new Evaluacion;
+        $evaluacion->iduser = $request->userId;
+        $evaluacion->comentario = $request->comentario;
+        $evaluacion->nota = $request->nota;
+        $evaluacion->periodo = (int) date("Y") - 1;
+
+        $evaluacion->save();
+        
+        return redirect('/perfilDocente/'.$request->userId.'/')->with('success', "Evaluación guardada con éxito.");
     }
 
     public function loadCargos($userId, $cargoId)

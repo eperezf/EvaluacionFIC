@@ -2,6 +2,22 @@
 
 @section('title', 'Perfil '.$usuario->nombres.' '.$usuario->apellidoPaterno)
 @section('contenido')
+<div id="errors">
+  @if ($errors->any())
+    <div class="alert alert-danger pb-1 pt-1">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+</div>
+@if(session()->get('success'))
+    <div class="alert alert-success">
+      {{ session()->get('success') }}
+    </div>
+  @endif
 <div id="perfil">
   <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
   <div id="informacion" class="container">
@@ -90,10 +106,12 @@
           <div class="collapse" id="collapseComite">
             <div class="card card-body">
               @if($vacio)
-                <form id="evaluacion" method="POST" action="{{ route('saveEvaluacion') }}">
+                <form id="evaluacion" method="POST" action="{{ route('saveEvaluacion', ['userId' => $usuario->id]) }}">
+                  @csrf
                   <div id="evaluacion">
                     <label for="evaluacion-input">Evaluación general del Comité:</label>
-                    <input name="nota">
+                    <input name="nota" type="number" step="0.1" min="1" max="7">
+                    <input type="hidden" value="{{ $usuario->id }}" name="userId">
                   </div>
                   <div id="comentario">
                     <label for="comentario-input" class="col-form-label">Comentario:</label><br>
