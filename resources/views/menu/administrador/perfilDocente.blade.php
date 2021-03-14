@@ -97,43 +97,48 @@
           </div>
         </div>
       </section><hr>
-      <section id="comite">
-        <div class="container">
-          <div class="row col-12" data-toggle="collapse" href="#collapseComite" role="button" aria-expanded="false" aria-controls="collapseComite" style="color: black;">
-            <h5 class="col-11">Evaluación del Comité</h5>
-            <i class="fas fa-chevron-down pt-1 ml-5"></i>
-          </div>
-          <div class="collapse" id="collapseComite">
-            <div class="card card-body">
-              @if($vacio)
-                <form id="evaluacion" method="POST" action="{{ route('saveEvaluacion', ['userId' => $usuario->id]) }}">
-                  @csrf
-                  <div id="evaluacion">
-                    <label for="evaluacion-input">Evaluación general del Comité:</label>
-                    <input name="nota" type="number" step="0.1" min="1" max="7">
-                    <input type="hidden" value="{{ $usuario->id }}" name="userId">
-                  </div>
-                  <div id="comentario">
-                    <label for="comentario-input" class="col-form-label">Comentario:</label><br>
-                    <textarea name="comentario" placeholder="Ingrese el comentario aquí..." id="" cols="60" rows="10"></textarea>
-                  </div>
-                  <button name="agregarComentario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Guardar</button>
-                </form>
-              @else
-                <div id="evaluacion">
-                  <label for="evaluacion-input">Evaluación general del Comité:</label>
-                  {{ $nota }}
+      @for ($i = 0; $i < sizeof($cargos); $i++)
+        @if ($cargos[$i]->nombre == 'Profesor')
+          <section id="comite">
+            <div class="container">
+              <div class="row col-12" data-toggle="collapse" href="#collapseComite" role="button" aria-expanded="false" aria-controls="collapseComite" style="color: black;">
+                <h5 class="col-11">Evaluación del Comité</h5>
+                <i class="fas fa-chevron-down pt-1 ml-5"></i>
+              </div>
+              <div class="collapse" id="collapseComite">
+                <div class="card card-body">
+                  @if($vacio)
+                    <form id="evaluacion" method="POST" action="{{ route('saveEvaluacion', ['userId' => $usuario->id]) }}">
+                      @csrf
+                      <div id="evaluacion">
+                        <label for="evaluacion-input">Evaluación general del Comité:</label>
+                        <input name="nota" type="number" step="0.1" min="1" max="7">
+                        <input type="hidden" value="{{ $usuario->id }}" name="userId">
+                      </div>
+                      <div id="comentario">
+                        <label for="comentario-input" class="col-form-label">Comentario:</label><br>
+                        <textarea name="comentario" placeholder="Ingrese su comentario aquí..." id="" cols="60" rows="10"></textarea>
+                      </div>
+                      <button name="agregarComentario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Guardar</button>
+                    </form>
+                  @else
+                    <div id="evaluacion">
+                      <label for="evaluacion-input">Evaluación general del Comité:</label>
+                      {{ $nota }}
+                    </div>
+                    <div id="comentario">
+                      <label for="comentario-input" class="col-form-label">Comentario:</label>
+                      {{ $comentario }}<br>
+                      <button>Modificar</button>
+                    </div>
+                  @endif
                 </div>
-                <div id="comentario">
-                  <label for="comentario-input" class="col-form-label">Comentario:</label>
-                  {{ $comentario }}<br>
-                  <button>Modificar</button>
-                </div>
-              @endif
+              </div>
             </div>
-          </div>
-        </div>
-      </section><hr>
+          </section><hr>
+          @break
+        @endif
+      @endfor    
     </div>
     <!-- Modal de Comentario para Comité-->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

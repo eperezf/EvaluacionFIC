@@ -25,6 +25,7 @@ class StoreEvaluacion extends FormRequest
     {
         return [
             'nota' => ['required', 'numeric', 'between:1,7'],
+            'comentario' => ['max:200']
         ];
     }
 
@@ -32,7 +33,8 @@ class StoreEvaluacion extends FormRequest
     {
         return [
             'nota.required' => "Debe ingresar una nota",
-            'nota.between' => "La nota debe estar entre 1 y 7"
+            'nota.between' => "La nota debe estar entre 1 y 7",
+            'comentario.max' => "El comentario no debe exceder los 200 caracteres"
         ];
     }
 }
