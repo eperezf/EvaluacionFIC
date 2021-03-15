@@ -143,15 +143,15 @@ class PerfilDocente extends Controller
         {
             $nota = $evaluacion[0]->nota;
             $comentario = $evaluacion[0]->comentario;
+            $idEvaluacion = $evaluacion[0]->id;
         }
         else
         {
             $nota = 0;
             $comentario = '';
             $vacio = true;
+            $idEvaluacion = 0;
         }
-
-        
 
         return view('menu.administrador.perfilDocente', [
             'menus' => $menus,
@@ -159,6 +159,7 @@ class PerfilDocente extends Controller
             'cargos' => $cargos,
             'nota' => $nota,
             'comentario' => $comentario,
+            'idEvaluacion' => $idEvaluacion,
             'vacio' => $vacio
         ]);
     }
@@ -167,7 +168,18 @@ class PerfilDocente extends Controller
     {
         $validation = new StoreEvaluacion;
         $this->validate($request, $validation->rules(), $validation->messages());
-        
+
+        if(Evaluacion::where('id', $request->idEvaluacion)->exists())
+        {
+            $evaluacion = Evaluacion::find($request->idEvaluacion);
+            $evaluacion->comentario = $request->comentario;
+            $evaluacion->nota = $request->nota;
+
+            $evaluacion->save();
+
+            return redirect('/perfilDocente/'.$request->userId.'/')->with('success', "Evaluación modificada con éxito.");
+        }
+
         $evaluacion = new Evaluacion;
         $evaluacion->iduser = $request->userId;
         $evaluacion->comentario = $request->comentario;

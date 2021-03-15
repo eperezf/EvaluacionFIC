@@ -122,15 +122,27 @@
                       <button name="agregarComentario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Guardar</button>
                     </form>
                   @else
-                    <div id="evaluacion">
-                      <label for="evaluacion-input">Evaluación general del Comité:</label>
-                      {{ $nota }}
+
+                    <form action="{{ route('saveEvaluacion', ['userId' => $usuario->id]) }}" method="POST" id="modificarForm">
+                      @csrf
+                      <div id="modificar">
+                        <div id="modificarEvaluacion">
+                          <div id="notaEvaluacion">
+                            <label for="evaluacion-input">Evaluación general del Comité: {{ $nota }}</label>
+                            <input type="hidden" id="hiddenNota" value="{{ $nota }}">
+                          </div>
+                        </div>
+                        <div id="modificarComentario">
+                          <label for="comentario-input" class="col-form-label">Comentario: {{ $comentario }}</label><br>
+                          <input type="hidden" id="hiddenComentario" value="{{ $comentario }}">
+                        </div>
+                      </div>
+                      <input type="hidden" value="{{ $idEvaluacion }}" name="idEvaluacion">
+                    </form>
+                    <div id="modButton" class="col-6">
+                      <button id="modificarButton" class="col-3">Modificar</button>
                     </div>
-                    <div id="comentario">
-                      <label for="comentario-input" class="col-form-label">Comentario:</label>
-                      {{ $comentario }}<br>
-                      <button>Modificar</button>
-                    </div>
+
                   @endif
                 </div>
               </div>
@@ -150,16 +162,17 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="modalMessage">
             ¿Está seguro que desea guardar esta evaluación?
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
-            <button type="submit" form="evaluacion" value="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" form="evaluacion" value="submit" class="btn btn-primary" id="saveEvaluacionBtn">Guardar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script type="text/javascript" src="{{asset('js/editEvaluacion.js')}}"></script>
 @endsection
