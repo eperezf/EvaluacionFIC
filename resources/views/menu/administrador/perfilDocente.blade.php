@@ -117,30 +117,30 @@
                       </div>
                       <div id="comentario">
                         <label for="comentario-input" class="col-form-label">Comentario:</label><br>
-                        <textarea name="comentario" placeholder="Ingrese su comentario aquí..." id="" cols="60" rows="10"></textarea>
+                        <textarea name="comentario" placeholder="Ingrese su comentario aquí..." id="" cols="60" rows="5"></textarea>
                       </div>
                       <button name="agregarComentario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Guardar</button>
                     </form>
                   @else
 
-                    <form action="{{ route('saveEvaluacion', ['userId' => $usuario->id]) }}" method="POST" id="modificarForm">
-                      @csrf
-                      <div id="modificar">
-                        <div id="modificarEvaluacion">
-                          <div id="notaEvaluacion">
-                            <label for="evaluacion-input">Evaluación general del Comité: {{ $nota }}</label>
-                            <input type="hidden" id="hiddenNota" value="{{ $nota }}">
+                    <div id="modificar">
+                      <form action="{{ route('saveEvaluacion', ['userId' => $usuario->id]) }}" method="POST" id="modificarForm">
+                        @csrf
+                          <div id="modificarEvaluacion">
+                            <div id="notaEvaluacion">
+                              <label for="evaluacion-input">Evaluación general del Comité: {{ $nota }}</label>
+                              <input type="hidden" id="hiddenNota" value="{{ $nota }}">
+                            </div>
                           </div>
-                        </div>
-                        <div id="modificarComentario">
-                          <label for="comentario-input" class="col-form-label">Comentario: {{ $comentario }}</label><br>
-                          <input type="hidden" id="hiddenComentario" value="{{ $comentario }}">
-                        </div>
+                          <div id="modificarComentario">
+                            <label for="comentario-input" class="col-form-label">Comentario: {{ $comentario }}</label><br>
+                            <input type="hidden" id="hiddenComentario" value="{{ $comentario }}">
+                          </div>
+                        <input type="hidden" value="{{ $idEvaluacion }}" name="idEvaluacion">
+                      </form>
+                      <div id="modButtons" class="col-6 row">
+                        <button id="modificarButton" class="btn btn-secondary mt-2" onclick="edit()">Modificar</button>
                       </div>
-                      <input type="hidden" value="{{ $idEvaluacion }}" name="idEvaluacion">
-                    </form>
-                    <div id="modButton" class="col-6">
-                      <button id="modificarButton" class="col-3 btn btn-secondary">Modificar</button>
                     </div>
 
                   @endif
