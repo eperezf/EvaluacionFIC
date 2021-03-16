@@ -16,7 +16,7 @@ class CreateEvaluacionTable extends Migration
         Schema::create('evaluacion', function (Blueprint $table) {
             $table->id();
             $table->foreignId('iduser')->references('id')->on('user');
-            $table->string('comentario', '512');
+            $table->string('comentario', '512')->nullable();
             $table->float('nota');
             $table->integer('periodo');
             $table->timestamps();

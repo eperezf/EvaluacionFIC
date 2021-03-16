@@ -24,7 +24,17 @@ class StoreEvaluacion extends FormRequest
     public function rules()
     {
         return [
-            'nota' => ['required', 'numeric', 'min:1', 'max:7']
+            'nota' => ['required', 'numeric', 'between:1,7'],
+            'comentario' => ['max:200']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nota.required' => "Debe ingresar una nota",
+            'nota.between' => "La nota debe estar entre 1 y 7",
+            'comentario.max' => "El comentario no debe exceder los 200 caracteres"
         ];
     }
 }
