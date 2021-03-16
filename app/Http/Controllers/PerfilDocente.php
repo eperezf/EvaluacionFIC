@@ -15,8 +15,10 @@ use App\Actividad_asignatura;
 use App\Area;
 use App\Asignatura;
 use App\Curso;
+use App\Evaluacion;
 
 use App\Http\Requests\StoreCargoUser;
+use App\Http\Requests\StoreEvaluacion;
 
 use App\Helper\Helper;
 
@@ -130,12 +132,63 @@ class PerfilDocente extends Controller
 
         /* Cargos que posee el docente actualmente */
         $cargos = $this->getCargos($userId);
-        
+
+        /* Evaluadción general actual del Comité */
+        $periodo = (int)date('Y')-1;
+        $evaluacion = $usuario->evaluacion()
+            ->where("periodo", "=", $periodo)
+            ->get();
+        $vacio = false;
+        if(isset($evaluacion[0]))
+        {
+            $nota = $evaluacion[0]->nota;
+            $comentario = $evaluacion[0]->comentario;
+            $idEvaluacion = $evaluacion[0]->id;
+        }
+        else
+        {
+            $nota = 0;
+            $comentario = '';
+            $vacio = true;
+            $idEvaluacion = 0;
+        }
+
         return view('menu.administrador.perfilDocente', [
             'menus' => $menus,
             'usuario' => $usuario,
-            'cargos' => $cargos
+            'cargos' => $cargos,
+            'nota' => $nota,
+            'comentario' => $comentario,
+            'idEvaluacion' => $idEvaluacion,
+            'vacio' => $vacio
         ]);
+    }
+
+    public function saveEvaluacion(Request $request)
+    {
+        $validation = new StoreEvaluacion;
+        $this->validate($request, $validation->rules(), $validation->messages());
+
+        if(Evaluacion::where('id', $request->idEvaluacion)->exists())
+        {
+            $evaluacion = Evaluacion::find($request->idEvaluacion);
+            $evaluacion->comentario = $request->comentario;
+            $evaluacion->nota = $request->nota;
+
+            $evaluacion->save();
+
+            return redirect('/perfilDocente/'.$request->userId.'/')->with('success', "Evaluación modificada con éxito.");
+        }
+
+        $evaluacion = new Evaluacion;
+        $evaluacion->iduser = $request->userId;
+        $evaluacion->comentario = $request->comentario;
+        $evaluacion->nota = $request->nota;
+        $evaluacion->periodo = (int) date("Y") - 1;
+
+        $evaluacion->save();
+        
+        return redirect('/perfilDocente/'.$request->userId.'/')->with('success', "Evaluación guardada con éxito.");
     }
 
     public function loadCargos($userId, $cargoId)
