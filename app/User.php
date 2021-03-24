@@ -45,4 +45,9 @@ class User extends Authenticatable {
         'updated_at'
       ]);
   }
+
+  public function evaluacion()
+  {
+    return $this->hasMany('App\Evaluacion', 'iduser');
+  }
 }

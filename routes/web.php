@@ -41,6 +41,7 @@ Route::post('evaluacionDocenteImport', 'EvaluacionDocente@import')->middleware('
     Route::get('perfilDocente/{userId}/agregarCargo', 'PerfilDocente@loadNewCargo')->middleware('auth')->name('agregarCargo');
     Route::post('perfilDocente/guardarCargo', 'PerfilDocente@saveCargo')->middleware('auth')->name('saveCargo');
     Route::post('perfilDocente/deleteCargo', 'PerfilDocente@deleteCargo')->middleware('auth')->name('deleteCargo');
+    Route::post('perfilDocente/{userId}/guardarEvaluacion', 'PerfilDocente@saveEvaluacion')->middleware('auth')->name('saveEvaluacion');
 
 
 //--Rutas del Menú del Profesor
