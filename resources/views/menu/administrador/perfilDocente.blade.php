@@ -127,8 +127,11 @@
                       <form action="{{ route('saveEvaluacion', ['userId' => $usuario->id]) }}" method="POST" id="modificarForm">
                         @csrf
                           <div id="modificarEvaluacion">
-                            <div id="notaEvaluacion">
-                              <label for="evaluacion-input">Evaluación general del Comité: {{ $nota }}</label>
+                            <div id="notaEvaluacion" class="row">
+                              <label for="evaluacion-input">Evaluación general del Comité: </label>
+                              <div style="height:26px;margin-left:5px;border-radius:3px;border:1px solid#000">
+                                <div class="ml-1 mr-1">{{ $nota }}</div>
+                              </div>
                               <input type="hidden" id="hiddenNota" value="{{ $nota }}">
                             </div>
                           </div>
