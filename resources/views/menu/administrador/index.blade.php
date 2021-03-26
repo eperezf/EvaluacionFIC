@@ -44,6 +44,7 @@
       </div>
     </div>
   </section><hr>
+  
   <section id="buscador" class="col-12">
     <h3>Buscador de usuarios</h3>
     <div class="container mb-3">
@@ -84,9 +85,6 @@
           </button>
         </div>
         <div class="modal-body">
-          <div id="descargar">
-            <a href="" class="btn btn-link">Descargar archivo de encuesta docente</a>
-          </div><br>
           <form action="" method="POST" id="csvImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
