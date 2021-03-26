@@ -19,38 +19,32 @@
       </div>
     @endif
   </div>
-  <section id="buzones" class="">
-    <div class="container">
-      <div class="row" data-toggle="collapse" href="#collapseVinculacion" role="accordion-button" aria-expanded="false" aria-controls="collapseVinculacion" style="color: black;">
-        <h3 class="col-11">Buzones</h3>
-        <i class="fas fa-chevron-down pt-1 ml-5"></i>
+  <section id="buzones" class="col-12">
+    <h3>Buzones</h3>
+    <div class="container mb-3">
+      <div class="row">
+        <h5 class="col-5">Docencia: Encuesta docente</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelEncuesta">Subir archivo</button>
       </div>
-      <div class="collapse" id="collapseVinculacion">
-        <div class="card card-body">
-          <div class="row">
-            <h5 class="col-5">Docencia: Encuesta docente</h5>
-            <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelEncuesta">Subir archivo</button>
-          </div>
-          <div class="row">
-            <h5 class="col-5">Docencia: Evaluación de desempeño</h5>
-            <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelSuperior">Subir archivo</button>
-          </div>
-          <div class="row">
-            <h5 class="col-5">Investigación</h5>
-            <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
-          </div>
-          <div class="row">
-            <h5 class="col-5">Administración académica</h5>
-            <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
-          </div>
-          <div class="row">
-            <h5 class="col-5">Vinculación con el medio</h5>
-            <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
-          </div>
-        </div>
+      <div class="row">
+        <h5 class="col-5">Docencia: Evaluación de desempeño</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelSuperior">Subir archivo</button>
+      </div>
+      <div class="row">
+        <h5 class="col-5">Investigación</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+      </div>
+      <div class="row">
+        <h5 class="col-5">Administración académica</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+      </div>
+      <div class="row">
+        <h5 class="col-5">Vinculación con el medio</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
       </div>
     </div>
   </section><hr>
+  
   <section id="buscador" class="col-12">
     <h3>Buscador de usuarios</h3>
     <div class="container mb-3">
@@ -91,9 +85,6 @@
           </button>
         </div>
         <div class="modal-body">
-          <div id="descargar">
-            <a href="" class="btn btn-link">Descargar archivo de encuesta docente</a>
-          </div><br>
           <form action="" method="POST" id="csvImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
