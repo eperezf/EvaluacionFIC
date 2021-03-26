@@ -271,7 +271,7 @@ class PerfilDocente extends Controller
 
     public function deleteCargo(Request $request)
     {
-        $user_actividad = User_actividad::where('idactividad', $request->actividadId)->get()[0];
+        $user_actividad = User_actividad::where('idactividad', $request->actividadId)->where('iduser', $request->userId)->get()[0];
         $user_actividad->delete();
         return redirect('/perfilDocente/'.$request->userId.'/cargos/all/')->with('success', 'Cargo eliminado con exito');
     }
