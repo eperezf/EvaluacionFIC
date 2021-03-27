@@ -32,8 +32,13 @@ Route::post('visitante/buscador/searchByInput', 'MenuVisitante@searchInput')->na
 Route::get('menuAdministrador', 'MenuAdministrador@load')->name('menuAdministrador');
 Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('searchLetter');
 Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput');
-Route::get('evaluacionDocenteExport/{area}', 'EvaluacionDocente@export')->middleware('auth')->name('evaluacionDocenteExport');
-Route::post('evaluacionDocenteImport', 'EvaluacionDocente@import')->middleware('auth')->name('evaluacionDocenteImport');
+
+// Buzones del menu administrador
+Route::get('evaluacionDocenteExport/{area}', 'BuzonAdmin@exportEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoExport');
+Route::get('evaluacionDocenteImport', 'BuzonAdmin@importEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoImport');
+
+Route::get('encuestaDocenteExport', 'BuzonAdmin@exportEncuestaDocente')->middleware('auth')->name('encuestaDocenteExport');
+Route::get('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
 
 //--Rutas para el perfil docente como usuario administrador
     Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
