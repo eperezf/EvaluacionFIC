@@ -37,6 +37,10 @@ class ApiController extends Controller
   public function getAsignatura($name){
     return response(Asignatura::where('nombre', 'LIKE', '%'.$name.'%')->get())->header('Content-Type', 'application/json');
   }
+
+  public function getAsignaturasAll(){
+    return response(Asignatura::all())->header('Content-Type', 'application/json');
+  }
   
   public function getSubarea($name){
     return response(Subarea::where('nombre', 'LIKE', '%'.$name.'%')->get())->header('Content-Type', 'application/json');

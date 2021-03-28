@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVinculacionTable extends Migration
+class CreateEvaluacionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateVinculacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('vinculacion', function (Blueprint $table) {
+        Schema::create('evaluacion', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 45);
-            $table->string('descripcion', 1024);
-            $table->foreignId('idactividad')->references('id')->on('actividad');
+            $table->foreignId('iduser')->references('id')->on('user');
+            $table->string('comentario', '512')->nullable();
+            $table->float('nota');
+            $table->integer('periodo');
             $table->timestamps();
+
         });
     }
 
@@ -29,6 +31,6 @@ class CreateVinculacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vinculacion');
+        Schema::dropIfExists('evaluacion');
     }
 }

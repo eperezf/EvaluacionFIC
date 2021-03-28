@@ -1,73 +1,73 @@
 @extends('includes/template')
 
-@section('title', 'Añadir Cargo')
+@section('title', 'Ver Cargos')
 
 @section('contenido')
-<div id="errors">
-  @if ($errors->any())
-    <div class="alert alert-danger pb-1 pt-1">
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
+  <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
+  @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{ session()->get('success') }}
     </div>
   @endif
-</div>
-<form action="{{ route('saveCargo') }}" method="POST" id="agregarCargo">
-  @csrf
-  <div class="row col-12" id="save">
-    <h3 class="col-9">Añadir cargo para {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
-    <a href="{{ route('panelDocente', ['userId' => $usuario->id]) }}" class="btn btn-secondary col-1 ml-5">Cancelar</a>
-    <button type="button" class="btn btn-primary col-1 ml-3 pt-1" data-toggle="modal" data-target="#confirmationModal">Guardar</button>
-  </div><hr>
-  <div id="formData">
-    <div class="form-group row col-12">
-      <label for="tipoActividad" class="col-sm-3">Seleccione un tipo de actividad</label>
-      <div class="col-sm-5">
-        <select name="tipoActividad" id="tipoActividad" class="form-control">
-          <option disabled selected>Seleccione un tipo de actividad</option>
-          @foreach ($tipoActividades as $tipo)
-            <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+  <hr>
+  <div id="container" class="row">
+    <div id="cargosSideBar" class="col-3">
+      <div id="sidebarHeader" class="row">
+        <h3 class="col-6">Cargos</h3>
+        @if(!$modoEditar)
+          <a href="{{ route('agregarCargo', ['userId' => $usuario->id]) }}" class="pt-2 ml-2">Agregar cargo</a>
+        @endif
+      </div>
+      <div class="nav flex-column nav-pills" id="cargos" role="tablist" aria-orientation="vertical">
+        <a href="{{ route('verCargos', ['userId' => $usuario->id, 'cargoId' => 'all']) }}" class="nav-link {{ $selectedCargoId == 0 ? 'active': '' }}" aria-selected="true">Todos los cargos</a>
+        @foreach ($cargos as $cargo)
+          <a href="{{ route('verCargos', ['userId' => $usuario->id, 'cargoId' => $cargo->id]) }}" class="nav-link {{ $selectedCargoId == $cargo->id ? 'active': '' }}">{{ $cargo->nombre }}</a>
+        @endforeach
+      </div>
+    </div>
+    <div id="actividades" class="col-9">
+      <h3>Actividades</h3>
+      @if ($actividades != NULL)
+        <form action="{{ route('deleteCargo') }}" method="POST" id="actividadesForm" name="actividadesForm">
+          @csrf
+          @foreach ($actividades as $actividad)
+            <div class="card mb-2">
+              <div class="card-body">
+                <h5>{{ $actividad[1] }}</h5>
+                <h6>{{ $actividad[2] }}</h6>
+                @if(!$modoEditar)
+                  <button value="{{ $actividad[0] }}" name="deleteCargo{{ $actividad[0] }}" id="deleteCargo{{ $actividad[0] }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                    Eliminar cargo
+                  </button>
+                @endif
+              </div>
+            </div>
           @endforeach
-        </select>
-      </div>
-    </div>
-    <div class="form-group row col-12">
-      <label for="tipoActividad" class="col-sm-3">Seleccione un cargo</label>
-      <div class="col-sm-5">
-        <select name="cargo" id="cargo" class="form-control" disabled>
-          <option disabled selected>Seleccione un cargo</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group row col-12" id="response" name="response">
-      {{-- RESPUESTAS DE JQUERY SEGUN CARGO A ASIGNAR Y TIPO DE ACTIVIDAD --}}
+          <input type="hidden" value="" name="actividadId" id="actividadId">
+          <input type="hidden" value="{{ $usuario->id }}" name="userId" id="userId">
+        </form>
+      @endif
     </div>
   </div>
-  <input type="hidden" value="{{ $usuario->id }}" name="userId">
-  <input type="hidden" value="{{ Carbon\Carbon::now() }}" name="inicio">
-  <input type="hidden" value="{{ Carbon\Carbon::parse('2100-01-01') }}" name="termino">
-  <!-- Modal de confirmación para la asignación de un nuevo cargo -->
-  <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="confirmationModalLabel">Confirmar cambios</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Eliminar cargo</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          ¿Está seguro que quiere otorgarle el cargo a {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}?
+          ¿Esta seguro que quiere eliminar el cargo otorgado a {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }}?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
-          <button type="submit" form="agregarCargo" value="submit" class="btn btn-primary">Confirmar</button>
+          <button type="submit" form="actividadesForm" value="submit" class="btn btn-danger">Eliminar</button>
         </div>
       </div>
     </div>
   </div>
-</form>
-<script type="text/javascript" src="{{asset('js/addCargo.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/deleteCargo.js')}}"></script>
 @endsection

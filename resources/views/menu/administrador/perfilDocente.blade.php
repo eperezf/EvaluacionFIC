@@ -2,24 +2,33 @@
 
 @section('title', 'Perfil '.$usuario->nombres.' '.$usuario->apellidoPaterno)
 @section('contenido')
-<div id="perfil">
-  @if(session()->get('success'))
+<div id="errors">
+  @if ($errors->any())
+    <div class="alert alert-danger pb-1 pt-1">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+</div>
+@if(session()->get('success'))
     <div class="alert alert-success">
       {{ session()->get('success') }}
     </div>
   @endif
+<div id="perfil">
   <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
   <div id="informacion" class="container">
     <div id="cargos" class="row">
       <h6>Cargos actuales:
         @for ($i = 0; $i < sizeof($cargos); $i++)
-          @if (!($i == sizeof($cargos) - 1))
-            {{ $cargos[$i] }},
-          @else
-            {{ $cargos[$i] }},
+          @if ($i < 5)
+            {{ $cargos[$i]->nombre }},
           @endif
         @endfor
-        <a href="{{ route('panelDocenteCargo', ['userId' => $usuario->id]) }}" style="color: #0067C0;">Agregar cargo</a>
+        <a href="{{ route('verCargos', ['userId' => $usuario->id, 'cargoId' => "all"]) }}" style="color: #0067C0;">Ver más...</a>
       </h6>
     </div><hr>
     <div id="actividades">
@@ -88,7 +97,85 @@
           </div>
         </div>
       </section><hr>
+      @for ($i = 0; $i < sizeof($cargos); $i++)
+        @if ($cargos[$i]->nombre == 'Profesor')
+          <section id="comite">
+            <div class="container">
+              <div class="row col-12" data-toggle="collapse" href="#collapseComite" role="button" aria-expanded="false" aria-controls="collapseComite" style="color: black;">
+                <h5 class="col-11">Evaluación del Comité</h5>
+                <i class="fas fa-chevron-down pt-1 ml-5"></i>
+              </div>
+              <div class="collapse" id="collapseComite">
+                <div class="card card-body">
+                  @if($vacio)
+                    <form id="evaluacion" method="POST" action="{{ route('saveEvaluacion', ['userId' => $usuario->id]) }}">
+                      @csrf
+                      <div id="evaluacion">
+                        <label for="evaluacion-input">Evaluación general del Comité:</label>
+                        <input name="nota" type="number" step="0.1" min="1" max="7">
+                        <input type="hidden" value="{{ $usuario->id }}" name="userId">
+                      </div>
+                      <div id="comentario">
+                        <label for="comentario-input" class="col-form-label">Comentario:</label><br>
+                        <textarea name="comentario" placeholder="Ingrese su comentario aquí..." id="" cols="60" rows="5"></textarea>
+                      </div>
+                      <button name="agregarComentario" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Guardar</button>
+                    </form>
+                  @else
+
+                    <div id="modificar">
+                      <form action="{{ route('saveEvaluacion', ['userId' => $usuario->id]) }}" method="POST" id="modificarForm">
+                        @csrf
+                          <div id="modificarEvaluacion">
+                            <div id="notaEvaluacion" class="row">
+                              <label for="evaluacion-input">Evaluación general del Comité: </label>
+                              <div style="height:26px;margin-left:5px;border-radius:3px;border:1px solid#000">
+                                <div class="ml-1 mr-1">{{ $nota }}</div>
+                              </div>
+                              <input type="hidden" id="hiddenNota" value="{{ $nota }}">
+                            </div>
+                          </div>
+                          <div id="modificarComentario">
+                            <label for="comentario-input" class="col-form-label">Comentario: {{ $comentario }}</label><br>
+                            <input type="hidden" id="hiddenComentario" value="{{ $comentario }}">
+                          </div>
+                        <input type="hidden" value="{{ $idEvaluacion }}" name="idEvaluacion">
+                      </form>
+                      <div id="modButtons" class="col-6 row">
+                        <button id="modificarButton" class="btn btn-secondary mt-2" onclick="edit()">Modificar</button>
+                      </div>
+                    </div>
+
+                  @endif
+                </div>
+              </div>
+            </div>
+          </section><hr>
+          @break
+        @endif
+      @endfor    
+    </div>
+    <!-- Modal de Comentario para Comité-->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modificar Evaluación</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modalMessage">
+            ¿Está seguro que desea guardar esta modificación?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+            <button type="submit" form="evaluacion" value="submit" class="btn btn-primary" id="saveEvaluacionBtn">Guardar</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<script type="text/javascript" src="{{asset('js/editEvaluacion.js')}}"></script>
 @endsection
