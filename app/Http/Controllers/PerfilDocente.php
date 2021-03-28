@@ -21,6 +21,7 @@ use App\Http\Requests\StoreCargoUser;
 use App\Http\Requests\StoreEvaluacion;
 
 use App\Helper\Helper;
+use DB;
 
 class PerfilDocente extends Controller
 {
@@ -122,6 +123,48 @@ class PerfilDocente extends Controller
         return $infoActividades;
     }
 
+    private function getInfoEncuestaDocente($userId)
+    {
+        //Obtenemos las actividades del usuario que tengan cargo Profesor
+        $actividades = DB::table('user_actividad')
+        ->where('iduser', $userId)
+        ->where('idcargo', Cargo::where('nombre', 'Profesor')->value('id'))
+        ->select('user_actividad.idactividad as idActividad')
+        ->get()->toArray();
+
+        //Por cada actividad, se ve si tiene curso asociado y se saca la información
+        $notas=[];
+        $muestras=[];
+        $inscritos=[];
+        $secciones=[];
+        $nombres=[];
+        foreach($actividades as $actividad)
+        {
+            $curso = Curso::where('idactividad', $actividad->idActividad)->get();
+            if(!($curso->isEmpty()))
+            {
+                $curso = $curso[0];
+                $nota = $curso->calificacion;
+                $muestra = $curso->respuestas;
+                $inscrito = $curso->inscritos;
+                $seccion = $curso->seccion;
+                //falta el periodo
+                $nombre = Asignatura::find($curso->idasignatura)->nombre;
+                array_push($nombres, $nombre);
+                array_push($secciones, $seccion);
+                //falta el periodo
+                array_push($inscritos, $inscrito);
+                array_push($muestras, $muestra);
+                array_push($notas, $nota);
+            }
+        }
+
+        $infoEncuestaDocente = array_map(NULL, $nombres, $secciones, $inscritos, $muestras, $notas);
+ 
+        return $infoEncuestaDocente;
+    }
+
+
     public function loadPerfil($userId)
     {
         /* Datos administrador para display de menú correspondiente */
@@ -132,6 +175,9 @@ class PerfilDocente extends Controller
 
         /* Cargos que posee el docente actualmente */
         $cargos = $this->getCargos($userId);
+
+        /* Información de Encuesta Docente */
+        $encuestaDocente = $this->getInfoEncuestaDocente($userId);
 
         /* Evaluadción general actual del Comité */
         $periodo = (int)date('Y')-1;
@@ -160,7 +206,8 @@ class PerfilDocente extends Controller
             'nota' => $nota,
             'comentario' => $comentario,
             'idEvaluacion' => $idEvaluacion,
-            'vacio' => $vacio
+            'vacio' => $vacio,
+            'encuesta' => $encuestaDocente
         ]);
     }
 

@@ -40,7 +40,36 @@
           </div>
           <div class="collapse" id="collapseDocencia">
             <div class="card card-body">
-              AQUI VAN LAS ACTIVIDADES DE DOCENCIA
+              @for ($i = 0; $i < sizeof($cargos); $i++)
+                @if (($cargos[$i]->nombre) == 'Profesor')
+                  <table class="table table-bordered table-sm align-middle ">
+                    <h6>Encuesta Docente</h6>
+                    <thead>
+                      <tr>
+                        <th scope="col">Ramo</th>
+                        <th scope="col">Sección</th>
+                        <th scope="col">Periodo</th>
+                        <th scope="col">Inscritos</th>
+                        <th scope="col">Muestra</th>
+                        <th scope="col">Nota</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($encuesta as list($ramo,$seccion,$inscritos,$muestra,$nota))
+                          <tr>
+                            <td>{{ $ramo }}</td>
+                            <td>{{ $seccion }}</td>
+                            <td>Periodo</td>
+                            <td>{{ $inscritos }}</td>
+                            <td>{{ $muestra }}</td>
+                            <td>{{ $nota }}</td>
+                          </tr>
+                        @endforeach
+                    </tbody>
+                  </table>
+                  @break
+                @endif
+              @endfor
             </div>
           </div>
         </div>
