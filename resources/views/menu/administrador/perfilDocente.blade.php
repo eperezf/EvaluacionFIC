@@ -55,11 +55,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach ($encuesta as list($ramo,$seccion,$inscritos,$muestra,$nota))
+                        @foreach ($encuesta as list($ramo,$seccion,$periodo,$inscritos,$muestra,$nota))
                           <tr>
                             <td>{{ $ramo }}</td>
                             <td>{{ $seccion }}</td>
-                            <td>Periodo</td>
+                            <td>{{ $periodo }}</td>
                             <td>{{ $inscritos }}</td>
                             <td>{{ $muestra }}</td>
                             <td>{{ $nota }}</td>
