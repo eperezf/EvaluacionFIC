@@ -125,13 +125,14 @@ class PerfilDocente extends Controller
 
     private function getInfoEncuestaDocente($userId)
     {
-        //Obtenemos las actividades del usuario que tengan cargo Profesor
+        /* Obtenemos las actividades del usuario que tengan cargo Profesor */
         $actividades = DB::table('user_actividad')
         ->where('iduser', $userId)
         ->where('idcargo', Cargo::where('nombre', 'Profesor')->value('id'))
         ->select('user_actividad.idactividad as idActividad');
 
-        $infoEncuesta = DB::table('curso')
+        /* Obtenemos la información de la encuesta docente */
+        $infoEncuestas = DB::table('curso')
         ->joinSub($actividades, 'actividades', function($join) {
             $join->on('curso.idactividad', '=', 'actividades.idActividad');})
         ->join('asignatura', 'curso.idasignatura', '=', 'asignatura.id')
@@ -147,9 +148,10 @@ class PerfilDocente extends Controller
             'curso.calificacion as nota',
             DB::raw('DATE_FORMAT(actividad.inicio, "%b") as inicio'),
             DB::raw('DATE_FORMAT(actividad.termino, "%b") as termino'))
-        ->get()->groupBy('area')->toArray();
+        ->get()->groupBy('area')
+        ->toArray();
 
-        return $infoEncuesta;
+        return $infoEncuestas;
     }
 
 
@@ -165,7 +167,7 @@ class PerfilDocente extends Controller
         $cargos = $this->getCargos($userId);
 
         /* Información de Encuesta Docente */
-        $encuestasDocentes = $this->getInfoEncuestaDocente($userId);
+        $encuestaDocente = $this->getInfoEncuestaDocente($userId);
 
         /* Evaluadción general actual del Comité */
         $periodo = (int)date('Y')-1;
@@ -195,7 +197,7 @@ class PerfilDocente extends Controller
             'comentario' => $comentario,
             'idEvaluacion' => $idEvaluacion,
             'vacio' => $vacio,
-            'encuestas' => $encuestasDocentes
+            'encuestas' => $encuestaDocente
         ]);
     }
 

@@ -93,7 +93,7 @@
                         </div>
                       </div>
                     </div>
-                  </section><hr>
+                  </section>
                   @break
                 @endif
               @endfor
