@@ -21,11 +21,30 @@
   </div>
   <section id="buzones" class="col-12">
     <h3>Buzones</h3>
-    <div class="row">
-      <h5 class="col-4">Subir evaluación de desempeño</h5>
-      <button type="button" class="btn btn-primary col-2" data-toggle="modal" data-target="#ModalExcelSuperior">Subir archivo</button>
+    <div class="container mb-3">
+      <div class="row">
+        <h5 class="col-5">Docencia: Encuesta docente</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelEncuesta">Subir archivo</button>
+      </div>
+      <div class="row">
+        <h5 class="col-5">Docencia: Evaluación de desempeño</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelSuperior">Subir archivo</button>
+      </div>
+      <div class="row">
+        <h5 class="col-5">Investigación</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+      </div>
+      <div class="row">
+        <h5 class="col-5">Administración académica</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+      </div>
+      <div class="row">
+        <h5 class="col-5">Vinculación con el medio</h5>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+      </div>
     </div>
   </section><hr>
+  
   <section id="buscador" class="col-12">
     <h3>Buscador de usuarios</h3>
     <div class="container mb-3">
@@ -54,8 +73,37 @@
       @endforeach
     </div>
   </section>
+
+  <!-- Modal de Encuesta Docente -->
+  <div class="modal fade" id="ModalExcelEncuesta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Subir archivo de encuesta docente</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="descargarEvalDocente" class="form-group row">
+            <label for="linkDescargaEvalDocente" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
+            <a href={{ route('encuestaDocenteExport') }} class="btn btn-link" id="linkDescargaEvalDocente">Descargar</a>
+          </div>
+          <form action={{ route('encuestaDocenteImport') }} method="GET" id="encuestaDocenteImport" enctype="multipart/form-data">
+            @csrf
+            <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
+            <input type="file" class="form-control-file" name="file">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" value="submit" form="encuestaDocenteImport" class="btn btn-primary" title="importar datos">Importar</button>
+        </div>
+      </div>
+    </div>
+  </div><br>
   
-  <!-- Modal de Evaluación Docente "superiores" -->
+  <!-- Modal de Evaluación de Desempeño -->
   <div class="modal fade" id="ModalExcelSuperior" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -76,10 +124,9 @@
                 @endforeach
               </select>
             </div>
-            <a href="" class="btn btn-link" id="descargar">Descargar</a>
+            <a href={{ route('evaluacionDesempenoExport', ['area' => $area->id]) }} class="btn btn-link" id="descargar">Descargar</a>
           </div><br>
-
-          <form action="{{ route('evaluacionDocenteImport') }}" method="POST" id="csvImport" enctype="multipart/form-data">
+          <form action="{{ route('evaluacionDesempenoImport') }}" method="GET" id="evalDesempenoImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
             <input type="file" class="form-control-file" name="file">
@@ -87,7 +134,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" value="submit" form="csvImport" class="btn btn-primary" title="importar datos">Importar</button>
+          <button type="submit" value="submit" form="evalDesempenoImport" class="btn btn-primary" title="importar datos">Importar</button>
         </div>
       </div>
     </div>
