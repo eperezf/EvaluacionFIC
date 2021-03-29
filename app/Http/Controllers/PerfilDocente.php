@@ -125,41 +125,33 @@ class PerfilDocente extends Controller
 
     private function getInfoEncuestaDocente($userId)
     {
-        //Obtenemos las actividades del usuario que tengan cargo Profesor
+        /* Obtenemos las actividades del usuario que tengan cargo Profesor */
         $actividades = DB::table('user_actividad')
         ->where('iduser', $userId)
         ->where('idcargo', Cargo::where('nombre', 'Profesor')->value('id'))
-        ->select('user_actividad.idactividad as idActividad')
-        ->get()->toArray();
+        ->select('user_actividad.idactividad as idActividad');
 
-        //Por cada actividad, se ve si tiene curso asociado y se saca la información
-        $nota=[];
-        $muestra=[];
-        $inscritos=[];
-        $seccion=[];
-        $ramo=[];
-        $periodo=[];
-        foreach($actividades as $actividad)
-        {
-            $curso = Curso::where('idactividad', $actividad->idActividad)->get();
-            if(!($curso->isEmpty()))
-            {
-                $curso = $curso[0];
-                $mesInicio = date('M', strtotime(Actividad::find($curso->idactividad)->inicio));
-                $mesTermino = date('M', strtotime(Actividad::find($curso->idactividad)->termino));
-                $fecha = $mesInicio."-".$mesTermino; 
-                $nombre = Asignatura::find($curso->idasignatura)->nombre;
-                array_push($ramo, $nombre);
-                array_push($seccion, $curso->seccion);
-                array_push($periodo, $fecha);
-                array_push($inscritos, $curso->inscritos);
-                array_push($muestra, $curso->respuestas);
-                array_push($nota, $curso->calificacion);
-            }
-        }
+        /* Obtenemos la información de la encuesta docente */
+        $infoEncuestas = DB::table('curso')
+        ->joinSub($actividades, 'actividades', function($join) {
+            $join->on('curso.idactividad', '=', 'actividades.idActividad');})
+        ->join('asignatura', 'curso.idasignatura', '=', 'asignatura.id')
+        ->join('actividad' , 'curso.idactividad', '=', 'actividad.id')
+        ->join('subarea', 'asignatura.idsubarea', '=', 'subarea.id')
+        ->join('area', 'subarea.idarea', '=', 'area.id')
+        ->select(
+            'area.nombre as area',
+            'asignatura.nombre as ramo',
+            'curso.seccion as seccion',
+            'curso.inscritos as inscritos',
+            'curso.respuestas as muestra',
+            'curso.calificacion as nota',
+            DB::raw('DATE_FORMAT(actividad.inicio, "%b") as inicio'),
+            DB::raw('DATE_FORMAT(actividad.termino, "%b") as termino'))
+        ->get()->groupBy('area')
+        ->toArray();
 
-        $infoEncuestaDocente = array_map(NULL, $ramo, $seccion, $periodo, $inscritos, $muestra, $nota);
-        return $infoEncuestaDocente;
+        return $infoEncuestas;
     }
 
 
@@ -205,7 +197,7 @@ class PerfilDocente extends Controller
             'comentario' => $comentario,
             'idEvaluacion' => $idEvaluacion,
             'vacio' => $vacio,
-            'encuesta' => $encuestaDocente
+            'encuestas' => $encuestaDocente
         ]);
     }
 
