@@ -50,8 +50,8 @@
                           <i class="fas fa-chevron-down pt-1 ml-5"></i>
                         </div>
                         <div class="collapse" id="collapse{{$area}}">
-                          <div class="container">
-                            <table class="table table-bordered table-sm align-middle ">
+                          <div class="container table-responsive">
+                            <table class="table table-bordered table-sm">
                               <h6>Encuesta Docente</h6>
                               <thead>
                                 <tr>
