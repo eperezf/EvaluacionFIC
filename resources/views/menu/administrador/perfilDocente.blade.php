@@ -35,38 +35,65 @@
       <section id="docencia">
         <div class="container">
           <div class="row col-12" data-toggle="collapse" href="#collapseDocencia" role="button" aria-expanded="false" aria-controls="collapseDocencia" style="color: black;">
-            <h5 class="col-11">Docencia</h5>
+            <h4 class="col-11">Docencia</h4>
             <i class="fas fa-chevron-down pt-1 ml-5"></i>
           </div>
           <div class="collapse" id="collapseDocencia">
             <div class="card card-body">
               @for ($i = 0; $i < sizeof($cargos); $i++)
                 @if (($cargos[$i]->nombre) == 'Profesor')
-                  <table class="table table-bordered table-sm align-middle ">
-                    <h6>Encuesta Docente</h6>
-                    <thead>
-                      <tr>
-                        <th scope="col">Ramo</th>
-                        <th scope="col">Sección</th>
-                        <th scope="col">Periodo</th>
-                        <th scope="col">Inscritos</th>
-                        <th scope="col">Muestra</th>
-                        <th scope="col">Nota</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($encuesta as list($ramo,$seccion,$periodo,$inscritos,$muestra,$nota))
-                          <tr>
-                            <td>{{ $ramo }}</td>
-                            <td>{{ $seccion }}</td>
-                            <td>{{ $periodo }}</td>
-                            <td>{{ $inscritos }}</td>
-                            <td>{{ $muestra }}</td>
-                            <td>{{ $nota }}</td>
-                          </tr>
-                        @endforeach
-                    </tbody>
-                  </table>
+                  @foreach ($encuestas as $area => $area_encuesta)
+                    <section id="areas">
+                      <div class="container">
+                        <div class="row col-12" data-toggle="collapse" href="#collapse{{$area}}" role="button" aria-expanded="false" aria-controls="collapse{{$area}}" style="color: black;">
+                          <h5 class="col-11">{{$area}}</h5>
+                          <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                        </div>
+                        <div class="collapse" id="collapse{{$area}}">
+                          <div class="container">
+                            <table class="table table-bordered table-sm align-middle ">
+                              <h6>Encuesta Docente</h6>
+                              <thead>
+                                <tr>
+                                  <th scope="col">Ramo</th>
+                                  <th scope="col">Sección</th>
+                                  <th scope="col">Periodo</th>
+                                  <th scope="col">Inscritos</th>
+                                  <th scope="col">Muestra</th>
+                                  <th scope="col">Nota</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                @foreach ($area_encuesta as $encuesta)
+                                  </tr>
+                                    <td>{{ $encuesta->ramo}}</td>
+                                    <td>{{ $encuesta->seccion}}</td>
+                                    <td>{{ $encuesta->inicio}} - {{ $encuesta->termino}} </td>
+                                    <td>{{ $encuesta->inscritos}}</td>
+                                    <td>{{ $encuesta->muestra}}</td>
+                                    <td>{{ $encuesta->nota}}</td>
+                                  </tr>
+                                @endforeach
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </section><hr>
+                  @endforeach
+                  <section id="otrasActDocentes">
+                    <div class="container">
+                      <div class="row col-12" data-toggle="collapse" href="#collapseOtrasActDocentes" role="button" aria-expanded="false" aria-controls="collapseOtrasActDocentes">
+                        <h5 class="col-11">Otras Actividades Docentes</h5>
+                        <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                      </div>
+                      <div class="collapse" id="collapseOtrasActDocentes">
+                        <div class="card card-body">
+                          VACIO
+                        </div>
+                      </div>
+                    </div>
+                  </section><hr>
                   @break
                 @endif
               @endfor
@@ -77,7 +104,7 @@
       <section id="investigacion">
         <div class="container">
           <div class="row col-12" data-toggle="collapse" href="#collapseInvestigacion" role="button" aria-expanded="false" aria-controls="collapseInvestigacion">
-            <h5 class="col-11">Investigación</h5>
+            <h4 class="col-11">Investigación</h4>
             <i class="fas fa-chevron-down pt-1 ml-5"></i>
           </div>
           <div class="collapse" id="collapseInvestigacion">
@@ -90,7 +117,7 @@
       <section id="administracion">
         <div class="container">
           <div class="row col-12" data-toggle="collapse" href="#collapseAdministracion" role="button" aria-expanded="false" aria-controls="collapseAdministracion" style="color: black;">
-            <h5 class="col-11">Administración académica</h5>
+            <h4 class="col-11">Administración académica</h4>
             <i class="fas fa-chevron-down pt-1 ml-5"></i>
           </div>
           <div class="collapse" id="collapseAdministracion">
@@ -103,7 +130,7 @@
       <section id="vinculacion">
         <div class="container">
           <div class="row col-12" data-toggle="collapse" href="#collapseVinculacion" role="button" aria-expanded="false" aria-controls="collapseVinculacion" style="color: black;">
-            <h5 class="col-11">Vinculación con el medio</h5>
+            <h4 class="col-11">Vinculación con el medio</h4>
             <i class="fas fa-chevron-down pt-1 ml-5"></i>
           </div>
           <div class="collapse" id="collapseVinculacion">
@@ -116,7 +143,7 @@
       <section id="otros">
         <div class="container">
           <div class="row col-12" data-toggle="collapse" href="#collapseOtros" role="button" aria-expanded="false" aria-controls="collapseOtros" style="color: black;">
-            <h5 class="col-11">Otros</h5>
+            <h4 class="col-11">Otros</h4>
             <i class="fas fa-chevron-down pt-1 ml-5"></i>
           </div>
           <div class="collapse" id="collapseOtros">
@@ -131,7 +158,7 @@
           <section id="comite">
             <div class="container">
               <div class="row col-12" data-toggle="collapse" href="#collapseComite" role="button" aria-expanded="false" aria-controls="collapseComite" style="color: black;">
-                <h5 class="col-11">Evaluación del Comité</h5>
+                <h4 class="col-11">Evaluación del Comité</h4>
                 <i class="fas fa-chevron-down pt-1 ml-5"></i>
               </div>
               <div class="collapse" id="collapseComite">
