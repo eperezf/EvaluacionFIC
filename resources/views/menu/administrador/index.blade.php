@@ -85,7 +85,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" id="csvImport" enctype="multipart/form-data">
+          <div id="descargarEvalDocente" class="form-group row">
+            <label for="linkDescargaEvalDocente" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
+            <a href={{ route('encuestaDocenteExport') }} class="btn btn-link" id="linkDescargaEvalDocente">Descargar</a>
+          </div>
+          <form action={{ route('encuestaDocenteImport') }} method="GET" id="encuestaDocenteImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
             <input type="file" class="form-control-file" name="file">
@@ -93,13 +97,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" value="submit" form="csvImport" class="btn btn-primary" title="importar datos">Importar</button>
+          <button type="submit" value="submit" form="encuestaDocenteImport" class="btn btn-primary" title="importar datos">Importar</button>
         </div>
       </div>
     </div>
   </div><br>
   
-  <!-- Modal de Evaluación Docente "superiores" -->
+  <!-- Modal de Evaluación de Desempeño -->
   <div class="modal fade" id="ModalExcelSuperior" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -120,9 +124,9 @@
                 @endforeach
               </select>
             </div>
-            <a href={{ route('evaluacionDocenteExport', ['area' => $area->id]) }} class="btn btn-link" id="descargar">Descargar</a>
+            <a href={{ route('evaluacionDesempenoExport', ['area' => $area->id]) }} class="btn btn-link" id="descargar">Descargar</a>
           </div><br>
-          <form action="{{ route('evaluacionDocenteImport') }}" method="POST" id="csvImport" enctype="multipart/form-data">
+          <form action="{{ route('evaluacionDesempenoImport') }}" method="GET" id="evalDesempenoImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
             <input type="file" class="form-control-file" name="file">
@@ -130,7 +134,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" value="submit" form="csvImport" class="btn btn-primary" title="importar datos">Importar</button>
+          <button type="submit" value="submit" form="evalDesempenoImport" class="btn btn-primary" title="importar datos">Importar</button>
         </div>
       </div>
     </div>
