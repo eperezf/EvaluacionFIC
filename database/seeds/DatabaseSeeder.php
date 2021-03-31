@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
         AdminActividadSeeder::class,
         AdminUserActividadSeeder::class,
         AreaSeeder::class,
-        SubareaSeeder::class
+        SubareaSeeder::class,
+        AsignaturaPregradoSeeder::class,
+        AsignaturaQuintoSeeder::class,
+        AsignaturaPostgradoSeeder::class
       ]);
     }
 }

@@ -14,7 +14,8 @@ class AreaSeeder extends Seeder
     {
         $areas = [
             'PREGRADO',
-            'POSTGRADO'
+            'POSTGRADO',
+            'QUINTO AÑO'
         ];
 
         foreach($areas as $area)

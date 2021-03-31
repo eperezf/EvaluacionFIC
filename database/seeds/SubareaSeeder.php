@@ -23,15 +23,20 @@ class SubareaSeeder extends Seeder
             'CIVIL',
             'MINERÍA',
             'MECÁNICA',
-            'MECANISMO DE TITULACIÓN',
-            
+            'MECANISMO DE TITULACIÓN'
         ];
-        $subareas_postgrado = [
-            'DISC',
+        
+        $subareas_quinto = [
             'MCI',
             'MIF',
             'MIIIO',
-            'MSDS'
+            'MSDS',
+            'OTRAS'
+        ];
+
+        $subareas_postgrado = [
+            'EDUCACIÓN EJECUTIVA',
+            'DOCTORADO'
         ];
         
         foreach($subareas_pregrado as $subarea)
@@ -40,6 +45,17 @@ class SubareaSeeder extends Seeder
                 [
                     'nombre' => $subarea,
                     'idarea' => App\Area::where('nombre', 'PREGRADO')->get()[0]->id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]
+            ]);
+        }
+        foreach($subareas_quinto as $subarea)
+        {
+            DB::table('subarea')->insert([
+                [
+                    'nombre' => $subarea,
+                    'idarea' => App\Area::where('nombre', 'QUINTO AÑO')->get()[0]->id,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]
