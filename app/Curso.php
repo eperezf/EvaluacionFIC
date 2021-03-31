@@ -13,7 +13,8 @@ class Curso extends Model{
         'material',
         'seccion',
         'inscritos',
-        'idasignatura'
+        'idasignatura',
+        'sede'
     ];
 
     public function actividad() {
