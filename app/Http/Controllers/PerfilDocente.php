@@ -15,10 +15,13 @@ use App\Actividad_asignatura;
 use App\Area;
 use App\Asignatura;
 use App\Curso;
+use App\Evaluacion;
 
 use App\Http\Requests\StoreCargoUser;
+use App\Http\Requests\StoreEvaluacion;
 
 use App\Helper\Helper;
+use DB;
 
 class PerfilDocente extends Controller
 {
@@ -120,6 +123,38 @@ class PerfilDocente extends Controller
         return $infoActividades;
     }
 
+    private function getInfoEncuestaDocente($userId)
+    {
+        /* Obtenemos las actividades del usuario que tengan cargo Profesor */
+        $actividades = DB::table('user_actividad')
+        ->where('iduser', $userId)
+        ->where('idcargo', Cargo::where('nombre', 'Profesor')->value('id'))
+        ->select('user_actividad.idactividad as idActividad');
+
+        /* Obtenemos la información de la encuesta docente */
+        $infoEncuestas = DB::table('curso')
+        ->joinSub($actividades, 'actividades', function($join) {
+            $join->on('curso.idactividad', '=', 'actividades.idActividad');})
+        ->join('asignatura', 'curso.idasignatura', '=', 'asignatura.id')
+        ->join('actividad' , 'curso.idactividad', '=', 'actividad.id')
+        ->join('subarea', 'asignatura.idsubarea', '=', 'subarea.id')
+        ->join('area', 'subarea.idarea', '=', 'area.id')
+        ->select(
+            'area.nombre as area',
+            'asignatura.nombre as ramo',
+            'curso.seccion as seccion',
+            'curso.inscritos as inscritos',
+            'curso.respuestas as muestra',
+            'curso.calificacion as nota',
+            DB::raw('DATE_FORMAT(actividad.inicio, "%b") as inicio'),
+            DB::raw('DATE_FORMAT(actividad.termino, "%b") as termino'))
+        ->get()->groupBy('area')
+        ->toArray();
+
+        return $infoEncuestas;
+    }
+
+
     public function loadPerfil($userId)
     {
         /* Datos administrador para display de menú correspondiente */
@@ -130,12 +165,67 @@ class PerfilDocente extends Controller
 
         /* Cargos que posee el docente actualmente */
         $cargos = $this->getCargos($userId);
-        
+
+        /* Información de Encuesta Docente */
+        $encuestaDocente = $this->getInfoEncuestaDocente($userId);
+
+        /* Evaluadción general actual del Comité */
+        $periodo = (int)date('Y')-1;
+        $evaluacion = $usuario->evaluacion()
+            ->where("periodo", "=", $periodo)
+            ->get();
+        $vacio = false;
+        if(isset($evaluacion[0]))
+        {
+            $nota = $evaluacion[0]->nota;
+            $comentario = $evaluacion[0]->comentario;
+            $idEvaluacion = $evaluacion[0]->id;
+        }
+        else
+        {
+            $nota = 0;
+            $comentario = '';
+            $vacio = true;
+            $idEvaluacion = 0;
+        }
+
         return view('menu.administrador.perfilDocente', [
             'menus' => $menus,
             'usuario' => $usuario,
-            'cargos' => $cargos
+            'cargos' => $cargos,
+            'nota' => $nota,
+            'comentario' => $comentario,
+            'idEvaluacion' => $idEvaluacion,
+            'vacio' => $vacio,
+            'encuestas' => $encuestaDocente
         ]);
+    }
+
+    public function saveEvaluacion(Request $request)
+    {
+        $validation = new StoreEvaluacion;
+        $this->validate($request, $validation->rules(), $validation->messages());
+
+        if(Evaluacion::where('id', $request->idEvaluacion)->exists())
+        {
+            $evaluacion = Evaluacion::find($request->idEvaluacion);
+            $evaluacion->comentario = $request->comentario;
+            $evaluacion->nota = $request->nota;
+
+            $evaluacion->save();
+
+            return redirect('/perfilDocente/'.$request->userId.'/')->with('success', "Evaluación modificada con éxito.");
+        }
+
+        $evaluacion = new Evaluacion;
+        $evaluacion->iduser = $request->userId;
+        $evaluacion->comentario = $request->comentario;
+        $evaluacion->nota = $request->nota;
+        $evaluacion->periodo = (int) date("Y") - 1;
+
+        $evaluacion->save();
+        
+        return redirect('/perfilDocente/'.$request->userId.'/')->with('success', "Evaluación guardada con éxito.");
     }
 
     public function loadCargos($userId, $cargoId)
@@ -218,7 +308,7 @@ class PerfilDocente extends Controller
 
     public function deleteCargo(Request $request)
     {
-        $user_actividad = User_actividad::where('idactividad', $request->actividadId)->get()[0];
+        $user_actividad = User_actividad::where('idactividad', $request->actividadId)->where('iduser', $request->userId)->get()[0];
         $user_actividad->delete();
         return redirect('/perfilDocente/'.$request->userId.'/cargos/all/')->with('success', 'Cargo eliminado con exito');
     }

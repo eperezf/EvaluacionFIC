@@ -1,0 +1,98 @@
+SIGLA   ,ASIGNATURA                                          ,ID_SUBAREA
+BIO340  ,BIOPROCESOS                                         ,16
+BIO440  ,BIOLOGÍA SINTÉTICA                                  ,16
+BIO442  ,BIOINGENIERÍA AMBIENTAL                             ,16
+EYM344  ,FUNDAMENTOS DE INGENIERÍA Y CIENCIAS AMBIENTALES    ,16
+EYM403  ,SUSTAINABLE CONSTRUCTION                            ,16
+EYM404  ,TRANSFERENCIA DE CALOR INTERMEDIA                   ,16
+EYM421  ,TECNOLOGÍAS DE GENERACIÓN NO CONVENCIONALES         ,16
+EYM422  ,EFICIENCIA ENERGÉTICA                               ,16
+EYM443  ,SUSTENTABILIDAD EMPRESARIAL                         ,16
+EYM445  ,REGULACIÓN Y GESTIÓN AMBIENTAL                      ,16
+EYM456  ,REGULACIÓN Y GESTIÓN ENERGÉTICA                     ,16
+EYM460  ,PROYECTO DE ELECTROMOVILIDAD Y ENERGÍA SOLAR        ,16
+EYM470  ,PROYECTO DE ELECTROMOVILIDAD Y ENERGIA SOLAR II     ,16
+EYM472  ,PROYECTO DE ELECTROMOVILIDAD Y ENERGÍA SOLAR V      ,16
+IND423  ,ORGANIZACIÓN INDUSTRIAL                             ,16
+IND424  ,GESTIÓN FINANCIERA                                  ,16
+IND425  ,ESTRATEGIA Y MARKETING                              ,16
+IND428  ,ORGANIZACIONES Y PERSONAS                           ,16
+IND429  ,GESTIÓN DE OPERACIONES AVANZADAS                    ,16
+IND438  ,INGENIERÍA DE TRANSPORTE                            ,16
+IND553  ,MERCADOS DE ENERGÍA Y MEDIOAMBIENTE                 ,16
+IND554  ,TEORÍA DE JUEGOS Y APLICACIONES EN ECONOMÍA         ,16
+IND555  ,ECONOMÍA CIRCULAR                                   ,16
+ING451  ,TALLER DE PROYECTOS DE INGENIERÍA                   ,16
+ING498  ,PASANTÍA PART-TIME I                                ,16
+ING499  ,PASANTÍA PART-TIME II                               ,16
+ING500  ,PASANTÍA FULL-TIME                                  ,16
+ING610  ,ESCUELA DE LA EXPERIENCIA                           ,16
+ING800  ,EMPRENDIMIENTO FULL TIME                            ,16
+ING801  ,EMPRENDIMIENTO PART - TIME I                        ,16
+ING802  ,EMPRENDIMIENTO PART - TIME II                       ,16
+MEC500  ,GESTIÓN DE ACTIVOS                                  ,16
+MEC511  ,TURBOMÁQUINAS                                       ,16
+MIN215  ,"SIMULACIÓN, AUTOMATIZACIÓN Y MECATRÓNICA"          ,16
+MIN420  ,PROYECTOS MINEROS                                   ,16
+MIN421  ,PROCESAMIENTO DE MINERALES                          ,16
+MIN422  ,INGENIERÍA DE EXCAVACIONES                          ,16
+MIN423  ,CAMBIO CLIMÁTICO                                    ,16
+MIN441  ,GEOTECNIA Y MECÁNICA DE ROCAS                       ,16
+MIN451  ,METALURGIA EXTRACTIVA                               ,16
+OCIV435 ,HIDRÁULICA E HIDROLOGÍA                             ,16
+OCIV441 ,PROJECT MANAGEMENT                                  ,16
+OCIV451 ,INGENIERÍA SISMO-RESISTENTE                         ,16
+OCIV461 ,TENDENCIAS EN LA INDUSTRIA DE LA CONSTRUCCIÓN       ,16
+OCIV462 ,GESTIÓN Y CONSTRUCCIÓN AVANZADA                     ,16
+TICS242 ,CRIPTOGRAFÍA Y BLOCKCHAIN                           ,16
+TICS304 ,SISTEMAS DE INFORMACIÓN                             ,16
+DIIIO06 ,OPTIMIZACIÓN LINEAL AVANZADA                        ,16
+ECO453  ,MICROECONOMÍA AVANZADA                              ,16
+FIN497  ,INTRODUCCIÓN A LA INGENIERÍA FINANCIERA             ,16
+ING300  ,TALLER DE INVESTIGACIÓN DIRIGIDA                    ,16
+TICS436 ,ARQUITECTURA DE SISTEMAS                            ,16
+ING450  ,TALLER DE INGENIERÍA Y NEGOCIOS                     ,16
+ING600  ,TALLER DE INVESTIGACIÓN DIRIGIDA II                 ,16
+ING602  ,TALLER DE INVESTIGACIÓN DIRIGIDA III                ,16
+ING603  ,TALLER DE INVESTIGACIÓN DIRIGIDA IV                 ,16
+ISC513  ,TALLER DE MANEJO Y ANALISIS DE DATOS                ,16
+TICS568 ,TÉCNICAS ESTOCÁSTICAS Y ESTADÍSTICA EN DATA SCIENCE ,16
+TICS573 ,RAPID AI STARTUP                                    ,16
+TICS571 ,FINANCIAL TECHNOLOGY                                ,16
+TICS572 ,SISTEMAS COMPLEJOS                                  ,16
+TICS574 ,TEORÍA DE LA DECISIÓN BASADA EN DATOS               ,16
+DIIIO07 ,APRENDIZAJE AUTOMÁTICO                              ,16
+DIIIO08 ,HERRAMIENTAS COMPUTACIONALES PARA IO                ,16
+ING462  ,METODOS EMPIRICOS                                   ,16
+ING557  ,SEMINARIO DE TESIS                                  ,16
+MCI513  ,TALLER DE INVESTIGACIÓN Y DESARROLLO                ,16
+OCIV512 ,INTRODUCCIÓN A LA MECÁNICA Y FRACTURA DE SÓLIDOS    ,16
+ING470  ,GESTIÓN TECNOLÓGICA                                 ,12
+OCIV509 ,GEOTECNIA APLICADA                                  ,12
+TICS438 ,PROCESAMIENTO DIGITAL DE IMÁGENES                   ,12
+BIO463  ,BIOESTADÍSTICA                                      ,12
+EYM468  ,COMBUSTIÓN                                          ,12
+EYM469  ,ECONOMÍA AMBIENTAL                                  ,12
+EYM471  ,TECNOLOGÍAS DE TRATAMIENTO DE  AGUAS                ,12
+IND567  ,"TÉCNICAS ESTOCÁSTICAS, ESTADÍSTICAS Y SIMULACIÓN"  ,12
+OCIV436 ,MÉTODO DE LOS ELEMENTOS FINITOS                     ,12
+TICS480 ,TÓPICOS AVANZADOS EN CRIPTOGRAFÍA                   ,12
+TICS481 ,INTERNET OF THINGS                                  ,12
+TICS564 ,TÓPICOS EN DATA MANAGEMENT Y DATA ANALYTICS         ,15
+TICS565 ,GRAFOS EN DATA SCIENCE                              ,15
+ING559  ,MÉTODOS DE APRENDIZAJE DE MÁQUINAS EN DATA SCIENCE  ,15
+ING560  ,ÁLGEBRA LINEAL Y OPTIMIZACIÓN PARA DATA SCIENCE     ,15
+ING561  ,INTELIGENCIA ARTIFICIAL RELACIONAL ESTADÍSTICA      ,15
+DIIIO17 ,ANÁLISIS PREDICTIVO                                 ,14
+IGE426  ,SIMULACIÓN                                          ,14
+IND547  ,DESAFÍOS DE LA INGENIERÍA INDUSTRIAL                ,14
+ING502  ,PLANIFICACIÓN Y PROGRAMACIÓN DE OPERACIONES         ,14
+FIN402  ,FINANZAS CORPORATIVAS                               ,13
+FIN422  ,FINANZAS INTERNACIONALES                            ,13
+FIN443  ,ADMINISTRACIÓN DE RIESGO FINANCIERO                 ,13
+FIN444  ,DERIVADOS AVANZADOS                                 ,13
+FIN453  ,FINANZAS EMPIRICAS                                  ,13
+FIN459  ,DERIVADOS DE RENTA FIJA                             ,13
+FIN462  ,ASIGNACIÓN DINÁMICA DE ACTIVOS                      ,13
+TICS103 ,DATA ANALYTICS                                      ,13
+TICS106 ,PROGRAMACIÓN EN INGENIERÍA FINANCIERA               ,13

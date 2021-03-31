@@ -11,7 +11,7 @@ use App\Curso;
 use App\User_actividad;
 use App\Actividad;
 
-class EvaluacionDocenteImport implements ToCollection, WithHeadingRow
+class EvaluacionDesempenoImport implements ToCollection, WithHeadingRow
 {
     /**
     * @param Collection $collection
