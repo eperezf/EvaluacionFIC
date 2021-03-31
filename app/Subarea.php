@@ -9,11 +9,27 @@ class Subarea extends Model{
 
     protected $fillable = ['nombre'];
 
-    public function asignatura() {
+    public function asignatura()
+    {
         return $this->hasMany('App\Asignatura');
     }
 
-    public function area() {
+    public function area()
+    {
         return $this->belongsTo('App\Area');
+    }
+
+    public function actividad()
+    {
+        return $this->belongsToMany(
+            'App\Actividad',
+            'actividad_subarea',
+            'idactividad',
+            'idsubarea')
+            ->using('App\Actividad_subarea')
+            ->withPivot([
+                'created_at',
+                'updated_at'
+            ]);
     }
 }
