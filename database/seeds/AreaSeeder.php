@@ -13,8 +13,8 @@ class AreaSeeder extends Seeder
     public function run()
     {
         $areas = [
-            'POSTGRADO',
-            'PREGRADO'
+            'PREGRADO',
+            'POSTGRADO'
         ];
 
         foreach($areas as $area)
