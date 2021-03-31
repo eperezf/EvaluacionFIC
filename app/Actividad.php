@@ -78,6 +78,17 @@ class Actividad extends Model {
             ]);
     }
 
+    public function subarea()
+    {
+        return $this
+            ->hasMany('App\Subarea', 'actividad_subarea', 'idsubarea', 'idactividad')
+            ->using('App\Actividad_subarea')
+            ->withPivot([
+                'created_at',
+                'updated_at'
+            ]);
+    }
+
     public function user() {
         return $this
             ->belongsToMany('App\User', 'user_actividad', 'iduser', 'idactividad')
