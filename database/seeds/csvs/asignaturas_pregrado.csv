@@ -1,0 +1,154 @@
+SIGLA   ,NOMBRE ASIGNATURA                                 ,ID_SUBAREA
+IND423  ,ORGANIZACIÓN INDUSTRIAL                           ,6
+TICS573 ,RAPID AI STARTUP                                  ,6
+IND424  ,GESTIÓN FINANCIERA                                ,6
+IND425  ,ESTRATEGIA Y MARKETING                            ,6
+IND428  ,ORGANIZACIONES Y PERSONAS                         ,6
+IND429  ,GESTIÓN DE OPERACIONES AVANZADAS                  ,6
+IND553  ,MERCADOS DE ENERGÍA Y MEDIOAMBIENTE               ,6
+IND554  ,TEORÍA DE JUEGOS Y APLICACIONES EN ECONOMÍA       ,6
+IND555  ,ECONOMÍA CIRCULAR                                 ,6
+ACCT240 ,CONTABILIDAD Y CONTROL DE GESTIÓN                 ,6
+ECO216  ,EVALUACIÓN Y GESTIÓN DE PROYECTOS                 ,6
+ING421  ,GESTIÓN DE OPERACIONES                            ,6
+TICS571 ,FINANCIAL TECHNOLOGY                              ,6
+TICS572 ,SISTEMAS COMPLEJOS                                ,6
+TICS574 ,TEORÍA DE LA DECISIÓN BASADA EN DATOS             ,6
+ECO110  ,PRINCIPIOS DE ECONOMÍA                            ,6
+ECO111  ,MICROECONOMÍA                                     ,6
+ECO131  ,MACROECONOMÍA                                     ,6
+ING105  ,PROCESOS INDUSTRIALES                             ,6
+ING106  ,TALLER DE PROCESOS INDUSTRIALES                   ,6
+ING108  ,TALLER DE MODELAMIENTO                            ,6
+ING200  ,OPTIMIZACIÓN                                      ,6
+ING201  ,INVESTIGACIÓN DE OPERACIONES                      ,6
+BIO340  ,BIOPROCESOS                                       ,2
+BIO440  ,BIOLOGÍA SINTÉTICA                                ,2
+BIO442  ,BIOINGENIERÍA AMBIENTAL                           ,2
+BIO351  ,GENÉTICA Y BIOINFORMÁTICA                         ,2
+BIO452  ,MICROBIOLOGÍA APLICADA                            ,2
+BIO100  ,BIOLOGÍA Y AMBIENTE                               ,2
+BIO220  ,INTRODUCCIÓN A LA BIOINGENIERÍA                   ,2
+BIO230  ,BIOQUÍMICA APLICADA                               ,2
+BIO320  ,BIOMATERIALES                                     ,2
+BIO331  ,BIOLOGÍA CELULAR Y FISIOLOGÍA                     ,2
+BIO420  ,BIOMECÁNICA                                       ,2
+QUI100  ,QUÍMICA                                           ,2
+IND438  ,INGENIERÍA DE TRANSPORTE                          ,8
+OCIV435 ,HIDRÁULICA E HIDROLOGÍA                           ,8
+OCIV441 ,PROJECT MANAGEMENT                                ,8
+OCIV451 ,INGENIERÍA SISMO-RESISTENTE                       ,8
+OCIV461 ,TENDENCIAS EN LA INDUSTRIA DE LA CONSTRUCCIÓN     ,8
+OCIV462 ,GESTIÓN Y CONSTRUCCIÓN AVANZADA                   ,8
+OCIV471 ,HORMIGÓN ARMADO                                   ,8
+ING325  ,MECÁNICA DE FLUIDOS                               ,8
+ING329  ,INGENIERÍA GEOTÉCNICA                             ,8
+OCIV310 ,ESTÁTICA APLICADA                                 ,8
+OCIV312 ,RESISTENCIA DE MATERIALES                         ,8
+OCIV313 ,MECÁNICA DE MATERIALES Y ESTRUCTURAS              ,8
+OCIV321 ,FUNDACIONES                                       ,8
+OCIV331 ,ANÁLISIS ESTRUCTURAL                              ,8
+OCIV351 ,TALLER DE MATERIALES DE INGENIERÍA                ,8
+OCIV411 ,TALLER DE DISEÑO ESTRUCTURAL                      ,8
+OCIV421 ,INGENIERÍA DE PROYECTOS DE INFRAESTRUCTURA        ,8
+EYM403  ,SUSTAINABLE CONSTRUCTION                          ,7
+EYM445  ,REGULACIÓN Y GESTIÓN AMBIENTAL                    ,7
+EYM456  ,REGULACIÓN Y GESTIÓN ENERGÉTICA                   ,7
+EYM460  ,PROYECTO DE ELECTROMOVILIDAD Y ENERGÍA SOLAR      ,7
+EYM344  ,FUNDAMENTOS DE INGENIERÍA Y CIENCIAS AMBIENTALES  ,7
+EYM421  ,TECNOLOGÍAS DE GENERACIÓN NO CONVENCIONALES       ,7
+EYM422  ,EFICIENCIA ENERGÉTICA                             ,7
+EYM443  ,SUSTENTABILIDAD EMPRESARIAL                       ,7
+EYM470  ,PROYECTO DE ELECTROMOVILIDAD Y ENERGIA SOLAR II   ,7
+EYM472  ,PROYECTO DE ELECTROMOVILIDAD Y ENERGÍA SOLAR V    ,7
+EYM345  ,VALORIZACIÓN DE RESIDUOS Y AGUAS RESIDUALES       ,7
+EYM444  ,TRATAMIENTO DE EMISIONES A AIRE Y SUELOS          ,7
+EYM311  ,TRANSFERENCIA DE CALOR Y MASA                     ,7
+EYM341  ,TECNOLOGÍAS DE GENERACIÓN CONVENCIONALES          ,7
+FIS225  ,TERMODINÁMICA                                     ,7
+ING371  ,OPERACIONES UNITARIAS                             ,7
+EYM221  ,FUNDAMENTOS DE INGENIERÍA ELÉCTRICA               ,7
+EYM321  ,SISTEMAS ELÉCTRICOS DE POTENCIA                   ,7
+TICS242 ,CRIPTOGRAFÍA Y BLOCKCHAIN                         ,1
+TICS304 ,SISTEMAS DE INFORMACIÓN                           ,1
+TICS425 ,GESTIÓN Y SERVICIOS TIC                           ,1
+TICS436 ,ARQUITECTURA DE SISTEMAS                          ,1
+TICS313 ,FUNDAMENTOS DE REDES DE COMPUTADORES              ,1
+TICS331 ,INGENIERÍA DE SOFTWARE                            ,1
+MAT231  ,MATEMÁTICAS DISCRETAS                             ,1
+TICS099 ,INTRODUCCIÓN A LA PROGRAMACIÓN                    ,1
+TICS100 ,PROGRAMACIÓN                                      ,1
+TICS200 ,LENGUAJES Y PARADIGMAS DE PROGRAMACIÓN            ,1
+TICS311 ,ESTRUCTURA DE DATOS Y ALGORITMOS                  ,1
+TICS312 ,SISTEMAS OPERATIVOS                               ,1
+TICS314 ,FUNDAMENTOS DE CIENCIAS DE DATOS                  ,1
+TICS320 ,BASES DE DATOS                                    ,1
+TICS322 ,FUNDAMENTOS DE ELECTRÓNICA APLICADA               ,1
+TICS323 ,TÓPICOS AVANZADOS EN REDES                        ,1
+TICS411 ,MINERÍA DE DATOS                                  ,1
+TICS412 ,INTRODUCCIÓN A LA ROBÓTICA                        ,1
+TICS413 ,SEGURIDAD EN TI                                   ,1
+TICS420 ,PROGRAMACIÓN PROFESIONAL                          ,1
+TICS421 ,ESTRATEGIA TI                                     ,1
+MEC500  ,GESTIÓN DE ACTIVOS                                ,10
+MEC511  ,TURBOMÁQUINAS                                     ,10
+MIN215  ,"SIMULACIÓN, AUTOMATIZACIÓN Y MECATRÓNICA"        ,10
+EYM404  ,TRANSFERENCIA DE CALOR INTERMEDIA                 ,10
+MEC300  ,DISEÑO MECÁNICO COMPUTACIONAL                     ,10
+MEC400  ,DISEÑO DE MÁQUINAS                                ,10
+MEC401  ,METALURGIA FÍSICA                                 ,10
+MEC420  ,PROCESO DE MANUFACTURA                            ,10
+ING451  ,TALLER DE PROYECTOS DE INGENIERÍA                 ,11
+ING498  ,PASANTÍA PART-TIME I                              ,11
+ING499  ,PASANTÍA PART-TIME II                             ,11
+ING500  ,PASANTÍA FULL-TIME                                ,11
+ING610  ,ESCUELA DE LA EXPERIENCIA                         ,11
+ING800  ,EMPRENDIMIENTO FULL TIME                          ,11
+ING801  ,EMPRENDIMIENTO PART - TIME I                      ,11
+ING802  ,EMPRENDIMIENTO PART - TIME II                     ,11
+MIN420  ,PROYECTOS MINEROS                                 ,9
+MIN421  ,PROCESAMIENTO DE MINERALES                        ,9
+MIN422  ,INGENIERÍA DE EXCAVACIONES                        ,9
+MIN423  ,CAMBIO CLIMÁTICO                                  ,9
+MIN441  ,GEOTECNIA Y MECÁNICA DE ROCAS                     ,9
+MIN451  ,METALURGIA EXTRACTIVA                             ,9
+MIN432  ,ECONOMIA Y GESTION MINERA                         ,9
+MIN461  ,MINERÍA SUSTENTABLE                               ,9
+MIN210  ,INTRODUCCIÓN A LA MINERÍA                         ,9
+MIN240  ,GEOLOGÍA MINERA                                   ,9
+MIN320  ,PLANIFICACIÓN MINERA                              ,9
+MIN411  ,DISEÑO MINERO                                     ,9
+MIN431  ,EVALUACIÓN DE YACIMIENTOS                         ,9
+MIN442  ,MECÁNICA DE ROCAS                                 ,9
+MIN471  ,TECNOLOGÍAS MINERAS                               ,9
+QUI200  ,QUÍMICA AVANZADA                                  ,9
+FIS093  ,INTRODUCCIÓN A LA FÍSICA                          ,5
+FIS101  ,FÍSICA I                                          ,5
+FIS201  ,FÍSICA II                                         ,5
+FIS300  ,DINÁMICA                                          ,5
+FIS301  ,FÍSICA III                                        ,5
+EST103  ,ESTADÍSTICA I                                     ,4
+EST202  ,ESTADÍSTICA II                                    ,4
+EST211  ,PROBABILIDAD Y ESTADÍSTICA                        ,4
+EST221  ,ESTADÍSTICA APLICADA                              ,4
+MAT102  ,INTRODUCCIÓN AL ÁLGEBRA                           ,4
+MAT103  ,INTRODUCCIÓN AL CÁLCULO                           ,4
+MAT105  ,CÁLCULO DIFERENCIAL                               ,4
+MAT106  ,CÁLCULO INTEGRAL                                  ,4
+MAT108  ,CÁLCULO I                                         ,4
+MAT109  ,ÁLGEBRA                                           ,4
+MAT112  ,ÁLGEBRA I                                         ,4
+MAT113  ,ÁLGEBRA LINEAL                                    ,4
+MAT118  ,CÁLCULO II                                        ,4
+MAT128  ,CÁLCULO III                                       ,4
+MAT129  ,ÁLGEBRA II                                        ,4
+MAT203  ,CÁLCULO MULTIVARIABLES                            ,4
+MAT208  ,ECUACIONES DIFERENCIALES                          ,4
+TEI100  ,MÓDULOS EL ARTE DE LA INGENIERÍA                  ,3
+TEI101  ,TALLER DE INTRODUCCIÓN A LA INGENIERÍA            ,3
+TEI200  ,MÓDULOS DISEÑO DE INGENIERÍA                      ,3
+TEI201  ,TALLER DE DISEÑO EN INGENIERÍA                    ,3
+TEI300  ,MÓDULOS INNOVACIÓN Y EMPRENDIMIENTO TECNOLÓGICO   ,3
+TEI301  ,TALLER DE INNOVACIÓN Y EMPRENDIMIENTO TECNOLÓGICO ,3
+TEI400  ,MÓDULOS CAPSTONE PROJECT                          ,3
+TEI401  ,CAPSTONE PROJECT                                  ,3

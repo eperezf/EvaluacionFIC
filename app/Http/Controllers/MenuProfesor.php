@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Curso;
 use App\Area;
+use App\Cargo;
 use App\Actividad;
 use App\Asignatura;
 use App\Vinculacion;
@@ -89,11 +90,53 @@ class MenuProfesor extends Controller
     }
 
 //--Cargar Menú del Profesor
+    private function getInfoEncuestaDocente()
+    {
+        /* Obtenemos las actividades del usuario que tengan cargo Profesor */
+        $actividades = DB::table('user_actividad')
+        ->where('iduser', Auth::user()->id)
+        ->where('idcargo', Cargo::where('nombre', 'Profesor')->value('id'))
+        ->select('user_actividad.idactividad as idActividad');
+
+        /* Obtenemos la información de la encuesta docente */
+        $infoEncuestas = DB::table('curso')
+        ->joinSub($actividades, 'actividades', function($join) {
+            $join->on('curso.idactividad', '=', 'actividades.idActividad');})
+        ->join('asignatura', 'curso.idasignatura', '=', 'asignatura.id')
+        ->join('actividad' , 'curso.idactividad', '=', 'actividad.id')
+        ->join('subarea', 'asignatura.idsubarea', '=', 'subarea.id')
+        ->join('area', 'subarea.idarea', '=', 'area.id')
+        ->select(
+            'area.nombre as area',
+            'asignatura.nombre as ramo',
+            'curso.seccion as seccion',
+            'curso.inscritos as inscritos',
+            'curso.respuestas as muestra',
+            'curso.calificacion as nota',
+            DB::raw('DATE_FORMAT(actividad.inicio, "%b") as inicio'),
+            DB::raw('DATE_FORMAT(actividad.termino, "%b") as termino'))
+        ->get()->groupBy('area')
+        ->toArray();
+
+        return $infoEncuestas;
+    }
+
     public function load()
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        return view('menu.profesor.profesor', ['nombre' => $nombre, 'usuarios' => [], 'menus' => $menus]);
+        $evaluaciones = Auth::user()->evaluacion()->orderBy('periodo', 'desc')->get();
+        
+        /* Información de Encuesta Docente */
+        $encuestaDocente = $this->getInfoEncuestaDocente();
+    
+        return view('menu.profesor.profesor', [
+            'nombre' => $nombre, 
+            'usuarios' => [], 
+            'menus' => $menus, 
+            'evaluacion' => $evaluaciones,
+            'encuestas' => $encuestaDocente
+        ]);
     }
 
 //--PostAgregar
