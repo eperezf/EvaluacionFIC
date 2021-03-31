@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 use App\User;
-use App\Area;
+use App\Subarea;
 use App\Helper\Helper;
 use App\Imports\EvaluacionDocenteImport;
 use App\Http\Requests\StoreEvalDocente;
@@ -22,12 +22,12 @@ class MenuAdministrador extends Controller
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        $areas = Area::all();
+        $subareas = Subarea::all();
         return view('menu.administrador.index', [
             'nombre' => $nombre, 
             'usuarios' => [],
             'menus' => $menus,
-            'areas' => $areas
+            'subareas' => $subareas
         ]);
     }
 
@@ -35,7 +35,7 @@ class MenuAdministrador extends Controller
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        $areas = Area::all();
+        $subareas = Subarea::all();
         
         $usuarios = User::where('apellidoPaterno', 'LIKE', $letra.'%')
         ->get([
@@ -44,14 +44,14 @@ class MenuAdministrador extends Controller
             'apellidoPaterno',
             'apellidoMaterno'
         ]);
-        return view('menu.administrador.index', ['nombre' => $nombre, 'areas' => $areas, 'usuarios' => $usuarios, 'menus' => $menus]);
+        return view('menu.administrador.index', ['nombre' => $nombre, 'subareas' => $subareas, 'usuarios' => $usuarios, 'menus' => $menus]);
     }
 
     public function searchInput(Request $request)
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        $areas = Area::all();
+        $subareas = Subarea::all();
         //Obenemos los usuarios que calcen con el valor del input ingresado
         $usuarios = User::where(DB::raw("CONCAT_WS(' ', user.nombres, user.apellidoPaterno, user.apellidoMaterno)"), 'LIKE', '%'.$request->search.'%')
         ->get([
@@ -60,6 +60,6 @@ class MenuAdministrador extends Controller
             'apellidoPaterno',
             'apellidoMaterno'
         ]);
-        return view('menu.administrador.index', ['nombre' => $nombre, 'areas' => $areas, 'usuarios' => $usuarios, 'menus' => $menus]);
+        return view('menu.administrador.index', ['nombre' => $nombre, 'subareas' => $subareas, 'usuarios' => $usuarios, 'menus' => $menus]);
     }
 }
