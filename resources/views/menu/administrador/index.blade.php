@@ -113,8 +113,8 @@
           <div id="subarea" class="form-group row">
             <label for="select-subarea" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
             <div class="col-sm-4">
-              <select class="form-control" requiered="true" name="subarea" id="select-subarea">
-                <option disabled value="Seleccione una asignatura" selected>Seleccione una área</option>
+              <select class="form-control" requiered="true" name="select-subarea" id="select-subarea">
+                <option disabled value="Seleccione una asignatura" selected>Seleccione una Subarea</option>
                 @foreach ($subareas as $subarea)
                   <option value="{{ $subarea->id }}">{{ $subarea->nombre }}</option>
                 @endforeach
