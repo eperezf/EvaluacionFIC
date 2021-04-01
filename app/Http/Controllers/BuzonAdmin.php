@@ -17,10 +17,12 @@ class BuzonAdmin extends Controller
         return Excel::download(new EvaluacionDesempenoExport($idSubarea), 'Evaluación Desempeño.xlsx');
     }
 
-    public function importEvalDesempeno(StoreEvalDocente $request)
+    public function importEvalDesempeno(Request $request)
     {
-        /* Se valida el formulario y al retornar exito, se ejecuta Excel::import() */
-        $validated = $request->validated();
+        //dd($request->file('evalDesempenoFile')->getMimeType());
+        // Se valida el formulario y al retornar exito, se ejecuta Excel::import()
+        $validator = new StoreEvalDocente;
+        $this->validate($request, $validator->rules(), $validator->messages());
         Excel::import(new EvaluacionDesempenoImport, $request->file('file'));
 
         return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
