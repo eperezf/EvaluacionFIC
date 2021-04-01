@@ -12,9 +12,9 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class BuzonAdmin extends Controller
 {
-    public function exportEvalDesempeno($idArea)
+    public function exportEvalDesempeno($idSubarea)
     {
-        return Excel::download(new EvaluacionDesempenoExport($idArea), 'Evaluación Desempeño.xlsx');
+        return Excel::download(new EvaluacionDesempenoExport($idSubarea), 'Evaluación Desempeño.xlsx');
     }
 
     public function importEvalDesempeno(StoreEvalDocente $request)
@@ -26,13 +26,9 @@ class BuzonAdmin extends Controller
         return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
 
-    public function exportEncuestaDocente()
-    {
-        return Excel::download(new EncuestaDocenteExport, 'Encuesta Docente.xlsx');
-    }
-
     public function importEncuestaDocente()
     {
-        return dd('import');
+        Excel::import(new EncuestaDocenteImport);
+        return;
     }
 }

@@ -1,7 +1,9 @@
 $(document).ready(() => {
-    $("#select-area").on('change', function() {
+    $("#select-subarea").on('change', function() {
         console.log($(this).val())
-        var idArea = $(this).val()
-        $("#descargar").attr("href", "http://127.0.0.1/evaluacionDocenteExport/" + idArea)
+        var idSubarea = $(this).val()
+        var linkArray = $("#descargar").prop("href").split('/')
+        var link = linkArray[0] + "//" + linkArray[2] + "/" + linkArray[3] + "/" + idSubarea
+        $("#descargar").attr("href", link)
     })
 })

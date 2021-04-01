@@ -11,8 +11,10 @@ use App\Cargo;
 use App\Tipoactividad;
 use App\Actividad;
 use App\Actividad_area;
+use App\Actividad_subarea;
 use App\Actividad_asignatura;
 use App\Area;
+use App\Subarea;
 use App\Asignatura;
 use App\Curso;
 use App\Evaluacion;
@@ -63,7 +65,14 @@ class PerfilDocente extends Controller
                     $actividad_area = Actividad_area::where('idactividad', $actividad->id)->get()[0];
                     $area = Area::find($actividad_area->idarea)->nombre;
                     $titulo = $cargo->nombre;
-                    $subtitulo = 'Area: '.$area;
+                    $subtitulo = 'Área: '.$area;
+                break;
+
+                case "Director de subarea":
+                    $actividad_subarea = Actividad_subarea::where('idactividad', $actividad->id)->get()[0];
+                    $subarea = Subarea::find($actividad_subarea->idsubarea)->nombre;
+                    $titulo = $cargo->nombre;
+                    $subtitulo = 'Subarea: '.$subarea;
                 break;
 
                 case "Director de docencia":
@@ -273,7 +282,7 @@ class PerfilDocente extends Controller
     {
         $validated = $request->validated();
 
-        //dd($request->cargo);
+        
 
         $actividad = new Actividad;
         $actividad->idtipoactividad = $request->tipoActividad;
@@ -287,12 +296,20 @@ class PerfilDocente extends Controller
         $user_actividad->idcargo = $request->cargo;
         $user_actividad->save();
 
-        if($request->cargo == Cargo::where('nombre', 'Director de área')->get()[0]->id)
+        if($request->cargo == Cargo::where('nombre', 'Director de area')->get()[0]->id)
         {
             $actividad_area = new Actividad_area;
             $actividad_area->idactividad = $actividad->id;
             $actividad_area->idarea = $request->area;
             $actividad_area->save();
+        }
+
+        if($request->cargo == Cargo::where('nombre', 'Director de subarea')->get()[0]->id)
+        {
+            $actividad_subarea = new Actividad_subarea;
+            $actividad_subarea->idactividad = $actividad->id;
+            $actividad_subarea->idsubarea = $request->subarea;
+            $actividad_subarea->save();
         }
 
         if($request->cargo == Cargo::where('nombre', 'Director de docencia')->get()[0]->id || $request->cargo == Cargo::where('nombre', 'Subdirector de docencia')->get()[0]->id)
