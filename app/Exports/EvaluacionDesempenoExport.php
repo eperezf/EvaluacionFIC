@@ -49,8 +49,8 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             [
                 'Id Curso',
                 'Id Profesor',
+                'Area',
                 'Subarea',
-                'Programa',
                 'Curso',
                 'Sección',
                 'Periodo',
