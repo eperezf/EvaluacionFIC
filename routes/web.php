@@ -35,7 +35,7 @@ Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput
 
 // Buzones del menu administrador
 Route::get('evaluacionDocenteExport/{subarea}', 'BuzonAdmin@exportEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoExport');
-Route::get('evaluacionDocenteImport', 'BuzonAdmin@importEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoImport');
+Route::post('evaluacionDocenteImport', 'BuzonAdmin@importEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoImport');
 
 Route::get('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
 

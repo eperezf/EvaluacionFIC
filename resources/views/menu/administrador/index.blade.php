@@ -122,10 +122,10 @@
             </div>
             <a href={{ route('evaluacionDesempenoExport', ['subarea' => $subarea->id]) }} class="btn btn-link" id="descargar">Descargar</a>
           </div><br>
-          <form action="{{ route('evaluacionDesempenoImport') }}" method="GET" id="evalDesempenoImport" enctype="multipart/form-data">
+          <form action="{{ route('evaluacionDesempenoImport') }}" method="POST" id="evalDesempenoImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
-            <input type="file" class="form-control-file" name="file">
+            <input type="file" class="form-control-file" name="evalDesempenoFile">
           </form>
         </div>
         <div class="modal-footer">
