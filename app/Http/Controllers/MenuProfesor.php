@@ -110,6 +110,7 @@ class MenuProfesor extends Controller
             'area.nombre as area',
             'asignatura.nombre as ramo',
             'curso.seccion as seccion',
+            'curso.sede as sede',
             'curso.inscritos as inscritos',
             'curso.respuestas as muestra',
             'curso.calificacion as nota',

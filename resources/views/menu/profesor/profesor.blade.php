@@ -33,6 +33,7 @@
                           <tr>
                             <th scope="col">Ramo</th>
                             <th scope="col">Sección</th>
+                            <th scope="col">Sede</th>
                             <th scope="col">Periodo</th>
                             <th scope="col">Inscritos</th>
                             <th scope="col">Muestra</th>
@@ -42,12 +43,13 @@
                         <tbody>
                           @foreach ($area_encuesta as $encuesta)
                             </tr>
-                              <td>{{ $encuesta->ramo}}</td>
-                              <td>{{ $encuesta->seccion}}</td>
-                              <td>{{ $encuesta->inicio}} - {{ $encuesta->termino}}</td>
-                              <td>{{ $encuesta->inscritos}}</td>
-                              <td>{{ $encuesta->muestra}}</td>
-                              <td>{{ $encuesta->nota}}</td>
+                              <td>{{ $encuesta->ramo }}</td>
+                              <td>{{ $encuesta->seccion }}</td>
+                              <td>{{ $encuesta->sede }}</td>
+                              <td>{{ $encuesta->inicio }} - {{ $encuesta->termino }}</td>
+                              <td>{{ $encuesta->inscritos }}</td>
+                              <td>{{ $encuesta->muestra }}</td>
+                              <td>{{ $encuesta->nota }}</td>
                             </tr>
                           @endforeach
                         </tbody>
