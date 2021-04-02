@@ -85,10 +85,6 @@
           </button>
         </div>
         <div class="modal-body">
-          <div id="descargarEvalDocente" class="form-group row">
-            <label for="linkDescargaEvalDocente" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
-            <a href={{ route('encuestaDocenteExport') }} class="btn btn-link" id="linkDescargaEvalDocente">Descargar</a>
-          </div>
           <form action={{ route('encuestaDocenteImport') }} method="GET" id="encuestaDocenteImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
@@ -114,22 +110,22 @@
           </button>
         </div>
         <div class="modal-body">
-          <div id="area" class="form-group row">
-            <label for="select-area" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
+          <div id="subarea" class="form-group row">
+            <label for="select-subarea" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
             <div class="col-sm-4">
-              <select class="form-control" requiered="true" name="area" id="select-area">
-                <option disabled value="Seleccione una asignatura" selected>Seleccione una área</option>
-                @foreach ($areas as $area)
-                  <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+              <select class="form-control" requiered="true" name="select-subarea" id="select-subarea">
+                <option disabled value="Seleccione una asignatura" selected>Seleccione una Subarea</option>
+                @foreach ($subareas as $subarea)
+                  <option value="{{ $subarea->id }}">{{ $subarea->nombre }}</option>
                 @endforeach
               </select>
             </div>
-            <a href={{ route('evaluacionDesempenoExport', ['area' => $area->id]) }} class="btn btn-link" id="descargar">Descargar</a>
+            <a href={{ route('evaluacionDesempenoExport', ['subarea' => $subarea->id]) }} class="btn btn-link" id="descargar">Descargar</a>
           </div><br>
-          <form action="{{ route('evaluacionDesempenoImport') }}" method="GET" id="evalDesempenoImport" enctype="multipart/form-data">
+          <form action="{{ route('evaluacionDesempenoImport') }}" method="POST" id="evalDesempenoImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
-            <input type="file" class="form-control-file" name="file">
+            <input type="file" class="form-control-file" name="evalDesempenoFile">
           </form>
         </div>
         <div class="modal-footer">

@@ -50,13 +50,14 @@
                           <i class="fas fa-chevron-down pt-1 ml-5"></i>
                         </div>
                         <div class="collapse" id="collapse{{$area}}">
-                          <div class="container">
-                            <table class="table table-bordered table-sm align-middle ">
+                          <div class="container table-responsive">
+                            <table class="table table-bordered table-sm">
                               <h6>Encuesta Docente</h6>
                               <thead>
                                 <tr>
                                   <th scope="col">Ramo</th>
                                   <th scope="col">Sección</th>
+                                  <th scope="col">Sede</th>
                                   <th scope="col">Periodo</th>
                                   <th scope="col">Inscritos</th>
                                   <th scope="col">Muestra</th>
@@ -66,12 +67,13 @@
                               <tbody>
                                 @foreach ($area_encuesta as $encuesta)
                                   </tr>
-                                    <td>{{ $encuesta->ramo}}</td>
-                                    <td>{{ $encuesta->seccion}}</td>
-                                    <td>{{ $encuesta->inicio}} - {{ $encuesta->termino}} </td>
-                                    <td>{{ $encuesta->inscritos}}</td>
-                                    <td>{{ $encuesta->muestra}}</td>
-                                    <td>{{ $encuesta->nota}}</td>
+                                    <td>{{ $encuesta->ramo }}</td>
+                                    <td>{{ $encuesta->seccion }}</td>
+                                    <td>{{ $encuesta->sede }}</td>
+                                    <td>{{ $encuesta->inicio }} - {{ $encuesta->termino }} </td>
+                                    <td>{{ $encuesta->inscritos }}</td>
+                                    <td>{{ $encuesta->muestra }}</td>
+                                    <td>{{ $encuesta->nota }}</td>
                                   </tr>
                                 @endforeach
                               </tbody>

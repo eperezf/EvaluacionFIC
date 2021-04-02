@@ -25,11 +25,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
-    protected $idarea;
+    protected $idsubarea;
 
-    function __construct($idarea)
+    function __construct($idsubarea)
     {
-        $this->idarea = $idarea;
+        $this->idsubarea = $idsubarea;
     }
 
     //Agregamos los encabezados de las columnas
@@ -50,7 +50,7 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
                 'Id Curso',
                 'Id Profesor',
                 'Area',
-                'Programa',
+                'Subarea',
                 'Curso',
                 'Sección',
                 'Periodo',
@@ -85,7 +85,7 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
     public function array(): array
     {
         //Obtenemos el id del area del Director de area que quiere descargar el excel
-        $idarea = $this->idarea;
+        $idsubarea = $this->idsubarea;
         
         //Obtenemos todos los cursos asociados al area de dicho director
         $cursos = DB::table('curso')
@@ -111,7 +111,7 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             'curso.inscritos',
             'curso.respuestas',
             'curso.calificacion')
-        ->where('subarea.idarea', 'LIKE', $idarea)
+        ->where('subarea.id', 'LIKE', $idsubarea)
         ->get()->
         toArray();
 
