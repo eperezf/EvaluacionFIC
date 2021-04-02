@@ -19,11 +19,10 @@ class BuzonAdmin extends Controller
 
     public function importEvalDesempeno(Request $request)
     {
-        //dd($request->file('evalDesempenoFile')->getMimeType());
         // Se valida el formulario y al retornar exito, se ejecuta Excel::import()
         $validator = new StoreEvalDocente;
         $this->validate($request, $validator->rules(), $validator->messages());
-        Excel::import(new EvaluacionDesempenoImport, $request->file('file'));
+        Excel::import(new EvaluacionDesempenoImport, $request->file('evalDesempenoFile'));
 
         return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
