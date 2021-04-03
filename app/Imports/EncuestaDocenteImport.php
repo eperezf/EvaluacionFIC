@@ -66,17 +66,21 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow
                     {
                         $user = User::where("email", "=", $data[0]["mail"][0])->get();
                     }
-                    
-                    $user_actvidades = User_actividad::where([
-                        ["iduser", "=", $user->id],
-                        ["idcargo", "=", Cargo::where("nombre", "=", "Profesor")->get()[0]->id]
-                    ])->get();
+                    //Luego de tener el usuario debemos buscar el curso asociado al usuario que coincida con el periodo, la sigla y la sección (sede?)
+                    //Para encontrar dicho curso hacemos la siguiente query
 
-                    foreach($user_actividades as $actividad)
-                    {
-                        // Analizar periodo actividades usuario
-                    }
-                    
+                    $idCurso = DB::table('curso')
+                    ->join('asignatura', 'curso.idasignatura', '=', 'asignatura.id')
+                    ->join('actividad', 'curso.idactividad', '=', 'actividad.id')
+                    ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+                    ->join('user', 'user_actividad.iduser', '=', 'user.id')
+                    ->select('curso.id')
+                    ->where([
+                        ['user.id', '=', $user->id],
+                        ['user_actividad.idcargo', '=', Cargo::where("nombre", "=", "Profesor")->get()[0]->id],
+                        ['asignatura.codigo', '=', $row['sigla']],
+                        ['curso.seccion', '=', $row['seccion']]
+                    ]);
                 }
                 
             }
