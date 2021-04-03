@@ -34,9 +34,20 @@ Route::get('searchByLetter/{letra}', 'MenuAdministrador@searchLetter')->name('se
 Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput');
 
 // Buzones del menu administrador
+
+////Evaluación Docente
 Route::get('evaluacionDocenteExport/{subarea}', 'BuzonAdmin@exportEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoExport');
 Route::post('evaluacionDocenteImport', 'BuzonAdmin@importEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoImport');
+////Investigación
 
+Route::post('investigacionImport', 'BuzonAdmin@importInvestigacion')->middleware('auth')->name('investigacionImport');
+////Administración Académica
+
+Route::post('administracionAcademicaImport'. 'BuzonAdmin@importAdministracionAcademica')->middleware('auth')->name('administracionAcademicaImport');
+////Vinculación con el Medio
+
+Route::post('vinculacionImport', 'BuzonAdmin@importVCM')->middleware('auth')->name('vinculacionImport');
+////Encuesta Docente
 Route::get('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
 
 //--Rutas para el perfil docente como usuario administrador

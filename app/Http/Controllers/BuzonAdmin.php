@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class BuzonAdmin extends Controller
 {
+    //Evaluación de Desempeño
     public function exportEvalDesempeno($idSubarea)
     {
         return Excel::download(new EvaluacionDesempenoExport($idSubarea), 'Evaluación Desempeño.xlsx');
@@ -27,9 +28,55 @@ class BuzonAdmin extends Controller
         return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
 
+    //Encuesta Docente
     public function importEncuestaDocente()
     {
         Excel::import(new EncuestaDocenteImport);
         return;
+    }
+
+    //Investigación
+    public function exportInvestigacion()
+    {
+
+    }
+
+    public function importInvestigacion(Request $request)
+    {
+        $validator = new StoreInvestigacionFile;
+        $this->validate($request, $validator->rules(), $validator->messages());
+        Excel::import(new InvestigacionImport, $request->file('investigacionFile'));
+
+        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
+    }
+
+    //Administracion Académica
+    public function exportAdministracionAcademica()
+    {
+
+    }
+
+    public function importAdministracionAcademica()
+    {
+        $validator = new StoreAdministracionAcademicaFile;
+        $this->validate($request, $validator->rules(), $validator->messages());
+        Excel::import(new AdministracionAcademicaImport, $request->file('administracionAcademicaFile'));
+
+        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
+    }
+
+    //Vinculación con el Medio
+    public function exportVCM()
+    {
+
+    }
+
+    public function importVCM()
+    {
+        $validator = new StoreVCMFile;
+        $this->validate($request, $validator->rules(), $validator->messages());
+        Excel::import(new VinculacionImport, $request->file('vinculacionFile'));
+
+        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
 }

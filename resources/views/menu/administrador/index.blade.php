@@ -175,7 +175,7 @@
           <form action="" method="POST" id="administracionAcademicaImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Administración Académica en formato CSV</label>
-            <input type="file" class="form-control-file" name="investigacionFile">
+            <input type="file" class="form-control-file" name="administracionAcademicaFile">
           </form>
         </div>
         <div class="modal-footer">
@@ -200,7 +200,7 @@
           <form action="" method="POST" id="vinculacionImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Vinculación con el Medio en formato CSV</label>
-            <input type="file" class="form-control-file" name="investigacionFile">
+            <input type="file" class="form-control-file" name="vinculacionFile">
           </form>
         </div>
         <div class="modal-footer">
