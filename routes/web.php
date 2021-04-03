@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('test', 'EvaluacionDocente@test');
-
 Route::get('/', 'Index@loadIndex')->middleware('auth')->name('index');
     Route::get('/login', 'Login@loadLogin')->name('login');
     Route::post('/doLogin', 'Login@authenticate')->name('doLogin');
@@ -40,6 +38,7 @@ Route::get('evaluacionDocenteExport/{subarea}', 'BuzonAdmin@exportEvalDesempeno'
 Route::post('evaluacionDocenteImport', 'BuzonAdmin@importEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoImport');
 ////Investigación
 
+Route::post('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
 Route::post('investigacionImport', 'BuzonAdmin@importInvestigacion')->middleware('auth')->name('investigacionImport');
 ////Administración Académica
 
@@ -48,7 +47,6 @@ Route::post('administracionAcademicaImport'. 'BuzonAdmin@importAdministracionAca
 
 Route::post('vinculacionImport', 'BuzonAdmin@importVCM')->middleware('auth')->name('vinculacionImport');
 ////Encuesta Docente
-Route::get('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
 
 //--Rutas para el perfil docente como usuario administrador
     Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');

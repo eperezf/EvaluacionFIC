@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Exports\EvaluacionDesempenoExport;
 use App\Imports\EvaluacionDesempenoImport;
+use App\Imports\EncuestaDocenteImport;
 use App\Http\Requests\StoreEvalDocente;
+use App\Http\Requests\StoreEncuestaDocente;
 
 use Illuminate\Http\Request;
 
@@ -18,21 +20,22 @@ class BuzonAdmin extends Controller
         return Excel::download(new EvaluacionDesempenoExport($idSubarea), 'Evaluación Desempeño.xlsx');
     }
 
-    public function importEvalDesempeno(Request $request)
+    public function importEvalDesempeno(StoreEvalDocente $request)
     {
         // Se valida el formulario y al retornar exito, se ejecuta Excel::import()
-        $validator = new StoreEvalDocente;
-        $this->validate($request, $validator->rules(), $validator->messages());
+        $validator = $request->validated();
         Excel::import(new EvaluacionDesempenoImport, $request->file('evalDesempenoFile'));
 
-        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
+        return redirect('/menuAdministrador/')->with('success', "Importación evaluación de desempeño exitosa");
     }
 
     //Encuesta Docente
-    public function importEncuestaDocente()
+    public function importEncuestaDocente(StoreEncuestaDocente $request)
     {
-        Excel::import(new EncuestaDocenteImport);
-        return;
+        $validator = $request->validated();
+        Excel::import(new EncuestaDocenteImport($request->importPassword), $request->file('encuestaDocenteFile'));
+        
+        return redirect('/menuAdministrador/')->with('success', "Importación encuesta docente exitosa");
     }
 
     //Investigación

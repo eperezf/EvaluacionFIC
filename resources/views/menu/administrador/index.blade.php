@@ -85,10 +85,14 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action={{ route('encuestaDocenteImport') }} method="GET" id="encuestaDocenteImport" enctype="multipart/form-data">
+          <form action={{ route('encuestaDocenteImport') }} method="POST" id="encuestaDocenteImport" enctype="multipart/form-data">
             @csrf
-            <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
-            <input type="file" class="form-control-file" name="file">
+            <div class="row col-12">
+              <label class="col-8">Seleccione el archivo de Encuesta Docente en formato CSV</label>
+              <label class="col-4">Ingrese contraseña</label>
+              <input type="file" class="form-control-file col-8" name="encuestaDocenteFile">
+              <input type="password" class="form-control col-4" name="importPassword">
+            </div>
           </form>
         </div>
         <div class="modal-footer">
