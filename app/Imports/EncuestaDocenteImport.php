@@ -5,10 +5,14 @@ namespace App\Imports;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use Carbon\Carbon;
+
+use DB;
 
 use App\User;
 use App\User_actividad;
@@ -16,7 +20,7 @@ use App\Actividad;
 use App\Curso;
 use App\Cargo;
 
-class EncuestaDocenteImport implements ToCollection, WithHeadingRow
+class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomCsvSettings
 {
     protected $password;
 
@@ -26,6 +30,14 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow
     }
 
     public function headingRow(): int { return 1; }
+
+    public function getCsvSettings(): array
+    {
+        return [
+            'delimiter' => ',',
+            'encoding' => 'UTF-8'
+        ];
+    }
 
     /**
     * @param Collection $collection
@@ -45,31 +57,59 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow
 
             if($ldapbind) //Autenticado
             {
+                $conflict_rows = [];
+                $i = 0;
                 foreach($rows as $row)
                 {
-                    $result = @ldap_search($ldapconn, $ldaptree, "(employeeID=".$row["rut"].")", $usefulinfo); // Realizacion de busqueda
+                    $result = @ldap_search($ldapconn, $ldaptree, "(employeeID=".$rut["rut"].")", $usefulinfo); // Realizacion de busqueda
                     $data = @ldap_get_entries($ldapconn, $result);
+                    //dd($data[0]);
 
-                    if(User::where("rut", "=", $row["rut"])->orWhere("email", "=", $data[0]["mail"][0])->get()->isEmpty())
+                    if(count($data) != 2)
                     {
+                        array_push($conflict_rows, $row);
+                    }
+                    else
+                    {
+                        echo $data[0]["givenname"]."\n";
+                    }
+                    
+                    /* $user = User::firstOrCreate(
+                        ['rut' => $data[0]["employeeid"][0]],
+                        [
+                            'nombres' => $data[0]["givenname"][0],
+                            'apellidoPaterno' => $data[0]["sn"][0],
+                            'email' => $data[0]["mail"][0],
+                            'password' => "INTUAI"
+                        ]
+                    ); */
+
+                    /* if(User::where("rut", "=", $row["rut"])->get()->isEmpty())
+                    {
+                        //Helper::createUser($data);
                         // Se crea usuario en la BBDD desde data ldap
                         $user = new User;
-                        $user->nombre = $data[0]["givenname"][0];
-                        $user->apellido = $data[0]["sn"][0];
+                        $user->nombres = $data[0]["givenname"][0];
+                        $user->apellidoPaterno = $data[0]["sn"][0];
                         $user->rut = $data[0]["employeeid"][0];
                         $user->email = $data[0]["mail"][0];
                         $user->password = "INTUAI";
                         
-                        //$user->save();
+                        $user->save();
                     }
                     else
                     {
                         $user = User::where("email", "=", $data[0]["mail"][0])->get();
-                    }
+                    } */
+
+                    
+
+
+                    
                     //Luego de tener el usuario debemos buscar el curso asociado al usuario que coincida con el periodo, la sigla y la sección (sede?)
                     //Para encontrar dicho curso hacemos la siguiente query
 
-                    $idCurso = DB::table('curso')
+                    /* $idCurso = DB::table('curso')
                     ->join('asignatura', 'curso.idasignatura', '=', 'asignatura.id')
                     ->join('actividad', 'curso.idactividad', '=', 'actividad.id')
                     ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
@@ -80,8 +120,12 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow
                         ['user_actividad.idcargo', '=', Cargo::where("nombre", "=", "Profesor")->get()[0]->id],
                         ['asignatura.codigo', '=', $row['sigla']],
                         ['curso.seccion', '=', $row['seccion']]
-                    ]);
+                    ])->get(); */
+
+                    //dd($idCurso);
+
                 }
+                sleep(100);
                 
             }
         }
