@@ -22,6 +22,7 @@ $(document).ready(() => {
     $('#cancelarImportEncuesta').click(function() {
         $('#collapseConfirmacion').collapse('hide')
         $('#encuestaDocenteFile').val("")
+        $('#importPassword').val("")
     })
 
     $('#importPassword').on("input", function() {
