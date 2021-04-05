@@ -89,15 +89,24 @@
             @csrf
             <div class="row col-12">
               <label class="col-8">Seleccione el archivo de Encuesta Docente en formato CSV</label>
-              <label class="col-4">Ingrese contraseña</label>
-              <input type="file" class="form-control-file col-8" name="encuestaDocenteFile">
-              <input type="password" class="form-control col-4" name="importPassword">
+              <input type="file" class="form-control-file col-8" name="encuestaDocenteFile" id="encuestaDocenteFile">
+            </div>
+            <div class="collapse" id="collapseConfirmacion"><hr>
+              <div class="col-12 mt-3">
+                ¿Esta seguro que desea subir este archivo?
+                <div class="row col-12 mt-2">
+                  <label class="col-4">Ingrese su contraseña</label>
+                  <input type="password" class="form-control col-4" name="importPassword" id="importPassword">
+                </div>
+              </div>
+              
+              
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" value="submit" form="encuestaDocenteImport" class="btn btn-primary" title="importar datos">Importar</button>
+          <button type="button" id="cancelarImportEncuesta" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" id="importEncuestaBtn" value="submit" form="encuestaDocenteImport" class="btn btn-primary" title="importar datos" disabled>Importar</button>
         </div>
       </div>
     </div>
@@ -215,5 +224,5 @@
     </div>
   </div><br>
 
-  <script type="text/javascript" src="{{asset('js/evaluacionDocenteArea.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/menuAdministrador.js')}}"></script>
 @endsection
