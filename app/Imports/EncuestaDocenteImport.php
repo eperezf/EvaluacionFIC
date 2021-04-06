@@ -161,7 +161,7 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomC
                         $curso = Curso::firstOrCreate(
                             ['idomega' => $row["id"]],
                             [
-                                'calificacion' => $row["pp21"],
+                                'calificacion' => $row["pp21"]/10,
                                 'respuestas' => $row["muestra"],
                                 'inscritos' => $row["inscritos"],
                                 'material' => 0,
@@ -187,7 +187,7 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomC
                     $curso = Curso::where("idomega", "=", $row["id"])->get()[0];
                     $curso->update(
                         [
-                            'calificacion' => $row["pp21"],
+                            'calificacion' => $row["pp21"]/10,
                             'respuestas' => $row["muestra"],
                             'inscritos' => $row["inscritos"],
                             'seccion' => $row["seccion"]
