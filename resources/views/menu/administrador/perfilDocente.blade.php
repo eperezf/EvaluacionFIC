@@ -73,7 +73,7 @@
                                     <td>{{ $encuesta->inicio }} - {{ $encuesta->termino }} </td>
                                     <td>{{ $encuesta->inscritos }}</td>
                                     <td>{{ $encuesta->muestra }}</td>
-                                    <td>{{ $encuesta->nota }}</td>
+                                    <td>{{ str_replace('.', ',', strval($encuesta->nota)) }}</td>
                                   </tr>
                                 @endforeach
                               </tbody>

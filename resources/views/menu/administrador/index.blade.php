@@ -9,6 +9,11 @@
         {{ session()->get('success') }}
       </div>
     @endif
+    @if(session()->get('error'))
+      <div class="alert alert-danger">
+        {{ session()->get('error') }}
+      </div>
+    @endif
     @if ($errors->any())
       <div class="alert alert-danger pb-1 pt-1">
         <ul>
@@ -32,15 +37,15 @@
       </div>
       <div class="row">
         <h5 class="col-5">Investigación</h5>
-        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelInvestigacion">Subir archivo</button>
       </div>
       <div class="row">
         <h5 class="col-5">Administración académica</h5>
-        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelAdministracionAcademica">Subir archivo</button>
       </div>
       <div class="row">
         <h5 class="col-5">Vinculación con el medio</h5>
-        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelVCM">Subir archivo</button>
       </div>
     </div>
   </section><hr>
@@ -85,15 +90,28 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action={{ route('encuestaDocenteImport') }} method="GET" id="encuestaDocenteImport" enctype="multipart/form-data">
+          <form action={{ route('encuestaDocenteImport') }} method="POST" id="encuestaDocenteImport" enctype="multipart/form-data">
             @csrf
-            <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
-            <input type="file" class="form-control-file" name="file">
+            <div class="row col-12">
+              <label class="col-8">Seleccione el archivo de Encuesta Docente en formato CSV</label>
+              <input type="file" class="form-control-file col-8" name="encuestaDocenteFile" id="encuestaDocenteFile">
+            </div>
+            <div class="collapse" id="collapseConfirmacion"><hr>
+              <div class="col-12 mt-3">
+                ¿Esta seguro que desea subir este archivo?
+                <div class="row col-12 mt-2">
+                  <label class="col-4">Ingrese su contraseña</label>
+                  <input type="password" class="form-control col-4" name="importPassword" id="importPassword">
+                </div>
+              </div>
+              
+              
+            </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" value="submit" form="encuestaDocenteImport" class="btn btn-primary" title="importar datos">Importar</button>
+          <button type="button" id="cancelarImportEncuesta" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" id="importEncuestaBtn" value="submit" form="encuestaDocenteImport" class="btn btn-primary" title="importar datos" disabled>Importar</button>
         </div>
       </div>
     </div>
@@ -135,5 +153,81 @@
       </div>
     </div>
   </div><br>
-  <script type="text/javascript" src="{{asset('js/evaluacionDocenteArea.js')}}"></script>
+
+  <!-- Modal Investigación -->
+  <div class="modal fade" id="ModalExcelInvestigacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Subir archivo de Investigación</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" id="investiagcionImport" enctype="multipart/form-data">
+            @csrf
+            <label>Seleccione el archivo de Investigación en formato CSV</label>
+            <input type="file" class="form-control-file" name="investigacionFile">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" value="submit" form="investigacionImport" class="btn btn-primary" title="importar datos">Importar</button>
+        </div>
+      </div>
+    </div>
+  </div><br>
+
+  <!-- Modal Administración Académica -->
+  <div class="modal fade" id="ModalExcelAdministracionAcademica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Subir archivo de Administración Académica</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" id="administracionAcademicaImport" enctype="multipart/form-data">
+            @csrf
+            <label>Seleccione el archivo de Administración Académica en formato CSV</label>
+            <input type="file" class="form-control-file" name="administracionAcademicaFile">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" value="submit" form="administracionAcademicaImport" class="btn btn-primary" title="importar datos">Importar</button>
+        </div>
+      </div>
+    </div>
+  </div><br>
+
+  <!-- Modal Vinculación con el Medio -->
+  <div class="modal fade" id="ModalExcelVCM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Suba aquí la información correspondiente a su vinculación con el medio en un archivo CSV</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" id="vinculacionImport" enctype="multipart/form-data">
+            @csrf
+            <label>Seleccione el archivo de Vinculación con el Medio en formato CSV</label>
+            <input type="file" class="form-control-file" name="vinculacionFile">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" value="submit" form="vinculacionImport" class="btn btn-primary" title="importar datos">Importar</button>
+        </div>
+      </div>
+    </div>
+  </div><br>
+
+  <script type="text/javascript" src="{{asset('js/menuAdministrador.js')}}"></script>
 @endsection
