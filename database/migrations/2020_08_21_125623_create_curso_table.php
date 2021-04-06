@@ -15,6 +15,7 @@ class CreateCursoTable extends Migration
     {
         Schema::create('curso', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('idomega');
             $table->float('calificacion')->nullable();
             $table->unsignedInteger('respuestas')->nullable();
             $table->unsignedInteger('inscritos')->nullable();

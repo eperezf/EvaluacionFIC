@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Asignatura extends Model{
     protected $table = 'asignatura';
 
-    protected $fillable = ['nombre','codigo'];
+    protected $fillable = ['nombre','codigo', 'idsubarea'];
 
     public function actividad() {
         return $this->belongsToMany(
