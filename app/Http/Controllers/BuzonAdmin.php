@@ -33,7 +33,13 @@ class BuzonAdmin extends Controller
     public function importEncuestaDocente(StoreEncuestaDocente $request)
     {
         $validator = $request->validated();
-        Excel::import(new EncuestaDocenteImport($request->importPassword), $request->file('encuestaDocenteFile'));
+        $import = new EncuestaDocenteImport($request->importPassword);
+        Excel::import($import, $request->file('encuestaDocenteFile'));
+
+        if(!$import->success)
+        {
+            return redirect('/menuAdministrador/')->with('error', $import->message);
+        }
         
         return redirect('/menuAdministrador/')->with('success', "Importación encuesta docente exitosa");
     }

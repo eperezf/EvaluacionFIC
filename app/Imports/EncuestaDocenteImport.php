@@ -26,6 +26,8 @@ use App\Subarea;
 class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomCsvSettings
 {
     protected $password;
+    
+    public $success = TRUE;
 
     public function __construct($password)
     {
@@ -193,6 +195,18 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomC
                     );
                 }
             }
+            // En caso que falle la autenticacion
+            else
+            {
+                $this->success = FALSE;
+                $this->message = "La contraseña del usuario ingresada es incorrecta";
+            }
+        }
+        // En caso que falle la conexion con el servidor
+        else
+        {
+            $this->success = FALSE;
+            $this->message = "Hubo un problema con la conexion al servidor";
         }
     }
 }

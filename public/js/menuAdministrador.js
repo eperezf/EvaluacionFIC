@@ -9,6 +9,13 @@ $(document).ready(() => {
         $("#descargar").attr("href", link)
     })
 
+    $('#ModalExcelEncuesta').on('hidden.bs.modal', function (e) {
+        $('#collapseConfirmacion').collapse('hide')
+        $('#importEncuestaBtn').attr("disabled", true)
+        $('#importPassword').val("")
+        $('#encuestaDocenteFile').val("")
+    })
+
     $('#encuestaDocenteFile').on("change", function() {
         if($('#encuestaDocenteFile').val() !== "") {
             $('#collapseConfirmacion').collapse('show')
