@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\EvaluacionDesempenoExport;
+use App\Exports\InvestigacionPublicacionesCientificasExport;
 use App\Imports\EvaluacionDesempenoImport;
 use App\Imports\EncuestaDocenteImport;
 use App\Http\Requests\StoreEvalDocente;
@@ -45,18 +46,11 @@ class BuzonAdmin extends Controller
     }
 
     //Investigación
-    public function exportInvestigacion()
+
+    ////Publicaciones Científicas
+    public function exportInvestigacionPublicacionesCientificas()
     {
-
-    }
-
-    public function importInvestigacion(Request $request)
-    {
-        $validator = new StoreInvestigacionFile;
-        $this->validate($request, $validator->rules(), $validator->messages());
-        Excel::import(new InvestigacionImport, $request->file('investigacionFile'));
-
-        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
+        return Excel::download(new InvestigacionPublicacionesCientificasExport(), 'Evaluación Publicaciones Científicas.xlsx');
     }
 
     //Administracion Académica

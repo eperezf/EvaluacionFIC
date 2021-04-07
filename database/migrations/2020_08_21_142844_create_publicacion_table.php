@@ -20,6 +20,7 @@ class CreatePublicacionTable extends Migration {
       $table->string('tipoRevista', 45);
       $table->string('publisher', 45);
       $table->string('abstract', 45);
+      $table->string('indexacion', 45);
       $table->foreignId('idactividad')->references('id')->on('actividad');
       $table->timestamps();
     });

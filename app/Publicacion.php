@@ -20,7 +20,8 @@ class Publicacion extends Model{
         'revista',
         'tipoRevista',
         'publisher',
-        'abstract'
+        'abstract',
+        'indexacion'
     ];
 
     public function actividad() {
