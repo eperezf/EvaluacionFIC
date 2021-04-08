@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 //Importaciones
+use App\Tipo_Publicacion;
 use DB;
 
 //Importamos los Concerns
@@ -70,6 +71,7 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             'actividad.termino',
             'publicacion.indexacion',
             'user_actividad.calificacion')
+        ->where('publicacion.idTipoPublicacion', '=', Tipo_Publicacion::where('nombre', '=', 'Científica')->get('id')[0])
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
