@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\EvaluacionDesempenoExport;
 use App\Exports\InvestigacionPublicacionesCientificasExport;
+use App\Exports\InvestigacionPatenteExport;
 use App\Imports\EvaluacionDesempenoImport;
 use App\Imports\EncuestaDocenteImport;
 use App\Http\Requests\StoreEvalDocente;
@@ -51,6 +52,12 @@ class BuzonAdmin extends Controller
     public function exportInvestigacionPublicacionesCientificas()
     {
         return Excel::download(new InvestigacionPublicacionesCientificasExport(), 'Evaluación Publicaciones Científicas.xlsx');
+    }
+
+    ////Patentes
+    public function exportInvestigacionPatente()
+    {
+        return Excel::download(new InvestigacionPatenteExport(), 'Evaluación Patentes.xlsx');
     }
 
     //Administracion Académica
