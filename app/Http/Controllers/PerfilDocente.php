@@ -164,6 +164,69 @@ class PerfilDocente extends Controller
         return $infoEncuestas;
     }
 
+    public function getInfoInvestigacion($userId)
+    {
+        $publicacionesCientificas = DB::table('publicacioncientifica')
+        ->join('actividad', 'publicacioncientifica.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->select(
+            'publicacioncientifica.titulo as titulo',
+            'publicacioncientifica.journal as journal',
+            'actividad.termino as año',
+            'publicacioncientifica.indexacion as indexacion')
+        ->get()
+        ->toArray();
+
+        $patentes = DB::table('patente')
+        ->join('actividad', 'patente.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->select(
+            'patente.titulo as titulo',
+            'patente.numeroregistro as numero',
+            'patente.fecharegistro as fecharegistro',
+            'patente.fechaconcedida as fehcaconcedida')
+        ->get()
+        ->toArray();
+
+        $guiasTesis = DB::table('guiatesis')
+        ->join('actividad', 'guiatesis.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->join('programa', 'guiatesis.idprograma', '=', 'programa.id')
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->select(
+            'guiatesis.estudiante as estudiante',
+            'programa.nombre as programa',
+            'actividad.termino as año',
+            'cargo.nombre as cargo as rol')
+        ->get()
+        ->toArray();
+
+        $proyectosInvestigacion = DB::table('proyectoinvestigacion')
+        ->join('actividad', 'proyectoinvestigacion.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->join('fuentefinanciamiento', 'proyectoinvestigacion.idfuentefinanciamiento', '=', 'fuentefinanciamiento.id')
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->select(
+            'fuentefinanciamiento.nombre as fuente',
+            'proyectoinvestigacion.nombre as nombre',
+            'actividad.termino as periodo',
+            'cargo.nombre as rol')
+        ->get()
+        ->toArray();
+
+        $infoInvestigacion = array_map(NULL, $publicacionesCientificas, $patentes, $guiasTesis, $proyectosInvestigacion);
+        
+        return $infoInvestigacion;
+    }
+
 
     public function loadPerfil($userId)
     {
@@ -178,6 +241,9 @@ class PerfilDocente extends Controller
 
         /* Información de Encuesta Docente */
         $encuestaDocente = $this->getInfoEncuestaDocente($userId);
+
+        /* Información de Investigación */
+        $investigaciones = $this->getInfoInvestigacion($userId);
 
         /* Evaluadción general actual del Comité */
         $periodo = (int)date('Y')-1;
@@ -207,7 +273,8 @@ class PerfilDocente extends Controller
             'comentario' => $comentario,
             'idEvaluacion' => $idEvaluacion,
             'vacio' => $vacio,
-            'encuestas' => $encuestaDocente
+            'encuestas' => $encuestaDocente,
+            'investigaciones' => $investigaciones,
         ]);
     }
 
