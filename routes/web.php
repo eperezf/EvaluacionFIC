@@ -39,6 +39,7 @@ Route::post('evaluacionDocenteImport', 'BuzonAdmin@importEvalDesempeno')->middle
 ////Investigación
 Route::get('investigacionPublicacionCientificaExport', 'BuzonAdmin@exportInvestigacionPublicacionesCientificas')->middleware('auth')->name('investigacionPublicacionesCientificasExport');
 Route::get('investigacionPatenteExport', 'BuzonAdmin@exportInvestigacionPatente')->middleware('auth')->name('investigacionPatenteExport');
+Route::get('investigacionGuiaExport', 'BuzonAdmin@exportInvestigacionGuia')->middleware('auth')->name('investigacionGuiaExport');
 
 ////Administración Académica
 
