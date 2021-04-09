@@ -15,7 +15,7 @@ class CreateGuiatesisTable extends Migration
     {
         Schema::create('guiatesis', function (Blueprint $table) {
             $table->id();
-            $talbe->string('estudiante', 128);
+            $table->string('estudiante', 128);
             $table->string('comentario', 256);
             $table->foreignId('idactividad')->references('id')->on('actividad');
             $table->foreignId('idprograma')->references('id')->on('programa');
