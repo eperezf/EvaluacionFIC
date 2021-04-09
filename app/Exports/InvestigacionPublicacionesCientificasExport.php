@@ -3,7 +3,6 @@
 namespace App\Exports;
 
 //Importaciones
-use App\Tipo_Publicacion;
 use DB;
 
 //Importamos los Concerns
@@ -57,8 +56,8 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
 
     public function array(): array
     {
-        $publicaciones = DB::table('publicacion')
-        ->join('actividad', 'publicacion.idactividad', '=', 'actividad.id')
+        $publicaciones = DB::table('publicacioncientifica')
+        ->join('actividad', 'publicacioncientifica.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->select(
@@ -66,12 +65,11 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             'user.nombres',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
-            'publicacion.titulo',
-            'publicacion.revista',
+            'publicacioncientifica.titulo',
+            'publicacioncientifica.journal',
             'actividad.termino',
-            'publicacion.indexacion',
+            'publicacioncientifica.indexacion',
             'user_actividad.calificacion')
-        ->where('publicacion.idTipoPublicacion', '=', Tipo_Publicacion::where('nombre', '=', 'Científica')->get('id')[0])
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
@@ -101,7 +99,7 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             $publicaciones->rut,
             $publicaciones->nombres,
             $publicaciones->titulo,
-            $publicaciones->revista,
+            $publicaciones->journal,
             $publicaciones->termino,
             $publicaciones->indexacion
         ];
