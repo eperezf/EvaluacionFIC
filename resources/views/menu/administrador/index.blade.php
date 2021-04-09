@@ -165,7 +165,19 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" id="investiagcionImport" enctype="multipart/form-data">
+          <div id="tipodeinvestigacion" class="form-group row">
+            <label for="select-tipodeinvestigacion" class="col-sm-5 col-form-label">Descargar archivo de investigación</label>
+            <div class="col-sm-5">
+              <select class="form-control" requiered="true" name="select-tipodeinvestigacion" id="select-tipodeinvestigacion">
+                <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
+                <!--@foreach ($subareas as $subarea)
+                  <option value="{{ $subarea->id }}">{{ $subarea->nombre }}</option>
+                @endforeach-->
+              </select>
+            </div>
+            <a href="" class="btn btn-link" id="descargar">Descargar</a>
+          </div><br>
+          <form action="" method="POST" id="investigacionImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Investigación en formato CSV</label>
             <input type="file" class="form-control-file" name="investigacionFile">
