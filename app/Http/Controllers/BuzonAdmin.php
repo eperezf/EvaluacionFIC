@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Exports\EvaluacionDesempenoExport;
 use App\Imports\EvaluacionDesempenoImport;
+use App\Imports\EncuestaDocenteImport;
 use App\Http\Requests\StoreEvalDocente;
+use App\Http\Requests\StoreEncuestaDocente;
 
 use Illuminate\Http\Request;
 
@@ -12,27 +14,78 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class BuzonAdmin extends Controller
 {
-    public function exportEvalDesempeno($idArea)
+    //Evaluación de Desempeño
+    public function exportEvalDesempeno($idSubarea)
     {
-        return Excel::download(new EvaluacionDesempenoExport($idArea), 'Evaluación Desempeño.xlsx');
+        return Excel::download(new EvaluacionDesempenoExport($idSubarea), 'Evaluación Desempeño.xlsx');
     }
 
     public function importEvalDesempeno(StoreEvalDocente $request)
     {
-        /* Se valida el formulario y al retornar exito, se ejecuta Excel::import() */
-        $validated = $request->validated();
-        Excel::import(new EvaluacionDesempenoImport, $request->file('file'));
+        // Se valida el formulario y al retornar exito, se ejecuta Excel::import()
+        $validator = $request->validated();
+        Excel::import(new EvaluacionDesempenoImport, $request->file('evalDesempenoFile'));
+
+        return redirect('/menuAdministrador/')->with('success', "Importación evaluación de desempeño exitosa");
+    }
+
+    //Encuesta Docente
+    public function importEncuestaDocente(StoreEncuestaDocente $request)
+    {
+        $validator = $request->validated();
+        $import = new EncuestaDocenteImport($request->importPassword);
+        Excel::import($import, $request->file('encuestaDocenteFile'));
+
+        if(!$import->success)
+        {
+            return redirect('/menuAdministrador/')->with('error', $import->message);
+        }
+        
+        return redirect('/menuAdministrador/')->with('success', "Importación encuesta docente exitosa");
+    }
+
+    //Investigación
+    public function exportInvestigacion()
+    {
+
+    }
+
+    public function importInvestigacion(Request $request)
+    {
+        $validator = new StoreInvestigacionFile;
+        $this->validate($request, $validator->rules(), $validator->messages());
+        Excel::import(new InvestigacionImport, $request->file('investigacionFile'));
 
         return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
 
-    public function exportEncuestaDocente()
+    //Administracion Académica
+    public function exportAdministracionAcademica()
     {
-        return Excel::download(new EncuestaDocenteExport, 'Encuesta Docente.xlsx');
+
     }
 
-    public function importEncuestaDocente()
+    public function importAdministracionAcademica()
     {
-        return dd('import');
+        $validator = new StoreAdministracionAcademicaFile;
+        $this->validate($request, $validator->rules(), $validator->messages());
+        Excel::import(new AdministracionAcademicaImport, $request->file('administracionAcademicaFile'));
+
+        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
+    }
+
+    //Vinculación con el Medio
+    public function exportVCM()
+    {
+
+    }
+
+    public function importVCM()
+    {
+        $validator = new StoreVCMFile;
+        $this->validate($request, $validator->rules(), $validator->messages());
+        Excel::import(new VinculacionImport, $request->file('vinculacionFile'));
+
+        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
 }

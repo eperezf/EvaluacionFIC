@@ -34,6 +34,13 @@ $(document).ready(() => {
                     request = areaRequest; 
                 break;
 
+                case "Director de subarea":
+                    var subareaRequest = new Request('/api/getSubareasAll');
+                    name = "subarea";
+                    message = "Selecciona una subarea";
+                    request = subareaRequest; 
+                break;
+                
                 case "Subdirector de docencia":
                     var asignaturaRequest = new Request('/api/getAsignaturasAll');
                     name = "asignatura";
