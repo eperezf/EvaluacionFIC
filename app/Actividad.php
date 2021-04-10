@@ -14,51 +14,58 @@ class Actividad extends Model {
     ];
 
     //Relations
-    public function publicacion() {
+    public function publicacion()
+    {
         return $this->hasMany('App\Publicacion');
     }
 
-    public function investigacion() {
-        return $this->hasMany('App\Investigacion');
-    }
-
-    public function libro() {
+    public function libro()
+    {
         return $this->hasMany('App\Libro');
     }
 
-    public function transTecnologica() {
+    public function transTecnologica()
+    {
         return $this->hasMany('App\Transferenciatecnologica');
     }
 
-    public function vinculacion() {
+    public function vinculacion()
+    {
         return $this->hasMany('App\Vinculacion');
     }
 
-    public function perfDocente() {
+    public function perfDocente()
+    {
         return $this->hasMany('App\Perfeccionamientodocente');
     }
 
-    public function proyectoConcursable() {
+    public function proyectoConcursable()
+    {
         return $this->hasMany('App\Proyectoconcursable');
     }
 
-    public function licencia() {
+    public function licencia()
+    {
         return $this->hasMany('App\Licencia');
     }
 
-    public function spinoff() {
+    public function spinoff()
+    {
         return $this->hasMany('App\Spinoff');
     }
 
-    public function tutoria() {
+    public function tutoria()
+    {
         return $this->hasMany('App\Tutoria');
     }
 
-    public function curso() {
+    public function curso()
+    {
         return $this->hasMany('App\Curso');
     }
     
-    public function asignatura() {
+    public function asignatura()
+    {
         return $this
             ->belongsToMany('App\Asignatura', 'actividad_asignatura', 'idasignatura', 'idactividad')
             ->using('App\Actividad_asignatura')
@@ -68,7 +75,8 @@ class Actividad extends Model {
             ]);
     }
 
-    public function area() {
+    public function area()
+    {
         return $this
             ->hasMany('App\Area', 'actividad_area', 'idarea', 'idactividad')
             ->using('App\Actividad_area')
@@ -89,7 +97,8 @@ class Actividad extends Model {
             ]);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this
             ->belongsToMany('App\User', 'user_actividad', 'iduser', 'idactividad')
             ->using('App\User_actividad')
@@ -101,7 +110,8 @@ class Actividad extends Model {
             ]);
     }
 
-    public function cargo() {
+    public function cargo()
+    {
         return $this
             ->belongsToMany('App\Cargo', 'user_actividad', 'iduser', 'idcargo')
             ->using('App\User_actividad')
@@ -113,7 +123,28 @@ class Actividad extends Model {
             ]);
     }
 
-    public function tipoactividad() {
+    public function tipoactividad()
+    {
         return $this->belongsTo('App\Tipoactividad');
+    }
+
+    public function publicacionCientifica()
+    {
+        return $this->hasMany('App\Publicacioncientifica');
+    }
+
+    public function patente()
+    {
+        return $this->hasMany('App\Patente');
+    }
+
+    public function guiaTesis()
+    {
+        return $this->hasMany('App\Guiatesis');
+    }
+
+    public function proyectoInvestigacion()
+    {
+        return $this->hasMany('App\Proyectoinvestigacion');
     }
 }

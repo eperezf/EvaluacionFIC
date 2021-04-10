@@ -14,10 +14,6 @@ use App\Actividad;
 
 class EvaluacionDesempenoImport implements ToCollection, WithHeadingRow, WithCustomCsvSettings
 {
-    /**
-    * @param Collection $collection
-    */
-
     public function headingRow(): int { return 5; }
 
     public function getCsvSettings(): array
@@ -27,6 +23,9 @@ class EvaluacionDesempenoImport implements ToCollection, WithHeadingRow, WithCus
         ];
     }
 
+    /**
+    * @param Collection $collection
+    */
     public function collection(Collection $rows)
     {
         foreach($rows as $row)

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEvalDocente extends FormRequest
+class StoreAdministracionAcademicaFile extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,15 @@ class StoreEvalDocente extends FormRequest
     public function rules()
     {
         return [
-            'evalDesempenoFile' => ['required', 'mimes:txt,csv']
+            'administracionAcademicaFile' => ['required', 'mimes:txt,csv']
         ];
     }
 
     public function messages()
     {
         return [
-            'evalDesempenoFile.required' => "No se ha ingresado ningun archivo de evaluación de desempeño",
-            'evalDesempenoFile.mimes' => "El archivo debe ser formato CSV"
+            'administracionAcademicaFile.required' => "No se ha ingresado ningun archivo",
+            'administracionAcademicaFile.mimes' => "El archivo debe ser formato CSV"
         ];
     }
 }
