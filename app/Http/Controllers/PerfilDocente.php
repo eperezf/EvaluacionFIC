@@ -174,7 +174,7 @@ class PerfilDocente extends Controller
         ->select(
             'publicacioncientifica.titulo as titulo',
             'publicacioncientifica.journal as journal',
-            'actividad.termino as año',
+            DB::raw('DATE_FORMAT(actividad.termino, "%Y") as año'),
             'publicacioncientifica.indexacion as indexacion')
         ->get()
         ->toArray();
@@ -202,7 +202,7 @@ class PerfilDocente extends Controller
         ->select(
             'guiatesis.estudiante as estudiante',
             'programa.nombre as programa',
-            'actividad.termino as año',
+            DB::raw('DATE_FORMAT(actividad.termino, "%Y") as año'),
             'cargo.nombre as rol')
         ->get()
         ->toArray();
