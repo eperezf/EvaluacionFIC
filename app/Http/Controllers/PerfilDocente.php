@@ -188,7 +188,7 @@ class PerfilDocente extends Controller
             'patente.titulo as titulo',
             'patente.numeroregistro as numero',
             'patente.fecharegistro as fecharegistro',
-            'patente.fechaconcedida as fehcaconcedida')
+            'patente.fechaconcedida as fechaconcedida')
         ->get()
         ->toArray();
 
@@ -203,7 +203,7 @@ class PerfilDocente extends Controller
             'guiatesis.estudiante as estudiante',
             'programa.nombre as programa',
             'actividad.termino as año',
-            'cargo.nombre as cargo as rol')
+            'cargo.nombre as rol')
         ->get()
         ->toArray();
 
@@ -222,7 +222,12 @@ class PerfilDocente extends Controller
         ->get()
         ->toArray();
 
-        $infoInvestigacion = array_map(NULL, $publicacionesCientificas, $patentes, $guiasTesis, $proyectosInvestigacion);
+        $infoInvestigacionCompleta = array('Publicaciones Científicas' => $publicacionesCientificas, 
+                                    'Patentes publicadas y/o Concedidas' => $patentes, 
+                                    'Guía y co-Guía de tesis en programas académicos' => $guiasTesis, 
+                                    'Proyectos de investigación públicos y privados vigentes' => $proyectosInvestigacion);
+        
+        $infoInvestigacion = array_filter($infoInvestigacionCompleta);
         
         return $infoInvestigacion;
     }
