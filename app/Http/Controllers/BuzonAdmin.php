@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exports\EvaluacionDesempenoExport;
+use App\Exports\InvestigacionPublicacionesCientificasExport;
+use App\Exports\InvestigacionPublicosPrivadosVigentesExport;
+use App\Exports\InvestigacionGuiaTesisExport;
+use App\Exports\InvestigacionPatenteExport;
 use App\Imports\EvaluacionDesempenoImport;
 use App\Imports\EncuestaDocenteImport;
 use App\Http\Requests\StoreEvalDocente;
@@ -45,18 +49,29 @@ class BuzonAdmin extends Controller
     }
 
     //Investigación
-    public function exportInvestigacion()
-    {
 
+    ////Publicaciones Científicas
+    public function exportInvestigacionPublicacionesCientificas()
+    {
+        return Excel::download(new InvestigacionPublicacionesCientificasExport(), 'Evaluación Publicaciones Científicas.xlsx');
     }
 
-    public function importInvestigacion(Request $request)
+    ////Patentes
+    public function exportInvestigacionPatente()
     {
-        $validator = new StoreInvestigacionFile;
-        $this->validate($request, $validator->rules(), $validator->messages());
-        Excel::import(new InvestigacionImport, $request->file('investigacionFile'));
+        return Excel::download(new InvestigacionPatenteExport(), 'Evaluación Patentes.xlsx');
+    }
 
-        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
+    ////Guías
+    public function exportInvestigacionGuia()
+    {
+        return Excel::download(new InvestigacionGuiaTesisExport(), 'Evaluación Guías.xlsx');
+    }
+
+    ////Públicas Privadas Vigentes
+    public function exportInvestigacionPublicosPrivadosVigentes()
+    {
+        return Excel::download(new InvestigacionPublicosPrivadosVigentesExport(), 'Evaluación Publicas y Privadas Vigentes.xlsx');
     }
 
     //Administracion Académica
