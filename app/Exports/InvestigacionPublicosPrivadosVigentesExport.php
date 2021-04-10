@@ -15,22 +15,22 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class InvestigacionPublicacionesCientificasExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
+class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
     //Agregamos los encabezados de las columnas
     public function headings(): array
     {
         return [
-            ['Publicaciones Científicas'],
-            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las publicaciones científicas que aparecen a continuación.'],
+            ['Públicos y Privados Vigentes'],
+            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las investigaciones que aparecen a continuación.'],
             [],
             [
                 'Rut Profesor',
                 'Nombre',
-                'Título Publicación',
-                'Journal',
-                'Año',
-                'Indexación o Tipo',
+                'Fuente - Programa de Financiamiento',
+                'Nombre Proyecto',
+                'Periodo',
+                'Rol',
                 'Nota'
             ]
         ];
@@ -56,52 +56,55 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
 
     public function array(): array
     {
-        $publicaciones = DB::table('publicacioncientifica')
-        ->join('actividad', 'publicacioncientifica.idactividad', '=', 'actividad.id')
+        $investigaciones = DB::table('proyectoinvestigacion')
+        ->join('actividad', 'proyectoinvestigacion.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->join('fuentefinanciamiento', 'fuentefinanciamiento.id', '=', 'proyectoinvestigacion.idfuentefinanciamiento')
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
         ->select(
             'user.rut as rut',
             'user.nombres',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
-            'publicacioncientifica.titulo',
-            'publicacioncientifica.journal',
+            'fuentefinanciamiento.nombre as fuente',
+            'proyectoinvestigacion.nombre as proyecto',
+            'actividad.inicio',
             'actividad.termino',
-            'publicacioncientifica.indexacion',
+            'cargo.nombre as cargo',
             'user_actividad.calificacion')
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
-        return $publicaciones;
+        return $investigaciones;
     }
 
     //formateamos las columnas
     public function prepareRows($rows): array
     {
         return array_map(
-            function ($publicaciones)
+            function ($investigaciones)
             {
                 //formateo de columna Año
-                $publicaciones->termino = $publicaciones->termino.date("Y");
+                $investigaciones->inicio = explode('-', $investigaciones->inicio)[0].'-'.explode('-', $investigaciones->termino)[0];
                 //formateo de columna Profesor
-                $publicaciones->nombres = $publicaciones->nombres.' '.$publicaciones->apellidoPaterno.' '.$publicaciones->apellidoMaterno;
+                $investigaciones->nombres = $investigaciones->nombres.' '.$investigaciones->apellidoPaterno.' '.$investigaciones->apellidoMaterno;
 
-                return $publicaciones;
+                return $investigaciones;
             }, $rows
         );
     }
 
     //ponemos los datos obtenidos en columnas
-    public function map($publicaciones): array
+    public function map($investigaciones): array
     {
         return [
-            $publicaciones->rut,
-            $publicaciones->nombres,
-            $publicaciones->titulo,
-            $publicaciones->journal,
-            $publicaciones->termino,
-            $publicaciones->indexacion
+            $investigaciones->rut,
+            $investigaciones->nombres,
+            $investigaciones->fuente,
+            $investigaciones->proyecto,
+            $investigaciones->inicio,
+            $investigaciones->cargo
         ];
     }
 }

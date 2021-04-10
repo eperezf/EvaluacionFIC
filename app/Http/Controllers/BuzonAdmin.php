@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\EvaluacionDesempenoExport;
 use App\Exports\InvestigacionPublicacionesCientificasExport;
+use App\Exports\InvestigacionPublicosPrivadosVigentesExport;
 use App\Exports\InvestigacionGuiaTesisExport;
 use App\Exports\InvestigacionPatenteExport;
 use App\Imports\EvaluacionDesempenoImport;
@@ -64,7 +65,13 @@ class BuzonAdmin extends Controller
     ////Guías
     public function exportInvestigacionGuia()
     {
-        return Excel::download(new InvestigacionGuiaTesisExport(), 'Evaluación Guías.xlsx'); 
+        return Excel::download(new InvestigacionGuiaTesisExport(), 'Evaluación Guías.xlsx');
+    }
+
+    ////Públicas Privadas Vigentes
+    public function exportInvestigacionPublicosPrivadosVigentes()
+    {
+        return Excel::download(new InvestigacionPublicosPrivadosVigentesExport(), 'Evaluación Publicas y Privadas Vigentes.xlsx');
     }
 
     //Administracion Académica
