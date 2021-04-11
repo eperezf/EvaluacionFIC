@@ -25,6 +25,8 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
             ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las patentes que aparecen a continuación.'],
             [],
             [
+                'Id',
+                'Id Académico',
                 'Rut Profesor',
                 'Nombre',
                 'Título',
@@ -61,6 +63,8 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->select(
+            'patente.id as id',
+            'user.id as userid',
             'user.rut as rut',
             'user.nombres',
             'user.apellidoPaterno',
@@ -94,6 +98,8 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
     public function map($patentes): array
     {
         return [
+            $patentes->id,
+            $patentes->userid,
             $patentes->rut,
             $patentes->nombres,
             $patentes->titulo,
