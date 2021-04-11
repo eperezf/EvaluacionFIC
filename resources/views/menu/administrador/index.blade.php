@@ -134,7 +134,7 @@
               <select class="form-control" requiered="true" name="select-subarea" id="select-subarea">
                 <option disabled value="Seleccione una asignatura" selected>Seleccione una Subarea</option>
                 @foreach ($subareas as $subarea)
-                  <option value="{{ $subarea->id }}">{{ $subarea->nombre }}</option>
+                  <option value="{{ $subarea->id }}"> {{ $subarea->nombre }} </option>
                 @endforeach
               </select>
             </div>
@@ -165,20 +165,34 @@
           </button>
         </div>
         <div class="modal-body">
-          <div id="tipodeinvestigacion" class="form-group row">
+          <div id="tipoinvestigacionExport" class="form-group row">
             <label for="select-tipodeinvestigacion" class="col-sm-5 col-form-label">Descargar archivo de investigación</label>
             <div class="col-sm-5">
               <select class="form-control" requiered="true" name="select-tipodeinvestigacion" id="select-tipodeinvestigacion">
                 <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
-                <!--@foreach ($subareas as $subarea)
-                  <option value="{{ $subarea->id }}">{{ $subarea->nombre }}</option>
-                @endforeach-->
+                @foreach ($investigaciones as $investigacion)
+                  <option value="{{ $investigacion['id'] }}">{{ $investigacion['nombre'] }}</option>
+                @endforeach
               </select>
             </div>
             <a href="" class="btn btn-link" id="descargar">Descargar</a>
-          </div><br>
-          <form action="" method="POST" id="investigacionImport" enctype="multipart/form-data">
+          </div><hr><br>
+          
+          <form action="{{ route('investigacionImport') }}" method="POST" id="investigacionImport" enctype="multipart/form-data">
             @csrf
+
+            <div id="tipoinvestigacionImport" class="form-group row">
+              <label for="select-tipoinvestigacion" class="col-sm-5 col-form-label">Subir archivo de investigación tipo:</label>
+              <div class="col-sm-5">
+                <select class="form-control" requiered="true" name="tipoinvestigacion" id="selectTipoinvestigacion">
+                  <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
+                  @foreach ($investigaciones as $investigacion)
+                    <option value="{{ $investigacion['id'] }}">{{ $investigacion['nombre'] }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+
             <label>Seleccione el archivo de Investigación en formato CSV</label>
             <input type="file" class="form-control-file" name="investigacionFile">
           </form>

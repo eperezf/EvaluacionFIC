@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreInvestigacionFile extends FormRequest
+class StoreInvestigacion extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreInvestigacionFile extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreInvestigacionFile extends FormRequest
     public function rules()
     {
         return [
-            'investigacionFile' => ['required', 'mimes:txt,csv']
+            'investigacionFile' => ['required', 'mimes:txt,csv'],
+            'tipoinvestigacion' => ['required']
         ];
     }
 
@@ -32,7 +33,8 @@ class StoreInvestigacionFile extends FormRequest
     {
         return [
             'investigacionFile.required' => "No se ha ingresado ningun archivo",
-            'investigacionFile.mimes' => "El archivo debe ser formato CSV"
+            'investigacionFile.mimes' => "El archivo debe ser formato CSV",
+            'tipoinvestigacion.required' => "Debe seleccionar un tipo de investigacion para subir un archivo específico"
         ];
     }
 }

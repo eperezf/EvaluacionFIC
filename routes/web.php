@@ -41,6 +41,7 @@ Route::get('investigacionPublicacionCientificaExport', 'BuzonAdmin@exportInvesti
 Route::get('investigacionPatenteExport', 'BuzonAdmin@exportInvestigacionPatente')->middleware('auth')->name('investigacionPatenteExport');
 Route::get('investigacionGuiaExport', 'BuzonAdmin@exportInvestigacionGuia')->middleware('auth')->name('investigacionGuiaExport');
 Route::get('investigacionPublicosPrivadosVigentesExport', 'BuzonAdmin@exportInvestigacionPublicosPrivadosVigentes')->middleware('auth')->name('investigacionPublicosPrivadosVigentesExport');
+route::post('investigacionImport', 'BuzonAdmin@importInvestigacion')->middleware('auth')->name('investigacionImport');
 
 ////Administración Académica
 

@@ -7,10 +7,18 @@ use App\Exports\InvestigacionPublicacionesCientificasExport;
 use App\Exports\InvestigacionPublicosPrivadosVigentesExport;
 use App\Exports\InvestigacionGuiaTesisExport;
 use App\Exports\InvestigacionPatenteExport;
+
 use App\Imports\EvaluacionDesempenoImport;
 use App\Imports\EncuestaDocenteImport;
+use App\Imports\PublicacionCientificaImport;
+use App\Imports\GuiaTesisImport;
+use App\Imports\ProyectoInvestigacionImport;
+use App\Imports\PatenteImport;
+
+
 use App\Http\Requests\StoreEvalDocente;
 use App\Http\Requests\StoreEncuestaDocente;
+use App\Http\Requests\StoreInvestigacion;
 
 use Illuminate\Http\Request;
 
@@ -49,6 +57,36 @@ class BuzonAdmin extends Controller
     }
 
     //Investigación
+    public function importInvestigacion(StoreInvestigacion $request)
+    {
+        $validated = $request->validated();
+
+        dd($request->file('investigacionFile'));
+
+        switch($request->tipoinvestigacion)
+        {
+            case "publicacion":
+                Excel::import(new PublicacionCientificaImport, $request->file("investigacionFile"));
+                break;
+            
+            case "patente":
+                Excel::import(new PatenteImport, $request->file("investigacionFile"));
+                break;
+            
+            case "guia":
+                Excel::import(new GuiaTesisImport, $request->file("investigacionFile"));
+                break;
+            
+            case "proyecto":
+                Excel::import(new ProyectoInvestigacionImport, $request->file("investigacionFile"));
+                break;
+            
+            default:
+                break;
+        }
+
+        return;
+    }
 
     ////Publicaciones Científicas
     public function exportInvestigacionPublicacionesCientificas()
