@@ -1,12 +1,21 @@
 var interval
 
+function createLink(hrefTag, idSelect) {
+    var linkArray = $(hrefTag).prop("href").split("/")
+    $(hrefTag).attr("href", linkArray[0] + "//" + linkArray[2] + "/" + linkArray[3] + "/" + idSelect)
+}
+
 $(document).ready(() => {
     $("#select-subarea").on('change', function() {
         console.log($(this).val())
         var idSubarea = $(this).val()
-        var linkArray = $("#descargar").prop("href").split('/')
-        var link = linkArray[0] + "//" + linkArray[2] + "/" + linkArray[3] + "/" + idSubarea
-        $("#descargar").attr("href", link)
+        createLink("#descargar", idSubarea)
+    })
+
+    $('#selectTipoinvestigacionExport').on('change', function() {
+        console.log($(this).val())
+        var idTipoactividad = $(this).val()
+        createLink("#descargarInvestigacion", idTipoactividad)
     })
 
     $('#ModalExcelEncuesta').on('hidden.bs.modal', function (e) {

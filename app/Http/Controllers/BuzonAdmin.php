@@ -61,8 +61,6 @@ class BuzonAdmin extends Controller
     {
         $validated = $request->validated();
 
-        dd($request->file('investigacionFile'));
-
         switch($request->tipoinvestigacion)
         {
             case "publicacion":
@@ -84,38 +82,43 @@ class BuzonAdmin extends Controller
             default:
                 break;
         }
-
         return;
     }
 
-    ////Publicaciones Científicas
-    public function exportInvestigacionPublicacionesCientificas()
+    public function exportInvestigacion($tipoInvestigacion)
     {
-        return Excel::download(new InvestigacionPublicacionesCientificasExport(), 'Evaluación Publicaciones Científicas.xlsx');
-    }
-
-    ////Patentes
-    public function exportInvestigacionPatente()
-    {
-        return Excel::download(new InvestigacionPatenteExport(), 'Evaluación Patentes.xlsx');
-    }
-
-    ////Guías
-    public function exportInvestigacionGuia()
-    {
-        return Excel::download(new InvestigacionGuiaTesisExport(), 'Evaluación Guías.xlsx');
-    }
-
-    ////Públicas Privadas Vigentes
-    public function exportInvestigacionPublicosPrivadosVigentes()
-    {
-        return Excel::download(new InvestigacionPublicosPrivadosVigentesExport(), 'Evaluación Publicas y Privadas Vigentes.xlsx');
+        switch($tipoInvestigacion)
+        {
+            case "publicacion":
+                $exportMethod = new InvestigacionPublicacionesCientificasExport();
+                $downloadFilename = "Evaluación publicaciones científicas.xlsx";
+                break;
+            
+            case "patente":
+                $exportMethod = new InvestigacionPatenteExport();
+                $downloadFilename = "Evaluación Patentes.xlsx";
+                break;
+            
+            case "guia":
+                $exportMethod = new InvestigacionGuiaTesisExport();
+                $downloadFilename = "Evaluación guais tesis.xlsx";
+                break;
+            
+            case "proyecto":
+                $exportMethod = new InvestigacionPublicosPrivadosVigentesExport();
+                $downloadFilename = "Evaluación proyectos investigación.xlsx";
+                break;
+            
+            default:
+                break;
+        }
+        return Excel::download($exportMethod, $downloadFilename);
     }
 
     //Administracion Académica
     public function exportAdministracionAcademica()
     {
-
+        return;
     }
 
     public function importAdministracionAcademica()
@@ -130,7 +133,7 @@ class BuzonAdmin extends Controller
     //Vinculación con el Medio
     public function exportVCM()
     {
-
+        return;
     }
 
     public function importVCM()
