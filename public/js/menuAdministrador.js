@@ -6,30 +6,29 @@ function createLink(hrefTag, idSelect) {
 }
 
 $(document).ready(() => {
+    // Evaluacion Desempeño
     $("#select-subarea").on('change', function() {
         console.log($(this).val())
         var idSubarea = $(this).val()
         createLink("#descargar", idSubarea)
     })
-    
-    $('#ModalExcelInvestigacion').on('hidden.bs.modal', function (e) {
-        $('strong').hide()
-        $('#importInvestigacionBtn').attr("disabled", true)
-        $('#investigacionFile').val("")
-    })
 
-    $('#investigacionFile').on("change", function() {
-        if($('#investigacionFile').val() !== "") {
-            $('strong').show()
+    // Investigacion
+    $('#selectInvestigacionImport, #investigacionFile').on('change', function() {
+        if(($('#selectInvestigacionImport').val() !== null) && ($('#investigacionFile').val() !== "")) {
+            $('#collapseConfirmacionInvestigacion').collapse('show')
             $('#importInvestigacionBtn').attr("disabled", false)
         } else {
-            $('strong').hide()
+            $('#collapseConfirmacionInvestigacion').collapse('hide')
             $('#importInvestigacionBtn').attr("disabled", true)
         }
     })
 
-    $('#cancelarImportInvestigacion').click(function() {
-        $('strong').hide()
+    $('#ModalExcelInvestigacion').on('hidden.bs.modal', function (e) {
+        $('#collapseConfirmacionInvestigacion').collapse('hide')
+        $('#importInvestigacionBtn').attr("disabled", true)
+        $('#selectInvestigacionExport').val("Seleccione un tipo de investigación")
+        $('#selectInvestigacionImport').val("Seleccione un tipo de investigación")
         $('#investigacionFile').val("")
     })
 
@@ -39,6 +38,7 @@ $(document).ready(() => {
         createLink("#descargarInvestigacion", idTipoactividad)
     })
 
+    // Encuesta Docente
     $('#ModalExcelEncuesta').on('hidden.bs.modal', function (e) {
         $('#collapseConfirmacion').collapse('hide')
         $('#importEncuestaBtn').attr("disabled", true)

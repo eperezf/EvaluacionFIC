@@ -96,6 +96,7 @@
               <label class="col-8">Seleccione el archivo de Encuesta Docente en formato CSV</label>
               <input type="file" class="form-control-file col-8" name="encuestaDocenteFile" id="encuestaDocenteFile">
             </div>
+
             <div class="collapse" id="collapseConfirmacion"><hr>
               <div class="col-12 mt-3">
                 ¿Esta seguro que desea subir este archivo?
@@ -104,9 +105,8 @@
                   <input type="password" class="form-control col-4" name="importPassword" id="importPassword">
                 </div>
               </div>
-              
-              
             </div>
+            
           </form>
         </div>
         <div class="modal-footer">
@@ -198,11 +198,20 @@
             </form>
           </div>
         </div>
-        <div class="modal-footer">
-          <strong>¿Esta seguro que desea subir este archivo?</strong>
-          <button type="button" id="cancelarImportInvestigacion" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" id="importInvestigacionBtn" value="submit" form="investigacionImport" class="btn btn-primary" title="importar datos">Importar</button>
+
+        
+        <div class="collapse" id="collapseConfirmacionInvestigacion">
+          <div class="modal-footer">
+            <div class="row col-12 mt-3">
+              <div class="col-10">
+                ¿Esta seguro que desea subir este archivo?
+              </div>
+              <button type="submit" id="importInvestigacionBtn" value="submit" form="investigacionImport" class="btn btn-primary ml-4" title="importar datos" disabled>Importar</button>
+            </div>
+          </div>
         </div>
+        
+
       </div>
     </div>
   </div><br>
