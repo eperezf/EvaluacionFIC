@@ -11,6 +11,27 @@ $(document).ready(() => {
         var idSubarea = $(this).val()
         createLink("#descargar", idSubarea)
     })
+    
+    $('#ModalExcelInvestigacion').on('hidden.bs.modal', function (e) {
+        $('strong').hide()
+        $('#importInvestigacionBtn').attr("disabled", true)
+        $('#investigacionFile').val("")
+    })
+
+    $('#investigacionFile').on("change", function() {
+        if($('#investigacionFile').val() !== "") {
+            $('strong').show()
+            $('#importInvestigacionBtn').attr("disabled", false)
+        } else {
+            $('strong').hide()
+            $('#importInvestigacionBtn').attr("disabled", true)
+        }
+    })
+
+    $('#cancelarImportInvestigacion').click(function() {
+        $('strong').hide()
+        $('#investigacionFile').val("")
+    })
 
     $('#selectInvestigacionExport').on('change', function() {
         console.log($(this).val())

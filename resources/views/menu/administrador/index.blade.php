@@ -193,14 +193,15 @@
                   </select>
                 </div>
               </div>
-              <label>Seleccione el archivo de Investigación en formato CSV</label>
-              <input type="file" class="form-control-file" name="investigacionFile">
+              <label>Seleccione el archivo de Investigación en formato EXCEL (xls, xlsx)</label>
+              <input type="file" class="form-control-file" id="investigacionFile" name="investigacionFile">
             </form>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" value="submit" form="investigacionImport" class="btn btn-primary" title="importar datos">Importar</button>
+          <strong>¿Esta seguro que desea subir este archivo?</strong>
+          <button type="button" id="cancelarImportInvestigacion" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" id="importInvestigacionBtn" value="submit" form="investigacionImport" class="btn btn-primary" title="importar datos">Importar</button>
         </div>
       </div>
     </div>

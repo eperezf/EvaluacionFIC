@@ -47,6 +47,14 @@ class MenuAdministrador extends Controller
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
         $subareas = Subarea::all();
+        $investigaciones = collect(
+            [
+                ['nombre' => "Publicación científica", 'id' => "publicacion"],
+                ['nombre' => "Patente", 'id' => "patente"],
+                ['nombre' => "Guia de tesis", 'id' => "guia"],
+                ['nombre' => "Proyecto de investigación", 'id' => "proyecto"]
+            ]
+        );
 
         $usuarios = User::where('apellidoPaterno', 'LIKE', $letra.'%')
         ->get([
@@ -55,7 +63,13 @@ class MenuAdministrador extends Controller
             'apellidoPaterno',
             'apellidoMaterno'
         ]);
-        return view('menu.administrador.index', ['nombre' => $nombre, 'subareas' => $subareas, 'usuarios' => $usuarios, 'menus' => $menus]);
+        return view('menu.administrador.index', [
+            'nombre' => $nombre, 
+            'subareas' => $subareas, 
+            'usuarios' => $usuarios, 
+            'menus' => $menus,
+            'investigaciones' => $investigaciones
+        ]);
     }
 
     public function searchInput(Request $request)

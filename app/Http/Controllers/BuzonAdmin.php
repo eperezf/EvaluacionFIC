@@ -74,7 +74,7 @@ class BuzonAdmin extends Controller
         $validated = $request->validated();
         if(!$this->validateFileExtension($request->file('investigacionFile')))
         {
-            return redirect('/menuAdministrador/')->with('error', "El archivo debe Excel (xlsx, xls)");
+            return redirect('/menuAdministrador/')->with('error', "El archivo debe ser formato Excel (xlsx, xls)");
         }
 
         switch($request->selectInvestigacionImport)
