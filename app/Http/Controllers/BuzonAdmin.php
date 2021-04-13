@@ -14,11 +14,15 @@ use App\Imports\PublicacionCientificaImport;
 use App\Imports\GuiaTesisImport;
 use App\Imports\ProyectoInvestigacionImport;
 use App\Imports\PatenteImport;
+use App\Imports\AdministracionAcademicaImport;
+use App\Imports\VinculacionImport;
 
 
 use App\Http\Requests\StoreEvalDocente;
 use App\Http\Requests\StoreEncuestaDocente;
 use App\Http\Requests\StoreInvestigacion;
+use App\Http\Requests\StoreAdministracionAcademicaFile;
+use App\Http\Requests\StoreVCMFile;
 
 use Illuminate\Http\Request;
 
@@ -137,12 +141,16 @@ class BuzonAdmin extends Controller
         return;
     }
 
-    public function importAdministracionAcademica()
+    public function importAdministracionAcademica(StoreAdministracionAcademicaFile $request)
     {
-        $validator = new StoreAdministracionAcademicaFile;
-        $this->validate($request, $validator->rules(), $validator->messages());
-        Excel::import(new AdministracionAcademicaImport, $request->file('administracionAcademicaFile'));
+        // Validaciones
+        $validated = $request->validated();
+        if(!$this->validateFileExtension($request->file('administracionAcademicaFile')))
+        {
+            return redirect('/menuAdministrador/')->with('error', "El archivo debe ser formato Excel (xlsx, xls)");
+        }
 
+        Excel::import(new AdministracionAcademicaImport, $request->file('administracionAcademicaFile'));
         return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
 
@@ -152,12 +160,16 @@ class BuzonAdmin extends Controller
         return;
     }
 
-    public function importVCM()
+    public function importVCM(StoreVCMFile $request)
     {
-        $validator = new StoreVCMFile;
-        $this->validate($request, $validator->rules(), $validator->messages());
+        // Validaciones
+        $validated = $request->validated();
+        if(!$this->validateFileExtension($request->file('vinculacionFile')))
+        {
+            return redirect('/menuAdministrador/')->with('error', "El archivo debe ser formato Excel (xlsx, xls)");
+        }
+        
         Excel::import(new VinculacionImport, $request->file('vinculacionFile'));
-
         return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
 }

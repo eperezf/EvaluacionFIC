@@ -42,7 +42,7 @@ Route::post('investigacionImport', 'BuzonAdmin@importInvestigacion')->middleware
 
 ////Administración Académica
 
-Route::post('administracionAcademicaImport'. 'BuzonAdmin@importAdministracionAcademica')->middleware('auth')->name('administracionAcademicaImport');
+Route::post('administracionAcademicaImport', 'BuzonAdmin@importAdministracionAcademica')->middleware('auth')->name('administracionAcademicaImport');
 ////Vinculación con el Medio
 
 Route::post('vinculacionImport', 'BuzonAdmin@importVCM')->middleware('auth')->name('vinculacionImport');
