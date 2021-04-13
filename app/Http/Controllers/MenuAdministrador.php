@@ -18,12 +18,14 @@ use DB;
 
 class MenuAdministrador extends Controller
 {
-    public function load()
+    private function userControllerInfo()
     {
+        // Variables de datos del usuario
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
+        
+        // Variables necesarios para el controlador (Buzones)
         $subareas = Subarea::all();
-
         $investigaciones = collect(
             [
                 ['nombre' => "Publicación científica", 'id' => "publicacion"],
@@ -33,29 +35,27 @@ class MenuAdministrador extends Controller
             ]
         );
 
+        return array($nombre, $menus, $subareas, $investigaciones);
+    }
+
+    public function load()
+    {
+        $controllerData = $this->userControllerInfo();
+
         return view('menu.administrador.index', [
-            'nombre' => $nombre,
-            'usuarios' => [],
-            'menus' => $menus,
-            'subareas' => $subareas,
-            'investigaciones' => $investigaciones
+            'nombre' => $controllerData[0],
+            'menus' => $controllerData[1],
+            'subareas' => $controllerData[2],
+            'investigaciones' => $controllerData[3],
+            'usuarios' => []
         ]);
     }
 
     public function searchLetter($letra)
     {
-        $nombre = Auth::user()->nombres;
-        $menus = Helper::getMenuOptions(Auth::user()->id);
-        $subareas = Subarea::all();
-        $investigaciones = collect(
-            [
-                ['nombre' => "Publicación científica", 'id' => "publicacion"],
-                ['nombre' => "Patente", 'id' => "patente"],
-                ['nombre' => "Guia de tesis", 'id' => "guia"],
-                ['nombre' => "Proyecto de investigación", 'id' => "proyecto"]
-            ]
-        );
+        $controllerData = $this->userControllerInfo();
 
+        // Obtenemos los usuarios que tengan la letra buscada como inicial del apellido paterno
         $usuarios = User::where('apellidoPaterno', 'LIKE', $letra.'%')
         ->get([
             'id',
@@ -63,20 +63,20 @@ class MenuAdministrador extends Controller
             'apellidoPaterno',
             'apellidoMaterno'
         ]);
+
         return view('menu.administrador.index', [
-            'nombre' => $nombre, 
-            'subareas' => $subareas, 
-            'usuarios' => $usuarios, 
-            'menus' => $menus,
-            'investigaciones' => $investigaciones
+            'nombre' => $controllerData[0],
+            'menus' => $controllerData[1],
+            'subareas' => $controllerData[2],
+            'investigaciones' => $controllerData[3],
+            'usuarios' => $usuarios
         ]);
     }
 
     public function searchInput(Request $request)
     {
-        $nombre = Auth::user()->nombres;
-        $menus = Helper::getMenuOptions(Auth::user()->id);
-        $subareas = Subarea::all();
+        $controllerData = $this->userControllerInfo();
+
         //Obenemos los usuarios que calcen con el valor del input ingresado
         $usuarios = User::where(DB::raw("CONCAT_WS(' ', user.nombres, user.apellidoPaterno, user.apellidoMaterno)"), 'LIKE', '%'.$request->search.'%')
         ->get([
@@ -85,6 +85,13 @@ class MenuAdministrador extends Controller
             'apellidoPaterno',
             'apellidoMaterno'
         ]);
-        return view('menu.administrador.index', ['nombre' => $nombre, 'subareas' => $subareas, 'usuarios' => $usuarios, 'menus' => $menus]);
+
+        return view('menu.administrador.index', [
+            'nombre' => $controllerData[0],
+            'menus' => $controllerData[1],
+            'subareas' => $controllerData[2],
+            'investigaciones' => $controllerData[3],
+            'usuarios' => $usuarios
+        ]);
     }
 }
