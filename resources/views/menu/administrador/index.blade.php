@@ -170,7 +170,7 @@
           <div id="tipoinvestigacionExport" class="form-group row">
             <label for="select-tipodeinvestigacion" class="col-sm-5 col-form-label">Descargar archivo de investigación</label>
             <div class="col-sm-5">
-              <select class="form-control" requiered="true" name="selectTipoinvestigacionExport" id="selectTipoinvestigacionExport">
+              <select class="form-control" requiered="true" name="selectInvestigacionExport" id="selectInvestigacionExport">
                 <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
                 @foreach ($investigaciones as $investigacion)
                   <option value="{{ $investigacion['id'] }}">{{ $investigacion['nombre'] }}</option>
@@ -179,25 +179,24 @@
             </div>
             <a href={{ route('investigacionExport', ['tipoinvestigacion' => 0]) }} class="btn btn-link" id="descargarInvestigacion">Descargar</a>
           </div><hr><br>
-          
-          <form action="{{ route('investigacionImport') }}" method="POST" id="investigacionImport" enctype="multipart/form-data">
-            @csrf
-
-            <div id="tipoinvestigacionImport" class="form-group row">
-              <label for="select-tipoinvestigacion" class="col-sm-5 col-form-label">Subir archivo de investigación tipo:</label>
-              <div class="col-sm-5">
-                <select class="form-control" requiered="true" name="selectTipoinvestigacionImport" id="selectTipoinvestigacionImport">
-                  <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
-                  @foreach ($investigaciones as $investigacion)
-                    <option value="{{ $investigacion['id'] }}">{{ $investigacion['nombre'] }}</option>
-                  @endforeach
-                </select>
+          <div id="tipoInvestigacionImport">
+            <form action="{{ route('investigacionImport') }}" method="POST" id="investigacionImport" enctype="multipart/form-data">
+              @csrf
+              <div class="form-group row">
+                <label for="select-tipoinvestigacion" class="col-sm-5 col-form-label">Subir archivo de investigación tipo:</label>
+                <div class="col-sm-5">
+                  <select class="form-control" requiered="true" name="selectInvestigacionImport" id="selectInvestigacionImport">
+                    <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
+                    @foreach ($investigaciones as $investigacion)
+                      <option value="{{ $investigacion['id'] }}">{{ $investigacion['nombre'] }}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
-            </div>
-
-            <label>Seleccione el archivo de Investigación en formato CSV</label>
-            <input type="file" class="form-control-file" name="investigacionFile">
-          </form>
+              <label>Seleccione el archivo de Investigación en formato CSV</label>
+              <input type="file" class="form-control-file" name="investigacionFile">
+            </form>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

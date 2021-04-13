@@ -24,17 +24,15 @@ class StoreInvestigacion extends FormRequest
     public function rules()
     {
         return [
-            'investigacionFile' => ['required', 'mimes:txt,csv'],
-            'tipoinvestigacion' => ['required']
+            'investigacionFile' => ['required'],
+            'selectInvestigacionImport' => ['required']
         ];
     }
-
     public function messages()
     {
         return [
             'investigacionFile.required' => "No se ha ingresado ningun archivo",
-            'investigacionFile.mimes' => "El archivo debe ser formato CSV",
-            'tipoinvestigacion.required' => "Debe seleccionar un tipo de investigacion para subir un archivo específico"
+            'selectInvestigacionImport.required' => "Debe ingresar un tipo de investigacion para subir un archivo"
         ];
     }
 }

@@ -10,7 +10,7 @@ use App\Actividad;
 use App\User_actividad;
 use App\Patente;
 
-class PatenteImport implements ToCollection
+class PatenteImport implements ToCollection, WithHeadingRow
 {
     public function headingRow(): int { return 4; }
 
@@ -21,9 +21,9 @@ class PatenteImport implements ToCollection
     {
         foreach($rows as $row)
         {
-            $actividad = Actividad::find(Patente::find($row['id_investigacion'])->idactividad);
-            $user_actividad = User::where('idactividad', $actividad->id)
-                ->where('iduser', $row['id_profesor'])
+            $actividad = Actividad::find(Patente::find($row['id'])->idactividad);
+            $user_actividad = User_actividad::where('idactividad', $actividad->id)
+                ->where('iduser', $row['id_academico'])
                 ->get()[0];
             
             $user_actividad->calificacion = $row['nota'];

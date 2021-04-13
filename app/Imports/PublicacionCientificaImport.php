@@ -21,11 +21,10 @@ class PublicacionCientificaImport implements ToCollection, WithHeadingRow
     {
         foreach($rows as $row)
         {
-            $actividad = Actividad::find(Publicacioncientifica::find($row['id_investigacion'])->idactividad);
-            $user_actividad = User::where('idactividad', $actividad->id)
-                ->where('iduser', $row['id_profesor'])
+            $actividad = Actividad::find(Publicacioncientifica::find($row['id'])->idactividad);
+            $user_actividad = User_actividad::where('idactividad', $actividad->id)
+                ->where('iduser', $row['id_academico'])
                 ->get()[0];
-            
             $user_actividad->calificacion = $row['nota'];
             $user_actividad->save();
         }

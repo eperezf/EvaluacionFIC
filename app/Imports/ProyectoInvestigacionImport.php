@@ -10,7 +10,7 @@ use App\Actividad;
 use App\User_actividad;
 use App\Proyectoinvestigacion;
 
-class ProyectoInvestigacionImport implements ToCollection
+class ProyectoInvestigacionImport implements ToCollection, WithHeadingRow
 {
     public function headingRow(): int { return 4; }
 
@@ -21,9 +21,9 @@ class ProyectoInvestigacionImport implements ToCollection
     {
         foreach($rows as $row)
         {
-            $actividad = Actividad::find(Proyectoinvestigacion::find($row['id_investigacion'])->idactividad);
-            $user_actividad = User::where('idactividad', $actividad->id)
-                ->where('iduser', $row['id_profesor'])
+            $actividad = Actividad::find(Proyectoinvestigacion::find($row['id'])->idactividad);
+            $user_actividad = User_actividad::where('idactividad', $actividad->id)
+                ->where('iduser', $row['id_academico'])
                 ->get()[0];
             
             $user_actividad->calificacion = $row['nota'];

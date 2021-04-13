@@ -24,8 +24,19 @@ use Illuminate\Http\Request;
 
 use Maatwebsite\Excel\Facades\Excel;
 
+use File;
+
 class BuzonAdmin extends Controller
 {
+    private function validateFileExtension($file)
+    {
+        if(!in_array(File::extension($file->getClientOriginalName()), array("xls", "xlsx")))
+        {
+            return False;
+        }
+        return True;
+    }
+
     //Evaluación de Desempeño
     public function exportEvalDesempeno($idSubarea)
     {
@@ -59,9 +70,14 @@ class BuzonAdmin extends Controller
     //Investigación
     public function importInvestigacion(StoreInvestigacion $request)
     {
+        // Validaciones
         $validated = $request->validated();
+        if(!$this->validateFileExtension($request->file('investigacionFile')))
+        {
+            return redirect('/menuAdministrador/')->with('error', "El archivo debe Excel (xlsx, xls)");
+        }
 
-        switch($request->tipoinvestigacion)
+        switch($request->selectInvestigacionImport)
         {
             case "publicacion":
                 Excel::import(new PublicacionCientificaImport, $request->file("investigacionFile"));
@@ -82,7 +98,7 @@ class BuzonAdmin extends Controller
             default:
                 break;
         }
-        return;
+        return redirect('/menuAdministrador/')->with('success', "Importación investigacion exitosa");
     }
 
     public function exportInvestigacion($tipoInvestigacion)

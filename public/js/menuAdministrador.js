@@ -12,7 +12,7 @@ $(document).ready(() => {
         createLink("#descargar", idSubarea)
     })
 
-    $('#selectTipoinvestigacionExport').on('change', function() {
+    $('#selectInvestigacionExport').on('change', function() {
         console.log($(this).val())
         var idTipoactividad = $(this).val()
         createLink("#descargarInvestigacion", idTipoactividad)
