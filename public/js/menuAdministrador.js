@@ -8,9 +8,31 @@ function createLink(hrefTag, idSelect) {
 $(document).ready(() => {
     // Evaluacion Desempeño
     $("#select-subarea").on('change', function() {
-        console.log($(this).val())
         var idSubarea = $(this).val()
-        createLink("#descargar", idSubarea)
+        createLink("#descargarEvalDesempeno", idSubarea)
+        if($(this).val() !== null) {
+            $("#descargarEvalDesempeno").attr("hidden", false)
+        } else {
+            $("#descargarEvalDesempeno").attr("hidden", true)
+        }
+    })
+
+    $("#evalDesempenoFile").on('change', function() {
+        if($(this).val() !== "") {
+            $("#collapseConfirmacionEvalDesempeno").collapse("show")
+            $("#importEvalDesempenoBtn").attr("disabled", false)
+        } else {
+            $("#collapseConfirmacionEvalDesempeno").collapse("hide")
+            $("#importEvalDesempenoBtn").attr("disabled", true)
+        }
+    })
+
+    $("#ModalExcelSuperior").on("hidden.bs.modal", function() {
+        $("#collapseConfirmacionEvalDesempeno").collapse("hide")
+        $("#select-subarea").val("Seleccione una Subarea")
+        $("#importEvalDesempenoBtn").attr("disabled", true)
+        $("#evalDesempenoFile").val("")
+        $("#descargarEvalDesempeno").attr("hidden", true)
     })
 
     // Investigacion
@@ -30,12 +52,17 @@ $(document).ready(() => {
         $('#selectInvestigacionExport').val("Seleccione un tipo de investigación")
         $('#selectInvestigacionImport').val("Seleccione un tipo de investigación")
         $('#investigacionFile').val("")
+        $("#descargarInvestigacion").attr("hidden", true)
     })
 
     $('#selectInvestigacionExport').on('change', function() {
-        console.log($(this).val())
         var idTipoactividad = $(this).val()
         createLink("#descargarInvestigacion", idTipoactividad)
+        if($(this).val() !== null) {
+            $("#descargarInvestigacion").attr("hidden", false)
+        } else {
+            $("#descargarInvestigacion").attr("hidden", true)
+        }
     })
 
     // Encuesta Docente
@@ -54,12 +81,6 @@ $(document).ready(() => {
             $('#importEncuestaBtn').attr("disabled", true)
             $('#importPassword').val("")
         }
-    })
-
-    $('#cancelarImportEncuesta').click(function() {
-        $('#collapseConfirmacion').collapse('hide')
-        $('#encuestaDocenteFile').val("")
-        $('#importPassword').val("")
     })
 
     $('#importPassword').on("input", function() {
