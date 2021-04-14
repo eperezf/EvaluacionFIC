@@ -90,4 +90,39 @@ $(document).ready(() => {
             $('#importEncuestaBtn').attr("disabled", true)
         }
     })
+
+    //Administración Académica
+    $('#administracionAcademicaFile').on('change', function() {
+        if(($(this).val() !== "")) {
+            $('#collapseConfirmacionAdministracionAcademica').collapse('show')
+            $('#importAdministracionAcademicaBtn').attr("disabled", false)
+        } else {
+            $('#collapseConfirmacionAdministracionAcademica').collapse('hide')
+            $('#importAdministracionAcademicaBtn').attr("disabled", true)
+        }
+    })
+
+    $('#ModalExcelAdministracionAcademica').on('hidden.bs.modal', function (e) {
+        $('#collapseConfirmacionAdministracionAcademica').collapse('hide')
+        $('#importAdministracionAcademicaBtn').attr("disabled", true)
+        $('#administracionAcademicaFile').val("")
+    })
+
+    //Vinculación con el Medio
+    $('#vinculacionFile').on('change', function() {
+        if(($(this).val() !== "")) {
+            $('#collapseConfirmacionVinculacion').collapse('show')
+            $('#importVinculacionBtn').attr("disabled", false)
+        } else {
+            $('#collapseConfirmacionVinculacion').collapse('hide')
+            $('#importVinculacionBtn').attr("disabled", true)
+        }
+    })
+
+    $('#ModalExcelVCM').on('hidden.bs.modal', function (e) {
+        $('#collapseConfirmacionVinculacion').collapse('hide')
+        $('#importVinculacionBtn').attr("disabled", true)
+        $('#vinculacionFile').val("")
+    })
+
 })
