@@ -309,29 +309,30 @@
           </div>
           <div class="collapse" id="collapseVinculacion">
             <div class="card card-body">
-              <div class="container">
-                <div class="container table-responsive">
-                  <table class="table table-bordered table-sm">
-                    <thead>
-                      <tr>
-                        <th scope="col">Tipo de actividad</th>
-                        <th scope="col">Fecha o período</th>
-                        <th scope="col">Detalle</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($vinculaciones as $vinculacion)
+              @if(!empty($vinculaciones))
+                <div class="container">
+                  <div class="container table-responsive">
+                    <table class="table table-bordered table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Tipo de actividad</th>
+                          <th scope="col">Fecha o período</th>
+                          <th scope="col">Detalle</th>
                         </tr>
-                          <td>{{ $vinculacion->tipo }}</td>
-                          <td>{{ $vinculacion->fecha }}</td>
-                          <td>{{ $vinculacion->detalle }}</td>
-                        </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        @foreach ($vinculaciones as $vinculacion)
+                          </tr>
+                            <td>{{ $vinculacion->tipo }}</td>
+                            <td>{{ $vinculacion->fecha }}</td>
+                            <td>{{ $vinculacion->detalle }}</td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-               </div>
-              </div>
+              @endif
             </div>
           </div>
         </div>
