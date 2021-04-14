@@ -320,11 +320,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($encuestas as $encuesta)
+                      @foreach ($vinculaciones as $vinculacion)
                         </tr>
-                          <td> $encuesta->tipo </td>
-                          <td> $encuesta->fecha </td>
-                          <td> $encuesta->detalle </td>
+                          <td>{{ $vinculacion->tipo }}</td>
+                          <td>{{ $vinculacion->fecha }}</td>
+                          <td>{{ $vinculacion->detalle }}</td>
                         </tr>
                       @endforeach
                     </tbody>
