@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 use App\Actividad;
 use App\User_actividad;
+use App\Vinculacion;
 
 class VinculacionImport implements ToCollection, WithHeadingRow
 {
@@ -18,6 +19,14 @@ class VinculacionImport implements ToCollection, WithHeadingRow
     */
     public function collection(Collection $rows)
     {
-        
+        foreach($rows as $row)
+        {
+            $actividad = Actividad::find(Vinculacion::find($row['id'])->idactividad);
+            $user_actividad = User_actividad::where('idactividad', $actividad->id)
+                ->where('iduser', $row['id_academico'])
+                ->get()[0];
+            $user_actividad->calificacion = $row['nota'];
+            $user_actividad->save();
+        }
     }
 }

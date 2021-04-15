@@ -160,7 +160,7 @@ class BuzonAdmin extends Controller
         return;
     }
 
-    public function importVCM(StoreVCMFile $request)
+    public function importVinculacion(StoreVCMFile $request)
     {
         // Validaciones
         $validated = $request->validated();
