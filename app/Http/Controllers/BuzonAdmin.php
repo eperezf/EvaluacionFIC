@@ -7,6 +7,7 @@ use App\Exports\InvestigacionPublicacionesCientificasExport;
 use App\Exports\InvestigacionPublicosPrivadosVigentesExport;
 use App\Exports\InvestigacionGuiaTesisExport;
 use App\Exports\InvestigacionPatenteExport;
+use App\Exports\VCMExport;
 
 use App\Imports\EvaluacionDesempenoImport;
 use App\Imports\EncuestaDocenteImport;
@@ -157,7 +158,7 @@ class BuzonAdmin extends Controller
     //Vinculación con el Medio
     public function exportVCM()
     {
-        return;
+        return Excel::download(new VCMExport(), 'Evaluación Vinculación con el Medio.xlsx');
     }
 
     public function importVCM(StoreVCMFile $request)

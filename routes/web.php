@@ -44,7 +44,7 @@ Route::post('investigacionImport', 'BuzonAdmin@importInvestigacion')->middleware
 
 Route::post('administracionAcademicaImport', 'BuzonAdmin@importAdministracionAcademica')->middleware('auth')->name('administracionAcademicaImport');
 ////Vinculación con el Medio
-
+Route::get('vinculacionExport', 'BuzonAdmin@exportVCM')->middleware('auth')->name('vinculacionExport');
 Route::post('vinculacionImport', 'BuzonAdmin@importVCM')->middleware('auth')->name('vinculacionImport');
 
 ////Encuesta Docente
