@@ -262,7 +262,41 @@
           </div>
           <div class="collapse" id="collapseAdministracion">
             <div class="card card-body">
-              AQUI VAN LAS ACTIVIDADES DE ADMINISTRACIÓN ACADÉMICA
+              @foreach ($encuestas as $area => $area_encuesta)
+                <section id="areas">
+                  <div class="container">
+                    <div class="row col-12" data-toggle="collapse" href="#collapse{{$area}}" role="button" aria-expanded="false" aria-controls="collapse{{$area}}" style="color: black;">
+                      <h5 class="col-11">{{$area}}</h5>
+                      <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                    </div>
+                    <div class="collapse" id="collapse{{$area}}">
+                      <div class="container table-responsive">
+                        <table class="table table-bordered table-sm">
+                          <h6>Tareas administrativas</h6>
+                          <thead>
+                            <tr>
+                              <th scope="col">Programa</th>
+                              <th scope="col">Actividad</th>
+                              <th scope="col">Meses</th>
+                              <th scope="col">Carga</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($area_encuesta as $encuesta)
+                              </tr>
+                                <td> $encuesta->programa </td>
+                                <td> $encuesta->actividad </td>
+                                <td> $encuesta->meses </td>
+                                <td> $encuesta->carga </td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </section><hr>
+              @endforeach
             </div>
           </div>
         </div>
@@ -275,7 +309,30 @@
           </div>
           <div class="collapse" id="collapseVinculacion">
             <div class="card card-body">
-              AQUI VAN LAS ACTIVIDADES DE VINCULACIÓN CON EL MEDIO
+              @if(!empty($vinculaciones))
+                <div class="container">
+                  <div class="container table-responsive">
+                    <table class="table table-bordered table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Tipo de actividad</th>
+                          <th scope="col">Fecha o período</th>
+                          <th scope="col">Detalle</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($vinculaciones as $vinculacion)
+                          </tr>
+                            <td>{{ $vinculacion->tipo }}</td>
+                            <td>{{ $vinculacion->fecha }}</td>
+                            <td>{{ $vinculacion->detalle }}</td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              @endif
             </div>
           </div>
         </div>

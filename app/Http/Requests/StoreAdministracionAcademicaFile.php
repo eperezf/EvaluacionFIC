@@ -24,15 +24,14 @@ class StoreAdministracionAcademicaFile extends FormRequest
     public function rules()
     {
         return [
-            'administracionAcademicaFile' => ['required', 'mimes:txt,csv']
+            'administracionAcademicaFile' => ['required']
         ];
     }
 
     public function messages()
     {
         return [
-            'administracionAcademicaFile.required' => "No se ha ingresado ningun archivo",
-            'administracionAcademicaFile.mimes' => "El archivo debe ser formato CSV"
+            'administracionAcademicaFile.required' => "No se ha ingresado ningun archivo"
         ];
     }
 }

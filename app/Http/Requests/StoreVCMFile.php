@@ -13,7 +13,7 @@ class StoreVCMFile extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,15 +24,14 @@ class StoreVCMFile extends FormRequest
     public function rules()
     {
         return [
-            'vinculacionFile' => ['required', 'mimes:txt,csv']
+            'vinculacionFile' => ['required']
         ];
     }
 
     public function messages()
     {
         return [
-            'vinculacionFile.required' => "No se ha ingresado ningun archivo",
-            'vinculacionFile.mimes' => "El archivo debe ser formato CSV"
+            'vinculacionFile.required' => "No se ha ingresado ningun archivo"
         ];
     }
 }

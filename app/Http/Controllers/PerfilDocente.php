@@ -166,6 +166,7 @@ class PerfilDocente extends Controller
 
     public function getInfoInvestigacion($userId)
     {
+        /* Obtenemos la información de las publicaciones científicas que tiene el usuario */
         $publicacionesCientificas = DB::table('publicacioncientifica')
         ->join('actividad', 'publicacioncientifica.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
@@ -174,11 +175,12 @@ class PerfilDocente extends Controller
         ->select(
             'publicacioncientifica.titulo as titulo',
             'publicacioncientifica.journal as journal',
-            'actividad.termino as año',
+            DB::raw('DATE_FORMAT(actividad.termino, "%Y") as año'),
             'publicacioncientifica.indexacion as indexacion')
         ->get()
         ->toArray();
 
+        /* Obtenemos la información de las patentes que tiene el usuario*/
         $patentes = DB::table('patente')
         ->join('actividad', 'patente.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
@@ -192,6 +194,7 @@ class PerfilDocente extends Controller
         ->get()
         ->toArray();
 
+        /* Obtenemos la información de las guías de tesis que tiene el usuario*/
         $guiasTesis = DB::table('guiatesis')
         ->join('actividad', 'guiatesis.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
@@ -202,11 +205,12 @@ class PerfilDocente extends Controller
         ->select(
             'guiatesis.estudiante as estudiante',
             'programa.nombre as programa',
-            'actividad.termino as año',
+            DB::raw('DATE_FORMAT(actividad.termino, "%Y") as año'),
             'cargo.nombre as rol')
         ->get()
         ->toArray();
 
+        /* Obtenemos la información de los proyectos de investigación que tiene el usuario*/
         $proyectosInvestigacion = DB::table('proyectoinvestigacion')
         ->join('actividad', 'proyectoinvestigacion.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
@@ -232,6 +236,25 @@ class PerfilDocente extends Controller
         return $infoInvestigacion;
     }
 
+    private function getInfoVCM($userId)
+    {
+        /* Obtenemos las actividades de VCM que tenga el usuario */
+        $actvinculaciones = DB::table('vinculacion')
+        ->join('actividad', 'vinculacion.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->select(
+            'vinculacion.nombre as tipo',
+            DB::raw('DATE_FORMAT(actividad.termino, "%Y") as fecha'),
+            'vinculacion.descripcion as detalle')
+        ->get()
+        ->toArray();
+
+        return $actvinculaciones;
+    }
+
 
     public function loadPerfil($userId)
     {
@@ -249,6 +272,9 @@ class PerfilDocente extends Controller
 
         /* Información de Investigación */
         $investigaciones = $this->getInfoInvestigacion($userId);
+
+        /* Información de VCM */
+        $vinculaciones = $this->getInfoVCM($userId);
 
         /* Evaluadción general actual del Comité */
         $periodo = (int)date('Y')-1;
@@ -280,6 +306,7 @@ class PerfilDocente extends Controller
             'vacio' => $vacio,
             'encuestas' => $encuestaDocente,
             'investigaciones' => $investigaciones,
+            'vinculaciones' => $vinculaciones
         ]);
     }
 
