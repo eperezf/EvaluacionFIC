@@ -10,7 +10,6 @@ class CreateCargoTable extends Migration {
       $table->id();
       $table->string('nombre', 45);
       $table->foreignId('idtipoactividad')->references('id')->on('tipoactividad');
-      $table->float('peso');
       $table->timestamps();
     });
   }
