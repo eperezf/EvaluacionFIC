@@ -161,7 +161,7 @@ class BuzonAdmin extends Controller
         return Excel::download(new VCMExport(), 'Evaluación Vinculación con el Medio.xlsx');
     }
 
-    public function importVinculacion(StoreVCMFile $request)
+    public function importVCM(StoreVCMFile $request)
     {
         // Validaciones
         $validated = $request->validated();
