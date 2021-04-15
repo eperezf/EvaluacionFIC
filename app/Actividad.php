@@ -147,4 +147,9 @@ class Actividad extends Model {
     {
         return $this->hasMany('App\Proyectoinvestigacion');
     }
+
+    public function administracionAcademica()
+    {
+        return $this->hasMany('App\AdministracionAcademica');
+    }
 }

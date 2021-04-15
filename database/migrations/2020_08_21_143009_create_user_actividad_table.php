@@ -14,6 +14,7 @@ class CreateUserActividadTable extends Migration {
       $table->string('comentario', 512)->nullable();
       $table->float('bonificacion')->nullable();
       $table->float('calificacion')->nullable();
+      $table->float('carga')->nullable();
       $table->timestamps();
     });
   }
