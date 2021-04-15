@@ -66,6 +66,7 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
         ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
             'vinculacion.id as id',
+            'vinculacion.periodo as periodo',
             'user.id as userid',
             'user.rut as rut',
             'user.nombres',
@@ -103,7 +104,7 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             $vinculacion->rut,
             $vinculacion->nombres,
             $vinculacion->tipoactividad,
-            'Periodo',
+            $vinculacion->periodo,
             $vinculacion->detalle,
         ];
     }
