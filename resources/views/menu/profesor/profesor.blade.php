@@ -33,6 +33,7 @@
                           <tr>
                             <th scope="col">Ramo</th>
                             <th scope="col">Sección</th>
+                            <th scope="col">Sede</th>
                             <th scope="col">Periodo</th>
                             <th scope="col">Inscritos</th>
                             <th scope="col">Muestra</th>
@@ -42,12 +43,13 @@
                         <tbody>
                           @foreach ($area_encuesta as $encuesta)
                             </tr>
-                              <td>{{ $encuesta->ramo}}</td>
-                              <td>{{ $encuesta->seccion}}</td>
-                              <td>{{ $encuesta->inicio}} - {{ $encuesta->termino}}</td>
-                              <td>{{ $encuesta->inscritos}}</td>
-                              <td>{{ $encuesta->muestra}}</td>
-                              <td>{{ $encuesta->nota}}</td>
+                              <td>{{ $encuesta->ramo }}</td>
+                              <td>{{ $encuesta->seccion }}</td>
+                              <td>{{ $encuesta->sede }}</td>
+                              <td>{{ $encuesta->inicio }} - {{ $encuesta->termino }}</td>
+                              <td>{{ $encuesta->inscritos }}</td>
+                              <td>{{ $encuesta->muestra }}</td>
+                              <td>{{ $encuesta->nota }}</td>
                             </tr>
                           @endforeach
                         </tbody>
@@ -82,7 +84,145 @@
         </div>
         <div class="collapse" id="collapseInvestigacion">
           <div class="card card-body">
-            AQUI VAN LAS ACTIVIDADES DE INVESTIGACIÓN
+            @foreach ($investigaciones as $tipo=>$arreglo)
+              <section id="tipodeinvestigaciones">
+                <div class="container">
+                  @if ($tipo == 'Publicaciones Científicas')
+                    <div class="row col-12" data-toggle="collapse" href="#collapsePublicacionesCientificas" role="button" aria-expanded="false" aria-controls="collapsePublicacionesCientificas" style="color: black;">
+                      <h5 class="col-11">{{$tipo}}</h5>
+                      <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                    </div>
+                    <div class="collapse" id="collapsePublicacionesCientificas">
+                      <div class="container table-responsive">
+                        <table class="table table-bordered table-sm">
+                          <thead>
+                            <tr>
+                              <th scope="col">Título</th>
+                              <th scope="col">Journal</th>
+                              <th scope="col">Año</th>
+                              <th scope="col">Indexación</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($arreglo as $key=>$elemento)
+                              </tr>
+                                <td>{{ $elemento->titulo }}</td>
+                                <td>{{ $elemento->journal }}</td>
+                                <td>{{ $elemento->año }}</td>
+                                <td>{{ $elemento->indexacion }}</td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  @endif
+                  @if ($tipo == 'Patentes publicadas y/o Concedidas')
+                    <div class="row col-12" data-toggle="collapse" href="#collapsePatentes" role="button" aria-expanded="false" aria-controls="collapsePatentes" style="color: black;">
+                      <h5 class="col-11">{{$tipo}}</h5>
+                      <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                    </div>
+                    <div class="collapse" id="collapsePatentes">
+                      <div class="container table-responsive">
+                        <table class="table table-bordered table-sm">
+                          <thead>
+                            <tr>
+                              <th scope="col">Título</th>
+                              <th scope="col">Nro Registro</th>
+                              <th scope="col">Fecha Ingreso</th>
+                              <th scope="col">Fecha Concedida</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($arreglo as $key=>$elemento)
+                              </tr>
+                                <td>{{ $elemento->titulo }}</td>
+                                <td>{{ $elemento->numero }}</td>
+                                <td>{{ $elemento->fecharegistro }}</td>
+                                <td>{{ $elemento->fechaconcedida }}</td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  @endif
+                  @if ($tipo == 'Guía y co-Guía de tesis en programas académicos')
+                    <div class="row col-12" data-toggle="collapse" href="#collapseGuiasTesis" role="button" aria-expanded="false" aria-controls="collapseGuiasTesis" style="color: black;">
+                      <h5 class="col-11">{{$tipo}}</h5>
+                      <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                    </div>
+                    <div class="collapse" id="collapseGuiasTesis">
+                      <div class="container table-responsive">
+                        <table class="table table-bordered table-sm">
+                          <thead>
+                            <tr>
+                              <th scope="col">Estudiante</th>
+                              <th scope="col">Programa</th>
+                              <th scope="col">Año</th>
+                              <th scope="col">Rol</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($arreglo as $key=>$elemento)
+                              </tr>
+                                <td>{{ $elemento->estudiante }}</td>
+                                <td>{{ $elemento->programa }}</td>
+                                <td>{{ $elemento->año }}</td>
+                                <td>{{ $elemento->rol }}</td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  @endif
+                  @if ($tipo == 'Proyectos de investigación públicos y privados vigentes')
+                  <div class="row col-12" data-toggle="collapse" href="#collapseProyectosInvestigacion" role="button" aria-expanded="false" aria-controls="collapseProyectosInvestigacion" style="color: black;">
+                    <h5 class="col-11">{{$tipo}}</h5>
+                    <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                  </div>
+                  <div class="collapse" id="collapseProyectosInvestigacion">
+                    <div class="container table-responsive">
+                      <table class="table table-bordered table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col">Fuente - Programa</th>
+                            <th scope="col">Nombre proyecto</th>
+                            <th scope="col">Periodo</th>
+                            <th scope="col">Rol</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($arreglo as $key=>$elemento)
+                            </tr>
+                              <td>{{ $elemento->fuente }}</td>
+                              <td>{{ $elemento->nombre }}</td>
+                              <td>{{ $elemento->periodo }}</td>
+                              <td>{{ $elemento->rol }}</td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                @endif
+                </div>
+              </section><hr>
+            @endforeach
+            <section id="otrasInvestigaciones">
+              <div class="container">
+                <div class="row col-12" data-toggle="collapse" href="#collapseOtrasInvestigaciones" role="button" aria-expanded="false" aria-controls="collapseOtrasInvestigaciones">
+                  <h5 class="col-11">Otras Investigaciones</h5>
+                  <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                </div>
+                <div class="collapse" id="collapseOtrasInvestigaciones">
+                  <div class="card card-body">
+                    VACIO
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ class CreatePublicacionTable extends Migration {
   public function up() {
     Schema::create('publicacion', function (Blueprint $table) {
       $table->id();
-      $table->string('tipo', 45);
+      $table->foreignId('idTipoPublicacion')->references('id')->on('tipo_publicacion');
       $table->string('titulo', 45);
       $table->string('volumen', 45);
       $table->string('issue', 45);
@@ -20,6 +20,7 @@ class CreatePublicacionTable extends Migration {
       $table->string('tipoRevista', 45);
       $table->string('publisher', 45);
       $table->string('abstract', 45);
+      $table->string('indexacion', 45);
       $table->foreignId('idactividad')->references('id')->on('actividad');
       $table->timestamps();
     });

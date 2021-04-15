@@ -20,10 +20,16 @@ class Publicacion extends Model{
         'revista',
         'tipoRevista',
         'publisher',
-        'abstract'
+        'abstract',
+        'indexacion'
     ];
 
     public function actividad() {
         return $this->belongsTo('App\Actividad');
+    }
+
+    public function tipoPublicacion()
+    {
+        return $this->belongsTo('App\Tipo_Publicacion');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInvestigacionTable extends Migration
+class CreateFuentefinanciamientoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateInvestigacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('investigacion', function (Blueprint $table) {
+        Schema::create('fuentefinanciamiento', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('idactividad')->references('id')->on('actividad');
+            $table->string('nombre', 45);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateInvestigacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('investigacion');
+        Schema::dropIfExists('fuentefinanciamiento');
     }
 }
