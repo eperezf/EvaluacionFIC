@@ -236,7 +236,7 @@
         <div class="modal-body">
           <div id="administracionAcademicaExport" class="form-group row">
             <label class="col-sm-7 col-form-label">Descargar archivo de administración académica</label>
-            <a href="" class="btn btn-link" id="descargar">Descargar</a>
+            <a href="{{ route('administracionAcademicaExport') }}" class="btn btn-link" id="descargar">Descargar</a>
           </div><hr>
           <form action="{{ route('administracionAcademicaImport') }}" method="POST" id="administracionAcademicaImport" enctype="multipart/form-data">
             @csrf
@@ -271,7 +271,7 @@
         <div class="modal-body">
           <div id="VCMExport" class="form-group row">
             <label class="col-sm-7 col-form-label">Descargar archivo de Vinculación con el Medio</label>
-            <a href="" class="btn btn-link" id="descargar">Descargar</a>
+            <a href="{{ route('vinculacionExport') }}" class="btn btn-link" id="descargar">Descargar</a>
           </div><hr>
           <form action="{{ route('vinculacionImport') }}" method="POST" id="vinculacionImport" enctype="multipart/form-data">
             @csrf

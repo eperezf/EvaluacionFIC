@@ -324,7 +324,7 @@
                         @foreach ($vinculaciones as $vinculacion)
                           </tr>
                             <td>{{ $vinculacion->tipo }}</td>
-                            <td>{{ $vinculacion->fecha }}</td>
+                            <td>{{ $vinculacion->periodo }}</td>
                             <td>{{ $vinculacion->detalle }}</td>
                           </tr>
                         @endforeach
