@@ -14,6 +14,7 @@ class CreateAdministracionacademicaTable extends Migration
             $table->string('comentario', 256)->nullable();
             $table->string('meses', 10);
             $table->foreignId('idactividad')->references('id')->on('actividad');
+            $table->foreignId('idarea')->references('id')->on('area');
             $table->timestamps();
         });
     }

@@ -14,4 +14,9 @@ class AdministracionAcademica extends Model
     {
         return $this->belongsTo('App\Actividad');
     }
+
+    public function area()
+    {
+        return $this->belongsTo('App\Area');
+    }
 }
