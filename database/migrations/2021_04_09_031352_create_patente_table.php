@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVinculacionTable extends Migration
+class CreatePatenteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateVinculacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('vinculacion', function (Blueprint $table) {
+        Schema::create('patente', function (Blueprint $table) {
             $table->id();
-            $table->string('detalle', 1024);
-            $table->string('periodo', 64);
+            $table->string('titulo', 128);
+            $table->string('numeroregistro', 64);
+            $table->date('fecharegistro');
+            $table->date('fechaconcedida');
             $table->foreignId('idactividad')->references('id')->on('actividad');
             $table->timestamps();
         });
@@ -29,6 +31,6 @@ class CreateVinculacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vinculacion');
+        Schema::dropIfExists('patente');
     }
 }

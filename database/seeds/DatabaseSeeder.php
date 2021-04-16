@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         SubareaSeeder::class,
         AsignaturaPregradoSeeder::class,
         AsignaturaQuintoSeeder::class,
-        AsignaturaPostgradoSeeder::class
+        AsignaturaPostgradoSeeder::class,
       ]);
     }
 }

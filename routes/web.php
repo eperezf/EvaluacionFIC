@@ -37,16 +37,18 @@ Route::post('searchByInput', 'MenuAdministrador@searchInput')->name('searchInput
 Route::get('evaluacionDocenteExport/{subarea}', 'BuzonAdmin@exportEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoExport');
 Route::post('evaluacionDocenteImport', 'BuzonAdmin@importEvalDesempeno')->middleware('auth')->name('evaluacionDesempenoImport');
 ////Investigación
-
-Route::post('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
+Route::get('investigacionExport/{tipoinvestigacion}', 'BuzonAdmin@exportInvestigacion')->middleware('auth')->name('investigacionExport');
 Route::post('investigacionImport', 'BuzonAdmin@importInvestigacion')->middleware('auth')->name('investigacionImport');
+
 ////Administración Académica
-
-Route::post('administracionAcademicaImport'. 'BuzonAdmin@importAdministracionAcademica')->middleware('auth')->name('administracionAcademicaImport');
+Route::get('administracionAcademicaExport', 'BuzonAdmin@exportAdministracionAcademica')->middleware('auth')->name('administracionAcademicaExport');
+Route::post('administracionAcademicaImport', 'BuzonAdmin@importAdministracionAcademica')->middleware('auth')->name('administracionAcademicaImport');
 ////Vinculación con el Medio
-
+Route::get('vinculacionExport', 'BuzonAdmin@exportVCM')->middleware('auth')->name('vinculacionExport');
 Route::post('vinculacionImport', 'BuzonAdmin@importVCM')->middleware('auth')->name('vinculacionImport');
+
 ////Encuesta Docente
+Route::post('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
 
 //--Rutas para el perfil docente como usuario administrador
     Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');

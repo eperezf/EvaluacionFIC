@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVinculacionTable extends Migration
+class CreatePublicacioncientificaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateVinculacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('vinculacion', function (Blueprint $table) {
+        Schema::create('publicacioncientifica', function (Blueprint $table) {
             $table->id();
-            $table->string('detalle', 1024);
-            $table->string('periodo', 64);
+            $table->string('titulo', 256);
+            $table->string('journal', 64);
+            $table->string('indexacion', 16);
             $table->foreignId('idactividad')->references('id')->on('actividad');
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ class CreateVinculacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vinculacion');
+        Schema::dropIfExists('publicacioncientifica');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVinculacionTable extends Migration
+class CreateGuiatesisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateVinculacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('vinculacion', function (Blueprint $table) {
+        Schema::create('guiatesis', function (Blueprint $table) {
             $table->id();
-            $table->string('detalle', 1024);
-            $table->string('periodo', 64);
+            $table->string('estudiante', 128);
+            $table->string('comentario', 256);
             $table->foreignId('idactividad')->references('id')->on('actividad');
+            $table->foreignId('idprograma')->references('id')->on('programa');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateVinculacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vinculacion');
+        Schema::dropIfExists('guiatesis');
     }
 }
