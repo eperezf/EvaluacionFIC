@@ -261,17 +261,19 @@ class PerfilDocente extends Controller
         /* Obtenemos las actividades de Administración Académica que tenga el usuario */
         $administracionacademica = DB::table('administracionacademica')
         ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
+        ->join('area', 'administracionacademica.idarea', '=', 'area.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->where('user.id', '=', $userId)
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
         ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
+            'area.nombre as area',
             'administracionacademica.programa as programa',
             'cargo.nombre as actividad',
             'administracionacademica.meses as meses',
             'user_actividad.carga as carga')
-        ->get()
+        ->get()->groupBy('area')
         ->toArray();
 
         return $administracionacademica;
@@ -297,7 +299,6 @@ class PerfilDocente extends Controller
 
         /* Información de Administración Académica */
         $administracionAcademica = $this->getInfoAdministracionAcademica($userId);
-        dd($administracionAcademica);
 
         /* Información de VCM */
         $vinculaciones = $this->getInfoVCM($userId);

@@ -262,7 +262,7 @@
           </div>
           <div class="collapse" id="collapseAdministracion">
             <div class="card card-body">
-              @foreach ($encuestas as $area => $area_encuesta)
+              @foreach ($admiacademica as $area => $area_admiacademica)
                 <section id="areas">
                   <div class="container">
                     <div class="row col-12" data-toggle="collapse" href="#collapse{{$area}}" role="button" aria-expanded="false" aria-controls="collapse{{$area}}" style="color: black;">
@@ -282,12 +282,12 @@
                             </tr>
                           </thead>
                           <tbody>
-                            @foreach ($area_encuesta as $encuesta)
+                            @foreach ($area_admiacademica as $actacademica)
                               </tr>
-                                <td> $encuesta->programa </td>
-                                <td> $encuesta->actividad </td>
-                                <td> $encuesta->meses </td>
-                                <td> $encuesta->carga </td>
+                                <td> {{$actacademica->programa}} </td>
+                                <td> {{$actacademica->actividad}}</td>
+                                <td> {{$actacademica->meses}} </td>
+                                <td> {{$actacademica->carga}} </td>
                               </tr>
                             @endforeach
                           </tbody>
