@@ -41,11 +41,11 @@ Route::get('investigacionExport/{tipoinvestigacion}', 'BuzonAdmin@exportInvestig
 Route::post('investigacionImport', 'BuzonAdmin@importInvestigacion')->middleware('auth')->name('investigacionImport');
 
 ////Administración Académica
-
+Route::get('administracionAcademicaExport', 'BuzonAdmin@exportAdministracionAcademica')->middleware('auth')->name('administracionAcademicaExport');
 Route::post('administracionAcademicaImport', 'BuzonAdmin@importAdministracionAcademica')->middleware('auth')->name('administracionAcademicaImport');
 ////Vinculación con el Medio
 Route::get('vinculacionExport', 'BuzonAdmin@exportVCM')->middleware('auth')->name('vinculacionExport');
-Route::post('vinculacionImport', 'BuzonAdmin@importVinculacion')->middleware('auth')->name('vinculacionImport');
+Route::post('vinculacionImport', 'BuzonAdmin@importVCM')->middleware('auth')->name('vinculacionImport');
 
 ////Encuesta Docente
 Route::post('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
