@@ -192,6 +192,49 @@ class MenuProfesor extends Controller
         return $infoInvestigacion;
     }
 
+    private function getInfoAdministracionAcademica()
+    {
+        /* Obtenemos las actividades de Administración Académica que tenga el usuario */
+        $userId = Auth::user()->id;
+        $administracionacademica = DB::table('administracionacademica')
+        ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
+        ->select(
+            'administracionacademica.programa as programa',
+            'cargo.nombre as actividad',
+            'administracionacademica.meses as meses',
+            'user_actividad.carga as carga')
+        ->get()
+        ->toArray();
+
+        return $administracionacademica;
+    }
+
+    private function getInfoVCM()
+    {        
+        /* Obtenemos las actividades de VCM que tenga el usuario */
+        $userId = Auth::user()->id;
+        $actvinculaciones = DB::table('vinculacion')
+        ->join('actividad', 'vinculacion.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
+        ->select(
+            'tipoactividad.nombre as tipo',
+            'vinculacion.periodo as periodo',
+            'vinculacion.detalle as detalle')
+        ->get()
+        ->toArray();
+
+        return $actvinculaciones;
+    }
+
     public function load()
     {
         $nombre = Auth::user()->nombres;
@@ -203,6 +246,12 @@ class MenuProfesor extends Controller
 
         /* Información de Investigación */
         $investigaciones = $this->getInfoInvestigacion();
+
+         /* Información de Administración Académica */
+         $administracionAcademica = $this->getInfoAdministracionAcademica();
+
+         /* Información de VCM */
+         $vinculaciones = $this->getInfoVCM();
     
         return view('menu.profesor.profesor', [
             'nombre' => $nombre, 
@@ -210,7 +259,9 @@ class MenuProfesor extends Controller
             'menus' => $menus, 
             'evaluacion' => $evaluaciones,
             'encuestas' => $encuestaDocente,
-            'investigaciones' => $investigaciones
+            'investigaciones' => $investigaciones,
+            'admiacademica' => $administracionAcademica, 
+            'vinculaciones' => $vinculaciones
         ]);
     }
 
