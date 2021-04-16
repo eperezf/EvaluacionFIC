@@ -25,6 +25,8 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
             ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada uno de los guías que aparecen a continuación.'],
             [],
             [
+                'Id',
+                'Id Académico',
                 'Rut Profesor',
                 'Nombre',
                 'Estudiante',
@@ -63,6 +65,8 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
         ->join('programa', 'guiatesis.idprograma', '=', 'programa.id')
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
         ->select(
+            'guiatesis.id as id',
+            'user.id as userid',
             'user.rut as rut',
             'user.nombres',
             'user.apellidoPaterno',
@@ -98,6 +102,8 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
     public function map($guias): array
     {
         return [
+            $guias->id,
+            $guias->userid,
             $guias->rut,
             $guias->nombres,
             $guias->estudiante,

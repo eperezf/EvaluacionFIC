@@ -25,6 +25,8 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las publicaciones científicas que aparecen a continuación.'],
             [],
             [
+                'Id',
+                'Id Académico',
                 'Rut Profesor',
                 'Nombre',
                 'Título Publicación',
@@ -61,6 +63,8 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->select(
+            'publicacioncientifica.id as id',
+            'user.id as userid',
             'user.rut as rut',
             'user.nombres',
             'user.apellidoPaterno',
@@ -96,6 +100,8 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
     public function map($publicaciones): array
     {
         return [
+            $publicaciones->id,
+            $publicaciones->userid,
             $publicaciones->rut,
             $publicaciones->nombres,
             $publicaciones->titulo,

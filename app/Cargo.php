@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cargo extends Model{
     protected $table = 'cargo';
 
-    protected $fillable = ['nombre','peso'];
+    protected $fillable = ['nombre'];
 
     public function user() {
         return $this->belongsToMany(

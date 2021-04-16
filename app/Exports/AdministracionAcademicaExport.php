@@ -15,24 +15,24 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
+class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
     //Agregamos los encabezados de las columnas
     public function headings(): array
     {
         return [
-            ['Patentes Publicadas y/o Concedidas'],
-            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las patentes que aparecen a continuación.'],
+            ['Administración Académica'],
+            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las actividades de administración académica con el medio que aparecen a continuación.'],
             [],
             [
                 'Id',
                 'Id Académico',
                 'Rut Profesor',
-                'Nombre',
-                'Título',
-                'Nro Registro',
-                'Fecha Registro',
-                'Fecha Concedida',
+                'Nombre Profesor',
+                'Programa',
+                'Actividad',
+                'Meses',
+                'Carga',
                 'Nota'
             ]
         ];
@@ -44,7 +44,7 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
             'A' => 12,            
         ];
     }
-
+    
     //Ponemos el estilo de texto de los encabezados en negrita
     public function styles(Worksheet $sheet)
     {
@@ -55,57 +55,59 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
             4 => ['font' => ['bold' => true]]
         ];
     }
-
+    
     public function array(): array
     {
-        $patentes = DB::table('patente')
-        ->join('actividad', 'patente.idactividad', '=', 'actividad.id')
+        $administracionacademica = DB::table('administracionacademica')
+        ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
-            'patente.id as id',
+            'administracionacademica.id as id',
+            'administracionacademica.meses',
             'user.id as userid',
             'user.rut as rut',
             'user.nombres',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
-            'patente.titulo',
-            'patente.numeroregistro',
-            'patente.fecharegistro',
-            'patente.fechaconcedida',
+            'administracionacademica.programa',
+            'cargo.nombre as actividad',
+            'user_actividad.carga',
             'user_actividad.calificacion')
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
-        return $patentes;
+        return $administracionacademica;
     }
 
     //formateamos las columnas
     public function prepareRows($rows): array
     {
         return array_map(
-            function ($patentes)
+            function ($administracionacademica)
             {
                 //formateo de columna Profesor
-                $patentes->nombres = $patentes->nombres.' '.$patentes->apellidoPaterno.' '.$patentes->apellidoMaterno;
+                $administracionacademica->nombres = $administracionacademica->nombres.' '.$administracionacademica->apellidoPaterno.' '.$administracionacademica->apellidoMaterno;
 
-                return $patentes;
+                return $administracionacademica;
             }, $rows
         );
     }
 
     //ponemos los datos obtenidos en columnas
-    public function map($patentes): array
+    public function map($administracionacademica): array
     {
         return [
-            $patentes->id,
-            $patentes->userid,
-            $patentes->rut,
-            $patentes->nombres,
-            $patentes->titulo,
-            $patentes->numeroregistro,
-            $patentes->fecharegistro,
-            $patentes->fechaconcedida
+            $administracionacademica->id,
+            $administracionacademica->userid,
+            $administracionacademica->rut,
+            $administracionacademica->nombres,
+            $administracionacademica->programa,
+            $administracionacademica->actividad,
+            $administracionacademica->meses,
+            $administracionacademica->carga
         ];
     }
 }

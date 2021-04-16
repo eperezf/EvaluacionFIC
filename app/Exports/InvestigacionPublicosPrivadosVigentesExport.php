@@ -25,6 +25,8 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las investigaciones que aparecen a continuación.'],
             [],
             [
+                'Id',
+                'Id Académico',
                 'Rut Profesor',
                 'Nombre',
                 'Fuente - Programa de Financiamiento',
@@ -63,6 +65,8 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
         ->join('fuentefinanciamiento', 'fuentefinanciamiento.id', '=', 'proyectoinvestigacion.idfuentefinanciamiento')
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
         ->select(
+            'proyectoinvestigacion.id as id',
+            'user.id as userid',
             'user.rut as rut',
             'user.nombres',
             'user.apellidoPaterno',
@@ -99,6 +103,8 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
     public function map($investigaciones): array
     {
         return [
+            $investigaciones->id,
+            $investigaciones->userid,
             $investigaciones->rut,
             $investigaciones->nombres,
             $investigaciones->fuente,

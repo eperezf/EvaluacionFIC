@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+
 //Importaciones
 use DB;
 
@@ -15,24 +16,23 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
+class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
     //Agregamos los encabezados de las columnas
     public function headings(): array
     {
         return [
-            ['Patentes Publicadas y/o Concedidas'],
-            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las patentes que aparecen a continuación.'],
+            ['Vinculación con el Medio'],
+            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las vinculaciones con el medio que aparecen a continuación.'],
             [],
             [
                 'Id',
                 'Id Académico',
                 'Rut Profesor',
                 'Nombre',
-                'Título',
-                'Nro Registro',
-                'Fecha Registro',
-                'Fecha Concedida',
+                'Tipo de Actividad',
+                'Periodo',
+                'Detalle',
                 'Nota'
             ]
         ];
@@ -44,7 +44,7 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
             'A' => 12,            
         ];
     }
-
+    
     //Ponemos el estilo de texto de los encabezados en negrita
     public function styles(Worksheet $sheet)
     {
@@ -55,57 +55,57 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
             4 => ['font' => ['bold' => true]]
         ];
     }
-
+    
     public function array(): array
     {
-        $patentes = DB::table('patente')
-        ->join('actividad', 'patente.idactividad', '=', 'actividad.id')
+        $vinculacion = DB::table('vinculacion')
+        ->join('actividad', 'vinculacion.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
-            'patente.id as id',
+            'vinculacion.id as id',
+            'vinculacion.periodo as periodo',
             'user.id as userid',
             'user.rut as rut',
             'user.nombres',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
-            'patente.titulo',
-            'patente.numeroregistro',
-            'patente.fecharegistro',
-            'patente.fechaconcedida',
+            'tipoactividad.nombre as tipoactividad',
+            'vinculacion.detalle',
             'user_actividad.calificacion')
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
-        return $patentes;
+        return $vinculacion;
     }
 
     //formateamos las columnas
     public function prepareRows($rows): array
     {
         return array_map(
-            function ($patentes)
+            function ($vinculacion)
             {
                 //formateo de columna Profesor
-                $patentes->nombres = $patentes->nombres.' '.$patentes->apellidoPaterno.' '.$patentes->apellidoMaterno;
+                $vinculacion->nombres = $vinculacion->nombres.' '.$vinculacion->apellidoPaterno.' '.$vinculacion->apellidoMaterno;
 
-                return $patentes;
+                return $vinculacion;
             }, $rows
         );
     }
 
     //ponemos los datos obtenidos en columnas
-    public function map($patentes): array
+    public function map($vinculacion): array
     {
         return [
-            $patentes->id,
-            $patentes->userid,
-            $patentes->rut,
-            $patentes->nombres,
-            $patentes->titulo,
-            $patentes->numeroregistro,
-            $patentes->fecharegistro,
-            $patentes->fechaconcedida
+            $vinculacion->id,
+            $vinculacion->userid,
+            $vinculacion->rut,
+            $vinculacion->nombres,
+            $vinculacion->tipoactividad,
+            $vinculacion->periodo,
+            $vinculacion->detalle,
         ];
     }
 }
