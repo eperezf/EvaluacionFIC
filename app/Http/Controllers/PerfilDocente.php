@@ -245,10 +245,11 @@ class PerfilDocente extends Controller
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->where('user.id', '=', $userId)
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
-            'vinculacion.nombre as tipo',
-            DB::raw('DATE_FORMAT(actividad.termino, "%Y") as fecha'),
-            'vinculacion.descripcion as detalle')
+            'tipoactividad.nombre as tipo',
+            'vinculacion.periodo as periodo',
+            'vinculacion.detalle as detalle')
         ->get()
         ->toArray();
 
