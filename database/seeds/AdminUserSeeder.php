@@ -36,7 +36,15 @@ class AdminUserSeeder extends Seeder
             'danigomez@alumnos.uai.cl',
             'rafael.cereceda@uai.cl'
         ];
-        $users = array_map(null, $nombres, $apellidos, $emails);
+        $ruts = [
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            "10587852-4"
+        ];
+        $users = array_map(null, $nombres, $apellidos, $emails, $ruts);
         foreach($users as $user)
         {
             DB::table('user')->insert([
@@ -45,7 +53,7 @@ class AdminUserSeeder extends Seeder
                     'apellidoPaterno' => $user[1],
                     'apellidoMaterno' => NULL,
                     'email' => $user[2],
-                    'rut' => NULL,
+                    'rut' => $user[3],
                     'password' => 'INTUAI',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()

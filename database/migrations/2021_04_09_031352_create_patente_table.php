@@ -18,7 +18,7 @@ class CreatePatenteTable extends Migration
             $table->string('titulo', 128);
             $table->string('numeroregistro', 64);
             $table->date('fecharegistro');
-            $table->date('fechaconcebida');
+            $table->date('fechaconcedida');
             $table->foreignId('idactividad')->references('id')->on('actividad');
             $table->timestamps();
         });

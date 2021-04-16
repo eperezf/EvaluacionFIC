@@ -9,6 +9,11 @@
         {{ session()->get('success') }}
       </div>
     @endif
+    @if(session()->get('error'))
+      <div class="alert alert-danger">
+        {{ session()->get('error') }}
+      </div>
+    @endif
     @if ($errors->any())
       <div class="alert alert-danger pb-1 pt-1">
         <ul>
@@ -32,15 +37,15 @@
       </div>
       <div class="row">
         <h5 class="col-5">Investigación</h5>
-        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelInvestigacion">Subir archivo</button>
       </div>
       <div class="row">
         <h5 class="col-5">Administración académica</h5>
-        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelAdministracionAcademica">Subir archivo</button>
       </div>
       <div class="row">
         <h5 class="col-5">Vinculación con el medio</h5>
-        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#" disabled>Subir archivo</button>
+        <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelVCM">Subir archivo</button>
       </div>
     </div>
   </section><hr>
@@ -85,19 +90,27 @@
           </button>
         </div>
         <div class="modal-body">
-          <div id="descargarEvalDocente" class="form-group row">
-            <label for="linkDescargaEvalDocente" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
-            <a href={{ route('encuestaDocenteExport') }} class="btn btn-link" id="linkDescargaEvalDocente">Descargar</a>
-          </div>
-          <form action={{ route('encuestaDocenteImport') }} method="GET" id="encuestaDocenteImport" enctype="multipart/form-data">
+          <form action={{ route('encuestaDocenteImport') }} method="POST" id="encuestaDocenteImport" enctype="multipart/form-data">
             @csrf
-            <label>Seleccione el archivo de Encuesta Docente en formato CSV</label>
-            <input type="file" class="form-control-file" name="file">
+            <div class="row col-12">
+              <label class="col-8">Seleccione el archivo de Encuesta Docente en formato CSV</label>
+              <input type="file" class="form-control-file col-8" name="encuestaDocenteFile" id="encuestaDocenteFile">
+            </div>
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" value="submit" form="encuestaDocenteImport" class="btn btn-primary" title="importar datos">Importar</button>
+        <div class="collapse" id="collapseConfirmacion">
+          <div class="modal-footer">
+            <div class="col-12">
+              ¿Esta seguro que desea subir este archivo?
+              <div class="row mt-2 col-12">
+                <div class="col-9 mr-4 row" id="confirmacionContraseñaImport">
+                  <label class="col-5">Ingrese su contraseña</label>
+                  <input type="password" class="form-control col-5" name="importPassword" id="importPassword">
+                </div>
+                <button type="submit" id="importEncuestaBtn" value="submit" form="encuestaDocenteImport" class="btn btn-primary col-2 ml-5" title="importar datos" disabled>Importar</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -107,37 +120,178 @@
   <div class="modal fade" id="ModalExcelSuperior" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
+        
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Subir archivo de evaluación de desempeño</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+    
         <div class="modal-body">
-          <div id="area" class="form-group row">
-            <label for="select-area" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
-            <div class="col-sm-4">
-              <select class="form-control" requiered="true" name="area" id="select-area">
-                <option disabled value="Seleccione una asignatura" selected>Seleccione una área</option>
-                @foreach ($areas as $area)
-                  <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+          <div id="subarea" class="form-group row">
+            <label for="select-subarea" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
+            <div class="col-sm-5">
+              <select class="form-control" requiered="true" name="select-subarea" id="select-subarea">
+                <option disabled value="Seleccione una Subarea" selected>Seleccione una subárea</option>
+                @foreach ($subareas as $subarea)
+                  <option value="{{ $subarea->id }}"> {{ $subarea->nombre }} </option>
                 @endforeach
               </select>
             </div>
-            <a href={{ route('evaluacionDesempenoExport', ['area' => $area->id]) }} class="btn btn-link" id="descargar">Descargar</a>
-          </div><br>
-          <form action="{{ route('evaluacionDesempenoImport') }}" method="GET" id="evalDesempenoImport" enctype="multipart/form-data">
+            <a href="{{ route('evaluacionDesempenoExport', ['subarea' => 0]) }}" class="btn btn-link" id="descargarEvalDesempeno" hidden>Descargar</a>
+          </div><hr>
+          <form action="{{ route('evaluacionDesempenoImport') }}" method="POST" id="evalDesempenoImport" enctype="multipart/form-data">
             @csrf
             <label>Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
-            <input type="file" class="form-control-file" name="file">
+            <input type="file" class="form-control-file" name="evalDesempenoFile" id="evalDesempenoFile">
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" value="submit" form="evalDesempenoImport" class="btn btn-primary" title="importar datos">Importar</button>
+
+        <div class="collapse" id="collapseConfirmacionEvalDesempeno">
+          <div class="modal-footer">
+            <div class="row col-12 mt-3">
+              <div class="col-10">
+                ¿Esta seguro que desea subir este archivo?
+              </div>
+              <button type="submit" id="importEvalDesempenoBtn" value="submit" form="evalDesempenoImport" class="btn btn-primary ml-4" title="importar datos" disabled>Importar</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><br>
+
+  <!-- Modal Investigación -->
+  <div class="modal fade" id="ModalExcelInvestigacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Subir archivo de Investigación</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="tipoinvestigacionExport" class="form-group row">
+            <label for="select-tipodeinvestigacion" class="col-sm-5 col-form-label">Descargar archivo de investigación</label>
+            <div class="col-sm-5">
+              <select class="form-control" requiered="true" name="selectInvestigacionExport" id="selectInvestigacionExport">
+                <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
+                @foreach ($investigaciones as $investigacion)
+                  <option value="{{ $investigacion['id'] }}">{{ $investigacion['nombre'] }}</option>
+                @endforeach
+              </select>
+            </div>
+            <a href={{ route('investigacionExport', ['tipoinvestigacion' => 0]) }} class="btn btn-link" id="descargarInvestigacion" hidden>Descargar</a>
+          </div><hr>
+          <div id="tipoInvestigacionImport">
+            <form action="{{ route('investigacionImport') }}" method="POST" id="investigacionImport" enctype="multipart/form-data">
+              @csrf
+              <div class="form-group row">
+                <label for="select-tipoinvestigacion" class="col-sm-5 col-form-label">Subir archivo de investigación tipo:</label>
+                <div class="col-sm-5">
+                  <select class="form-control" requiered="true" name="selectInvestigacionImport" id="selectInvestigacionImport">
+                    <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
+                    @foreach ($investigaciones as $investigacion)
+                      <option value="{{ $investigacion['id'] }}">{{ $investigacion['nombre'] }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <label>Seleccione el archivo de Investigación en formato EXCEL (xls, xlsx)</label>
+              <input type="file" class="form-control-file" id="investigacionFile" name="investigacionFile">
+            </form>
+          </div>
+        </div>
+
+        
+        <div class="collapse" id="collapseConfirmacionInvestigacion">
+          <div class="modal-footer">
+            <div class="row col-12 mt-3">
+              <div class="col-10">
+                ¿Esta seguro que desea subir este archivo?
+              </div>
+              <button type="submit" id="importInvestigacionBtn" value="submit" form="investigacionImport" class="btn btn-primary ml-4" title="importar datos" disabled>Importar</button>
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+  </div><br>
+
+  <!-- Modal Administración Académica -->
+  <div class="modal fade" id="ModalExcelAdministracionAcademica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Subir archivo de Administración Académica</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="administracionAcademicaExport" class="form-group row">
+            <label class="col-sm-7 col-form-label">Descargar archivo de administración académica</label>
+            <a href="{{ route('administracionAcademicaExport') }}" class="btn btn-link" id="descargar">Descargar</a>
+          </div><hr>
+          <form action="{{ route('administracionAcademicaImport') }}" method="POST" id="administracionAcademicaImport" enctype="multipart/form-data">
+            @csrf
+            <label>Seleccione el archivo de Administración Académica en formato EXCEL (xls, xlsx)</label>
+            <input type="file" class="form-control-file" name="administracionAcademicaFile" id="administracionAcademicaFile">
+          </form>
+        </div>
+        <div class="collapse" id="collapseConfirmacionAdministracionAcademica">
+          <div class="modal-footer">
+            <div class="row col-12 mt-3">
+              <div class="col-10">
+                ¿Esta seguro que desea subir este archivo?
+              </div>
+              <button type="submit" id="importAdministracionAcademicaBtn" value="submit" form="administracionAcademicaImport" class="btn btn-primary ml-4" title="importar datos" disabled>Importar</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div><br>
-  <script type="text/javascript" src="{{asset('js/evaluacionDocenteArea.js')}}"></script>
+
+  <!-- Modal Vinculación con el Medio -->
+  <div class="modal fade" id="ModalExcelVCM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Subir archivo de VCM</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="VCMExport" class="form-group row">
+            <label class="col-sm-7 col-form-label">Descargar archivo de Vinculación con el Medio</label>
+            <a href="{{ route('vinculacionExport') }}" class="btn btn-link" id="descargar">Descargar</a>
+          </div><hr>
+          <form action="{{ route('vinculacionImport') }}" method="POST" id="vinculacionImport" enctype="multipart/form-data">
+            @csrf
+            <label>Seleccione el archivo de Vinculación con el Medio en formato EXCEL (xls, xlsx)</label>
+            <input type="file" class="form-control-file" name="vinculacionFile" id="vinculacionFile">
+          </form>
+        </div>
+        <div class="collapse" id="collapseConfirmacionVinculacion">
+          <div class="modal-footer">
+            <div class="row col-12 mt-3">
+              <div class="col-10">
+                ¿Esta seguro que desea subir este archivo?
+              </div>
+              <button type="submit" id="importVinculacionBtn" value="submit" form="vinculacionImport" class="btn btn-primary ml-4" title="importar datos" disabled>Importar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><br>
+
+  <script type="text/javascript" src="{{asset('js/menuAdministrador.js')}}"></script>
 @endsection
