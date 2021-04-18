@@ -28,7 +28,7 @@ class MenuAdministrador extends Controller
         $subareas = Subarea::all();
         $investigaciones = collect(
             [
-                ['nombre' => "Publicación científica", 'id' => "publicacion"],
+                ['nombre' => "Publicaciones Científicas", 'id' => "publicacion"],
                 ['nombre' => "Patentes", 'id' => "patente"],
                 ['nombre' => "Guías y co-guías de tesis", 'id' => "guia"],
                 ['nombre' => "Proyecto de investigación", 'id' => "proyecto"]
