@@ -40,7 +40,7 @@
         <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelInvestigacion">Subir archivo</button>
       </div>
       <div class="row">
-        <h5 class="col-5">Administración académica</h5>
+        <h5 class="col-5">Administración Académica</h5>
         <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelAdministracionAcademica">Subir archivo</button>
       </div>
       <div class="row">
