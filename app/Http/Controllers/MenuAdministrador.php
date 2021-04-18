@@ -31,7 +31,7 @@ class MenuAdministrador extends Controller
                 ['nombre' => "Publicaciones Científicas", 'id' => "publicacion"],
                 ['nombre' => "Patentes", 'id' => "patente"],
                 ['nombre' => "Guías y co-guías de tesis", 'id' => "guia"],
-                ['nombre' => "Proyecto de investigación", 'id' => "proyecto"]
+                ['nombre' => "Proyectos de investigación", 'id' => "proyecto"]
             ]
         );
 
