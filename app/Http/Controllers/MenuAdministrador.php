@@ -29,7 +29,7 @@ class MenuAdministrador extends Controller
         $investigaciones = collect(
             [
                 ['nombre' => "Publicación científica", 'id' => "publicacion"],
-                ['nombre' => "Patente", 'id' => "patente"],
+                ['nombre' => "Patentes", 'id' => "patente"],
                 ['nombre' => "Guia de tesis", 'id' => "guia"],
                 ['nombre' => "Proyecto de investigación", 'id' => "proyecto"]
             ]
