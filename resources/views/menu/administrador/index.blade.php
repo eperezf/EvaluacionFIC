@@ -32,7 +32,7 @@
         <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelEncuesta">Subir archivo</button>
       </div>
       <div class="row">
-        <h5 class="col-5">Docencia: Evaluación de desempeño</h5>
+        <h5 class="col-5">Docencia: Evaluación del director/a</h5>
         <button type="button" class="btn btn-primary btn-sm col-2 mb-2" data-toggle="modal" data-target="#ModalExcelSuperior">Subir archivo</button>
       </div>
       <div class="row">
