@@ -96,22 +96,24 @@
               <label class="col-8">Seleccione el archivo de Encuesta Docente en formato CSV</label>
               <input type="file" class="form-control-file col-8" name="encuestaDocenteFile" id="encuestaDocenteFile">
             </div>
-          </form>
-        </div>
-        <div class="collapse" id="collapseConfirmacion">
-          <div class="modal-footer">
-            <div class="col-12">
-              ¿Esta seguro que desea subir este archivo?
-              <div class="row mt-2 col-12">
-                <div class="col-9 mr-4 row" id="confirmacionContraseñaImport">
-                  <label class="col-5">Ingrese su contraseña</label>
-                  <input type="password" class="form-control col-5" name="importPassword" id="importPassword">
+
+            <div class="collapse" id="collapseConfirmacion">
+              <div class="modal-footer">
+                <div class="col-12">
+                  ¿Esta seguro que desea subir este archivo?
+                  <div class="row mt-2 col-12">
+                    <div class="col-9 mr-4 row" id="confirmacionContraseñaImport">
+                      <label class="col-5">Ingrese su contraseña</label>
+                      <input type="password" class="form-control col-5" name="importPassword" id="importPassword">
+                    </div>
+                    <button type="submit" id="importEncuestaBtn" value="submit" form="encuestaDocenteImport" class="btn btn-primary col-2 ml-4" title="importar datos" disabled>Importar</button>
+                  </div>
                 </div>
-                <button type="submit" id="importEncuestaBtn" value="submit" form="encuestaDocenteImport" class="btn btn-primary col-2 ml-5" title="importar datos" disabled>Importar</button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
+        
       </div>
     </div>
   </div><br>
