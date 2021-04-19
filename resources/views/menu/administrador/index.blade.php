@@ -177,7 +177,7 @@
         </div>
         <div class="modal-body">
           <div id="tipoinvestigacionExport" class="form-group row">
-            <label for="select-tipodeinvestigacion" class="col-sm-5 col-form-label">Descargar archivo de investigación</label>
+            <label for="select-tipodeinvestigacion" class="col-sm-5 col-form-label">Descargar archivo de Investigación</label>
             <div class="col-sm-5">
               <select class="form-control" requiered="true" name="selectInvestigacionExport" id="selectInvestigacionExport">
                 <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
@@ -192,7 +192,7 @@
             <form action="{{ route('investigacionImport') }}" method="POST" id="investigacionImport" enctype="multipart/form-data">
               @csrf
               <div class="form-group row">
-                <label for="select-tipoinvestigacion" class="col-sm-5 col-form-label">Subir archivo de investigación tipo:</label>
+                <label for="select-tipoinvestigacion" class="col-sm-5 col-form-label">Subir archivo de Investigación tipo:</label>
                 <div class="col-sm-5">
                   <select class="form-control" requiered="true" name="selectInvestigacionImport" id="selectInvestigacionImport">
                     <option disabled value="Seleccione un tipo de investigación" selected>Seleccione un tipo de investigación</option>
