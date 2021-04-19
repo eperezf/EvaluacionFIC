@@ -237,7 +237,7 @@
         </div>
         <div class="modal-body">
           <div id="administracionAcademicaExport" class="form-group row">
-            <label class="col-sm-7 col-form-label">Descargar archivo de administración académica</label>
+            <label class="col-sm-7 col-form-label">Descargar archivo de Administración Académica</label>
             <a href="{{ route('administracionAcademicaExport') }}" class="btn btn-link" id="descargar">Descargar</a>
           </div><hr>
           <form action="{{ route('administracionAcademicaImport') }}" method="POST" id="administracionAcademicaImport" enctype="multipart/form-data">
