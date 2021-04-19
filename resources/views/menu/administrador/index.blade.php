@@ -272,12 +272,12 @@
         </div>
         <div class="modal-body">
           <div id="VCMExport" class="form-group row">
-            <label class="col-sm-7 col-form-label">Descargar archivo de Vinculación con el Medio</label>
+            <label class="col-sm-7 col-form-label">Descargar archivo de Vinculación con el medio</label>
             <a href="{{ route('vinculacionExport') }}" class="btn btn-link" id="descargar">Descargar</a>
           </div><hr>
           <form action="{{ route('vinculacionImport') }}" method="POST" id="vinculacionImport" enctype="multipart/form-data">
             @csrf
-            <label>Seleccione el archivo de Vinculación con el Medio en formato EXCEL (xls, xlsx)</label>
+            <label>Seleccione el archivo de Vinculación con el medio en formato EXCEL (xls, xlsx)</label>
             <input type="file" class="form-control-file" name="vinculacionFile" id="vinculacionFile">
           </form>
         </div>
