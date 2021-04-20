@@ -124,7 +124,7 @@
       <div class="modal-content">
         
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Subir archivo de evaluación de desempeño</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Subir archivo de Evaluación del director/a</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -132,8 +132,8 @@
     
         <div class="modal-body">
           <div id="subarea" class="form-group row">
-            <label for="select-subarea" class="col-sm-5 col-form-label">Descargar archivo de evaluacion docente</label>
-            <div class="col-sm-5">
+            <label for="select-subarea" class="col-sm-6 col-form-label">Descargar archivo de Evaluación del director/a</label>
+            <div class="col-sm-4">
               <select class="form-control" requiered="true" name="select-subarea" id="select-subarea">
                 <option disabled value="Seleccione una Subarea" selected>Seleccione una subárea</option>
                 @foreach ($subareas as $subarea)
@@ -145,7 +145,7 @@
           </div><hr>
           <form action="{{ route('evaluacionDesempenoImport') }}" method="POST" id="evalDesempenoImport" enctype="multipart/form-data">
             @csrf
-            <label>Seleccione el archivo de Evaluación de Desempeño en formato CSV</label>
+            <label>Seleccione el archivo de Evaluación del director/a en formato CSV</label>
             <input type="file" class="form-control-file" name="evalDesempenoFile" id="evalDesempenoFile">
           </form>
         </div>
