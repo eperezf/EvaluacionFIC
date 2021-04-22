@@ -29,7 +29,7 @@ class Area extends Model
             ]);
     }
 
-    public function administracionadacemica()
+    public function administracionacademica()
     {
         return $this->hasMany('App\AdministracionAcademica');
     }

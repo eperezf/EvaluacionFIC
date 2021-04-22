@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AdministracionAcademica extends Model
 {
-    protected $table = 'administracionadacemica';
+    protected $table = 'administracionacademica';
 
     protected $fillable = ['programa', 'meses', 'comentario'];
 
