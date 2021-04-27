@@ -28,7 +28,8 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
                 'Id',
                 'Id Académico',
                 'Rut Profesor',
-                'Nombre',
+                'Nombre Profesor',
+                'Apellido Profesor',
                 'Título',
                 'Nro Registro',
                 'Fecha Registro',
@@ -80,20 +81,6 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
         return $patentes;
     }
 
-    //formateamos las columnas
-    public function prepareRows($rows): array
-    {
-        return array_map(
-            function ($patentes)
-            {
-                //formateo de columna Profesor
-                $patentes->nombres = $patentes->nombres.' '.$patentes->apellidoPaterno.' '.$patentes->apellidoMaterno;
-
-                return $patentes;
-            }, $rows
-        );
-    }
-
     //ponemos los datos obtenidos en columnas
     public function map($patentes): array
     {
@@ -102,6 +89,7 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
             $patentes->userid,
             $patentes->rut,
             $patentes->nombres,
+            $patentes->apellidoPaterno,
             $patentes->titulo,
             $patentes->numeroregistro,
             $patentes->fecharegistro,

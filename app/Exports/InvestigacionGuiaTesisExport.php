@@ -28,7 +28,8 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
                 'Id',
                 'Id Académico',
                 'Rut Profesor',
-                'Nombre',
+                'Nombre Profesor',
+                'Apellido Profesor',
                 'Estudiante',
                 'Programa',
                 'Año',
@@ -90,8 +91,6 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
             {
                 //formateo de columna Año
                 $guias->termino = explode('-',$guias->termino)[0];
-                //formateo de columna Profesor
-                $guias->nombres = $guias->nombres.' '.$guias->apellidoPaterno.' '.$guias->apellidoMaterno;
 
                 return $guias;
             }, $rows
@@ -106,6 +105,7 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
             $guias->userid,
             $guias->rut,
             $guias->nombres,
+            $guias->apellidoPaterno,
             $guias->estudiante,
             $guias->programa,
             $guias->termino,

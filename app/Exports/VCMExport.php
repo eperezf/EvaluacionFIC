@@ -29,7 +29,8 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
                 'Id',
                 'Id Académico',
                 'Rut Profesor',
-                'Nombre',
+                'Nombre Profesor',
+                'Apellido Profesor',
                 'Tipo de Actividad',
                 'Periodo',
                 'Detalle',
@@ -81,20 +82,6 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
         return $vinculacion;
     }
 
-    //formateamos las columnas
-    public function prepareRows($rows): array
-    {
-        return array_map(
-            function ($vinculacion)
-            {
-                //formateo de columna Profesor
-                $vinculacion->nombres = $vinculacion->nombres.' '.$vinculacion->apellidoPaterno.' '.$vinculacion->apellidoMaterno;
-
-                return $vinculacion;
-            }, $rows
-        );
-    }
-
     //ponemos los datos obtenidos en columnas
     public function map($vinculacion): array
     {
@@ -103,6 +90,7 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             $vinculacion->userid,
             $vinculacion->rut,
             $vinculacion->nombres,
+            $vinculacion->apellidoPaterno,
             $vinculacion->tipoactividad,
             $vinculacion->periodo,
             $vinculacion->detalle,

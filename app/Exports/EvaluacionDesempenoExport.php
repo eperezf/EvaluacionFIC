@@ -54,7 +54,8 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
                 'Curso',
                 'Sección',
                 'Periodo',
-                'Profesor',
+                'Nombre Profesor',
+                'Apellido Profesor',
                 'Alumnos Inscritos',
                 'Respuestas Encuesta Docente',
                 'Calificación Encuesta Docente',
@@ -104,7 +105,7 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             'curso.seccion',
             'actividad.inicio as inicio',
             'actividad.termino as termino',
-            'user.nombres as nombresProfesor',
+            'user.nombres as nombres',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
             'user.rut',
@@ -140,9 +141,6 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
                     'Dic'];
                 $cursos->inicio = $meses[intval(preg_split("/[-,]+/", $cursos->inicio)[1])].'-'.$meses[intval(preg_split("/[-,]+/", $cursos->termino)[1])];
                 
-                //formateo de columna Profesor
-                $cursos->nombresProfesor = $cursos->nombresProfesor.' '.$cursos->apellidoPaterno.' '.$cursos->apellidoMaterno;
-
                 return $cursos;
             }, $rows
         );
@@ -161,7 +159,8 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             $cursos->nombreAsignatura,
             $cursos->seccion,
             $cursos->inicio,
-            $cursos->nombresProfesor,
+            $cursos->nombres,
+            $cursos->apellidoPaterno,
             $cursos->inscritos,
             $cursos->respuestas,
             $cursos->calificacion

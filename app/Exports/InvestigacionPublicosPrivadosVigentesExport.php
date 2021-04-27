@@ -28,7 +28,8 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
                 'Id',
                 'Id Académico',
                 'Rut Profesor',
-                'Nombre',
+                'Nombre Profesor',
+                'Apellido Profesor',
                 'Fuente - Programa de Financiamiento',
                 'Nombre Proyecto',
                 'Periodo',
@@ -91,8 +92,6 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             {
                 //formateo de columna Año
                 $investigaciones->inicio = explode('-', $investigaciones->inicio)[0].'-'.explode('-', $investigaciones->termino)[0];
-                //formateo de columna Profesor
-                $investigaciones->nombres = $investigaciones->nombres.' '.$investigaciones->apellidoPaterno.' '.$investigaciones->apellidoMaterno;
 
                 return $investigaciones;
             }, $rows
@@ -107,6 +106,7 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             $investigaciones->userid,
             $investigaciones->rut,
             $investigaciones->nombres,
+            $investigaciones->apellidoProfesor,
             $investigaciones->fuente,
             $investigaciones->proyecto,
             $investigaciones->inicio,

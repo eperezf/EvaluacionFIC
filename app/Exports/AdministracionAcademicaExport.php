@@ -29,6 +29,7 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
                 'Id Académico',
                 'Rut Profesor',
                 'Nombre Profesor',
+                'Apellido Profesor',
                 'Programa',
                 'Actividad',
                 'Meses',
@@ -82,20 +83,6 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
         return $administracionacademica;
     }
 
-    //formateamos las columnas
-    public function prepareRows($rows): array
-    {
-        return array_map(
-            function ($administracionacademica)
-            {
-                //formateo de columna Profesor
-                $administracionacademica->nombres = $administracionacademica->nombres.' '.$administracionacademica->apellidoPaterno.' '.$administracionacademica->apellidoMaterno;
-
-                return $administracionacademica;
-            }, $rows
-        );
-    }
-
     //ponemos los datos obtenidos en columnas
     public function map($administracionacademica): array
     {
@@ -104,6 +91,7 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
             $administracionacademica->userid,
             $administracionacademica->rut,
             $administracionacademica->nombres,
+            $administracionacademica->apellidoPaterno,
             $administracionacademica->programa,
             $administracionacademica->actividad,
             $administracionacademica->meses,

@@ -28,7 +28,8 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
                 'Id',
                 'Id Académico',
                 'Rut Profesor',
-                'Nombre',
+                'Nombre Profesor',
+                'Apellido Profesor',
                 'Título Publicación',
                 'Journal',
                 'Año',
@@ -88,8 +89,6 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             {
                 //formateo de columna Año
                 $publicaciones->termino = $publicaciones->termino.date("Y");
-                //formateo de columna Profesor
-                $publicaciones->nombres = $publicaciones->nombres.' '.$publicaciones->apellidoPaterno.' '.$publicaciones->apellidoMaterno;
 
                 return $publicaciones;
             }, $rows
@@ -104,6 +103,7 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             $publicaciones->userid,
             $publicaciones->rut,
             $publicaciones->nombres,
+            $publicaciones->apellidoPaterno,
             $publicaciones->titulo,
             $publicaciones->journal,
             $publicaciones->termino,
