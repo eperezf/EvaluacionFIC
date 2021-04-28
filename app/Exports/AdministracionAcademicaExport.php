@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -27,9 +28,9 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre Profesor',
-                'Apellido Profesor',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Programa',
                 'Actividad',
                 'Meses',
@@ -50,10 +51,36 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
     public function styles(Worksheet $sheet)
     {
         return [
-            1 => ['font' => ['bold' => true],
-                  'font' => ['size' => 20]],
+            1 =>
+            [
+                'font' =>
+                [
+                    'bold' => true,
+                    'size' => 20
+                ]
+            ],
 
-            4 => ['font' => ['bold' => true]]
+            4 =>
+            [
+                'font' => ['bold' => true]
+            ],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
     

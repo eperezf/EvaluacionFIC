@@ -28,9 +28,9 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre Profesor',
-                'Apellido Profesor',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Tipo de Actividad',
                 'Periodo',
                 'Detalle',
@@ -53,7 +53,24 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             1 => ['font' => ['bold' => true],
                   'font' => ['size' => 20]],
 
-            4 => ['font' => ['bold' => true]]
+            4 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
     

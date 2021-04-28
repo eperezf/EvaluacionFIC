@@ -48,14 +48,14 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             [],
             [
                 'Id Curso',
-                'Id Profesor',
+                'Id Académico',
                 'Area',
                 'Subarea',
                 'Curso',
                 'Sección',
                 'Periodo',
-                'Nombre Profesor',
-                'Apellido Profesor',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Alumnos Inscritos',
                 'Respuestas Encuesta Docente',
                 'Calificación Encuesta Docente',
@@ -78,7 +78,24 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             1 => ['font' => ['bold' => true],
                   'font' => ['size' => 20]],
 
-            5 => ['font' => ['bold' => true]]
+            5 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B4' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
 

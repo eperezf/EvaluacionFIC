@@ -27,9 +27,9 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre Profesor',
-                'Apellido Profesor',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Título Publicación',
                 'Journal',
                 'Año',
@@ -53,7 +53,24 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             1 => ['font' => ['bold' => true],
                     'font' => ['size' => 20]],
 
-            4 => ['font' => ['bold' => true]]
+            4 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
 
@@ -88,7 +105,7 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             function ($publicaciones)
             {
                 //formateo de columna Año
-                $publicaciones->termino = $publicaciones->termino.date("Y");
+                $publicaciones->inicio = explode('-', $publicaciones->inicio)[0].'-'.explode('-', $publicaciones->termino)[0];
 
                 return $publicaciones;
             }, $rows
@@ -106,7 +123,7 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
             $publicaciones->apellidoPaterno,
             $publicaciones->titulo,
             $publicaciones->journal,
-            $publicaciones->termino,
+            $publicaciones->inicio,
             $publicaciones->indexacion
         ];
     }

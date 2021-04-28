@@ -27,9 +27,9 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre Profesor',
-                'Apellido Profesor',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Fuente - Programa de Financiamiento',
                 'Nombre Proyecto',
                 'Periodo',
@@ -53,7 +53,24 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             1 => ['font' => ['bold' => true],
                     'font' => ['size' => 20]],
 
-            4 => ['font' => ['bold' => true]]
+            4 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
 
