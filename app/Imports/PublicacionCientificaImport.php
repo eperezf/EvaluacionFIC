@@ -46,7 +46,7 @@ class PublicacionCientificaImport implements ToCollection, WithHeadingRow
 
                     $userActividad->iduser = User::where('rut', strtoupper($row['rut_academico']))->get()[0]->id;
                     $userActividad->idactividad = $actividad->id;
-                    $userActividad->idcargo = Cargo::where("nombre", "Director de investigación")->get()[0]->id;
+                    $userActividad->idcargo = Cargo::where("nombre", $row["rol"])->get()[0]->id;
                     $userActividad->calificacion = $row["nota"];
 
                     $userActividad->save();

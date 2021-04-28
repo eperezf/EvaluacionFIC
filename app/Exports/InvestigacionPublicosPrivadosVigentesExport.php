@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -123,7 +124,7 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             $investigaciones->userid,
             $investigaciones->rut,
             $investigaciones->nombres,
-            $investigaciones->apellidoProfesor,
+            $investigaciones->apellidoPaterno,
             $investigaciones->fuente,
             $investigaciones->proyecto,
             $investigaciones->inicio,
