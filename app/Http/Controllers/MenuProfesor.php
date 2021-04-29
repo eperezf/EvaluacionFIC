@@ -198,7 +198,8 @@ class MenuProfesor extends Controller
         $userId = Auth::user()->id;
         $administracionacademica = DB::table('administracionacademica')
         ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
-        ->join('area', 'administracionacademica.idarea', '=', 'area.id')
+        ->join('actividad_area', 'actividad_area.idactividad', '=', 'actividad.id')
+        ->join('area', 'actividad_area.idarea', '=', 'area.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->where('user.id', '=', $userId)
