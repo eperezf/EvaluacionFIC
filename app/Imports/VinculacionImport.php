@@ -54,6 +54,7 @@ class VinculacionImport implements ToCollection, WithHeadingRow
                     // Se crea la actividad Vinculación con el medio
                     $vinculacion = new Vinculacion;
 
+                    $vinculacion->nombre = $row["tipo_de_actividad"];
                     $vinculacion->detalle = $row["detalle"];
                     $vinculacion->periodo = $row["periodo"];
                     $vinculacion->idactividad = $actividad->id;
