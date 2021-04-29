@@ -62,7 +62,7 @@ class AdministracionAcademicaImport implements ToCollection, WithHeadingRow
 
                     $userActividad->save();
 
-                    // Se crea la actividad Patente
+                    // Se crea la actividad Administración Académica
                     $administracionAcademica = new AdministracionAcademica;
 
                     $administracionAcademica->programa = $row["programa"];
