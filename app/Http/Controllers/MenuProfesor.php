@@ -229,7 +229,7 @@ class MenuProfesor extends Controller
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
         ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
-            'tipoactividad.nombre as tipo',
+            'vinculacion.nombre as tipo',
             'vinculacion.periodo as periodo',
             'vinculacion.detalle as detalle')
         ->get()

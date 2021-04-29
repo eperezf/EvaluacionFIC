@@ -91,7 +91,7 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             'user.nombres',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
-            'tipoactividad.nombre as tipoactividad',
+            'vinculacion.nombre as tipoactividad',
             'vinculacion.detalle',
             'user_actividad.calificacion')
         ->whereNull('user_actividad.calificacion')
