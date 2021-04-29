@@ -33,12 +33,40 @@ class ProyectoInvestigacionImport implements ToCollection, WithHeadingRow
                 // Se verifica si existe el registro en la BBDD
                 if(!Proyectoinvestigacion::where("id", $row["id"])->exists())
                 {
+                    // Obtencion fecha para creacion de la actividad
+                    $periodo = explode('-', $row["periodo"]);
+                    
+                    $inicioPeriodo = "";
+                    $terminoPeriodo = "";
+                    if(sizeof($periodo) == 2)
+                    {
+                        if((strcmp("", $periodo[0]) != 0) && (strcmp("", $periodo[1]) != 0))
+                        {
+                            $inicioPeriodo = $periodo[0];
+                            $terminoPeriodo = $periodo[1];
+                        }
+                        else if((strcmp("", $periodo[0]) == 0) && (strcmp("", $periodo[1]) != 0))
+                        {
+                            $inicioPeriodo = $terminoPeriodo = $periodo[1];
+                        }
+                        else if((strcmp("", $periodo[0]) != 0) && (strcmp("", $periodo[1]) == 0))
+                        {
+                            $inicioPeriodo = $periodo[0];
+                            $terminoPeriodo = Carbon::now()->year;
+                        }
+                    }
+                    else
+                    {
+                        (strcmp("", $periodo[0]) != 0) ? ($inicioPeriodo = $terminoPeriodo = $periodo[0])
+                            : ($inicioPerio = $terminoPeriodo = Carbon::now()->year);
+                    }
+
                     // Se crea nueva actividad
                     $actividad = new Actividad;
 
                     $actividad->idtipoactividad = Tipoactividad::where("nombre", "Investigación")->get()[0]->id;
-                    $actividad->inicio = Carbon::now();
-                    $actividad->termino = Carbon::now();
+                    $actividad->inicio = Carbon::createFromDate($inicioPeriodo, 1, 1);
+                    $actividad->termino = Carbon::createFromDate($terminoPeriodo);
 
                     $actividad->save();
 

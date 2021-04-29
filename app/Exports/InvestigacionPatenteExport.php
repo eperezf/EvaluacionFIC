@@ -99,6 +99,19 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
         return $patentes;
     }
 
+    public function prepareRows($rows): array
+    {
+        return array_map(
+            function ($patentes)
+            {
+                //formateo de columna Fecha
+                $patentes->fecharegistro = explode('-', $patentes->fecharegistro)[2].'-'.explode('-', $patentes->fecharegistro)[1].'-'.explode('-', $patentes->fecharegistro)[0];
+                $patentes->fechaconcedida = explode('-', $patentes->fechaconcedida)[2].'-'.explode('-', $patentes->fechaconcedida)[1].'-'.explode('-', $patentes->fechaconcedida)[0];
+                return $patentes;
+            }, $rows
+        );
+    }
+
     //ponemos los datos obtenidos en columnas
     public function map($patentes): array
     {
