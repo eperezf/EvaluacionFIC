@@ -21,11 +21,11 @@
             @foreach ($encuestas as $area => $area_encuesta)
               <section id="areas">
                 <div class="container">
-                  <div class="row col-12" data-toggle="collapse" href="#collapse{{$area}}" role="button" aria-expanded="false" aria-controls="collapse{{$area}}" style="color: black;">
+                  <div class="row col-12" data-toggle="collapse" href="#collapse{{str_replace(' ','',$area)}}" role="button" aria-expanded="false" aria-controls="collapse{{str_replace(' ','',$area)}}" style="color: black;">
                     <h5 class="col-11">{{$area}}</h5>
                     <i class="fas fa-chevron-down pt-1 ml-5"></i>
                   </div>
-                  <div class="collapse" id="collapse{{$area}}">
+                  <div class="collapse" id="collapse{{str_replace(' ','',$area)}}">
                     <div class="container table-responsive">
                       <table class="table table-bordered table-sm align-middle ">
                         <h6>Encuesta Docente</h6>
@@ -235,7 +235,41 @@
         </div>
         <div class="collapse" id="collapseAdministracion">
           <div class="card card-body">
-            AQUI VAN LAS ACTIVIDADES DE ADMINISTRACIÓN ACADÉMICA
+            @foreach ($admiacademica as $area => $area_admiacademica)
+              <section id="areas">
+                <div class="container">
+                  <div class="row col-12" data-toggle="collapse" href="#collapse{{str_replace(' ','',$area)}}" role="button" aria-expanded="false" aria-controls="collapse{{str_replace(' ','',$area)}}" style="color: black;">
+                    <h5 class="col-11">{{$area}}</h5>
+                    <i class="fas fa-chevron-down pt-1 ml-5"></i>
+                  </div>
+                  <div class="collapse" id="collapse{{str_replace(' ','',$area)}}">
+                    <div class="container table-responsive">
+                      <table class="table table-bordered table-sm">
+                        <h6>Tareas administrativas</h6>
+                        <thead>
+                          <tr>
+                            <th scope="col">Programa</th>
+                            <th scope="col">Actividad</th>
+                            <th scope="col">Meses</th>
+                            <th scope="col">Carga</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($area_admiacademica as $actacademica)
+                            </tr>
+                              <td> {{$actacademica->programa}} </td>
+                              <td> {{$actacademica->actividad}} </td>
+                              <td> {{$actacademica->meses}} </td>
+                              <td> {{$actacademica->carga}} </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </section><hr>
+            @endforeach
           </div>
         </div>
       </div>
@@ -248,8 +282,30 @@
         </div>
         <div class="collapse" id="collapseVinculacion">
           <div class="card card-body">
-            AQUI SE AGREGA LAS ACTIVIDADES DE VINCULACIÓN CON EL MEDIO
-            <!--<a class="btn btn-secondary mr-2 my-1" href="{{ route('agregarVinculaciones') }}">Agregar actividad</a>-->
+            @if(!empty($vinculaciones))
+              <div class="container">
+                <div class="container table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Tipo de actividad</th>
+                        <th scope="col">Fecha o período</th>
+                        <th scope="col">Detalle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($vinculaciones as $vinculacion)
+                        </tr>
+                          <td>{{ $vinculacion->tipo }}</td>
+                          <td>{{ $vinculacion->periodo }}</td>
+                          <td>{{ $vinculacion->detalle }}</td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            @endif
           </div>
         </div>
       </div>
