@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -28,8 +29,9 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Tipo de Actividad',
                 'Periodo',
                 'Detalle',
@@ -52,7 +54,24 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             1 => ['font' => ['bold' => true],
                   'font' => ['size' => 20]],
 
-            4 => ['font' => ['bold' => true]]
+            4 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
     
@@ -72,27 +91,13 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             'user.nombres',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
-            'tipoactividad.nombre as tipoactividad',
+            'vinculacion.nombre as tipoactividad',
             'vinculacion.detalle',
             'user_actividad.calificacion')
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
         return $vinculacion;
-    }
-
-    //formateamos las columnas
-    public function prepareRows($rows): array
-    {
-        return array_map(
-            function ($vinculacion)
-            {
-                //formateo de columna Profesor
-                $vinculacion->nombres = $vinculacion->nombres.' '.$vinculacion->apellidoPaterno.' '.$vinculacion->apellidoMaterno;
-
-                return $vinculacion;
-            }, $rows
-        );
     }
 
     //ponemos los datos obtenidos en columnas
@@ -103,6 +108,7 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             $vinculacion->userid,
             $vinculacion->rut,
             $vinculacion->nombres,
+            $vinculacion->apellidoPaterno,
             $vinculacion->tipoactividad,
             $vinculacion->periodo,
             $vinculacion->detalle,

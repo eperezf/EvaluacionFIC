@@ -28,9 +28,4 @@ class Area extends Model
                 'updated_at'
             ]);
     }
-
-    public function administracionadacemica()
-    {
-        return $this->hasMany('App\AdministracionAcademica');
-    }
 }
