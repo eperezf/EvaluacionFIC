@@ -91,7 +91,7 @@ $(document).ready(() => {
         }
     })
 
-    //Administración Académica
+    // Administración Académica
     $('#administracionAcademicaFile').on('change', function() {
         if(($(this).val() !== "")) {
             $('#collapseConfirmacionAdministracionAcademica').collapse('show')
@@ -108,7 +108,7 @@ $(document).ready(() => {
         $('#administracionAcademicaFile').val("")
     })
 
-    //Vinculación con el Medio
+    // Vinculación con el Medio
     $('#vinculacionFile').on('change', function() {
         if(($(this).val() !== "")) {
             $('#collapseConfirmacionVinculacion').collapse('show')
@@ -125,4 +125,33 @@ $(document).ready(() => {
         $('#vinculacionFile').val("")
     })
 
+    // Otros
+    $('#selectOtrosImport, #otrosFile').on('change', function() {
+        if(($('#selectOtrosImport').val() !== null) && ($('#otrosFile').val() !== "")) {
+            $('#collapseConfirmacionOtros').collapse('show')
+            $('#importOtrosBtn').attr("disabled", false)
+        } else {
+            $('#collapseConfirmacionOtros').collapse('hide')
+            $('#importOtrosBtn').attr("disabled", true)
+        }
+    })
+
+    $('#ModalExcelOtros').on('hidden.bs.modal', function (e) {
+        $('#collapseConfirmacionOtros').collapse('hide')
+        $('#importOtrosBtn').attr("disabled", true)
+        $('#selectOtrosExport').val("Seleccione un tipo de archivo")
+        $('#selectOtrosImport').val("Seleccione un tipo de archivo")
+        $('#otrosFile').val("")
+        $("#descargarOtros").attr("hidden", true)
+    })
+
+    $('#selectOtrosExport').on('change', function() {
+        var idTipoactividad = $(this).val()
+        createLink("#descargarOtros", idTipoactividad)
+        if($(this).val() !== null) {
+            $("#descargarOtros").attr("hidden", false)
+        } else {
+            $("#descargarOtros").attr("hidden", true)
+        }
+    })
 })
