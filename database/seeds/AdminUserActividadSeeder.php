@@ -14,11 +14,13 @@ class AdminUserActividadSeeder extends Seeder
     {
         $emails = [
             'niselman@alumnos.uai.cl',
-            'eduperez@alumnos.uai.cl',
             'dvasquez@alumnos.uai.cl',
             'jomiquel@alumnos.uai.cl',
+            'dmarino@alumnos.uai.cl',
             'danigomez@alumnos.uai.cl',
-            'rafael.cereceda@uai.cl'
+            'rafael.cereceda@uai.cl',
+            'eduperez@alumnos.uai.cl'
+            
         ];
         foreach($emails as $email)
         {
