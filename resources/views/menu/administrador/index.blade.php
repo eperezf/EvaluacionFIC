@@ -30,6 +30,14 @@
   {{-- Accesos a los buzones --}}
   <section id="buzones" class="col-12">
     <h3>Buzones</h3>
+    <p> A continuación, se encuentran los siguientes buzones agrupados por las distintas secciones a considerar en la evaluación:
+      <br>
+      - Si desea subir información, descargue el archivo a completar dependiendo de la sección a evaluar.
+      <br>
+      - Si desea evaluar el desempeño de los/as profesores/as, descargue el archivo EXCEL (pre hecho) en el cual debe asignar la nota correspondiente  y luego subirla en el mismo buzón.
+      <br>
+      Para ambos casos siga las instrucciones que se detalla en cada buzón 
+    </p>
     <div class="container mb-3">
       <div class="row">
         <h5 class="col-5">Docencia: Encuesta docente</h5>
