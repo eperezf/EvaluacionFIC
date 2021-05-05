@@ -152,4 +152,19 @@ class Actividad extends Model {
     {
         return $this->hasMany('App\AdministracionAcademica');
     }
+
+    public function defensapasantia()
+    {
+        return $this->hasMany('App\Defensapasantia');
+    }
+
+    public function admisiondifusion()
+    {
+        return $this->hasMany('App\Admisiondifusion');
+    }
+
+    public function comitecomision()
+    {
+        return $this->hasMany('App\Comitecomision');
+    }
 }
