@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vinculacion extends Model{
     protected $table = 'vinculacion';
 
-    protected $fillable = ['detalle'];
+    protected $fillable = ['nombre','detalle','periodo'];
     
     public function actividad() {
         return $this->belongsTo('App\Actividad');

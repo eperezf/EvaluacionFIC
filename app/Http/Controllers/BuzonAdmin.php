@@ -8,6 +8,7 @@ use App\Exports\InvestigacionPublicosPrivadosVigentesExport;
 use App\Exports\InvestigacionGuiaTesisExport;
 use App\Exports\InvestigacionPatenteExport;
 use App\Exports\VCMExport;
+use App\Exports\AdministracionAcademicaExport;
 
 use App\Imports\EvaluacionDesempenoImport;
 use App\Imports\EncuestaDocenteImport;
@@ -62,6 +63,7 @@ class BuzonAdmin extends Controller
     {
         $validator = $request->validated();
         $import = new EncuestaDocenteImport($request->importPassword);
+        
         Excel::import($import, $request->file('encuestaDocenteFile'));
 
         if(!$import->success)
@@ -139,7 +141,7 @@ class BuzonAdmin extends Controller
     //Administracion Académica
     public function exportAdministracionAcademica()
     {
-        return;
+        return Excel::download(new AdministracionAcademicaExport(), 'Evaluación Administración Académica.xlsx');
     }
 
     public function importAdministracionAcademica(StoreAdministracionAcademicaFile $request)
@@ -161,7 +163,7 @@ class BuzonAdmin extends Controller
         return Excel::download(new VCMExport(), 'Evaluación Vinculación con el Medio.xlsx');
     }
 
-    public function importVinculacion(StoreVCMFile $request)
+    public function importVCM(StoreVCMFile $request)
     {
         // Validaciones
         $validated = $request->validated();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProyectoinvestigacionTable extends Migration
+class CreateComitecomisionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateProyectoinvestigacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('proyectoinvestigacion', function (Blueprint $table) {
+        Schema::create('comitecomision', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 128);
-            $table->string('comentario', 256)->nullable();
             $table->foreignId('idactividad')->references('id')->on('actividad');
-            $table->foreignId('idfuentefinanciamiento')->references('id')->on('fuentefinanciamiento');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateProyectoinvestigacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proyectoinvestigacion');
+        Schema::dropIfExists('comitecomision');
     }
 }

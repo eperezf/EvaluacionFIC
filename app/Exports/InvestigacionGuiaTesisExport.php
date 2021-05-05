@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -27,8 +28,9 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Estudiante',
                 'Programa',
                 'Año',
@@ -52,7 +54,24 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
             1 => ['font' => ['bold' => true],
                   'font' => ['size' => 20]],
 
-            4 => ['font' => ['bold' => true]]
+            4 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
     
@@ -90,8 +109,6 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
             {
                 //formateo de columna Año
                 $guias->termino = explode('-',$guias->termino)[0];
-                //formateo de columna Profesor
-                $guias->nombres = $guias->nombres.' '.$guias->apellidoPaterno.' '.$guias->apellidoMaterno;
 
                 return $guias;
             }, $rows
@@ -106,6 +123,7 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
             $guias->userid,
             $guias->rut,
             $guias->nombres,
+            $guias->apellidoPaterno,
             $guias->estudiante,
             $guias->programa,
             $guias->termino,

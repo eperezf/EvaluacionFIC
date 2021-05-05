@@ -245,14 +245,39 @@ class PerfilDocente extends Controller
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->where('user.id', '=', $userId)
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
             'vinculacion.nombre as tipo',
-            DB::raw('DATE_FORMAT(actividad.termino, "%Y") as fecha'),
-            'vinculacion.descripcion as detalle')
+            'vinculacion.periodo as periodo',
+            'vinculacion.detalle as detalle')
         ->get()
         ->toArray();
 
         return $actvinculaciones;
+    }
+
+    private function getInfoAdministracionAcademica($userId)
+    {
+        /* Obtenemos las actividades de Administración Académica que tenga el usuario */
+        $administracionacademica = DB::table('administracionacademica')
+        ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
+        ->join('actividad_area', 'actividad.id', '=', 'actividad_area.idactividad')
+        ->join('area', 'area.id', '=', 'actividad_area.idarea')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
+        ->select(
+            'area.nombre as area',
+            'administracionacademica.programa as programa',
+            'cargo.nombre as actividad',
+            'administracionacademica.meses as meses',
+            'user_actividad.carga as carga')
+        ->get()->groupBy('area')
+        ->toArray();
+
+        return $administracionacademica;
     }
 
 
@@ -272,6 +297,9 @@ class PerfilDocente extends Controller
 
         /* Información de Investigación */
         $investigaciones = $this->getInfoInvestigacion($userId);
+
+        /* Información de Administración Académica */
+        $administracionAcademica = $this->getInfoAdministracionAcademica($userId);
 
         /* Información de VCM */
         $vinculaciones = $this->getInfoVCM($userId);
@@ -306,6 +334,7 @@ class PerfilDocente extends Controller
             'vacio' => $vacio,
             'encuestas' => $encuestaDocente,
             'investigaciones' => $investigaciones,
+            'admiacademica' => $administracionAcademica, 
             'vinculaciones' => $vinculaciones
         ]);
     }
