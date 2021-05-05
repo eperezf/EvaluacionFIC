@@ -47,6 +47,10 @@ Route::post('administracionAcademicaImport', 'BuzonAdmin@importAdministracionAca
 Route::get('vinculacionExport', 'BuzonAdmin@exportVCM')->middleware('auth')->name('vinculacionExport');
 Route::post('vinculacionImport', 'BuzonAdmin@importVCM')->middleware('auth')->name('vinculacionImport');
 
+////Otras actividades
+Route::get('otrasActividadesExport/{actividad}', 'BuzonAdmin@exportOtrasActividades')->middleware('auth')->name('otrasActividadesExport');
+Route::post('otrasActividadesImport', 'BuzonAdmin@importOtrasActividades')->middleware('auth')->name('otrasActividadesImport');
+
 ////Encuesta Docente
 Route::post('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
 

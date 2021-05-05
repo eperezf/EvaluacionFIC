@@ -175,4 +175,16 @@ class BuzonAdmin extends Controller
         Excel::import(new VinculacionImport, $request->file('vinculacionFile'));
         return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
+
+    // Otras actividades
+    public function exportOtrasActividades($actividad)
+    {
+        // Hint: usar como guia el switch case de la funcion export de investigacion, para las rutas dinámicia
+        return;
+    }
+
+    public function importOtrasActividades(Request $request)
+    {
+        return;
+    }
 }

@@ -331,25 +331,25 @@
             <div class="col-sm-5">
               <select class="form-control" requiered="true" name="selectOtrosExport" id="selectOtrosExport">
                 <option disabled value="Seleccione un tipo de archivo" selected>Seleccione un tipo de archivo</option>
-                <option value="1">Otros 1</option>
-                <option value="2">Otros 2</option>
-                <option value="3">Otros 3</option>
+                @foreach ($otrasActividades as $otraActividad)
+                  <option value="{{ $otraActividad['id'] }}">{{ $otraActividad['nombre'] }}</option>
+                @endforeach
               </select>
             </div>
-            <a href="#" class="btn btn-link" id="descargarOtros" hidden>Descargar</a>
+            <a href={{ route('otrasActividadesExport', ['actividad' => 0]) }} class="btn btn-link" id="descargarOtros" hidden>Descargar</a>
           </div><hr>
           {{-- Seleccion de archivo a importar --}}
           <div id="otrosImport">
-            <form action="#" method="POST" id="otrosImport" enctype="multipart/form-data">
+            <form action="{{ route('otrasActividadesImport') }}" method="POST" id="otrasActividadesImport" enctype="multipart/form-data">
               @csrf
               <div class="form-group row">
                 <label for="select-otro" class="col-sm-5 col-form-label">Subir archivo:</label>
                 <div class="col-sm-5">
                   <select class="form-control" requiered="true" name="selectOtrosImport" id="selectOtrosImport">
                     <option disabled value="Seleccione un tipo de archivo" selected>Seleccione un tipo de archivo</option>
-                    <option value="1">Otros 1</option>
-                    <option value="2">Otros 2</option>
-                    <option value="3">Otros 3</option>
+                    @foreach ($otrasActividades as $otraActividad)
+                      <option value="{{ $otraActividad['id'] }}">{{ $otraActividad['nombre'] }}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>
@@ -365,7 +365,7 @@
               <div class="col-10">
                 ¿Esta seguro que desea subir este archivo?
               </div>
-              <button type="submit" id="importOtrosBtn" value="submit" form="otrosImport" class="btn btn-primary ml-4" title="importar datos" disabled>Importar</button>
+              <button type="submit" id="importOtrosBtn" value="submit" form="otrasActividadesImport" class="btn btn-primary ml-4" title="importar datos" disabled>Importar</button>
             </div>
           </div>
         </div>
