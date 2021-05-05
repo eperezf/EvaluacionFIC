@@ -258,6 +258,14 @@
         </div>
         <div class="modal-body">
           {{-- Descarga del archivo --}}
+          <div class="row col-12">
+            <p>A continuación, se encuentra la opción de cargar información mediante un archivo excel donde 
+            debe completar las casillas que se indican,  se presentan las instrucciones en el documento, 
+            también se permite descargar un archivo excel pre-completado para evaluar con una nota la actividad 
+            del profesor.  Para cualquier opción debe subir la información en el buzón donde se detalla 
+            “Seleccionar Archivo”.
+            </p>
+          </div>
           <div id="administracionAcademicaExport" class="form-group row">
             <label class="col-sm-7 col-form-label">Descargar archivo de Administración Académica</label>
             <a href="{{ route('administracionAcademicaExport') }}" class="btn btn-link" id="descargar">Descargar</a>
