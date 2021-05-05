@@ -46,7 +46,7 @@ class PublicacionCientificaImport implements ToCollection, WithHeadingRow
 
                     $userActividad->iduser = User::where('rut', strtoupper($row['rut_academico']))->get()[0]->id;
                     $userActividad->idactividad = $actividad->id;
-                    $userActividad->idcargo = Cargo::where("nombre", $row["rol"])->get()[0]->id;
+                    $userActividad->idcargo = Cargo::where("nombre", 'Investigador')->get()[0]->id;
                     $userActividad->calificacion = $row["nota"];
 
                     $userActividad->save();
@@ -63,7 +63,7 @@ class PublicacionCientificaImport implements ToCollection, WithHeadingRow
                 }
                 else
                 {
-                    $actividad = Actividad::find(Publicacioncientifica::find($row['id'])->idactividad);
+                    $actividad = Actividad::find(Publicacioncientifica::find($row['id'])->get()[0]->idactividad);
                     $user_actividad = User_actividad::where('idactividad', $actividad->id)
                         ->where('iduser', $row['id_academico'])
                         ->get()[0];
