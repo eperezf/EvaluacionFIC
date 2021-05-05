@@ -198,6 +198,16 @@
           </button>
         </div>
         <div class="modal-body">
+          <div class="row col-12">
+            <p>A continuación, se encuentra la opción de cargar información mediante un archivo excel 
+            donde debe completar las casillas que se indican,  se presentan las instrucciones en el 
+            documento, también se permite descargar un archivo excel pre-completado para evaluar con 
+            una nota la actividad del profesor.  Para cualquier opción debe seleccionar el tipo de 
+            investigación (Publicaciones Científicas, patentes, etc), y luego se mostrará la opción de 
+            descargar el archivo. Finalmente suba la información en el buzón donde se detalla 
+            “Seleccionar Archivo”.
+            </p>
+          </div>
           {{-- Seleccion de archivo a descargar --}}
           <div id="tipoinvestigacionExport" class="form-group row">
             <label for="select-tipodeinvestigacion" class="col-sm-5 col-form-label">Descargar archivo de Investigación</label>
