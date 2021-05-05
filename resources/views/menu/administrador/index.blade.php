@@ -149,6 +149,9 @@
         <div class="modal-body">
           {{-- Seleccion de archivo a descargar --}}
           <div id="subarea" class="form-group row">
+            <div class="row col-12">
+              <p class="ml-3 mr-3">A continuación, se encuentra un archivo excel pre-completado para evaluar con una nota el desempeño del profesor según la actividad.  Para esto debe seleccionar la subárea que corresponda (Informática, Bioingeniería, Talleres, etc.), y luego debe cargar el archivo en el buzón donde se detalla “Seleccionar Archivo”.</p>
+            </div>
             <label for="select-subarea" class="col-sm-6 col-form-label">Descargar archivo de Evaluación del director/a</label>
             <div class="col-sm-4">
               <select class="form-control" requiered="true" name="select-subarea" id="select-subarea">
