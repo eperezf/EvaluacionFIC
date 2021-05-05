@@ -6,17 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class AdministracionAcademica extends Model
 {
-    protected $table = 'administracionadacemica';
+    protected $table = 'administracionacademica';
 
     protected $fillable = ['programa', 'meses', 'comentario'];
 
     public function actividad()
     {
         return $this->belongsTo('App\Actividad');
-    }
-
-    public function area()
-    {
-        return $this->belongsTo('App\Area');
     }
 }

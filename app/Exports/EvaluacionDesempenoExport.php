@@ -21,7 +21,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -48,13 +48,14 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             [],
             [
                 'Id Curso',
-                'Id Profesor',
+                'Id Académico',
                 'Area',
                 'Subarea',
                 'Curso',
                 'Sección',
                 'Periodo',
-                'Profesor',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Alumnos Inscritos',
                 'Respuestas Encuesta Docente',
                 'Calificación Encuesta Docente',
@@ -77,7 +78,24 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             1 => ['font' => ['bold' => true],
                   'font' => ['size' => 20]],
 
-            5 => ['font' => ['bold' => true]]
+            5 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B4' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
 
@@ -104,7 +122,7 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             'curso.seccion',
             'actividad.inicio as inicio',
             'actividad.termino as termino',
-            'user.nombres as nombresProfesor',
+            'user.nombres as nombres',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
             'user.rut',
@@ -140,9 +158,6 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
                     'Dic'];
                 $cursos->inicio = $meses[intval(preg_split("/[-,]+/", $cursos->inicio)[1])].'-'.$meses[intval(preg_split("/[-,]+/", $cursos->termino)[1])];
                 
-                //formateo de columna Profesor
-                $cursos->nombresProfesor = $cursos->nombresProfesor.' '.$cursos->apellidoPaterno.' '.$cursos->apellidoMaterno;
-
                 return $cursos;
             }, $rows
         );
@@ -161,7 +176,8 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
             $cursos->nombreAsignatura,
             $cursos->seccion,
             $cursos->inicio,
-            $cursos->nombresProfesor,
+            $cursos->nombres,
+            $cursos->apellidoPaterno,
             $cursos->inscritos,
             $cursos->respuestas,
             $cursos->calificacion

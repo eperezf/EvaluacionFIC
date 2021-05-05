@@ -1,0 +1,20 @@
+CARGO,ID_TIPO_ACTIVIDAD
+Administrador,3
+Visitante,3
+Director de docencia,5
+Subdirector de docencia,5
+Director de área,4
+Director de subarea,13
+Profesor,6
+Director de investigación,17
+Director ejecutivo de investigación,17
+Inv. responsable,17
+Inv. patrocinante,17
+Inv. asociado,17
+CoInvestigador,17
+Inv. principal,17
+Director,17
+Investigador,17
+Subdirector,17
+Guia,17
+Coguia,17

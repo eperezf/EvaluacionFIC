@@ -37,10 +37,10 @@ class AdminUserSeeder extends Seeder
             'rafael.cereceda@uai.cl'
         ];
         $ruts = [
+            "20074926-K",
             NULL,
-            NULL,
-            NULL,
-            NULL,
+            "20180439-6",
+            "20081454-1",
             NULL,
             "10587852-4"
         ];
