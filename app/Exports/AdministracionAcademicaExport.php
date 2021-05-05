@@ -32,7 +32,6 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
                 'Nombre Académico',
                 'Apellido Académico',
                 'Programa',
-                'Área',
                 'Actividad',
                 'Meses',
                 'Carga',
@@ -89,8 +88,6 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
     {
         $administracionacademica = DB::table('administracionacademica')
         ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
-        ->join('actividad_area', 'actividad.id', '=', 'actividad_area.idactividad')
-        ->join('area', 'area.id', '=', 'actividad_area.idarea')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
@@ -106,8 +103,7 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
             'administracionacademica.programa',
             'cargo.nombre as actividad',
             'user_actividad.carga',
-            'user_actividad.calificacion',
-            'area.nombre as area')
+            'user_actividad.calificacion')
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
@@ -124,7 +120,6 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
             $administracionacademica->nombres,
             $administracionacademica->apellidoPaterno,
             $administracionacademica->programa,
-            $administracionacademica->area,
             $administracionacademica->actividad,
             $administracionacademica->meses,
             $administracionacademica->carga
