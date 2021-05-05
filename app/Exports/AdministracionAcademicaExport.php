@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -27,9 +28,11 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre Profesor',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Programa',
+                'Área',
                 'Actividad',
                 'Meses',
                 'Carga',
@@ -49,10 +52,36 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
     public function styles(Worksheet $sheet)
     {
         return [
-            1 => ['font' => ['bold' => true],
-                  'font' => ['size' => 20]],
+            1 =>
+            [
+                'font' =>
+                [
+                    'bold' => true,
+                    'size' => 20
+                ]
+            ],
 
-            4 => ['font' => ['bold' => true]]
+            4 =>
+            [
+                'font' => ['bold' => true]
+            ],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
     
@@ -60,6 +89,8 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
     {
         $administracionacademica = DB::table('administracionacademica')
         ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
+        ->join('actividad_area', 'actividad.id', '=', 'actividad_area.idactividad')
+        ->join('area', 'area.id', '=', 'actividad_area.idarea')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
@@ -75,25 +106,12 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
             'administracionacademica.programa',
             'cargo.nombre as actividad',
             'user_actividad.carga',
-            'user_actividad.calificacion')
+            'user_actividad.calificacion',
+            'area.nombre as area')
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
         return $administracionacademica;
-    }
-
-    //formateamos las columnas
-    public function prepareRows($rows): array
-    {
-        return array_map(
-            function ($administracionacademica)
-            {
-                //formateo de columna Profesor
-                $administracionacademica->nombres = $administracionacademica->nombres.' '.$administracionacademica->apellidoPaterno.' '.$administracionacademica->apellidoMaterno;
-
-                return $administracionacademica;
-            }, $rows
-        );
     }
 
     //ponemos los datos obtenidos en columnas
@@ -104,7 +122,9 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
             $administracionacademica->userid,
             $administracionacademica->rut,
             $administracionacademica->nombres,
+            $administracionacademica->apellidoPaterno,
             $administracionacademica->programa,
+            $administracionacademica->area,
             $administracionacademica->actividad,
             $administracionacademica->meses,
             $administracionacademica->carga

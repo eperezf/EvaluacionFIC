@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -27,8 +28,9 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Título',
                 'Nro Registro',
                 'Fecha Registro',
@@ -52,7 +54,24 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
             1 => ['font' => ['bold' => true],
                   'font' => ['size' => 20]],
 
-            4 => ['font' => ['bold' => true]]
+            4 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
 
@@ -80,15 +99,14 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
         return $patentes;
     }
 
-    //formateamos las columnas
     public function prepareRows($rows): array
     {
         return array_map(
             function ($patentes)
             {
-                //formateo de columna Profesor
-                $patentes->nombres = $patentes->nombres.' '.$patentes->apellidoPaterno.' '.$patentes->apellidoMaterno;
-
+                //formateo de columna Fecha
+                $patentes->fecharegistro = explode('-', $patentes->fecharegistro)[2].'-'.explode('-', $patentes->fecharegistro)[1].'-'.explode('-', $patentes->fecharegistro)[0];
+                $patentes->fechaconcedida = explode('-', $patentes->fechaconcedida)[2].'-'.explode('-', $patentes->fechaconcedida)[1].'-'.explode('-', $patentes->fechaconcedida)[0];
                 return $patentes;
             }, $rows
         );
@@ -102,6 +120,7 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
             $patentes->userid,
             $patentes->rut,
             $patentes->nombres,
+            $patentes->apellidoPaterno,
             $patentes->titulo,
             $patentes->numeroregistro,
             $patentes->fecharegistro,

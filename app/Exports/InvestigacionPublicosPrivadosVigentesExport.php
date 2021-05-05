@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -27,8 +28,9 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Fuente - Programa de Financiamiento',
                 'Nombre Proyecto',
                 'Periodo',
@@ -52,7 +54,24 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             1 => ['font' => ['bold' => true],
                     'font' => ['size' => 20]],
 
-            4 => ['font' => ['bold' => true]]
+            4 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
 
@@ -91,8 +110,6 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             {
                 //formateo de columna Año
                 $investigaciones->inicio = explode('-', $investigaciones->inicio)[0].'-'.explode('-', $investigaciones->termino)[0];
-                //formateo de columna Profesor
-                $investigaciones->nombres = $investigaciones->nombres.' '.$investigaciones->apellidoPaterno.' '.$investigaciones->apellidoMaterno;
 
                 return $investigaciones;
             }, $rows
@@ -107,6 +124,7 @@ class InvestigacionPublicosPrivadosVigentesExport implements FromArray, WithHead
             $investigaciones->userid,
             $investigaciones->rut,
             $investigaciones->nombres,
+            $investigaciones->apellidoPaterno,
             $investigaciones->fuente,
             $investigaciones->proyecto,
             $investigaciones->inicio,
