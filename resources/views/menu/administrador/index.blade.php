@@ -111,6 +111,7 @@
           <form action={{ route('encuestaDocenteImport') }} method="POST" id="encuestaDocenteImport" enctype="multipart/form-data">
             @csrf
             <div class="row col-12">
+              <p  class="ml-3">A continuación, se encuentra la opción de cargar el archivo CSV de la encuesta docente para incorporar esta información al perfil de cada profesor.</p>
               <label class="col-8">Seleccione el archivo de Encuesta Docente en formato CSV</label>
               <input type="file" class="form-control-file col-8" name="encuestaDocenteFile" id="encuestaDocenteFile">
             </div>
