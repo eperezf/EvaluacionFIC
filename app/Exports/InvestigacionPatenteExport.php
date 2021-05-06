@@ -23,8 +23,18 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
     {
         return [
             ['Patentes Publicadas y/o Concedidas'],
-            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las patentes que aparecen a continuación.'],
-            [],
+            ['Lea atentamente las siguientes indicaciones:'],
+            ['Para completar este documento debe tener en consideración los siguientes pasos:
+            1. Las columnas de color amarillo no deben ser rellenadas.
+            2. En la columna "Rut académico" debe escribir el rut del profesor con guión y sin puntos.
+            3. En la columna "Nombre académico" y "Apellido académico" debe escribir dicha información con tilde y en mayúscula.
+            4. En la columna "Título" debe escribir el nombre de la patente.
+            5. En la columna "Nro Registro" debe escribir el número de registro de su patente.
+            6. En la columna "Fecha Registro" debe escribir la fecha en la que inició su patente, el formato es Año-Mes-Día. (Ej: 2019-05-06)
+            7. En la columna "Fecha Concedida" debe escribir la fecha en la que finalizó su patente, el formato es Año-Mes-Día. (Ej: 2019-05-06)
+            8. Solo de ser necesario en columna "Nota" debe escribir un número entre 1.0 a 7.0, es decir, el número tiene que ser separado por punto. Esto para evaluar el desempeño
+            del profesor en esa actividad.
+            '],
             [
                 'Id',
                 'Id Académico',
@@ -50,9 +60,16 @@ class InvestigacionPatenteExport implements FromArray, WithHeadings, ShouldAutoS
     //Ponemos el estilo de texto de los encabezados en negrita
     public function styles(Worksheet $sheet)
     {
+        $sheet->mergeCells('A3:J3');
+        $sheet->getRowDimension('3')->setRowHeight(165);
+        
         return [
             1 => ['font' => ['bold' => true],
                   'font' => ['size' => 20]],
+
+            2 => ['font' => ['bold' => true, 'underline' => true]],
+
+            3 => ['alignment' => ['wrapText' => true]],
 
             4 => ['font' => ['bold' => true]],
 
