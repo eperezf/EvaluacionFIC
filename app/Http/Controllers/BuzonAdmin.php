@@ -11,6 +11,7 @@ use App\Exports\VCMExport;
 use App\Exports\AdministracionAcademicaExport;
 use App\Exports\OtrosDefensaPasantiaExport;
 use App\Exports\OtrosAdmisionYDifusionExport;
+use App\Exports\OtrosComitesYComisionesFicExport;
 
 use App\Imports\EvaluacionDesempenoImport;
 use App\Imports\EncuestaDocenteImport;
@@ -186,6 +187,11 @@ class BuzonAdmin extends Controller
             case "defensapasantia":
                 $exportMethod = new OtrosDefensaPasantiaExport();
                 $downloadFilename = "Evaluación participacion en comités de defensa de pasantías o capstone.xlsx";
+                break;
+            
+            case "comitecomision":
+                $exportMethod = new OtrosComitesYComisionesFicExport();
+                $downloadFilename = "Evaluación participación en comités y comisiones oficiales de la FIC.xlsx";
                 break;
             
             case "admisiondifusion":
