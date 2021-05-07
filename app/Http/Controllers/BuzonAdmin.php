@@ -9,6 +9,7 @@ use App\Exports\InvestigacionGuiaTesisExport;
 use App\Exports\InvestigacionPatenteExport;
 use App\Exports\VCMExport;
 use App\Exports\AdministracionAcademicaExport;
+use App\Exports\OtrosDefensaPasantiaExport;
 
 use App\Imports\EvaluacionDesempenoImport;
 use App\Imports\EncuestaDocenteImport;
@@ -179,8 +180,17 @@ class BuzonAdmin extends Controller
     // Otras actividades
     public function exportOtrasActividades($actividad)
     {
-        // Hint: usar como guia el switch case de la funcion export de investigacion, para las rutas dinámicia
-        return;
+        switch($actividad)
+        {
+            case "defensapasantia":
+                $exportMethod = new OtrosDefensaPasantiaExport();
+                $downloadFilename = "Evaluación participacion en comités de defensa de pasantías o capstone.xlsx";
+                break;
+            
+            default:
+                break;
+        }
+        return Excel::download($exportMethod, $downloadFilename);
     }
 
     public function importOtrasActividades(Request $request)
