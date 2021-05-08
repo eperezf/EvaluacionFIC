@@ -24,7 +24,6 @@ class DefensaPasantiaImport implements ToCollection, WithHeadingRow
     */
     public function collection(Collection $rows)
     {
-        //dd($rows);
         foreach ($rows as $row)
         {
             // Se verifica la existencia del usuario en la base de datos
