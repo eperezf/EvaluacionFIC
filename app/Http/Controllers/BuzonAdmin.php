@@ -21,13 +21,16 @@ use App\Imports\ProyectoInvestigacionImport;
 use App\Imports\PatenteImport;
 use App\Imports\AdministracionAcademicaImport;
 use App\Imports\VinculacionImport;
-
+use App\Imports\DefensaPasantiaImport;
+use App\Imports\ComiteComisionImport;
+use App\Imports\AdmisionDifusionImport;
 
 use App\Http\Requests\StoreEvalDocente;
 use App\Http\Requests\StoreEncuestaDocente;
 use App\Http\Requests\StoreInvestigacion;
 use App\Http\Requests\StoreAdministracionAcademicaFile;
 use App\Http\Requests\StoreVCMFile;
+use App\Http\Requests\StoreOtraActividad;
 
 use Illuminate\Http\Request;
 
@@ -106,6 +109,7 @@ class BuzonAdmin extends Controller
                 break;
             
             default:
+                // Caso default por estructura. Eventualmente usar para hacer excepción
                 break;
         }
         return redirect('/menuAdministrador/')->with('success', "Importación investigacion exitosa");
@@ -136,6 +140,7 @@ class BuzonAdmin extends Controller
                 break;
             
             default:
+                // Caso default por estructura. Eventualmente usar para hacer excepción
                 break;
         }
         return Excel::download($exportMethod, $downloadFilename);
@@ -205,8 +210,34 @@ class BuzonAdmin extends Controller
         return Excel::download($exportMethod, $downloadFilename);
     }
 
-    public function importOtrasActividades(Request $request)
+    public function importOtrasActividades(StoreOtraActividad $request)
     {
-        return;
+        $validated = $request->validated();
+        if(!$this->validateFileExtension($request->file('otrosFile')))
+        {
+            return redirect('/menuAdministrador/')->with('error', "El archivo debe ser formato Excel (xlsx, xls)");
+        }
+        
+        switch($request->selectOtrosImport)
+        {
+            case "defensapasantia":
+                $importMethod = new DefensaPasantiaImport;
+                break;
+
+            case "comitecomision":
+                $importMethod = new ComiteComisionImport;
+                break;
+
+            case "admisiondifusion":
+                $importMethod = new AdmisionDifusionImport;
+                break;
+
+            default:
+                // Caso default por estructura. Eventualmente usar para hacer excepción
+                break;
+        }
+        Excel::import($importMethod, $request->file('otrosFile'));
+        
+        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
 }
