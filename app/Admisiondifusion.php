@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admisiondifusion extends Model
 {
-    protected $table = "admisioncomision";
+    protected $table = "admisiondifusion";
 
     protected $fillable = ["nombre", "tipo"];
 
