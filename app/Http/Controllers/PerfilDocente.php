@@ -299,11 +299,10 @@ class PerfilDocente extends Controller
         
         /* Obtenemos la información de participación en comités y comisiones oficiales de la FIC que tiene el usuario */
         $comitecomision = DB::table('comitecomision')
-        ->join('actividad','comitecomision.idactividad','=','actividad.id')
-        ->join('tipoactividad', 'actividad.idtipoactividad', '=', 'tipoactividad.id')
-        ->join('cargo', 'tipoactividad.id', '=', 'cargo.idtipoactividad')
-        ->join('user_actividad','cargo.id','=','user_actividad.idcargo')
-        ->join('user','user_actividad.iduser','=','user.id')
+        ->join('actividad', 'comitecomision.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
         ->where('user.id', '=', $userId)
         ->select(
             'comitecomision.nombre as nombreComite',

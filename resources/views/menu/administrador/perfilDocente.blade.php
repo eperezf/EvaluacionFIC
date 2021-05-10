@@ -441,7 +441,7 @@
                     </div>
                   </div>
                 </div>
-              </section><hr>
+              </section>
             </div>
           </div>
         </div>
