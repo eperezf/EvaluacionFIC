@@ -261,20 +261,16 @@ class PerfilDocente extends Controller
         /* Obtenemos las actividades de Administración Académica que tenga el usuario */
         $administracionacademica = DB::table('administracionacademica')
         ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
-        ->join('actividad_area', 'actividad.id', '=', 'actividad_area.idactividad')
-        ->join('area', 'area.id', '=', 'actividad_area.idarea')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
-        ->where('user.id', '=', $userId)
-        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->where('user.id', '=', $userId)        
         ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
-            'area.nombre as area',
             'administracionacademica.programa as programa',
-            'cargo.nombre as actividad',
+            'administracionacademica.actividad as actividad',
             'administracionacademica.meses as meses',
             'user_actividad.carga as carga')
-        ->get()->groupBy('area')
+        ->get()
         ->toArray();
 
         return $administracionacademica;

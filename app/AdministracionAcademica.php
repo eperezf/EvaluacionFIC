@@ -8,7 +8,7 @@ class AdministracionAcademica extends Model
 {
     protected $table = 'administracionacademica';
 
-    protected $fillable = ['programa', 'meses', 'comentario'];
+    protected $fillable = ['actividad', 'programa', 'meses', 'comentario'];
 
     public function actividad()
     {

@@ -11,6 +11,7 @@ class CreateAdministracionacademicaTable extends Migration
         Schema::create('administracionacademica', function (Blueprint $table) {
             $table->id();
             $table->string('programa', 128);
+            $table->string('actividad', 128)->nullable();
             $table->string('comentario', 256)->nullable();
             $table->string('meses', 10);
             $table->foreignId('idactividad')->references('id')->on('actividad');

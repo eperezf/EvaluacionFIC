@@ -26,7 +26,9 @@ class TipoActividadSeeder extends Seeder
         ['id'=>'14', 'nombre'=>'Transferencia tecnológica'],
         ['id'=>'15', 'nombre'=>'Tutoría'],
         ['id'=>'16', 'nombre'=>'Vinculación'],
-        ['id'=>'17', 'nombre'=>'Investigación']
+        ['id'=>'17', 'nombre'=>'Investigación'],
+        ['id'=>'18', 'nombre'=>'Otras'],
+        ['id'=>'19', 'nombre'=>'Administración académica']
 			]);
     }
 }
