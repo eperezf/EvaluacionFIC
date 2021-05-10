@@ -227,25 +227,24 @@
         </div>
       </div>
     </section><hr>
-    <section id="administracion">
+    <section id="administracionAcademica">
       <div class="container">
-        <div class="row col-12" data-toggle="collapse" href="#collapseAdministracion" role="button" aria-expanded="false" aria-controls="collapseAdministracion" style="color: black;">
-          <h4 class="col-11">Administración académica</h4>
+        <div class="row col-12" data-toggle="collapse" href="#collapseAdministracionAcademica" role="button" aria-expanded="false" aria-controls="collapseAdministracionAcademica" style="color: black;">
+          <h4 class="col-11">Administración Académica</h4>
           <i class="fas fa-chevron-down pt-1 ml-5"></i>
         </div>
-        <div class="collapse" id="collapseAdministracion">
+        <div class="collapse" id="collapseAdministracionAcademica">
           <div class="card card-body">
-            @foreach ($admiacademica as $area => $area_admiacademica)
-              <section id="areas">
+            @if(!empty($admiacademica))
+              <section id="tareasAdministrativas">
                 <div class="container">
-                  <div class="row col-12" data-toggle="collapse" href="#collapse{{str_replace(' ','',$area)}}" role="button" aria-expanded="false" aria-controls="collapse{{str_replace(' ','',$area)}}" style="color: black;">
-                    <h5 class="col-11">{{$area}}</h5>
+                  <div class="row col-12" data-toggle="collapse" href="#collapseTareasAdministrativas" role="button" aria-expanded="false" aria-controls="collapseTareasAdministrativas" style="color: black;">
+                    <h5 class="col-11">Tareas Administrativas</h5>
                     <i class="fas fa-chevron-down pt-1 ml-5"></i>
                   </div>
-                  <div class="collapse" id="collapse{{str_replace(' ','',$area)}}">
+                  <div class="collapse" id="collapseTareasAdministrativas">
                     <div class="container table-responsive">
                       <table class="table table-bordered table-sm">
-                        <h6>Tareas administrativas</h6>
                         <thead>
                           <tr>
                             <th scope="col">Programa</th>
@@ -255,12 +254,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($area_admiacademica as $actacademica)
+                          @foreach ($admiacademica as $admiacademica)
                             </tr>
-                              <td> {{$actacademica->programa}} </td>
-                              <td> {{$actacademica->actividad}} </td>
-                              <td> {{$actacademica->meses}} </td>
-                              <td> {{$actacademica->carga}} </td>
+                              <td>{{ $admiacademica->programa }}</td>
+                              <td>{{ $admiacademica->actividad }}</td>
+                              <td>{{ $admiacademica->meses }}</td>
+                              <td>{{ $admiacademica->carga }}</td>
                             </tr>
                           @endforeach
                         </tbody>
@@ -268,11 +267,11 @@
                     </div>
                   </div>
                 </div>
-              </section><hr>
-            @endforeach
-          </div>
-        </div>
-      </div>
+              </section>
+            @endif
+          <div>
+        <div>
+      <div>
     </section><hr>
     <section id="vinculacion">
       <div class="container">
