@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -22,13 +23,24 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
     {
         return [
             ['Guías y/o co-Guías de Tésis en Programas Académicos'],
-            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada uno de los guías que aparecen a continuación.'],
-            [],
+            ['Lea atentamente las siguientes indicaciones:'],
+            ['Para completar este documento debe tener en consideración los siguientes pasos:
+            1. Las columnas de color amarillo no deben ser rellenadas
+            2. En la columna "Rut académico" debe escribir el rut del profesor con guión y sin puntos
+            3. En la columna "Nombre académico" y "Apellido académico" debe escribir dicha información con tilde y en mayúscula.
+            4. En la columna "Estudiante" debe escribir el nombre(s) y apellido(s) de él/la estudiante que está realizando la tesis. 
+            5. En la columna "Programa" debe escribir el nombre del programa de la tesis.
+            6. En la columna "Año" debe escribir el año de realización de la tesis.
+            7. En la columna "Rol" debe escribir si es Guía y Co-guía .
+            8. Solo de ser necesario en columna "Nota" debe escribir un número entre 1.0 a 7.0, es decir, el número tiene
+            que ser separado por punto. Esto para evaluar el desempeño del profesor en esa actividad.
+            '],
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Estudiante',
                 'Programa',
                 'Año',
@@ -48,11 +60,35 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
     //Ponemos el estilo de texto de los encabezados en negrita
     public function styles(Worksheet $sheet)
     {
+        $sheet->mergeCells('A3:J3');
+        $sheet->getRowDimension('3')->setRowHeight(165);
+
         return [
             1 => ['font' => ['bold' => true],
                   'font' => ['size' => 20]],
 
-            4 => ['font' => ['bold' => true]]
+            2 => ['font' => ['bold' => true, 'underline' => true]],
+
+            3 => ['alignment' => ['wrapText' => true]],
+            
+            4 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
     
@@ -90,8 +126,6 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
             {
                 //formateo de columna Año
                 $guias->termino = explode('-',$guias->termino)[0];
-                //formateo de columna Profesor
-                $guias->nombres = $guias->nombres.' '.$guias->apellidoPaterno.' '.$guias->apellidoMaterno;
 
                 return $guias;
             }, $rows
@@ -106,6 +140,7 @@ class InvestigacionGuiaTesisExport implements FromArray, WithHeadings, ShouldAut
             $guias->userid,
             $guias->rut,
             $guias->nombres,
+            $guias->apellidoPaterno,
             $guias->estudiante,
             $guias->programa,
             $guias->termino,

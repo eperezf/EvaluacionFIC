@@ -9,6 +9,9 @@ use App\Exports\InvestigacionGuiaTesisExport;
 use App\Exports\InvestigacionPatenteExport;
 use App\Exports\VCMExport;
 use App\Exports\AdministracionAcademicaExport;
+use App\Exports\OtrosDefensaPasantiaExport;
+use App\Exports\OtrosAdmisionYDifusionExport;
+use App\Exports\OtrosComitesYComisionesFicExport;
 
 use App\Imports\EvaluacionDesempenoImport;
 use App\Imports\EncuestaDocenteImport;
@@ -18,13 +21,16 @@ use App\Imports\ProyectoInvestigacionImport;
 use App\Imports\PatenteImport;
 use App\Imports\AdministracionAcademicaImport;
 use App\Imports\VinculacionImport;
-
+use App\Imports\DefensaPasantiaImport;
+use App\Imports\ComiteComisionImport;
+use App\Imports\AdmisionDifusionImport;
 
 use App\Http\Requests\StoreEvalDocente;
 use App\Http\Requests\StoreEncuestaDocente;
 use App\Http\Requests\StoreInvestigacion;
 use App\Http\Requests\StoreAdministracionAcademicaFile;
 use App\Http\Requests\StoreVCMFile;
+use App\Http\Requests\StoreOtraActividad;
 
 use Illuminate\Http\Request;
 
@@ -63,6 +69,7 @@ class BuzonAdmin extends Controller
     {
         $validator = $request->validated();
         $import = new EncuestaDocenteImport($request->importPassword);
+        
         Excel::import($import, $request->file('encuestaDocenteFile'));
 
         if(!$import->success)
@@ -102,6 +109,7 @@ class BuzonAdmin extends Controller
                 break;
             
             default:
+                // Caso default por estructura. Eventualmente usar para hacer excepción
                 break;
         }
         return redirect('/menuAdministrador/')->with('success', "Importación investigacion exitosa");
@@ -132,6 +140,7 @@ class BuzonAdmin extends Controller
                 break;
             
             default:
+                // Caso default por estructura. Eventualmente usar para hacer excepción
                 break;
         }
         return Excel::download($exportMethod, $downloadFilename);
@@ -172,6 +181,63 @@ class BuzonAdmin extends Controller
         }
         
         Excel::import(new VinculacionImport, $request->file('vinculacionFile'));
+        return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
+    }
+
+    // Otras actividades
+    public function exportOtrasActividades($actividad)
+    {
+        switch($actividad)
+        {
+            case "defensapasantia":
+                $exportMethod = new OtrosDefensaPasantiaExport();
+                $downloadFilename = "Evaluación participacion en comités de defensa de pasantías o capstone.xlsx";
+                break;
+            
+            case "comitecomision":
+                $exportMethod = new OtrosComitesYComisionesFicExport();
+                $downloadFilename = "Evaluación participación en comités y comisiones oficiales de la FIC.xlsx";
+                break;
+            
+            case "admisiondifusion":
+                $exportMethod = new OtrosAdmisionYDifusionExport();
+                $downloadFilename = "Evaluación participación en actividades de admisión y difusión FIC.xlsx";
+                break;
+            
+            default:
+                break;
+        }
+        return Excel::download($exportMethod, $downloadFilename);
+    }
+
+    public function importOtrasActividades(StoreOtraActividad $request)
+    {
+        $validated = $request->validated();
+        if(!$this->validateFileExtension($request->file('otrosFile')))
+        {
+            return redirect('/menuAdministrador/')->with('error', "El archivo debe ser formato Excel (xlsx, xls)");
+        }
+        
+        switch($request->selectOtrosImport)
+        {
+            case "defensapasantia":
+                $importMethod = new DefensaPasantiaImport;
+                break;
+
+            case "comitecomision":
+                $importMethod = new ComiteComisionImport;
+                break;
+
+            case "admisiondifusion":
+                $importMethod = new AdmisionDifusionImport;
+                break;
+
+            default:
+                // Caso default por estructura. Eventualmente usar para hacer excepción
+                break;
+        }
+        Excel::import($importMethod, $request->file('otrosFile'));
+        
         return redirect('/menuAdministrador/')->with('success', "Importación de datos exitosa");
     }
 }

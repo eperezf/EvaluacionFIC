@@ -180,7 +180,6 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomC
                                 'idcargo' => Cargo::where("nombre", "=", "Profesor")->get()[0]->id
                             ]
                         );
-
                         continue;
                     }
                     // Caso en que existe el curso en la BBDD

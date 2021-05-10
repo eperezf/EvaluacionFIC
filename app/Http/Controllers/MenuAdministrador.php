@@ -28,14 +28,21 @@ class MenuAdministrador extends Controller
         $subareas = Subarea::all();
         $investigaciones = collect(
             [
-                ['nombre' => "Publicación científica", 'id' => "publicacion"],
-                ['nombre' => "Patente", 'id' => "patente"],
-                ['nombre' => "Guia de tesis", 'id' => "guia"],
-                ['nombre' => "Proyecto de investigación", 'id' => "proyecto"]
+                ['nombre' => "Publicaciones científicas", 'id' => "publicacion"],
+                ['nombre' => "Patentes", 'id' => "patente"],
+                ['nombre' => "Guías y co-guías de tesis", 'id' => "guia"],
+                ['nombre' => "Proyectos de investigación", 'id' => "proyecto"]
+            ]
+        );
+        $otrasActividades = collect(
+            [
+                ['nombre' => "Defensa de pasantía", 'id' => "defensapasantia"],
+                ['nombre' => "Comites y comisiones", 'id' => "comitecomision"],
+                ['nombre' => "Admisión y difusión", 'id' => "admisiondifusion"]
             ]
         );
 
-        return array($nombre, $menus, $subareas, $investigaciones);
+        return array($nombre, $menus, $subareas, $investigaciones, $otrasActividades);
     }
 
     public function load()
@@ -47,6 +54,7 @@ class MenuAdministrador extends Controller
             'menus' => $controllerData[1],
             'subareas' => $controllerData[2],
             'investigaciones' => $controllerData[3],
+            'otrasActividades' => $controllerData[4],
             'usuarios' => []
         ]);
     }
@@ -69,6 +77,7 @@ class MenuAdministrador extends Controller
             'menus' => $controllerData[1],
             'subareas' => $controllerData[2],
             'investigaciones' => $controllerData[3],
+            'otrasActividades' => $controllerData[4],
             'usuarios' => $usuarios
         ]);
     }
@@ -91,6 +100,7 @@ class MenuAdministrador extends Controller
             'menus' => $controllerData[1],
             'subareas' => $controllerData[2],
             'investigaciones' => $controllerData[3],
+            'otrasActividades' => $controllerData[4],
             'usuarios' => $usuarios
         ]);
     }

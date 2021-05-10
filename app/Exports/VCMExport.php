@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -23,13 +24,23 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
     {
         return [
             ['Vinculación con el Medio'],
-            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las vinculaciones con el medio que aparecen a continuación.'],
-            [],
+            ['Lea atentamente las siguientes indicaciones:'],
+            ['Para completar este documento debe tener en consideración los siguientes pasos:
+            1. Las columnas de color amarillo no deben ser rellenadas.
+            2. En la columna "Rut académico" debe escribir el rut del profesor con guión y sin puntos.
+            3. En la columna "Nombre académico" y "Apellido académico" debe escribir dicha información con tilde y en mayúscula.
+            4. En la columna "Tipo de Actividad" debe escribir que está realizando. (Ej: Comité Científico STIC-Amsud)
+            5. En la columna "Periodo" debe escribir el año o el/los meses en que realizó la actividad. (Ej: 2020, Agosto, Ago - Dic)
+            6. En la columna "Detalle" debe escribir su función y/o acción realizada.
+            7. Solo de ser necesario en columna "Nota" debe escribir un número entre 1.0 a 7.0, es decir, el número tiene que ser separado por punto. Esto para
+            evaluar el desempeño del profesor en esa actividad.
+            '],
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Tipo de Actividad',
                 'Periodo',
                 'Detalle',
@@ -48,11 +59,35 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
     //Ponemos el estilo de texto de los encabezados en negrita
     public function styles(Worksheet $sheet)
     {
+        $sheet->mergeCells('A3:J3');
+        $sheet->getRowDimension('3')->setRowHeight(165);
+
         return [
             1 => ['font' => ['bold' => true],
                   'font' => ['size' => 20]],
 
-            4 => ['font' => ['bold' => true]]
+            2 => ['font' => ['bold' => true, 'underline' => true]],
+
+            3 => ['alignment' => ['wrapText' => true]],
+            
+            4 => ['font' => ['bold' => true]],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
     
@@ -72,27 +107,13 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             'user.nombres',
             'user.apellidoPaterno',
             'user.apellidoMaterno',
-            'tipoactividad.nombre as tipoactividad',
+            'vinculacion.nombre as tipoactividad',
             'vinculacion.detalle',
             'user_actividad.calificacion')
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
         return $vinculacion;
-    }
-
-    //formateamos las columnas
-    public function prepareRows($rows): array
-    {
-        return array_map(
-            function ($vinculacion)
-            {
-                //formateo de columna Profesor
-                $vinculacion->nombres = $vinculacion->nombres.' '.$vinculacion->apellidoPaterno.' '.$vinculacion->apellidoMaterno;
-
-                return $vinculacion;
-            }, $rows
-        );
     }
 
     //ponemos los datos obtenidos en columnas
@@ -103,6 +124,7 @@ class VCMExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping,
             $vinculacion->userid,
             $vinculacion->rut,
             $vinculacion->nombres,
+            $vinculacion->apellidoPaterno,
             $vinculacion->tipoactividad,
             $vinculacion->periodo,
             $vinculacion->detalle,

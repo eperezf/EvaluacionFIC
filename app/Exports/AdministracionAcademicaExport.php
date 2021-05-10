@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAutoSize, WithMapping, WithStyles, WithColumnWidths
 {
@@ -22,14 +23,26 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
     {
         return [
             ['Administración Académica'],
-            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las actividades de administración académica con el medio que aparecen a continuación.'],
-            [],
+            ['Lea atentamente las siguientes indicaciones:'],
+            ['Para completar este documento debe tener en consideración los siguientes pasos:
+            1. Las columnas de color amarillo no deben ser rellenadas.
+            2. En la columna "Rut académico" debe escribir el rut del profesor con guión y sin puntos.
+            3. En la columna "Nombre académico" y "Apellido académico" debe escribir dicha información con tilde y en mayúscula.
+            4. En la columna "Programa" debe escribir el nombre con el número (en caso de ser necesario) del programa.
+            5. En la columna "Actividad" debe escribir que está realizando. (Ej: Dirección Académica)
+            6. En la columna "Meses" debe escribir el tiempo que duró la actividad, el formato es en meses dividimos por un guión. (Ej: Mar-Dic)
+            7. En la columna "Carga" debe escribir el número correspondiente a la carga, en caso de ser decimal debe estar dividido en ",". 
+            8. Solo de ser necesario en columna "Nota" debe escribir un número entre 1.0 a 7.0, es decir, el número tiene que ser separado por punto.
+            Esto para evaluar el desempeño del profesor en esa actividad.
+            '],
             [
                 'Id',
                 'Id Académico',
-                'Rut Profesor',
-                'Nombre Profesor',
+                'Rut Académico',
+                'Nombre Académico',
+                'Apellido Académico',
                 'Programa',
+                'Área',
                 'Actividad',
                 'Meses',
                 'Carga',
@@ -48,11 +61,44 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
     //Ponemos el estilo de texto de los encabezados en negrita
     public function styles(Worksheet $sheet)
     {
-        return [
-            1 => ['font' => ['bold' => true],
-                  'font' => ['size' => 20]],
+        $sheet->mergeCells('A3:J3');
+        $sheet->getRowDimension('3')->setRowHeight(165);
 
-            4 => ['font' => ['bold' => true]]
+        return [
+            1 =>
+            [
+                'font' =>
+                [
+                    'bold' => true,
+                    'size' => 20
+                ]
+            ],
+
+            2 => ['font' => ['bold' => true, 'underline' => true]],
+
+            3 => ['alignment' => ['wrapText' => true]],
+
+            4 =>
+            [
+                'font' => ['bold' => true]
+            ],
+
+            'A:B' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'FDF2AB']
+                ]
+            ],
+
+            'A1:B3' =>
+            [
+                'fill' =>
+                [
+                    'fillType' => Fill::FILL_NONE
+                ]
+            ]
         ];
     }
     
@@ -60,6 +106,8 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
     {
         $administracionacademica = DB::table('administracionacademica')
         ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
+        ->join('actividad_area', 'actividad.id', '=', 'actividad_area.idactividad')
+        ->join('area', 'area.id', '=', 'actividad_area.idarea')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
@@ -75,25 +123,12 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
             'administracionacademica.programa',
             'cargo.nombre as actividad',
             'user_actividad.carga',
-            'user_actividad.calificacion')
+            'user_actividad.calificacion',
+            'area.nombre as area')
         ->whereNull('user_actividad.calificacion')
         ->get()
         ->toArray();
         return $administracionacademica;
-    }
-
-    //formateamos las columnas
-    public function prepareRows($rows): array
-    {
-        return array_map(
-            function ($administracionacademica)
-            {
-                //formateo de columna Profesor
-                $administracionacademica->nombres = $administracionacademica->nombres.' '.$administracionacademica->apellidoPaterno.' '.$administracionacademica->apellidoMaterno;
-
-                return $administracionacademica;
-            }, $rows
-        );
     }
 
     //ponemos los datos obtenidos en columnas
@@ -104,7 +139,9 @@ class AdministracionAcademicaExport implements FromArray, WithHeadings, ShouldAu
             $administracionacademica->userid,
             $administracionacademica->rut,
             $administracionacademica->nombres,
+            $administracionacademica->apellidoPaterno,
             $administracionacademica->programa,
+            $administracionacademica->area,
             $administracionacademica->actividad,
             $administracionacademica->meses,
             $administracionacademica->carga
