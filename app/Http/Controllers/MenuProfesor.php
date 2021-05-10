@@ -196,22 +196,19 @@ class MenuProfesor extends Controller
     {
         /* Obtenemos las actividades de Administración Académica que tenga el usuario */
         $userId = Auth::user()->id;
+        
         $administracionacademica = DB::table('administracionacademica')
         ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
-        ->join('actividad_area', 'actividad_area.idactividad', '=', 'actividad.id')
-        ->join('area', 'actividad_area.idarea', '=', 'area.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
-        ->where('user.id', '=', $userId)
-        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->where('user.id', '=', $userId)        
         ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
-            'area.nombre as area',
             'administracionacademica.programa as programa',
-            'cargo.nombre as actividad',
+            'administracionacademica.actividad as actividad',
             'administracionacademica.meses as meses',
             'user_actividad.carga as carga')
-        ->get()->groupBy('area')
+        ->get()
         ->toArray();
 
         return $administracionacademica;
