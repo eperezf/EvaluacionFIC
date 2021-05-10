@@ -23,8 +23,18 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
     {
         return [
             ['Publicaciones Científicas'],
-            ['A continuación debe calificar, con una nota el 1.0 al 7.0, a cada una de las publicaciones científicas que aparecen a continuación.'],
-            [],
+            ["Lea atentamente las siguientes indicaciones:"],
+            ['Para completar este documento debe tener en consideración los siguientes pasos:
+            1. Las columnas de color amarillo no deben ser rellenadas.
+            2. En la columna "Rut académico" debe escribir el rut del profesor con guión y sin puntos.
+            3. En la columna "Nombre académico" y "Apellido académico" debe escribir dicha información con tilde y en mayúscula.
+            4. En la columna "Título publicación" debe escribir el nombre del paper.
+            5. En la columna "Journal" debe escribir el nombre de la revista en la cual fue publicado el paper.
+            6. En la columna "Año" debe escribir el año de publicación.
+            7. En la columna "Indexación o tipo" debe escribir el sitio donde está difundida la publicación.
+            8. Solo de ser necesario en columna "Nota" debe escribir un número entre 1.0 a 7.0, es decir, el número tiene que ser separado por punto. Esto para evaluar el desempeño 
+            del profesor en esa actividad.
+            '],
             [
                 'Id',
                 'Id Académico',
@@ -50,9 +60,16 @@ class InvestigacionPublicacionesCientificasExport implements FromArray, WithHead
     //Ponemos el estilo de texto de los encabezados en negrita
     public function styles(Worksheet $sheet)
     {
+        $sheet->mergeCells('A3:J3');
+        $sheet->getRowDimension('3')->setRowHeight(165);
+
         return [
             1 => ['font' => ['bold' => true],
                     'font' => ['size' => 20]],
+            
+            2 => ['font' => ['bold' => true, 'underline' => true]],
+
+            3 => ['alignment' => ['wrapText' => true]],
 
             4 => ['font' => ['bold' => true]],
 

@@ -18,6 +18,9 @@ use App\Subarea;
 use App\Asignatura;
 use App\Curso;
 use App\Evaluacion;
+use App\Defensapasantia;
+use App\Comitecomision;
+use App\Admisiondifusion;
 
 use App\Http\Requests\StoreCargoUser;
 use App\Http\Requests\StoreEvaluacion;
@@ -280,6 +283,52 @@ class PerfilDocente extends Controller
         return $administracionacademica;
     }
 
+    public function getInfoOtros($userId)
+    {
+        /* Obtenemos la información de participación en comités de defensa de pasantías/capstone que tiene el usuario */
+        $defensas = DB::table('defensapasantia')
+        ->join('actividad', 'defensapasantia.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->select(
+            'defensapasantia.tipo as tipo',
+            'defensapasantia.numerodefensas as defensa')
+        ->get()
+        ->toArray();
+        
+        /* Obtenemos la información de participación en comités y comisiones oficiales de la FIC que tiene el usuario */
+        $comitecomision = DB::table('comitecomision')
+        ->join('actividad', 'comitecomision.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->where('user.id', '=', $userId)
+        ->select(
+            'comitecomision.nombre as nombreComite',
+            'cargo.nombre as rol')
+        ->get()
+        ->toArray();
+
+        /* Obtenemos la información de participación en actividades de admisión y difusión FIC que tiene el usuario */
+        $admisiondifusion = DB::table('admisiondifusion')
+        ->join('actividad','admisiondifusion.idactividad','=','actividad.id')
+        ->join('user_actividad','actividad.id','=','user_actividad.idactividad')
+        ->join('user','user_actividad.iduser','=','user.id')
+        ->where('user.id', '=', $userId)
+        ->select(
+            'admisiondifusion.nombre as nombreActividad',
+            'admisiondifusion.tipo as tipo')
+        ->get()
+        ->toArray();
+
+        $infoOtrosCompleta = array(1 => $defensas, 2 => $comitecomision, 3 => $admisiondifusion);
+        
+        $infoOtros = array_filter($infoOtrosCompleta);
+        
+        return $infoOtros;
+    }
+
 
     public function loadPerfil($userId)
     {
@@ -303,6 +352,9 @@ class PerfilDocente extends Controller
 
         /* Información de VCM */
         $vinculaciones = $this->getInfoVCM($userId);
+
+        /* Información de Otros */
+        $otros = $this->getInfoOtros($userId);
 
         /* Evaluadción general actual del Comité */
         $periodo = (int)date('Y')-1;
@@ -335,7 +387,8 @@ class PerfilDocente extends Controller
             'encuestas' => $encuestaDocente,
             'investigaciones' => $investigaciones,
             'admiacademica' => $administracionAcademica, 
-            'vinculaciones' => $vinculaciones
+            'vinculaciones' => $vinculaciones,
+            'otros' => $otros,
         ]);
     }
 
