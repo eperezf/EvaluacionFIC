@@ -8,11 +8,15 @@ class Curso extends Model{
     protected $table = 'curso';
 
     protected $fillable = [
+        'idomega',
         'calificacion',
         'respuestas',
         'material',
         'seccion',
-        'idasignatura'
+        'inscritos',
+        'idasignatura',
+        'idactividad',
+        'sede'
     ];
 
     public function actividad() {

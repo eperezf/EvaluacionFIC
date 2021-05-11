@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "uai/evalfic",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Plataforma de evaluación académica FIC UAI",
     "keywords": [
         "framework",
         "laravel"
@@ -14,11 +14,13 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.24",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
+        "jeroenzwart/laravel-csv-seeder": "^1.5",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5"

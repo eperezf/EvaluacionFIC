@@ -22,14 +22,16 @@ class Login extends Controller {
    * @author Eduardo Pérez
    * @return \Illuminate\Http\Response
    */
-  public function loadLogin(){
-    if (Auth::user()) {
-      return redirect('/');
-    }
-    else {
-      return view('login');
-    }
-  }
+	public function loadLogin(){
+		$nombre = '';
+		if(Auth::check()) {
+			$nombre = Auth::user()->nombres.' '.Auth::user()->apellidoPaterno.' '.Auth::user()->apellidoMaterno;
+		}
+		return response()->view('login', ['nombre' => $nombre])
+		->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+		->header('Pragma', 'no-cache')
+		->header('Expires', '0');
+	}
 
   /**
    * Autentica al usuario contra el LDAP de la Universidad.
@@ -37,7 +39,7 @@ class Login extends Controller {
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function authenticate(Request $request){
+  	public function authenticate(Request $request){
 		$email = $request->Email;
 		$password = $request->Password;
 		if ($email == "" || $password == ""){

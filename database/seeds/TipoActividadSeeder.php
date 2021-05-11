@@ -12,6 +12,7 @@ class TipoActividadSeeder extends Seeder
     public function run()
     {
       DB::table('tipoactividad')->insert([
+        ['id' => '3', 'nombre' => 'Administración'],
 				['id'=>'4', 'nombre'=>'Área'],
 				['id'=>'5', 'nombre'=>'Asignatura'],
         ['id'=>'6', 'nombre'=>'Curso'],
@@ -21,9 +22,13 @@ class TipoActividadSeeder extends Seeder
         ['id'=>'10', 'nombre'=>'Proyecto concursable'],
         ['id'=>'11', 'nombre'=>'Publicación'],
         ['id'=>'12', 'nombre'=>'Spinoff'],
-        ['id'=>'13', 'nombre'=>'Transferencia tecnológica'],
-        ['id'=>'14', 'nombre'=>'Tutoría'],
-        ['id'=>'15', 'nombre'=>'Vinculación']
+        ['id'=>'13', 'nombre'=>'Subarea'],
+        ['id'=>'14', 'nombre'=>'Transferencia tecnológica'],
+        ['id'=>'15', 'nombre'=>'Tutoría'],
+        ['id'=>'16', 'nombre'=>'Vinculación'],
+        ['id'=>'17', 'nombre'=>'Investigación'],
+        ['id'=>'18', 'nombre'=>'Otras'],
+        ['id'=>'19', 'nombre'=>'Administración académica']
 			]);
     }
 }

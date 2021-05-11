@@ -11,8 +11,10 @@ class CreateUserActividadTable extends Migration {
       $table->foreignId('iduser')->references('id')->on('user');
       $table->foreignId('idactividad')->references('id')->on('actividad');
       $table->foreignId('idcargo')->references('id')->on('cargo');
-      $table->float('bonificacion');
-      $table->float('calificacion');
+      $table->string('comentario', 512)->nullable();
+      $table->float('bonificacion')->nullable();
+      $table->float('calificacion')->nullable();
+      $table->float('carga')->nullable();
       $table->timestamps();
     });
   }
