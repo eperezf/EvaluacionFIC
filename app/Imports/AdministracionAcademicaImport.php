@@ -37,26 +37,18 @@ class AdministracionAcademicaImport implements ToCollection, WithHeadingRow
                     // Se crea nueva actividad
                     $actividad = new Actividad;
 
-                    $actividad->idtipoactividad = Tipoactividad::where("nombre", "Administracion")->get()[0]->id;
+                    $actividad->idtipoactividad = Tipoactividad::where("nombre", "Administración académica")->get()[0]->id;
                     $actividad->inicio = Carbon::now()->subWeek();
                     $actividad->termino = Carbon::now();
  
                     $actividad->save();
-
-                    // Se crea nueva actividad_area
-                    $actividad_area = new Actividad_area;
-
-                    $actividad_area->idactividad = $actividad->id;
-                    $actividad_area->idarea = Area::where("nombre", "LIKE", $row["area"])->get()[0]->id;
- 
-                    $actividad_area->save();
 
                     // Se vincula la actividad al usuario
                     $userActividad = new User_actividad;
 
                     $userActividad->iduser = User::where('rut', strtoupper($row['rut_academico']))->get()[0]->id;
                     $userActividad->idactividad = $actividad->id;
-                    $userActividad->idcargo = Cargo::where("nombre", "LIKE", $row["actividad"])->get()[0]->id;
+                    $userActividad->idcargo = Cargo::where("nombre", "Administrador académico")->get()[0]->id;
                     $userActividad->carga = $row["carga"];
                     $userActividad->calificacion = $row["nota"];
 
@@ -68,6 +60,7 @@ class AdministracionAcademicaImport implements ToCollection, WithHeadingRow
                     $administracionAcademica->programa = $row["programa"];
                     $administracionAcademica->meses = $row["meses"];
                     $administracionAcademica->idactividad = $actividad->id;
+                    $administracionAcademica->actividad = $row["actividad"];
  
                     $administracionAcademica->save();
                 }

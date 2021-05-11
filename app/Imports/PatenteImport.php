@@ -35,11 +35,37 @@ class PatenteImport implements ToCollection, WithHeadingRow
                 if(!Patente::where("id", $row["id"])->exists())
                 {
                     // Obtencion fecha para creacion de datos
-                    (!strcmp(gettype($row["fecha_registro"]), "integer")) ? ($fechaRegistro = Date::excelToDateTimeObject($row["fecha_registro"]))
-                        : ($fechaRegistro = Carbon::createFromFormat('d-m-Y', $row["fecha_registro"]));
+                    if(!strcmp(gettype($row["fecha_registro"]), "integer"))
+                    {
+                        $fechaRegistro = Date::excelToDateTimeObject($row["fecha_registro"]);
+                    }
+                    else
+                    {
+                        if(strlen(explode('-', $row["fecha_registro"])[0]) == 4)
+                        {
+                            $fechaRegistro = Carbon::createFromFormat('Y-m-d', $row["fecha_registro"]);
+                        }
+                        else
+                        {
+                            $fechaRegistro = Carbon::createFromFormat('d-m-Y', $row["fecha_registro"]);
+                        }
+                    }
 
-                    (!strcmp(gettype($row["fecha_concedida"]), "integer")) ? ($fechaConcedida = Date::excelToDateTimeObject($row["fecha_concedida"]))
-                        : ($fechaConcedida = Carbon::createFromFormat('d-m-Y', $row["fecha_concedida"]));
+                    if(!strcmp(gettype($row["fecha_concedida"]), "integer"))
+                    {
+                        $fechaRegistro = Date::excelToDateTimeObject($row["fecha_concedida"]);
+                    }
+                    else
+                    {
+                        if(strlen(explode('-', $row["fecha_concedida"])[0]) == 4)
+                        {
+                            $fechaConcedida = Carbon::createFromFormat('Y-m-d', $row["fecha_concedida"]);
+                        }
+                        else
+                        {
+                            $fechaConcedida = Carbon::createFromFormat('d-m-Y', $row["fecha_concedida"]);
+                        }
+                    }
 
                     // Se crea nueva actividad
                     $actividad = new Actividad;

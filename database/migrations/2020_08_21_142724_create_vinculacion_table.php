@@ -16,7 +16,7 @@ class CreateVinculacionTable extends Migration
         Schema::create('vinculacion', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 256);
-            $table->string('detalle', 1024);
+            $table->string('detalle', 1024)->nullable();
             $table->string('periodo', 64);
             $table->foreignId('idactividad')->references('id')->on('actividad');
             $table->timestamps();
