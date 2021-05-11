@@ -106,6 +106,7 @@ class MenuProfesor extends Controller
         ->join('actividad' , 'curso.idactividad', '=', 'actividad.id')
         ->join('subarea', 'asignatura.idsubarea', '=', 'subarea.id')
         ->join('area', 'subarea.idarea', '=', 'area.id')
+        ->join('user_actividad', 'user_actividad.idactividad', '=', 'actividad.id')
         ->select(
             'area.nombre as area',
             'asignatura.nombre as ramo',
@@ -114,6 +115,7 @@ class MenuProfesor extends Controller
             'curso.inscritos as inscritos',
             'curso.respuestas as muestra',
             'curso.calificacion as nota',
+            'user_actividad.calificacion as notasuperior',
             DB::raw('DATE_FORMAT(actividad.inicio, "%b") as inicio'),
             DB::raw('DATE_FORMAT(actividad.termino, "%b") as termino'))
         ->get()->groupBy('area')
