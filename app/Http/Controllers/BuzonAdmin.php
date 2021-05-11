@@ -131,7 +131,7 @@ class BuzonAdmin extends Controller
             
             case "guia":
                 $exportMethod = new InvestigacionGuiaTesisExport();
-                $downloadFilename = "Evaluación guais tesis.xlsx";
+                $downloadFilename = "Evaluación guías y co guías tesis.xlsx";
                 break;
             
             case "proyecto":

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use App\User;
 use App\Curso;
 use App\Area;
@@ -13,8 +14,13 @@ use App\Asignatura;
 use App\Vinculacion;
 use App\Tipoactividad;
 use App\User_actividad;
+use App\Defensapasantia;
+use App\Comitecomision;
+use App\Admisiondifusion;
+
 use App\Http\Requests\StoreVinculacion;
 use App\Http\Requests\UpdateCurso;
+
 use App\Helper\Helper;
 use DB;
 
@@ -106,6 +112,7 @@ class MenuProfesor extends Controller
         ->join('actividad' , 'curso.idactividad', '=', 'actividad.id')
         ->join('subarea', 'asignatura.idsubarea', '=', 'subarea.id')
         ->join('area', 'subarea.idarea', '=', 'area.id')
+        ->join('user_actividad', 'user_actividad.idactividad', '=', 'actividad.id')
         ->select(
             'area.nombre as area',
             'asignatura.nombre as ramo',
@@ -114,6 +121,7 @@ class MenuProfesor extends Controller
             'curso.inscritos as inscritos',
             'curso.respuestas as muestra',
             'curso.calificacion as nota',
+            'user_actividad.calificacion as notasuperior',
             DB::raw('DATE_FORMAT(actividad.inicio, "%b") as inicio'),
             DB::raw('DATE_FORMAT(actividad.termino, "%b") as termino'))
         ->get()->groupBy('area')
@@ -196,22 +204,19 @@ class MenuProfesor extends Controller
     {
         /* Obtenemos las actividades de Administración Académica que tenga el usuario */
         $userId = Auth::user()->id;
+        
         $administracionacademica = DB::table('administracionacademica')
         ->join('actividad', 'administracionacademica.idactividad', '=', 'actividad.id')
-        ->join('actividad_area', 'actividad_area.idactividad', '=', 'actividad.id')
-        ->join('area', 'actividad_area.idarea', '=', 'area.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
-        ->where('user.id', '=', $userId)
-        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->where('user.id', '=', $userId)        
         ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
         ->select(
-            'area.nombre as area',
             'administracionacademica.programa as programa',
-            'cargo.nombre as actividad',
+            'administracionacademica.actividad as actividad',
             'administracionacademica.meses as meses',
             'user_actividad.carga as carga')
-        ->get()->groupBy('area')
+        ->get()
         ->toArray();
 
         return $administracionacademica;
@@ -238,6 +243,54 @@ class MenuProfesor extends Controller
         return $actvinculaciones;
     }
 
+    public function getInfoOtros()
+    {
+        $userId = Auth::user()->id;
+        
+        /* Obtenemos la información de participación en comités de defensa de pasantías/capstone que tiene el usuario */
+        $defensas = DB::table('defensapasantia')
+        ->join('actividad', 'defensapasantia.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $userId)
+        ->select(
+            'defensapasantia.tipo as tipo',
+            'defensapasantia.numerodefensas as defensa')
+        ->get()
+        ->toArray();
+        
+        /* Obtenemos la información de participación en comités y comisiones oficiales de la FIC que tiene el usuario */
+        $comitecomision = DB::table('comitecomision')
+        ->join('actividad', 'comitecomision.idactividad', '=', 'actividad.id')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
+        ->where('user.id', '=', $userId)
+        ->select(
+            'comitecomision.nombre as nombreComite',
+            'cargo.nombre as rol')
+        ->get()
+        ->toArray();
+
+        /* Obtenemos la información de participación en actividades de admisión y difusión FIC que tiene el usuario */
+        $admisiondifusion = DB::table('admisiondifusion')
+        ->join('actividad','admisiondifusion.idactividad','=','actividad.id')
+        ->join('user_actividad','actividad.id','=','user_actividad.idactividad')
+        ->join('user','user_actividad.iduser','=','user.id')
+        ->where('user.id', '=', $userId)
+        ->select(
+            'admisiondifusion.nombre as nombreActividad',
+            'admisiondifusion.tipo as tipo')
+        ->get()
+        ->toArray();
+
+        $infoOtrosCompleta = array(1 => $defensas, 2 => $comitecomision, 3 => $admisiondifusion);
+        
+        $infoOtros = array_filter($infoOtrosCompleta);
+        
+        return $infoOtros;
+    }
+
     public function load()
     {
         $nombre = Auth::user()->nombres;
@@ -250,11 +303,14 @@ class MenuProfesor extends Controller
         /* Información de Investigación */
         $investigaciones = $this->getInfoInvestigacion();
 
-         /* Información de Administración Académica */
-         $administracionAcademica = $this->getInfoAdministracionAcademica();
+        /* Información de Administración Académica */
+        $administracionAcademica = $this->getInfoAdministracionAcademica();
 
-         /* Información de VCM */
-         $vinculaciones = $this->getInfoVCM();
+        /* Información de VCM */
+        $vinculaciones = $this->getInfoVCM();
+
+        /* Información de Otros */
+        $otros = $this->getInfoOtros();
     
         return view('menu.profesor.profesor', [
             'nombre' => $nombre, 
@@ -264,7 +320,8 @@ class MenuProfesor extends Controller
             'encuestas' => $encuestaDocente,
             'investigaciones' => $investigaciones,
             'admiacademica' => $administracionAcademica, 
-            'vinculaciones' => $vinculaciones
+            'vinculaciones' => $vinculaciones,
+            'otros' => $otros
         ]);
     }
 
