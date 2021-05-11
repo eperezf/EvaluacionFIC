@@ -46,7 +46,14 @@ class ComiteComisionImport implements ToCollection, WithHeadingRow
 
                     $userActividad->iduser = User::where('rut', strtoupper($row['rut_academico']))->get()[0]->id;
                     $userActividad->idactividad = $actividad->id;
-                    $userActividad->idcargo = Cargo::where('nombre', "Participante comité comisión")->get()[0]->id;
+                    if(!strcmp(strtoupper($row["rol"]), "INTEGRANTE"))
+                    {
+                        $userActividad->idcargo = Cargo::where('nombre', "Integrante")->get()[0]->id;
+                    }
+                    else if(!strcmp(strtoupper($row["rol"]), "PRESIDENTE"))
+                    {
+                        $userActividad->idcargo = Cargo::where('nombre', "Presidente")->get()[0]->id;
+                    }
                     $userActividad->calificacion = $row["nota"];
 
                     $userActividad->save();
