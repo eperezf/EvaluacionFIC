@@ -100,11 +100,11 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomC
                             }
                             else
                             {
-                                if(strcmp($item, "Vina") || strcmp($item, "Viña"))
+                                if(strcmp($item, "Vina") == 0 || strcmp($item, "Viña") == 0)
                                 {
                                     $sede = "Viña";
                                 }
-                                else if(strcmp($item, "Stgo") || strcmp($item, "Santiago"))
+                                else if(strcmp($item, "Stgo") == 0 || strcmp($item, "Santiago") == 0)
                                 {
                                     $sede = "Santiago";
                                 }
