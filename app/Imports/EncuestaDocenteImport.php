@@ -39,7 +39,7 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomC
     public function getCsvSettings(): array
     {
         return [
-            'delimiter' => ';',
+            'delimiter' => ',',
             'encoding' => 'UTF-8'
         ];
     }
