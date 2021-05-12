@@ -56,7 +56,8 @@ class Helper
                 False,  //3 Menú Profesor
                 False,  //4 Noticias y Agenda
                 False,  //5 Menú Director Docencia 
-                False   //6 Menú Sub Director Docencia
+                False,  //6 Menú Sub Director Docencia
+                False   //7 Panel Administración
             ];
 
             $rutas = [
@@ -67,6 +68,7 @@ class Helper
                 'noticiasAgenda',
                 'menuDirectorDocencia',
                 'menuDirectorDocencia',
+                'panelAdministracion'
             ];
 
             $iconos = [
@@ -76,7 +78,8 @@ class Helper
                 "far fa-user mr-1",
                 "far fa-calendar-alt mr-1",
                 "far fa-user mr-1",
-                "far fa-user mr-1"
+                "far fa-user mr-1",
+                "fas fa-wrench mr-1"
             ];
 
             $texto = [
@@ -86,7 +89,8 @@ class Helper
                 "Menú Profesor",
                 "Noticias y Agenda",
                 "Menú Director Docencia",
-                "Menú Subdirector Docencia"
+                "Menú Subdirector Docencia",
+                "Panel Administración"
             ];
 
             //Inicio
@@ -106,6 +110,7 @@ class Helper
                 $opciones[0] = True;
                 $opciones[2] = True;
                 $opciones[4] = True;
+                $opciones[7] = True;
             }
 
             //Profesor
