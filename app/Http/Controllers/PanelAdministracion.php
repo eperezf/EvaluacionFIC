@@ -145,16 +145,28 @@ class PanelAdministracion extends Controller
         $actividad->save();
     }
 
+//--Funciones
+    private function getTipoActividades()
+    {
+        $tipoActividades = Tipoactividad::all();
+        return $tipoActividades;
+    }
+
 //--Cargar el panel de Administración
 
-    public function loadPanelAdministracion()
+    public function loadPanelAdministracion($activityId)
     {
         $menus = Helper::getMenuOptions(Auth::user()->id);
-        return view('panel.panelAdministracion', ['menus' => $menus]);
+        $tipoActividades = $this->getTipoActividades();
+        
+        return view('panel.panelAdministracion', [
+            'menus' => $menus,
+            'tipoActividades' => $tipoActividades,
+            'selectedActivity' => strcmp($activityId, "none") == 0 ? "none" : $activityId
+        ]);
     }
 
 //--Post Modificación
-
     public function postModificacion(Request $new_request)
     {
         //switch case para cada modelo
@@ -833,19 +845,22 @@ class PanelAdministracion extends Controller
 
     public function loadAgregarArea()
     {
-        return view('panel.agregar.agregarArea');
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+        return view('panel.agregar.agregarArea', ['menus' => $menus]);
     }
 
     public function loadModificarArea()
     {
+        $menus = Helper::getMenuOptions(Auth::user()->id);
         $modelo = "Area";
-        return view('panel.modificar.modificar')->with(['modelo' => $modelo]);
+        return view('panel.modificar.modificar')->with(['modelo' => $modelo, 'menus' => $menus]);
     }
 
     public function loadModificarAreaForm($id)
     {
+        $menus = Helper::getMenuOptions(Auth::user()->id);
         $area = Area::find($id);
-        return view('panel.modificar.modificarAreaForm', ['area'=>$area]);
+        return view('panel.modificar.modificarAreaForm', ['area' => $area, 'menus' => $menus]);
     }
 
 //--Asignatura

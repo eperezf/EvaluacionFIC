@@ -24,8 +24,12 @@
           @else
             @foreach ($menus as $menu)
               <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route($menu[1]) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
-              </li>
+                @if($menu[1] == "panelAdministracion")
+                  <a class="nav-link" href="{{ route($menu[1], ['activityId' => 'none']) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
+                @else
+                  <a class="nav-link" href="{{ route($menu[1]) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
+                @endif
+                </li>
             @endforeach
           @endif
         </ul>

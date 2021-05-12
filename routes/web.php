@@ -85,7 +85,8 @@ Route::get('menuDocencia/buscador/perfilDocencia/{userId}', 'MenuDirectorDocenci
 
 Route::get('noticiasAgenda', 'NoticiasAgenda@loadNoticiasAgenda')->middleware('auth')->name('noticiasAgenda');
 
-Route::get('panelAdministracion', 'PanelAdministracion@loadPanelAdministracion')->middleware('auth')->name('panelAdministracion');
+Route::get('panelAdministracion/{activityId}', 'PanelAdministracion@loadPanelAdministracion')->middleware('auth')->name('panelAdministracion');
+
     Route::get('paneladministracion/agregarActividadArea', 'PanelAdministracion@loadAgregarActividadArea')->middleware('auth')->name('agregarActividadArea');
     Route::get('panelAdministracion/agregarActividadAsignatura', 'PanelAdministracion@loadAgregarActividadAsignatura')->middleware('auth')->name('agregarActividadAsignatura');
     Route::get('panelAdministracion/agregarArea', 'PanelAdministracion@loadAgregarArea')->middleware('auth')->name('agregarArea');
@@ -117,7 +118,7 @@ Route::post('panelAdministracion/postAgregar', 'PanelAdministracion@postAgregar'
     
     Route::get('panelAdministracion/modificarCurso', 'PanelAdministracion@loadModificarCurso')->middleware('auth')->name('modificarCurso');
         Route::get('panelAdministracion/modificarCurso/{id}', 'PanelAdministracion@loadModificarCursoForm')->middleware('auth')->name('modificarCursoForm');
-    Route::get('panelAdministracion/modificarCargoAdministrativo', 'PanelAdministracion@loadModificarCargoAdministrativo')->middleware('auth')->name('modificarCargo');
+    Route::get('panelAdministracion/modificarCargoAdministrativo', 'PanelAdministracion@loadModificarCargoAdministrativo')->middleware('auth')->name('modificarCargoAdministrativo');
 
     Route::get('panelAdministracion/modificarPublicacion', 'PanelAdministracion@loadModificarPublicacion')->middleware('auth')->name('modificarPublicacion');
         Route::get('panelAdministracion/modificarPublicacion/{id}', 'PanelAdministracion@loadModificarPublicacionForm')->middleware('auth')->name('modificarPublicacionForm');
