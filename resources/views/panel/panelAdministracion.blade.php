@@ -28,9 +28,8 @@
             <input type="text" class="form-control col-9 mx-2" placeholder="Buscar {{ $tipoActividades[$selectedActivity-3]->nombre }}">
             <button class="btn btn-primary col-2 ml-4">Buscar</button>
           </div>
-          {{-- JavaScript Division --}}
           <div id="resultadosBusqueda">
-
+            {{-- HTML para obtener resultados. Evaluar mejor forma cuando sea necesario --}}
           </div>
         </section>
         <br>
@@ -38,9 +37,16 @@
           <h5>Agregar {{ $tipoActividades[$selectedActivity-3]->nombre }}</h5>
         </div><hr>
         <section id="agregarSection">
+          <form action="POST">
+            @csrf
+            {{-- JavaScript Division --}}
+            <div id="formInputs">
 
+            </div>
+          </form>
         </section>
       @endif
     </div>
   </div>
+  <script type="text/javascript" src="{{ asset('js/panelAdminForms.js') }}"></script>
 @endsection
