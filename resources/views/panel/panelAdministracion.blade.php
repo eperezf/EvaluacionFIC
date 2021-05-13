@@ -4,7 +4,7 @@
 @section('contenido')
   <h2>Panel de Administración</h2><hr>
   <div id="container" class="row">
-    <div id="formulariosSidebar" class="col-3">
+    <div id="formulariosSidebar" class="col-3 border-right">
       <div id="sidebarHeader">
         <h4>Actividades</h4>
       </div>
@@ -14,11 +14,32 @@
         @endforeach
       </div>
     </div>
-    <div id="formulario" class="col-9">
+    <div id="formulario" class="col-9 align-middle">
       @if($selectedActivity == "none")
-        <h5>Seleccione un tipo de actividad</h5>
+        <div class="text-center">
+          <h5>Seleccione un tipo de actividad</h5>
+        </div>
       @else
-        <h5>{{ $tipoActividades[$selectedActivity-3]->nombre }}</h5>
+        <div id="formTitle">
+          <h5>{{ $tipoActividades[$selectedActivity-3]->nombre }}</h5>
+        </div>  
+        <section id="modificarSection">
+          <div class="row col-12">
+            <input type="text" class="form-control col-9 mx-2" placeholder="Buscar {{ $tipoActividades[$selectedActivity-3]->nombre }}">
+            <button class="btn btn-primary col-2 ml-4">Buscar</button>
+          </div>
+          {{-- JavaScript Division --}}
+          <div id="resultadosBusqueda">
+
+          </div>
+        </section>
+        <br>
+        <div id="addSectionTitle">
+          <h5>Agregar {{ $tipoActividades[$selectedActivity-3]->nombre }}</h5>
+        </div><hr>
+        <section id="agregarSection">
+
+        </section>
       @endif
     </div>
   </div>
