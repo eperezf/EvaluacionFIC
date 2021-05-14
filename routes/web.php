@@ -56,6 +56,7 @@ Route::post('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middle
 
 //--Rutas para el perfil docente como usuario administrador
     Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
+    Route::get('historialDesempeno/{userId}', 'PerfilDocente@loadHistorial')->middleware('auth')->name('historialDesempeno');
     Route::get('perfilDocente/{userId}/cargos/{cargoId}', 'PerfilDocente@loadCargos')->middleware('auth')->name('verCargos');
     Route::get('perfilDocente/{userId}/agregarCargo', 'PerfilDocente@loadNewCargo')->middleware('auth')->name('agregarCargo');
     Route::post('perfilDocente/guardarCargo', 'PerfilDocente@saveCargo')->middleware('auth')->name('saveCargo');
