@@ -24,15 +24,14 @@ class StoreEvalDocente extends FormRequest
     public function rules()
     {
         return [
-            'evalDesempenoFile' => ['required', 'mimes:txt,csv']
+            'evalDesempenoFile' => ['required']
         ];
     }
 
     public function messages()
     {
         return [
-            'evalDesempenoFile.required' => "No se ha ingresado ningun archivo de evaluación de desempeño",
-            'evalDesempenoFile.mimes' => "El archivo debe ser formato CSV"
+            'evalDesempenoFile.required' => "No se ha ingresado ningun archivo de evaluación de desempeño"
         ];
     }
 }

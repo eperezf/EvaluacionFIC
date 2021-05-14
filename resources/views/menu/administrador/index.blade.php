@@ -164,7 +164,7 @@
             <a href="{{ route('evaluacionDesempenoExport', ['subarea' => 0]) }}" class="btn btn-link" id="descargarEvalDesempeno" hidden>Descargar</a>
           </div><hr>
           {{-- Para la importacion del archivo --}}
-          <div id="evalDesempenoImport">
+          <div id="evaluacionDesempenoImport">
             <form action="{{ route('evaluacionDesempenoImport') }}" method="POST" id="evalDesempenoImport" enctype="multipart/form-data">
               @csrf
               <label>Seleccione el archivo de Evaluación del director/a en formato CSV</label>

@@ -59,6 +59,10 @@ class BuzonAdmin extends Controller
     {
         // Se valida el formulario y al retornar exito, se ejecuta Excel::import()
         $validator = $request->validated();
+        if(!$this->validateFileExtension($request->file('evalDesempenoFile')))
+        {
+            return redirect('/menuAdministrador/')->with('error', "El archivo debe ser formato Excel (xlsx, xls)");
+        }
         Excel::import(new EvaluacionDesempenoImport, $request->file('evalDesempenoFile'));
 
         return redirect('/menuAdministrador/')->with('success', "Importación evaluación de desempeño exitosa");
