@@ -38,7 +38,7 @@
             <div id="addSectionTitle" class="col-9 mt-2">
               <h5>Agregar {{ $tipoActividades[$selectedActivity-3]->nombre }}</h5>
             </div>
-            <label for="numberForms" class="mt-2">Cantidad</label>
+            <label for="numberForms" class="col-form-label">Cantidad</label>
             <div class="col-2">
               <input name="numberForms" id="numberForms" type="number" step="1" min="1" max="20" class="form-control" placeholder="Ingrese" value="1">
             </div>
@@ -48,23 +48,41 @@
             @csrf
             {{-- JavaScript Division --}}
             <div id="formInputs">
-              <div class="form-group row">  {{-- Rut --}}
-                <label for=""></label>
-              </div>
-              <div class="form-group row">  {{-- Programa --}}
-                <label for=""></label>
-              </div>
-              <div class="form-group row">  {{-- Cargo --}}
-                <label for=""></label>
-              </div>
-              <div class="form-group row">  {{-- Detalle --}}
-                <label for=""></label>
-              </div>
-              <div class="form-group row">  {{-- Meses --}}
-                <label for=""></label>
-              </div>
-              <div class="form-group row">  {{-- Carga --}}
-                <label for=""></label>
+              <div class="col-12" id="actividad1">
+                <div id="rut" class="form-group row">  {{-- Rut --}}
+                  <label for="rutInput" class="col-sm-3 col-form-label">RUT Académico</label>
+                  <input class="form-control col-3" type="text" name="rutInput" id="rutInput">
+                </div>
+
+                <div id="programa" class="form-group row">  {{-- Programa --}}
+                  <label for="programaInput" class="col-sm-3 col-form-label">Programa</label>
+                  <input class="form-control col-3" type="text" name="programaInput" id="proramaInput">
+                </div>
+
+                <div id="cargo" class="form-group row">  {{-- Cargo --}}
+                  <label for="cargoInput" class="col-sm-3 col-form-label">Cargo</label>
+                  <select id="detalleSelect" name="detalleSelect" class="form-control col-3">
+                    <option value="Seleccione un cargo" selected>Seleccione un cargo</option>
+                    @for ($i = 1; $i < 4; $i++)
+                        <option>Cargo {{ $i }}</option>
+                    @endfor
+                  </select>
+                </div>
+
+                <div id="detalle" class="form-group row">  {{-- Detalle --}}
+                  <label for="detalleInput" class="col-sm-3 col-form-label">Detalle</label>
+                  <input class="form-control col-3" type="text" name="detalleInput" id="detalleInput">
+                </div>
+
+                <div id="meses" class="form-group row">  {{-- Meses --}}
+                  <label for="mesesInput" class="col-sm-3 col-form-label">Meses</label>
+                  <input class="form-control col-3" type="text" name="mesesInput" id="mesesInput">
+                </div>
+
+                <div id="carga" class="form-group row">  {{-- Carga --}}
+                  <label for="cargaInput" class="col-sm-3 col-form-label">Carga</label>
+                  <input class="form-control col-3" type="text" name="cargaInput" id="cargaInput">
+                </div>
               </div>
             </div>
           </form>
