@@ -14,12 +14,19 @@
   @endif
 </div>
 @if(session()->get('success'))
-    <div class="alert alert-success">
-      {{ session()->get('success') }}
-    </div>
-  @endif
+  <div class="alert alert-success">
+    {{ session()->get('success') }}
+  </div>
+@endif
 <div id="perfil">
-  <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
+  <div class="row">
+    <div class="col-9">
+      <h3>Perfil de {{ $usuario->nombres }} {{ $usuario->apellidoPaterno }} {{ $usuario->apellidoMaterno }}</h3>
+    </div>
+    <div class="col-3 mt-1">
+      <a href="{{ route('historialDesempeno', ['userId' => $usuario->id]) }}" class="btn btn-primary">Historial de Desempeño</a>
+    </div>
+  </div>
   <div id="informacion" class="container">
     <div id="cargos" class="row">
       <h6>Cargos actuales:

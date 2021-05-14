@@ -23,9 +23,15 @@
               <a class="nav-link" href="{{ route('menuVisitante') }}"><i class="fas fa-home mr-1"></i>Inicio</a>
           @else
             @foreach ($menus as $menu)
-              <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route($menu[1]) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
-              </li>
+              @if ($menu[1] == 'menuProfesor')
+                <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
+                  <a class="nav-link" href="{{ route($menu[1], ['year' => '-']) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
+                </li>
+              @else
+                <li class="nav-item {{ Route::currentRouteNamed($menu[1]) ? 'active' : '' }}">
+                  <a class="nav-link" href="{{ route($menu[1]) }}"><i class="{{ $menu[2] }}"></i>{{ $menu[3] }}</a>
+                </li>
+              @endif
             @endforeach
           @endif
         </ul>

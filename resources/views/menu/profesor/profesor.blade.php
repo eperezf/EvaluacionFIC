@@ -3,7 +3,15 @@
 @section('title', 'Inicio')
 @section('contenido')
 <div id="perfil">
-  <h2>Bienvenido/a {{ $nombre }}.</h2><hr>
+  <div class="row">
+    <div class="col-9">
+      <h2>Bienvenido/a {{ $nombre }}.</h2>
+    </div>
+    <div class="col-3 mt-1">
+      <a href="{{ route('historialDesempenoProfesor') }}" type="button" class="btn btn-primary">Historial de Desempeño</a>
+    </div>
+  </div>
+  <hr>
   @if(session()->get('success'))
     <div class="alert alert-success">
       {{session()->get('success') }}

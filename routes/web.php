@@ -55,7 +55,8 @@ Route::post('otrasActividadesImport', 'BuzonAdmin@importOtrasActividades')->midd
 Route::post('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middleware('auth')->name('encuestaDocenteImport');
 
 //--Rutas para el perfil docente como usuario administrador
-    Route::get('perfilDocente/{userId}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
+    Route::get('perfilDocente/perfil/{userId}/{year}', 'PerfilDocente@loadPerfil')->middleware('auth')->name('perfilDocente');
+    Route::get('historialDesempeno/{userId}', 'PerfilDocente@loadHistorial')->middleware('auth')->name('historialDesempeno');
     Route::get('perfilDocente/{userId}/cargos/{cargoId}', 'PerfilDocente@loadCargos')->middleware('auth')->name('verCargos');
     Route::get('perfilDocente/{userId}/agregarCargo', 'PerfilDocente@loadNewCargo')->middleware('auth')->name('agregarCargo');
     Route::post('perfilDocente/guardarCargo', 'PerfilDocente@saveCargo')->middleware('auth')->name('saveCargo');
@@ -64,7 +65,8 @@ Route::post('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middle
 
 
 //--Rutas del Menú del Profesor
-Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuProfesor');
+Route::get('menuProfesor/perfil/{year}', 'MenuProfesor@load')->middleware('auth')->name('menuProfesor');
+    Route::get('menuProfesor/historialDesempeno', 'MenuProfesor@loadHistorial')->middleware('auth')->name('historialDesempenoProfesor');
     Route::get('menuProfesor/misCursos', 'MenuProfesor@loadCursos')->middleware('auth')->name('verCursos');
     Route::get('menuProfesor/misCursos/{id}', 'MenuProfesor@loadInfoCurso')->middleware('auth')->name('infoCurso');
     Route::get('menuProfesor/agregarVinculaciones', 'MenuProfesor@agregarVinculaciones')->middleware('auth')->name('agregarVinculaciones');
