@@ -156,7 +156,7 @@ class EvaluacionDesempenoExport implements FromArray, WithHeadings, ShouldAutoSi
                     'Oct',
                     'Nov',
                     'Dic'];
-                $cursos->inicio = $meses[intval(preg_split("/[-,]+/", $cursos->inicio)[1])].'-'.$meses[intval(preg_split("/[-,]+/", $cursos->termino)[1])];
+                $cursos->inicio = $meses[intval(preg_split("/[-,]+/", $cursos->inicio)[1])-1].'-'.$meses[intval(preg_split("/[-,]+/", $cursos->termino)[1])-1];
                 
                 return $cursos;
             }, $rows
