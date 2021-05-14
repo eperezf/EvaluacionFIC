@@ -38,7 +38,7 @@
                             <th scope="col">Inscritos</th>
                             <th scope="col">Muestra</th>
                             <th scope="col">Nota</th>
-                            <th scope="col">Nota Superior</th>
+                            <th scope="col">Evaluación Desempeño</th>
                           </tr>
                         </thead>
                         <tbody>
