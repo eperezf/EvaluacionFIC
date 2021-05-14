@@ -65,6 +65,7 @@ Route::post('encuestaDocenteImport', 'BuzonAdmin@importEncuestaDocente')->middle
 
 //--Rutas del Menú del Profesor
 Route::get('menuProfesor', 'MenuProfesor@load')->middleware('auth')->name('menuProfesor');
+    Route::get('menuProfesor/historialDesempeno', 'MenuProfesor@loadHistorial')->middleware('auth')->name('historialDesempenoProfesor');
     Route::get('menuProfesor/misCursos', 'MenuProfesor@loadCursos')->middleware('auth')->name('verCursos');
     Route::get('menuProfesor/misCursos/{id}', 'MenuProfesor@loadInfoCurso')->middleware('auth')->name('infoCurso');
     Route::get('menuProfesor/agregarVinculaciones', 'MenuProfesor@agregarVinculaciones')->middleware('auth')->name('agregarVinculaciones');
