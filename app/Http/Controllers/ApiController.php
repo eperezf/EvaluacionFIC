@@ -23,6 +23,7 @@ use App\Curso;
 use App\Publicacion;
 use App\User;
 use App\Cargo;
+use App\Tipoactividad;
 
 class ApiController extends Controller
 {
@@ -108,5 +109,9 @@ class ApiController extends Controller
 
   public function getCargo($id) {
     return response(Cargo::where('id', $id)->get())->header('Content-Type', 'application/json');
+  }
+
+  public function getTipoactividad($id) {
+    return response(Tipoactividad::where('id', $id)->get())->header('Content-Type', 'application/json');
   }
 }

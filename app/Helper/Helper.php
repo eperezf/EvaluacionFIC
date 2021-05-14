@@ -79,7 +79,7 @@ class Helper
                 "far fa-calendar-alt mr-1",
                 "far fa-user mr-1",
                 "far fa-user mr-1",
-                "fas fa-wrench mr-1"
+                "fas fa-edit mr-1"
             ];
 
             $texto = [

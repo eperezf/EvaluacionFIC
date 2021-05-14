@@ -22,7 +22,7 @@ Route::get('getAreas/{name}', 'ApiController@GetAreas');
 Route::get('getAsignatura/{name}', 'ApiController@GetAsignatura');
 Route::get('getActividadAsignatura/{name}', 'ApiController@GetActividadAsignatura');
 Route::get('getActividadArea/{name}', 'ApiController@GetActividadArea');
-Route::get('getTipoactividad/{name}', 'ApiController@GetTipoactividad');
+Route::get('getTipoactividad/{id}', 'ApiController@GetTipoactividad');
 Route::get('getSubarea/{name}', 'ApiController@GetSubarea');
 Route::get('getPerfeccionamientoDocente/{name}', 'ApiController@GetPerfeccionamientoDocente');
 Route::get('getLibro/{name}', 'ApiController@GetLibro');
