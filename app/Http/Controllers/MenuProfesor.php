@@ -95,8 +95,20 @@ class MenuProfesor extends Controller
         return $actividad;
     }
 
+//--Función para filtrar por año las queries
+    private function filterYear($year, $query) 
+    {
+        /* Filtramos por año si se seleccionó alguno desde el historial de desempeño */
+        if(strcmp(strval($year), '-') != 0) 
+        {
+            $nextYear = strval(intval($year) + 1);
+            $query = $query->where('actividad.inicio','>=', $year.'/01/01')
+            ->where('actividad.inicio','<', $nextYear.'/01/01');
+        }
+    }
+
 //--Cargar Menú del Profesor
-    private function getInfoEncuestaDocente()
+    private function getInfoEncuestaDocente($year)
     {
         /* Obtenemos las actividades del usuario que tengan cargo Profesor */
         $actividades = DB::table('user_actividad')
@@ -112,8 +124,13 @@ class MenuProfesor extends Controller
         ->join('actividad' , 'curso.idactividad', '=', 'actividad.id')
         ->join('subarea', 'asignatura.idsubarea', '=', 'subarea.id')
         ->join('area', 'subarea.idarea', '=', 'area.id')
-        ->join('user_actividad', 'user_actividad.idactividad', '=', 'actividad.id')
-        ->select(
+        ->join('user_actividad', 'user_actividad.idactividad', '=', 'actividad.id');
+        
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $infoEncuestas);
+
+        /* Continuamos la query */
+        $infoEncuestas = $infoEncuestas->select(
             'area.nombre as area',
             'asignatura.nombre as ramo',
             'curso.seccion as seccion',
@@ -130,7 +147,7 @@ class MenuProfesor extends Controller
         return $infoEncuestas;
     }
 
-    public function getInfoInvestigacion()
+    public function getInfoInvestigacion($year)
     {
         $userId = Auth::user()->id;
         
@@ -138,8 +155,13 @@ class MenuProfesor extends Controller
         ->join('actividad', 'publicacioncientifica.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
-        ->where('user.id', '=', $userId)
-        ->select(
+        ->where('user.id', '=', $userId);
+
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $publicacionesCientificas);
+
+        /* Continuamos la query */
+        $publicacionesCientificas = $publicacionesCientificas->select(
             'publicacioncientifica.titulo as titulo',
             'publicacioncientifica.journal as journal',
             DB::raw('DATE_FORMAT(actividad.termino, "%Y") as año'),
@@ -151,8 +173,13 @@ class MenuProfesor extends Controller
         ->join('actividad', 'patente.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
-        ->where('user.id', '=', $userId)
-        ->select(
+        ->where('user.id', '=', $userId);
+
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $patentes);
+
+        /* Continuamos la query */
+        $patentes = $patentes->select(
             'patente.titulo as titulo',
             'patente.numeroregistro as numero',
             'patente.fecharegistro as fecharegistro',
@@ -166,8 +193,13 @@ class MenuProfesor extends Controller
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->where('user.id', '=', $userId)
         ->join('programa', 'guiatesis.idprograma', '=', 'programa.id')
-        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
-        ->select(
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id');
+        
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $guiasTesis);
+
+        /* Continuamos la query */
+        $guiasTesis = $guiasTesis->select(
             'guiatesis.estudiante as estudiante',
             'programa.nombre as programa',
             DB::raw('DATE_FORMAT(actividad.termino, "%Y") as año'),
@@ -181,8 +213,13 @@ class MenuProfesor extends Controller
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->where('user.id', '=', $userId)
         ->join('fuentefinanciamiento', 'proyectoinvestigacion.idfuentefinanciamiento', '=', 'fuentefinanciamiento.id')
-        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
-        ->select(
+        ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id');
+
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $proyectosInvestigacion);
+
+        /* Continuamos la query */
+        $proyectosInvestigacion = $proyectosInvestigacion->select(
             'fuentefinanciamiento.nombre as fuente',
             'proyectoinvestigacion.nombre as nombre',
             'actividad.termino as periodo',
@@ -200,7 +237,7 @@ class MenuProfesor extends Controller
         return $infoInvestigacion;
     }
 
-    private function getInfoAdministracionAcademica()
+    private function getInfoAdministracionAcademica($year)
     {
         /* Obtenemos las actividades de Administración Académica que tenga el usuario */
         $userId = Auth::user()->id;
@@ -210,19 +247,24 @@ class MenuProfesor extends Controller
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->where('user.id', '=', $userId)        
-        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
-        ->select(
-            'administracionacademica.programa as programa',
-            'administracionacademica.actividad as actividad',
-            'administracionacademica.meses as meses',
-            'user_actividad.carga as carga')
+        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad');
+
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $administracionacademica);
+
+        /* Continuamos la query */
+        $administracionacademica = $administracionacademica->select(
+        'administracionacademica.programa as programa',
+        'administracionacademica.actividad as actividad',
+        'administracionacademica.meses as meses',
+        'user_actividad.carga as carga')
         ->get()
         ->toArray();
 
         return $administracionacademica;
     }
 
-    private function getInfoVCM()
+    private function getInfoVCM($year)
     {        
         /* Obtenemos las actividades de VCM que tenga el usuario */
         $userId = Auth::user()->id;
@@ -232,8 +274,13 @@ class MenuProfesor extends Controller
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->where('user.id', '=', $userId)
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
-        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad')
-        ->select(
+        ->join('tipoactividad', 'tipoactividad.id', '=', 'actividad.idtipoactividad');
+  
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $actvinculaciones);
+
+        /* Continuamos la query */
+        $actvinculaciones = $actvinculaciones->select(
             'vinculacion.nombre as tipo',
             'vinculacion.periodo as periodo',
             'vinculacion.detalle as detalle')
@@ -243,7 +290,7 @@ class MenuProfesor extends Controller
         return $actvinculaciones;
     }
 
-    public function getInfoOtros()
+    public function getInfoOtros($year)
     {
         $userId = Auth::user()->id;
         
@@ -252,8 +299,13 @@ class MenuProfesor extends Controller
         ->join('actividad', 'defensapasantia.idactividad', '=', 'actividad.id')
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
-        ->where('user.id', '=', $userId)
-        ->select(
+        ->where('user.id', '=', $userId);
+        
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $defensas);
+
+        /* Continuamos la query */
+        $defensas = $defensas->select(
             'defensapasantia.tipo as tipo',
             'defensapasantia.numerodefensas as defensa')
         ->get()
@@ -265,7 +317,13 @@ class MenuProfesor extends Controller
         ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
         ->join('user', 'user_actividad.iduser', '=', 'user.id')
         ->join('cargo', 'user_actividad.idcargo', '=', 'cargo.id')
-        ->where('user.id', '=', $userId)
+        ->where('user.id', '=', $userId);
+
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $comitecomision);
+
+        /* Continuamos la query */
+        $comitecomision = $comitecomision
         ->select(
             'comitecomision.nombre as nombreComite',
             'cargo.nombre as rol')
@@ -277,7 +335,13 @@ class MenuProfesor extends Controller
         ->join('actividad','admisiondifusion.idactividad','=','actividad.id')
         ->join('user_actividad','actividad.id','=','user_actividad.idactividad')
         ->join('user','user_actividad.iduser','=','user.id')
-        ->where('user.id', '=', $userId)
+        ->where('user.id', '=', $userId);
+
+        /* Aplicamos el filtro por año si corresponde */
+        $this->filterYear($year, $admisiondifusion);
+
+        /* Continuamos la query */
+        $admisiondifusion = $admisiondifusion
         ->select(
             'admisiondifusion.nombre as nombreActividad',
             'admisiondifusion.tipo as tipo')
@@ -291,26 +355,35 @@ class MenuProfesor extends Controller
         return $infoOtros;
     }
 
-    public function load()
+    public function load($year)
     {
         $nombre = Auth::user()->nombres;
         $menus = Helper::getMenuOptions(Auth::user()->id);
         $evaluaciones = Auth::user()->evaluacion()->orderBy('periodo', 'desc')->get();
         
+        /* Si se filtró por año, se sacan del arreglo las evaluaciones que no correspondan a ese año */
+        if ($year != '-') {
+            foreach($evaluaciones as $key => $value) {
+                if($value->periodo != $year) {
+                    unset($evaluaciones[$key]);
+                }
+            }
+        }
+
         /* Información de Encuesta Docente */
-        $encuestaDocente = $this->getInfoEncuestaDocente();
+        $encuestaDocente = $this->getInfoEncuestaDocente($year);
 
         /* Información de Investigación */
-        $investigaciones = $this->getInfoInvestigacion();
+        $investigaciones = $this->getInfoInvestigacion($year);
 
         /* Información de Administración Académica */
-        $administracionAcademica = $this->getInfoAdministracionAcademica();
+        $administracionAcademica = $this->getInfoAdministracionAcademica($year);
 
         /* Información de VCM */
-        $vinculaciones = $this->getInfoVCM();
+        $vinculaciones = $this->getInfoVCM($year);
 
         /* Información de Otros */
-        $otros = $this->getInfoOtros();
+        $otros = $this->getInfoOtros($year);
     
         return view('menu.profesor.profesor', [
             'nombre' => $nombre, 
@@ -322,6 +395,36 @@ class MenuProfesor extends Controller
             'admiacademica' => $administracionAcademica, 
             'vinculaciones' => $vinculaciones,
             'otros' => $otros
+        ]);
+    }
+
+//-- Cargar historial de desempeño
+    public function loadHistorial()
+    {
+        $usuario = Auth::user();
+        $menus = Helper::getMenuOptions(Auth::user()->id);
+        $profesor = true;
+
+        $years = DB::table('actividad')
+        ->join('user_actividad', 'actividad.id', '=', 'user_actividad.idactividad')
+        ->join('user', 'user_actividad.iduser', '=', 'user.id')
+        ->where('user.id', '=', $usuario->id)
+        ->select('actividad.inicio as year')
+        ->get()
+        ->toArray();
+        
+
+        for ($i = 0; $i < count($years); $i++)  {
+            $years[$i] = explode('-', $years[$i]->year)[0];
+        }
+        $years = array_unique($years);
+        rsort($years);
+    
+        return view('menu.administrador.perfilDocenteHistorial', [
+            'menus' => $menus, 
+            'nombre' => $usuario->nombres.' '.$usuario->apellidoMaterno.' '.$usuario->apellidoPaterno,
+            'profesor' => $profesor,
+            'years' => $years
         ]);
     }
 
