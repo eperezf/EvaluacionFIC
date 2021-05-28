@@ -39,7 +39,7 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomC
     public function getCsvSettings(): array
     {
         return [
-            'delimiter' => ';',
+            'delimiter' => ',',
             'encoding' => 'UTF-8'
         ];
     }
@@ -100,11 +100,11 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomC
                             }
                             else
                             {
-                                if(strcmp($item, "Vina") || strcmp($item, "Viña"))
+                                if(strcmp($item, "Vina") == 0 || strcmp($item, "Viña") == 0)
                                 {
                                     $sede = "Viña";
                                 }
-                                else if(strcmp($item, "Stgo") || strcmp($item, "Santiago"))
+                                else if(strcmp($item, "Stgo") == 0 || strcmp($item, "Santiago") == 0)
                                 {
                                     $sede = "Santiago";
                                 }
@@ -116,12 +116,12 @@ class EncuestaDocenteImport implements ToCollection, WithHeadingRow, WithCustomC
                         }
 
                         // Verificamos (con aproximaciones), mediante comparaciones, el periodo de dictacion del curso
-                        if(strcmp($sem, "01") || strcmp($sem, "1"))
+                        if(strcmp($sem, "01") == 0 || strcmp($sem, "1") == 0)
                         {
                             $inicio = Carbon::create(intval($year), 3, 1);
                             $termino = Carbon::create(intval($year), 7, 31);
                         }
-                        else if(strcmp($sem, "02") || strcmp($sem, "2"))
+                        else if(strcmp($sem, "02") == 0 || strcmp($sem, "2") == 0)
                         {
                             $inicio = Carbon::create(intval($year), 8, 1);
                             $termino = Carbon::create(intval($year), 12, 31);

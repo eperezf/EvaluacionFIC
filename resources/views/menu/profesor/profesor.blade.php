@@ -38,6 +38,7 @@
                             <th scope="col">Inscritos</th>
                             <th scope="col">Muestra</th>
                             <th scope="col">Nota</th>
+                            <th scope="col">Nota Superior</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -50,6 +51,11 @@
                               <td>{{ $encuesta->inscritos }}</td>
                               <td>{{ $encuesta->muestra }}</td>
                               <td>{{ $encuesta->nota }}</td>
+                              @if ($encuesta->notasuperior != NULL)
+                                <td>{{ str_replace('.', ',', strval($encuesta->notasuperior)) }}</td>
+                              @else
+                                <td>Sin Evaluar</td>
+                              @endif
                             </tr>
                           @endforeach
                         </tbody>
